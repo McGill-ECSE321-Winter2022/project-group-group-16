@@ -7,3 +7,7 @@ Grocey Store Appliation that supports the needs of a local grocery store and its
 Team Members : Michelle Lee, Arturo Ramirez Mory, Yoah Qiu, Danny Tu, Jian Long Ye (Noah), Yazdan Seyed Zinati
 
 ## Project Deliverable 1
+
+Team Roles:
+
+Individual efforts (in hours)
