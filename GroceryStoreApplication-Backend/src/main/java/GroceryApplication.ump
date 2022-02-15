@@ -1,0 +1,127 @@
+namespace ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
+
+class GroceryApplication {
+  1 <@>- 0..* User users;
+  1 <@>- * Employee employees;
+  1 <@>- * Customer customers;
+  1 <@>- * Order orders;
+  1 <@>- * Product products;
+  1 <@>- 1 Store store;
+  1 <@>- * Category categories;
+}
+
+
+
+class User {
+  unique email;
+  password;
+  unique username;
+  firstName;
+  lastName;
+  Date dateOfBirth;
+  1 -- 0..3 UserRole;
+}
+
+class Customer {
+  isA UserRole;
+  0..* <@>- 1 Address;
+}
+
+class UserRole {
+  abstract;
+}
+
+
+class Employee {
+  enum EmployeeStatus {ACTIVE, BANNED, QUIT}
+  isA UserRole;
+  Date hiredDate;
+  EmployeeStatus status;
+  Float hourlyPay;
+  1 <@>- 0..* Shift;
+}
+
+class Manager {
+  isA Employee;
+}
+
+
+class Shift {
+  enum WeekDay {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY}
+  enum ShiftType {OPENING, CLOSING}
+  WeekDay day;
+  ShiftType shiftType;
+}
+
+class Address {
+  int streetNumber;
+  String streetName;
+  String city;
+  String province;
+  String country;
+  String postalCode;
+}
+
+class Store {
+  name;
+  lazy Time weekDayOpening;
+  lazy Time weekDayClosing;
+  lazy Time weekendOpening;
+  lazy Time weekendClosing;
+  1 <@>- 1 Address;
+}
+
+
+
+class Order {
+  enum OrderStatus {IN_CART, PLACED, READY_FOR_PICKUP, PICKED_UP, SHIPPED, DELIVERED, CANCELLED, PURCHASED_IN_STORE}
+  enum PurchaseType {ONLINE, IN_STORE}
+  OrderStatus status;
+  autounique orderID;
+  Date datePlaced;
+  lazy Date deliveryDate;
+  lazy String customerNote;
+  PurchaseType purchaseType;
+  0..* -- 0..1 Customer;
+  0..* -> 0..1 Address shippingAddress;
+  0..* -> 0..1 Address billingAddress;
+  1 <@>- 0..1 Payment;
+  1 -- 0..* CartItem;
+}
+
+
+class Payment {
+  enum PaymentType {DEBIT, CREDIT, GIFTCARD}
+  autounique paymentID;
+  Float amount;
+  String paymentCode;
+  PaymentType paymentType;
+}
+
+class CartItem {
+  int count;
+}
+
+
+class Product {
+  enum Availability {PICK_UP, IN_STORE, DELIVERY, UNRESTRICTED}
+  String name;
+  String description = " ";
+  Float price;
+  String image;
+  lazy Float weight;
+  lazy Float volume;
+  Availability availability;
+  autounique barcode;
+  boolean isRefundable;
+  int availableQuantity;
+  1 <@>- 0..* CartItem;
+}
+
+class Category {
+  String description = " ";
+  String name;
+  String image;
+  autounique id;
+  1 -- 0..* Product;
+}
