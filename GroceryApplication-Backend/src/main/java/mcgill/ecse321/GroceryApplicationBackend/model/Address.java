@@ -85,25 +85,25 @@ public class Address {
         this.store = store;
     }
 
-    private Set<Order> order;
+    private Set<GroceryOrder> order;
 
     @OneToMany(mappedBy = "shippingAddress")
-    public Set<Order> getOrder() {
+    public Set<GroceryOrder> getOrder() {
         return this.order;
     }
 
-    public void setOrder(Set<Order> orders) {
+    public void setOrder(Set<GroceryOrder> orders) {
         this.order = orders;
     }
 
-    private Set<Order> order1;
+    private Set<GroceryOrder> order1;
 
     @OneToMany(mappedBy = "billingAddress")
-    public Set<Order> getOrder1() {
+    public Set<GroceryOrder> getOrder1() {
         return this.order1;
     }
 
-    public void setOrder1(Set<Order> order1s) {
+    public void setOrder1(Set<GroceryOrder> order1s) {
         this.order1 = order1s;
     }
 

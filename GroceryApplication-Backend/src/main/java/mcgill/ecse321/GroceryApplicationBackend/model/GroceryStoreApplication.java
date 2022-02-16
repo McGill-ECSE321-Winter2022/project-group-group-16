@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 public class GroceryStoreApplication {
-    private Set<Order> order;
+    private Set<GroceryOrder> order;
     private int id;
     private Set<Product> product;
     private Store store;
@@ -14,11 +14,11 @@ public class GroceryStoreApplication {
 
 
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
-    public Set<Order> getOrder() {
+    public Set<GroceryOrder> getOrder() {
         return this.order;
     }
 
-    public void setOrder(Set<Order> orders) {
+    public void setOrder(Set<GroceryOrder> orders) {
         this.order = orders;
     }
 

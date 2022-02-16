@@ -16,14 +16,14 @@ public class Customer extends UserRole {
         this.address = address;
     }
 
-    private Set<Order> order;
+    private Set<GroceryOrder> order;
 
     @OneToMany(mappedBy = "customer")
-    public Set<Order> getOrder() {
+    public Set<GroceryOrder> getOrder() {
         return this.order;
     }
 
-    public void setOrder(Set<Order> orders) {
+    public void setOrder(Set<GroceryOrder> orders) {
         this.order = orders;
     }
 

@@ -17,7 +17,7 @@ public class Payment {
     private String paymentCode;
 
     // associations
-    private Order order;
+    private GroceryOrder order;
 
     public void setId(int value) {
         this.id = value;
@@ -54,11 +54,11 @@ public class Payment {
     }
 
     @OneToOne(optional = false)
-    public Order getOrder() {
+    public GroceryOrder getOrder() {
         return this.order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(GroceryOrder order) {
         this.order = order;
     }
 

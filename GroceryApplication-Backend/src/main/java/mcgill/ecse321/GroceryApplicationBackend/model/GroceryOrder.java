@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Order {
+public class GroceryOrder {
     private GroceryStoreApplication groceryStoreApplication;
 
     @ManyToOne(optional = false)

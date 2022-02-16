@@ -21,7 +21,7 @@ public class Product {
 
     // associations
     private Category category;
-    private Set<Order> order;
+    private Set<GroceryOrder> order;
     private GroceryStoreApplication groceryStoreApplication;
 
     // enums
@@ -137,11 +137,11 @@ public class Product {
     }
 
     @ManyToMany(mappedBy = "product")
-    public Set<Order> getOrder() {
+    public Set<GroceryOrder> getOrder() {
         return this.order;
     }
 
-    public void setOrder(Set<Order> orders) {
+    public void setOrder(Set<GroceryOrder> orders) {
         this.order = orders;
     }
 
