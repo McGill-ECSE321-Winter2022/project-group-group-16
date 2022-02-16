@@ -11,3 +11,11 @@ Team Members : Michelle Lee, Arturo Ramirez Mory, Yoah Qiu, Danny Tu, Jian Long 
 Team Roles:
 
 Individual efforts (in hours)
+
+| Team's Member Name | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Project Management and Project Report |
+|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|
+| Michelle Lee        | 0                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
+| Arturo Ramirez Mory | 0                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
+| Yoah Qiu            | 0                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
+| Jian Long Ye (Noah) | 0                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
+| Yazdan Seyed Zinati | 0                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
