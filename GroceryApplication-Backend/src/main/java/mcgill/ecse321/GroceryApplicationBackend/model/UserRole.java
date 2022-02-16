@@ -1,11 +1,15 @@
 package mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UserRole {
+    // attributes
+    private int id;
+
+    // associations
+    private GroceryUser user;
     private GroceryStoreApplication groceryStoreApplication;
 
     @ManyToOne(optional = false)
@@ -17,18 +21,14 @@ public abstract class UserRole {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    private User user;
-
     @ManyToOne
-    public User getUser() {
+    public GroceryUser getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(GroceryUser user) {
         this.user = user;
     }
-
-    private int id;
 
     public void setId(int value) {
         this.id = value;

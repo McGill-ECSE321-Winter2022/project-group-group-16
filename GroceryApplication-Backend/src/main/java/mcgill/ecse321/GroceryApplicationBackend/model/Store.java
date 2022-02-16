@@ -6,6 +6,14 @@ import java.util.Set;
 
 @Entity
 public class Store {
+    // attributes
+    private String name;
+    private String weekDayOpening;
+    private String weekDayClosing;
+    private String weekEndOpening;
+
+    // associations
+    private Set<Address> address;
     private GroceryStoreApplication groceryStoreApplication;
 
     @OneToOne(optional = false)
@@ -17,8 +25,6 @@ public class Store {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    private String name;
-
     public void setName(String value) {
         this.name = value;
     }
@@ -28,8 +34,6 @@ public class Store {
         return this.name;
     }
 
-    private String weekDayOpening;
-
     public void setWeekDayOpening(String value) {
         this.weekDayOpening = value;
     }
@@ -38,8 +42,6 @@ public class Store {
         return this.weekDayOpening;
     }
 
-    private String weekDayClosing;
-
     public void setWeekDayClosing(String value) {
         this.weekDayClosing = value;
     }
@@ -47,8 +49,6 @@ public class Store {
     public String getWeekDayClosing() {
         return this.weekDayClosing;
     }
-
-    private String weekEndOpening;
 
     public void setWeekEndOpening(String value) {
         this.weekEndOpening = value;
@@ -67,8 +67,6 @@ public class Store {
     public String getWeekEndClosing() {
         return this.weekEndClosing;
     }
-
-    private Set<Address> address;
 
     @OneToMany(mappedBy = "store", cascade = {CascadeType.ALL})
     public Set<Address> getAddress() {

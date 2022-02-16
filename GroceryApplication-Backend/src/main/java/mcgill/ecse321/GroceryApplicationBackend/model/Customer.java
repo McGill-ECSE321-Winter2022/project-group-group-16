@@ -1,10 +1,7 @@
 package mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Set;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Customer extends UserRole {

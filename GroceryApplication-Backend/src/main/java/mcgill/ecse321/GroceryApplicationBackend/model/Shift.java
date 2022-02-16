@@ -1,12 +1,25 @@
 package mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Shift {
+    // enums
+    public enum ShiftType {
+    }
+
+    public enum Day {
+    }
+
+    // attributes
     private Day day;
+    private int id;
+    private Employee employee;
+    @Enumerated
+    private ShiftType shift;
 
     private void setDay(Day value) {
         this.day = value;
@@ -15,8 +28,6 @@ public class Shift {
     private Day getDay() {
         return this.day;
     }
-
-    private Employee employee;
 
     @ManyToOne(optional = false)
     public Employee getEmployee() {
@@ -27,7 +38,6 @@ public class Shift {
         this.employee = employee;
     }
 
-    private ShiftType shift;
 
     public void setShift(ShiftType value) {
         this.shift = value;
@@ -37,8 +47,6 @@ public class Shift {
         return this.shift;
     }
 
-    private int id;
-
     public void setId(int value) {
         this.id = value;
     }
@@ -46,12 +54,6 @@ public class Shift {
     @Id
     public int getId() {
         return this.id;
-    }
-
-    public enum ShiftType {
-    }
-
-    public enum Day {
     }
 
 }

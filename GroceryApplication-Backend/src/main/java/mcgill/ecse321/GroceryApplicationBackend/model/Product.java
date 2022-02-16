@@ -8,8 +8,23 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Product {
+    // attributes
+    private String name;
+    private String description;
+    private float price;
+    private String image;
+    private float weight;
+    private int barcode;
+    private boolean isRefundable;
+    private float volume;
+    private int availableQuantity;
+
+    // associations
+    private Category category;
+    private Set<Order> order;
     private GroceryStoreApplication groceryStoreApplication;
 
+    // enums
     public enum Availability {
     }
 
@@ -22,8 +37,6 @@ public class Product {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    private String name;
-
     public void setName(String value) {
         this.name = value;
     }
@@ -32,7 +45,6 @@ public class Product {
         return this.name;
     }
 
-    private String description;
 
     public void setDescription(String value) {
         this.description = value;
@@ -42,7 +54,6 @@ public class Product {
         return this.description;
     }
 
-    private float price;
 
     public void setPrice(float value) {
         this.price = value;
@@ -52,8 +63,6 @@ public class Product {
         return this.price;
     }
 
-    private String image;
-
     public void setImage(String value) {
         this.image = value;
     }
@@ -62,7 +71,6 @@ public class Product {
         return this.image;
     }
 
-    private float weight;
 
     public void setWeight(float value) {
         this.weight = value;
@@ -72,7 +80,6 @@ public class Product {
         return this.weight;
     }
 
-    private float volume;
 
     public void setVolume(float value) {
         this.volume = value;
@@ -92,7 +99,6 @@ public class Product {
         return this.availability;
     }
 
-    private int barcode;
 
     public void setBarcode(int value) {
         this.barcode = value;
@@ -103,7 +109,6 @@ public class Product {
         return this.barcode;
     }
 
-    private boolean isRefundable;
 
     public void setIsRefundable(boolean value) {
         this.isRefundable = value;
@@ -113,7 +118,6 @@ public class Product {
         return this.isRefundable;
     }
 
-    private int availableQuantity;
 
     public void setAvailableQuantity(int value) {
         this.availableQuantity = value;
@@ -123,8 +127,6 @@ public class Product {
         return this.availableQuantity;
     }
 
-    private Category category;
-
     @ManyToOne(optional = false)
     public Category getCategory() {
         return this.category;
@@ -133,8 +135,6 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-    private Set<Order> order;
 
     @ManyToMany(mappedBy = "product")
     public Set<Order> getOrder() {

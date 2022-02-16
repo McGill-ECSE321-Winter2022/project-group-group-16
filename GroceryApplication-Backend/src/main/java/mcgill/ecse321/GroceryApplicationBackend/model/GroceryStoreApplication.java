@@ -7,6 +7,11 @@ import java.util.Set;
 public class GroceryStoreApplication {
     private Set<Order> order;
     private int id;
+    private Set<Product> product;
+    private Store store;
+    private Set<Category> category;
+    private Set<UserRole> userRole;
+
 
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<Order> getOrder() {
@@ -17,8 +22,6 @@ public class GroceryStoreApplication {
         this.order = orders;
     }
 
-    private Set<Product> product;
-
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<Product> getProduct() {
         return this.product;
@@ -27,8 +30,6 @@ public class GroceryStoreApplication {
     public void setProduct(Set<Product> products) {
         this.product = products;
     }
-
-    private Set<UserRole> userRole;
 
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<UserRole> getUserRole() {
@@ -39,8 +40,6 @@ public class GroceryStoreApplication {
         this.userRole = userRoles;
     }
 
-    private Store store;
-
     @OneToOne(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Store getStore() {
         return this.store;
@@ -49,8 +48,6 @@ public class GroceryStoreApplication {
     public void setStore(Store store) {
         this.store = store;
     }
-
-    private Set<Category> category;
 
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<Category> getCategory() {

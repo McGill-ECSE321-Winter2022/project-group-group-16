@@ -1,13 +1,11 @@
 package mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
-import javax.persistence.Id;
-
-import javax.persistence.Entity;
 
 @Entity
-public class User {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class GroceryUser {
     private Set<UserRole> userRole;
 
     @OneToMany(mappedBy = "user")

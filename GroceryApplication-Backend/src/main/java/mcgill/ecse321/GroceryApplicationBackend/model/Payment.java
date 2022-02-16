@@ -6,7 +6,18 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Payment {
+    // enums
+    public enum PaymentType {
+    }
+
+    // attributes
     private int id;
+    private float amount;
+    private PaymentType paymentType;
+    private String paymentCode;
+
+    // associations
+    private Order order;
 
     public void setId(int value) {
         this.id = value;
@@ -17,8 +28,6 @@ public class Payment {
         return this.id;
     }
 
-    private float amount;
-
     public void setAmount(float value) {
         this.amount = value;
     }
@@ -27,7 +36,6 @@ public class Payment {
         return this.amount;
     }
 
-    private String paymentCode;
 
     public void setPaymentCode(String value) {
         this.paymentCode = value;
@@ -37,8 +45,6 @@ public class Payment {
         return this.paymentCode;
     }
 
-    private PaymentType paymentType;
-
     private void setPaymentType(PaymentType value) {
         this.paymentType = value;
     }
@@ -46,8 +52,6 @@ public class Payment {
     private PaymentType getPaymentType() {
         return this.paymentType;
     }
-
-    private Order order;
 
     @OneToOne(optional = false)
     public Order getOrder() {
@@ -57,9 +61,5 @@ public class Payment {
     public void setOrder(Order order) {
         this.order = order;
     }
-
-    public enum PaymentType {
-    }
-
 
 }

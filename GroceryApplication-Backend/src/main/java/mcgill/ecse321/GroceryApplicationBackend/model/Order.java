@@ -16,6 +16,7 @@ public class Order {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
+    @Enumerated
     private OrderStatus status;
 
     private void setStatus(OrderStatus value) {
@@ -67,6 +68,7 @@ public class Order {
         return this.customerNote;
     }
 
+    @Enumerated
     private PurchaseType purchaseType;
 
     private void setPurchaseType(PurchaseType value) {
@@ -112,7 +114,7 @@ public class Order {
 
     private Payment payment;
 
-    @OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
+    @OneToOne(mappedBy = "order", cascade = {CascadeType.ALL})
     public Payment getPayment() {
         return this.payment;
     }

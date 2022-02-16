@@ -8,6 +8,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Employee extends UserRole {
     private String hiredDate;
+    private EmployeeStatus status;
+    private float hourlyPay;
 
     public void setHiredDate(String value) {
         this.hiredDate = value;
@@ -17,17 +19,15 @@ public class Employee extends UserRole {
         return this.hiredDate;
     }
 
-    private String/*No type specified!*/ employeeStatus;
+    private EmployeeStatus employeeStatus;
 
-    public void setEmployeeStatus(String/*No type specified!*/ value) {
-        this.employeeStatus = value;
+    public void setEmployeeStatus(EmployeeStatus status) {
+        this.employeeStatus = status;
     }
 
-    public String/*No type specified!*/ getEmployeeStatus() {
+    public EmployeeStatus getEmployeeStatus() {
         return this.employeeStatus;
     }
-
-    private float hourlyPay;
 
     public void setHourlyPay(float value) {
         this.hourlyPay = value;
@@ -36,8 +36,6 @@ public class Employee extends UserRole {
     public float getHourlyPay() {
         return this.hourlyPay;
     }
-
-    private EmployeeStatus status;
 
     public void setStatus(EmployeeStatus value) {
         this.status = value;

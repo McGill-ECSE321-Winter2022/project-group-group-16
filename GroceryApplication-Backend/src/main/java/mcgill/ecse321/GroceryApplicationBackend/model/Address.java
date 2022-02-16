@@ -7,6 +7,12 @@ import java.util.Set;
 public class Address {
     private int streetNumber;
     private int id;
+    private String streetName;
+    private String province;
+    private Customer customer;
+    private Store store;
+    private String city;
+
 
     public void setStreetNumber(int value) {
         this.streetNumber = value;
@@ -16,8 +22,6 @@ public class Address {
         return this.streetNumber;
     }
 
-    private String streetName;
-
     public void setStreetName(String value) {
         this.streetName = value;
     }
@@ -26,7 +30,6 @@ public class Address {
         return this.streetName;
     }
 
-    private String city;
 
     public void setCity(String value) {
         this.city = value;
@@ -56,8 +59,6 @@ public class Address {
         return this.postalCode;
     }
 
-    private String province;
-
     public void setProvince(String value) {
         this.province = value;
     }
@@ -65,8 +66,6 @@ public class Address {
     public String getProvince() {
         return this.province;
     }
-
-    private Customer customer;
 
     @OneToOne
     public Customer getCustomer() {
@@ -76,8 +75,6 @@ public class Address {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    private Store store;
 
     @ManyToOne
     public Store getStore() {

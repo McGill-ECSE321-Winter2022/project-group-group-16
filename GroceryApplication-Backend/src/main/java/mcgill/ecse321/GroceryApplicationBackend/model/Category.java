@@ -10,6 +10,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Category {
     private GroceryStoreApplication groceryStoreApplication;
+    private String description;
+    private String name;
+    private String image;
+    private int id;
 
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
@@ -20,8 +24,6 @@ public class Category {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    private String name;
-
     public void setName(String value) {
         this.name = value;
     }
@@ -29,8 +31,6 @@ public class Category {
     public String getName() {
         return this.name;
     }
-
-    private String description;
 
     public void setDescription(String value) {
         this.description = value;
@@ -40,7 +40,6 @@ public class Category {
         return this.description;
     }
 
-    private String image;
 
     public void setImage(String value) {
         this.image = value;
@@ -49,8 +48,6 @@ public class Category {
     public String getImage() {
         return this.image;
     }
-
-    private int id;
 
     public void setId(int value) {
         this.id = value;
