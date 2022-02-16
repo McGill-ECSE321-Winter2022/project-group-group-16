@@ -1,9 +1,8 @@
-package mcgill.ecse321.GroceryApplicationBackend.model;
+package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 
 import java.sql.Time;
-import java.util.Set;
 
 @Entity
 public class Store {

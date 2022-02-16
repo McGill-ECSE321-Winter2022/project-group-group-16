@@ -1,4 +1,4 @@
-package mcgill.ecse321.GroceryApplicationBackend;
+package ca.mcgill.ecse321.GroceryApplicationBackend;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
