@@ -6,6 +6,15 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class GroceryUser {
+    // attributes
+    private String dateOfBirth;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+
+    // associations
     private Set<UserRole> userRole;
 
     @OneToMany(mappedBy = "user")
@@ -17,8 +26,6 @@ public class GroceryUser {
         this.userRole = userRoles;
     }
 
-    private String username;
-
     public void setUsername(String value) {
         this.username = value;
     }
@@ -26,8 +33,6 @@ public class GroceryUser {
     public String getUsername() {
         return this.username;
     }
-
-    private String password;
 
     public void setPassword(String value) {
         this.password = value;
@@ -37,8 +42,6 @@ public class GroceryUser {
         return this.password;
     }
 
-    private String firstName;
-
     public void setFirstName(String value) {
         this.firstName = value;
     }
@@ -46,8 +49,6 @@ public class GroceryUser {
     public String getFirstName() {
         return this.firstName;
     }
-
-    private String lastName;
 
     public void setLastName(String value) {
         this.lastName = value;
@@ -57,8 +58,6 @@ public class GroceryUser {
         return this.lastName;
     }
 
-    private String email;
-
     public void setEmail(String value) {
         this.email = value;
     }
@@ -67,8 +66,6 @@ public class GroceryUser {
     public String getEmail() {
         return this.email;
     }
-
-    private String dateOfBirth;
 
     public void setDateOfBirth(String value) {
         this.dateOfBirth = value;

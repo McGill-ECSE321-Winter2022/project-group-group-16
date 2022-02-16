@@ -5,8 +5,11 @@ import java.util.Set;
 
 @Entity
 public class GroceryStoreApplication {
-    private Set<GroceryOrder> order;
+    // attributes
     private int id;
+
+    // associations
+    private Set<GroceryOrder> order;
     private Set<Product> product;
     private Store store;
     private Set<Category> category;

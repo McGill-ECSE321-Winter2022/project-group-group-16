@@ -2,18 +2,20 @@ package mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 
+import java.sql.Time;
 import java.util.Set;
 
 @Entity
 public class Store {
     // attributes
     private String name;
-    private String weekDayOpening;
-    private String weekDayClosing;
-    private String weekEndOpening;
+    private Time weekDayOpening;
+    private Time weekDayClosing;
+    private Time weekEndOpening;
+    private Time weekEndClosing;
 
     // associations
-    private Set<Address> address;
+    private Address address;
     private GroceryStoreApplication groceryStoreApplication;
 
     @OneToOne(optional = false)
@@ -34,46 +36,44 @@ public class Store {
         return this.name;
     }
 
-    public void setWeekDayOpening(String value) {
+    public void setWeekDayOpening(Time value) {
         this.weekDayOpening = value;
     }
 
-    public String getWeekDayOpening() {
+    public Time getWeekDayOpening() {
         return this.weekDayOpening;
     }
 
-    public void setWeekDayClosing(String value) {
+    public void setWeekDayClosing(Time value) {
         this.weekDayClosing = value;
     }
 
-    public String getWeekDayClosing() {
+    public Time getWeekDayClosing() {
         return this.weekDayClosing;
     }
 
-    public void setWeekEndOpening(String value) {
+    public void setWeekEndOpening(Time value) {
         this.weekEndOpening = value;
     }
 
-    public String getWeekEndOpening() {
+    public Time getWeekEndOpening() {
         return this.weekEndOpening;
     }
 
-    private String weekEndClosing;
-
-    public void setWeekEndClosing(String value) {
+    public void setWeekEndClosing(Time value) {
         this.weekEndClosing = value;
     }
 
-    public String getWeekEndClosing() {
+    public Time getWeekEndClosing() {
         return this.weekEndClosing;
     }
 
-    @OneToMany(mappedBy = "store", cascade = {CascadeType.ALL})
-    public Set<Address> getAddress() {
+    @OneToOne(mappedBy = "store", cascade = {CascadeType.ALL})
+    public Address getAddress() {
         return this.address;
     }
 
-    public void setAddress(Set<Address> addresss) {
+    public void setAddress(Address addresss) {
         this.address = addresss;
     }
 

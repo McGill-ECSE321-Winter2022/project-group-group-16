@@ -1,6 +1,7 @@
 package mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -8,11 +9,13 @@ import javax.persistence.OneToOne;
 public class Payment {
     // enums
     public enum PaymentType {
+        CREDIT, DEBIT, GIFTCARD
     }
 
     // attributes
     private int id;
     private float amount;
+    @Enumerated
     private PaymentType paymentType;
     private String paymentCode;
 

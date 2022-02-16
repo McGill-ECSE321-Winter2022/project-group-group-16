@@ -5,6 +5,7 @@ import java.util.Set;
 
 @Entity
 public class Address {
+    // attributes
     private int streetNumber;
     private int id;
     private String streetName;
@@ -13,6 +14,9 @@ public class Address {
     private Store store;
     private String city;
 
+    // associations
+    private Set<GroceryOrder> order1;
+    private Set<GroceryOrder> order;
 
     public void setStreetNumber(int value) {
         this.streetNumber = value;
@@ -29,7 +33,6 @@ public class Address {
     public String getStreetName() {
         return this.streetName;
     }
-
 
     public void setCity(String value) {
         this.city = value;
@@ -76,7 +79,7 @@ public class Address {
         this.customer = customer;
     }
 
-    @ManyToOne
+    @OneToOne
     public Store getStore() {
         return this.store;
     }
@@ -84,8 +87,6 @@ public class Address {
     public void setStore(Store store) {
         this.store = store;
     }
-
-    private Set<GroceryOrder> order;
 
     @OneToMany(mappedBy = "shippingAddress")
     public Set<GroceryOrder> getOrder() {
@@ -96,7 +97,6 @@ public class Address {
         this.order = orders;
     }
 
-    private Set<GroceryOrder> order1;
 
     @OneToMany(mappedBy = "billingAddress")
     public Set<GroceryOrder> getOrder1() {

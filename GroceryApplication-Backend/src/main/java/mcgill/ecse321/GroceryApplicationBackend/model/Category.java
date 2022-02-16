@@ -9,11 +9,15 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Category {
-    private GroceryStoreApplication groceryStoreApplication;
+    // attributes
     private String description;
     private String name;
     private String image;
     private int id;
+
+    // associations
+    private Set<Product> product;
+    private GroceryStoreApplication groceryStoreApplication;
 
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
@@ -57,8 +61,6 @@ public class Category {
     public int getId() {
         return this.id;
     }
-
-    private Set<Product> product;
 
     @OneToMany(mappedBy = "category")
     public Set<Product> getProduct() {

@@ -1,10 +1,7 @@
 package mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Set;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Product {
@@ -18,6 +15,8 @@ public class Product {
     private boolean isRefundable;
     private float volume;
     private int availableQuantity;
+    @Enumerated
+    private Availability availability;
 
     // associations
     private Category category;
@@ -26,6 +25,7 @@ public class Product {
 
     // enums
     public enum Availability {
+        PICKUP, IN_STORE, DELIVERY, UNRESTRICTED
     }
 
     @ManyToOne(optional = false)
@@ -88,8 +88,6 @@ public class Product {
     public float getVolume() {
         return this.volume;
     }
-
-    private Availability availability;
 
     private void setAvailability(Availability value) {
         this.availability = value;

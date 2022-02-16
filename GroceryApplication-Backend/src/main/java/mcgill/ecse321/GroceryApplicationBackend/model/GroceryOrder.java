@@ -1,11 +1,36 @@
 package mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
 public class GroceryOrder {
+    public enum PurchaseType {
+        INSTORE, ONLINE
+    }
+
+    public enum OrderStatus {
+        INCART, PLACED, READY_FOR_PICKUP, PICKED_UP, SHIPPED, DELIVERED, CANCELLED, PURCHASED_IN_STORE
+    }
+
+    // attributes
+    @Enumerated
+    private OrderStatus status;
+    private int id;
+    private Date datePlaced;
+    private Date deliveryDate;
+    private String customerNote;
+    @Enumerated
+    private PurchaseType purchaseType;
+    private Payment payment;
+
+    // associations
     private GroceryStoreApplication groceryStoreApplication;
+    private Set<Product> product;
+    private Address billingAddress;
+    private Customer customer;
+    private Address shippingAddress;
 
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
@@ -16,9 +41,6 @@ public class GroceryOrder {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    @Enumerated
-    private OrderStatus status;
-
     private void setStatus(OrderStatus value) {
         this.status = value;
     }
@@ -26,8 +48,6 @@ public class GroceryOrder {
     private OrderStatus getStatus() {
         return this.status;
     }
-
-    private int id;
 
     public void setId(int value) {
         this.id = value;
@@ -38,27 +58,21 @@ public class GroceryOrder {
         return this.id;
     }
 
-    private String datePlaced;
-
-    public void setDatePlaced(String value) {
+    public void setDatePlaced(Date value) {
         this.datePlaced = value;
     }
 
-    public String getDatePlaced() {
+    public Date getDatePlaced() {
         return this.datePlaced;
     }
 
-    private String deliveryDate;
-
-    public void setDeliveryDate(String value) {
+    public void setDeliveryDate(Date value) {
         this.deliveryDate = value;
     }
 
-    public String getDeliveryDate() {
+    public Date getDeliveryDate() {
         return this.deliveryDate;
     }
-
-    private String customerNote;
 
     public void setCustomerNote(String value) {
         this.customerNote = value;
@@ -68,9 +82,6 @@ public class GroceryOrder {
         return this.customerNote;
     }
 
-    @Enumerated
-    private PurchaseType purchaseType;
-
     private void setPurchaseType(PurchaseType value) {
         this.purchaseType = value;
     }
@@ -78,8 +89,6 @@ public class GroceryOrder {
     private PurchaseType getPurchaseType() {
         return this.purchaseType;
     }
-
-    private Customer customer;
 
     @ManyToOne
     public Customer getCustomer() {
@@ -90,8 +99,6 @@ public class GroceryOrder {
         this.customer = customer;
     }
 
-    private Address shippingAddress;
-
     @ManyToOne
     public Address getShippingAddress() {
         return this.shippingAddress;
@@ -100,8 +107,6 @@ public class GroceryOrder {
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
-
-    private Address billingAddress;
 
     @ManyToOne
     public Address getBillingAddress() {
@@ -112,8 +117,6 @@ public class GroceryOrder {
         this.billingAddress = billingAddress;
     }
 
-    private Payment payment;
-
     @OneToOne(mappedBy = "order", cascade = {CascadeType.ALL})
     public Payment getPayment() {
         return this.payment;
@@ -123,8 +126,6 @@ public class GroceryOrder {
         this.payment = payment;
     }
 
-    private Set<Product> product;
-
     @ManyToMany
     public Set<Product> getProduct() {
         return this.product;
@@ -132,12 +133,6 @@ public class GroceryOrder {
 
     public void setProduct(Set<Product> products) {
         this.product = products;
-    }
-
-    public enum PurchaseType {
-    }
-
-    public enum OrderStatus {
     }
 
 }
