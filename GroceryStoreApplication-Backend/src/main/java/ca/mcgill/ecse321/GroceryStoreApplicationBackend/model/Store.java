@@ -34,11 +34,11 @@ public class Store
     weekDayClosing = null;
     weekendOpening = null;
     weekendClosing = null;
-    if (aAddress == null || aAddress.getStore() != null)
+    boolean didAddAddress = setAddress(aAddress);
+    if (!didAddAddress)
     {
-      throw new RuntimeException("Unable to create Store due to aAddress. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Unable to create store due to address. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    address = aAddress;
     if (aGroceryApplication == null || aGroceryApplication.getStore() != null)
     {
       throw new RuntimeException("Unable to create Store due to aGroceryApplication. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
@@ -46,14 +46,18 @@ public class Store
     groceryApplication = aGroceryApplication;
   }
 
-  public Store(String aName, int aStreetNumberForAddress, String aStreetNameForAddress, String aCityForAddress, String aProvinceForAddress, String aCountryForAddress, String aPostalCodeForAddress)
+  public Store(String aName, Address aAddress)
   {
     name = aName;
     weekDayOpening = null;
     weekDayClosing = null;
     weekendOpening = null;
     weekendClosing = null;
-    address = new Address(aStreetNumberForAddress, aStreetNameForAddress, aCityForAddress, aProvinceForAddress, aCountryForAddress, aPostalCodeForAddress, this);
+    boolean didAddAddress = setAddress(aAddress);
+    if (!didAddAddress)
+    {
+      throw new RuntimeException("Unable to create store due to address. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
     groceryApplication = new GroceryApplication(this);
   }
 
@@ -134,6 +138,34 @@ public class Store
   public GroceryApplication getGroceryApplication()
   {
     return groceryApplication;
+  }
+  /* Code from template association_SetOneToOptionalOne */
+  public boolean setAddress(Address aNewAddress)
+  {
+    boolean wasSet = false;
+    if (aNewAddress == null)
+    {
+      //Unable to setAddress to null, as store must always be associated to a address
+      return wasSet;
+    }
+    
+    Store existingStore = aNewAddress.getStore();
+    if (existingStore != null && !equals(existingStore))
+    {
+      //Unable to setAddress, the current address already has a store, which would be orphaned if it were re-assigned
+      return wasSet;
+    }
+    
+    Address anOldAddress = address;
+    address = aNewAddress;
+    address.setStore(this);
+
+    if (anOldAddress != null)
+    {
+      anOldAddress.setStore(null);
+    }
+    wasSet = true;
+    return wasSet;
   }
 
   public void delete()

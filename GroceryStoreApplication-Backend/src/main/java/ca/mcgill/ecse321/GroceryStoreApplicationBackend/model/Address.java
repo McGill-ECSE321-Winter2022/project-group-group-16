@@ -38,7 +38,7 @@ public class Address
   // CONSTRUCTOR
   //------------------------
 
-  public Address(int aStreetNumber, String aStreetName, String aCity, String aProvince, String aCountry, String aPostalCode, Store aStore)
+  public Address(int aStreetNumber, String aStreetName, String aCity, String aProvince, String aCountry, String aPostalCode)
   {
     streetNumber = aStreetNumber;
     streetName = aStreetName;
@@ -48,24 +48,6 @@ public class Address
     postalCode = aPostalCode;
     id = nextId++;
     customers = new ArrayList<Customer>();
-    if (aStore == null || aStore.getAddress() != null)
-    {
-      throw new RuntimeException("Unable to create Address due to aStore. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    store = aStore;
-  }
-
-  public Address(int aStreetNumber, String aStreetName, String aCity, String aProvince, String aCountry, String aPostalCode, String aNameForStore, GroceryApplication aGroceryApplicationForStore)
-  {
-    streetNumber = aStreetNumber;
-    streetName = aStreetName;
-    city = aCity;
-    province = aProvince;
-    country = aCountry;
-    postalCode = aPostalCode;
-    id = nextId++;
-    customers = new ArrayList<Customer>();
-    store = new Store(aNameForStore, this, aGroceryApplicationForStore);
   }
 
   //------------------------
@@ -189,6 +171,12 @@ public class Address
   {
     return store;
   }
+
+  public boolean hasStore()
+  {
+    boolean has = store != null;
+    return has;
+  }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfCustomers()
   {
@@ -260,6 +248,33 @@ public class Address
       wasAdded = addCustomerAt(aCustomer, index);
     }
     return wasAdded;
+  }
+  /* Code from template association_SetOptionalOneToOne */
+  public boolean setStore(Store aNewStore)
+  {
+    boolean wasSet = false;
+    if (store != null && !store.equals(aNewStore) && equals(store.getAddress()))
+    {
+      //Unable to setStore, as existing store would become an orphan
+      return wasSet;
+    }
+
+    store = aNewStore;
+    Address anOldAddress = aNewStore != null ? aNewStore.getAddress() : null;
+
+    if (!this.equals(anOldAddress))
+    {
+      if (anOldAddress != null)
+      {
+        anOldAddress.store = null;
+      }
+      if (store != null)
+      {
+        store.setAddress(this);
+      }
+    }
+    wasSet = true;
+    return wasSet;
   }
 
   public void delete()
