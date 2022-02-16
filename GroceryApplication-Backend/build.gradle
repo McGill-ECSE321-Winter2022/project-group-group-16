@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 }
 
+
 group = 'mcgill.ecse321'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
