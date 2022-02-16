@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 44 "../../../../../GroceryApplication.ump"
+// line 45 "../../../../../GroceryApplication.ump"
 public class Manager extends Employee
 {
 

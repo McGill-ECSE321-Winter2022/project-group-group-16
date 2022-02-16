@@ -8,8 +8,17 @@ public abstract class UserRole
 {
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextRoleId = 1;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
+
+  //Autounique Attributes
+  private int roleId;
 
   //UserRole Associations
   private User user;
@@ -20,6 +29,7 @@ public abstract class UserRole
 
   public UserRole(User aUser)
   {
+    roleId = nextRoleId++;
     boolean didAddUser = setUser(aUser);
     if (!didAddUser)
     {
@@ -30,6 +40,11 @@ public abstract class UserRole
   //------------------------
   // INTERFACE
   //------------------------
+
+  public int getRoleId()
+  {
+    return roleId;
+  }
   /* Code from template association_GetOne */
   public User getUser()
   {
@@ -77,4 +92,11 @@ public abstract class UserRole
     }
   }
 
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "roleId" + ":" + getRoleId()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "user = "+(getUser()!=null?Integer.toHexString(System.identityHashCode(getUser())):"null");
+  }
 }

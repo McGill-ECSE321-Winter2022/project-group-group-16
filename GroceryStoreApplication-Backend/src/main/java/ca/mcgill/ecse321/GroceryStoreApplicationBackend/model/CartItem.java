@@ -3,9 +3,15 @@
 
 package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 
-// line 101 "../../../../../GroceryApplication.ump"
+// line 104 "../../../../../GroceryApplication.ump"
 public class CartItem
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextId = 1;
 
   //------------------------
   // MEMBER VARIABLES
@@ -13,6 +19,9 @@ public class CartItem
 
   //CartItem Attributes
   private int count;
+
+  //Autounique Attributes
+  private int id;
 
   //CartItem Associations
   private Order order;
@@ -25,6 +34,7 @@ public class CartItem
   public CartItem(int aCount, Order aOrder, Product aProduct)
   {
     count = aCount;
+    id = nextId++;
     boolean didAddOrder = setOrder(aOrder);
     if (!didAddOrder)
     {
@@ -52,6 +62,11 @@ public class CartItem
   public int getCount()
   {
     return count;
+  }
+
+  public int getId()
+  {
+    return id;
   }
   /* Code from template association_GetOne */
   public Order getOrder()
@@ -122,6 +137,7 @@ public class CartItem
   public String toString()
   {
     return super.toString() + "["+
+            "id" + ":" + getId()+ "," +
             "count" + ":" + getCount()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "order = "+(getOrder()!=null?Integer.toHexString(System.identityHashCode(getOrder())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "product = "+(getProduct()!=null?Integer.toHexString(System.identityHashCode(getProduct())):"null");

@@ -5,9 +5,15 @@ package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 import java.util.*;
 import java.sql.Time;
 
-// line 56 "../../../../../GroceryApplication.ump"
+// line 58 "../../../../../GroceryApplication.ump"
 public class Address
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextId = 1;
 
   //------------------------
   // MEMBER VARIABLES
@@ -20,6 +26,9 @@ public class Address
   private String province;
   private String country;
   private String postalCode;
+
+  //Autounique Attributes
+  private int id;
 
   //Address Associations
   private List<Customer> customers;
@@ -37,6 +46,7 @@ public class Address
     province = aProvince;
     country = aCountry;
     postalCode = aPostalCode;
+    id = nextId++;
     customers = new ArrayList<Customer>();
     if (aStore == null || aStore.getAddress() != null)
     {
@@ -53,6 +63,7 @@ public class Address
     province = aProvince;
     country = aCountry;
     postalCode = aPostalCode;
+    id = nextId++;
     customers = new ArrayList<Customer>();
     store = new Store(aNameForStore, this, aGroceryApplicationForStore);
   }
@@ -137,6 +148,11 @@ public class Address
   public String getPostalCode()
   {
     return postalCode;
+  }
+
+  public int getId()
+  {
+    return id;
   }
   /* Code from template association_GetMany */
   public Customer getCustomer(int index)
@@ -267,6 +283,7 @@ public class Address
   public String toString()
   {
     return super.toString() + "["+
+            "id" + ":" + getId()+ "," +
             "streetNumber" + ":" + getStreetNumber()+ "," +
             "streetName" + ":" + getStreetName()+ "," +
             "city" + ":" + getCity()+ "," +

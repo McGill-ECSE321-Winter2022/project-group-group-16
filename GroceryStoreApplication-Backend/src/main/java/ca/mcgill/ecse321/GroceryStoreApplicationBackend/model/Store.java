@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 import java.sql.Time;
 
-// line 65 "../../../../../GroceryApplication.ump"
+// line 68 "../../../../../GroceryApplication.ump"
 public class Store
 {
 

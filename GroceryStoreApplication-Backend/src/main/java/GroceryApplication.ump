@@ -29,6 +29,7 @@ class Customer {
 
 class UserRole {
   abstract;
+  autounique roleId;
 }
 
 
@@ -51,6 +52,7 @@ class Shift {
   enum ShiftType {OPENING, CLOSING}
   WeekDay day;
   ShiftType shiftType;
+  autounique id;
 }
 
 class Address {
@@ -60,6 +62,7 @@ class Address {
   String province;
   String country;
   String postalCode;
+  autounique id;
 }
 
 class Store {
@@ -100,6 +103,7 @@ class Payment {
 
 class CartItem {
   int count;
+  autounique id;
 }
 
 

@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 import java.util.*;
 
-// line 121 "../../../../../GroceryApplication.ump"
+// line 125 "../../../../../GroceryApplication.ump"
 public class Category
 {
 

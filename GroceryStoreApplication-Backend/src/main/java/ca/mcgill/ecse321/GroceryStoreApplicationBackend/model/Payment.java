@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 
-// line 93 "../../../../../GroceryApplication.ump"
+// line 96 "../../../../../GroceryApplication.ump"
 public class Payment
 {
 

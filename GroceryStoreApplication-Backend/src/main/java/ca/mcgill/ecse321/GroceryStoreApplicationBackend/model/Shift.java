@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 
-// line 49 "../../../../../GroceryApplication.ump"
+// line 50 "../../../../../GroceryApplication.ump"
 public class Shift
 {
 
@@ -15,12 +15,21 @@ public class Shift
   public enum ShiftType { OPENING, CLOSING }
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextId = 1;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Shift Attributes
   private WeekDay day;
   private ShiftType shiftType;
+
+  //Autounique Attributes
+  private int id;
 
   //Shift Associations
   private Employee employee;
@@ -33,6 +42,7 @@ public class Shift
   {
     day = aDay;
     shiftType = aShiftType;
+    id = nextId++;
     boolean didAddEmployee = setEmployee(aEmployee);
     if (!didAddEmployee)
     {
@@ -68,6 +78,11 @@ public class Shift
   public ShiftType getShiftType()
   {
     return shiftType;
+  }
+
+  public int getId()
+  {
+    return id;
   }
   /* Code from template association_GetOne */
   public Employee getEmployee()
@@ -107,7 +122,8 @@ public class Shift
 
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
+    return super.toString() + "["+
+            "id" + ":" + getId()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "day" + "=" + (getDay() != null ? !getDay().equals(this)  ? getDay().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "shiftType" + "=" + (getShiftType() != null ? !getShiftType().equals(this)  ? getShiftType().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null");

@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.GroceryStoreApplicationBackend.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 35 "../../../../../GroceryApplication.ump"
+// line 36 "../../../../../GroceryApplication.ump"
 public class Employee extends UserRole
 {
 
