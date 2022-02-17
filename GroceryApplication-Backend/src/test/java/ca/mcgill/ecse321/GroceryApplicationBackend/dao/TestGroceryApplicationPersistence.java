@@ -30,13 +30,19 @@ public class TestGroceryApplicationPersistence {
 //    @Autowired
 //    private RegistrationRepository registrationRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+
+
 //    @AfterEach
 //    public void clearDatabase() {
-//        // Fisrt, we clear registrations to avoid exceptions due to inconsistencies
+//        // First, we clear registrations to avoid exceptions due to inconsistencies
 ////        registrationRepository.deleteAll();
 //        // Then we can clear the other tables
 //        addressRepository.deleteAll();
 ////        eventRepository.deleteAll();
+//        categoryRepository.deleteAll();
 //    }
 
     @Test
