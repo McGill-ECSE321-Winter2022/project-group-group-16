@@ -7,8 +7,8 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
 
 public interface CustomerRepository extends CrudRepository<Customer, Integer>{
-
+	Customer findCustomerByUserId(int id);
     Customer findCustomerByAddress(Address address);
     Customer findCustomerByOrder(Order order);
-    Customer findCustomerByAddressAndByOrder();
+    boolean existsByAddressAndOrder(Address addressName, Order orderName);
 }

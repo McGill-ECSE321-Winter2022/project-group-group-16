@@ -63,4 +63,30 @@ public class TestGroceryApplicationPersistence {
         assertEquals(id, address.getId());
         assertEquals(country, address.getCountry());
     }
+    
+    @Test
+    public void testPersistAndLoadCategory() {
+    	int id = 11;
+    	Category category = new Category();
+    	category.setId(11);
+    	categoryRepository.save(category);
+    	category = null;
+    	category = categoryRepository.findCategoryById(id);
+        assertNotNull(category);
+        assertEquals(id, category.getId());    	   	
+   
+    }
+    
+    @Test
+    public void testPersistAndLoadCustomer() {
+    	int id = 20;
+    	Category category = new Category();
+    	category.setId(11);
+    	categoryRepository.save(category);
+    	category = null;
+    	category = categoryRepository.findCategoryById(id);
+        assertNotNull(category);
+        assertEquals(id, category.getId());    	   	
+   
+    }
 }
