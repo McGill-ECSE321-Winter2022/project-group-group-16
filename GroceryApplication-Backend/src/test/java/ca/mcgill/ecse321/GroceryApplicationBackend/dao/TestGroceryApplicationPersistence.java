@@ -26,7 +26,7 @@ public class TestGroceryApplicationPersistence {
     @Autowired
     private AddressRepository addressRepository;
 //    @Autowired
-//    private EventRepository eventRepository;
+//    private Ca eventRepository;
 //    @Autowired
 //    private RegistrationRepository registrationRepository;
 
