@@ -89,4 +89,17 @@ public class TestGroceryApplicationPersistence {
         assertEquals(id, category.getId());    	   	
    
     }
+    
+    @Test
+    public void testPersistAndLoadGroceryOrder() {
+    	int id = 47;
+    	Category category = new Category();
+    	category.setId(47);
+    	categoryRepository.save(category);
+    	category = null;
+    	category = categoryRepository.findCategoryById(id);
+    	assertNotNull(category);
+    	assertEquals(id, category.getId());
+    }
+    
 }
