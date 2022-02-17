@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @SpringBootApplication
-public class GroceryApplicationBackendApplication {
+public class GroceryApplicationBackend {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GroceryApplicationBackendApplication.class, args);
+		SpringApplication.run(GroceryApplicationBackend.class, args);
 	}
 
 	@RequestMapping("/")

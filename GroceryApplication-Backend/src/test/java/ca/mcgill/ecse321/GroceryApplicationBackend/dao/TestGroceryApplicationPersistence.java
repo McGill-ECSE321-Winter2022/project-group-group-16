@@ -26,18 +26,18 @@ public class TestGroceryApplicationPersistence {
     @Autowired
     private AddressRepository addressRepository;
 //    @Autowired
-//    private EventRepository eventRepository;
+//    private Ca eventRepository;
 //    @Autowired
 //    private RegistrationRepository registrationRepository;
 
-//    @AfterEach
-//    public void clearDatabase() {
-//        // Fisrt, we clear registrations to avoid exceptions due to inconsistencies
-////        registrationRepository.deleteAll();
-//        // Then we can clear the other tables
-//        addressRepository.deleteAll();
-////        eventRepository.deleteAll();
-//    }
+    @AfterEach
+    public void clearDatabase() {
+        // Fisrt, we clear registrations to avoid exceptions due to inconsistencies
+//        registrationRepository.deleteAll();
+        // Then we can clear the other tables
+        addressRepository.deleteAll();
+//        eventRepository.deleteAll();
+    }
 
     @Test
     public void testPersistAndLoadAddress() {
