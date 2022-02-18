@@ -8,7 +8,18 @@ Team Members : Michelle Lee, Arturo Mory Ramirez, Yoah Qiu, Danny Tu, Jian Long 
 
 ## Project Deliverable 1
 
+[Project report and System Requirements](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-1)
+
 Team Roles:
+| Name | Roles |
+| ---- | ----- |
+| Michelle |    |
+| Arturo  |   |
+| Danny |   |
+| Yoah  |    |
+| Noah  |   |
+| Yazdan |    |
+
 
 Individual efforts (in hours)
 
