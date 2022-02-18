@@ -13,12 +13,12 @@ Team Members : Michelle Lee, Arturo Mory Ramirez, Yoah Qiu, Danny Tu, Jian Long 
 Team Roles:
 | Name | Roles |
 | ---- | ----- |
-| Michelle |    |
-| Arturo  |   |
-| Danny |   |
-| Yoah  |    |
-| Noah  |   |
-| Yazdan |    |
+| Michelle |  Domain model, Project Management, Testing of persistence layer  |
+| Arturo  | Persistence layer, Testing of persistence layer  |
+| Danny |  Persistence layer, Project Management, Testing of persistence layer |
+| Yoah  |  Requirements model, Testing of persistence layer  |
+| Noah  |  Persistence layer, Testing of persistence layer |
+| Yazdan |  Domain model, Build system and continuous integration, Testing of persistence layer  |
 
 
 Individual efforts (in hours)
