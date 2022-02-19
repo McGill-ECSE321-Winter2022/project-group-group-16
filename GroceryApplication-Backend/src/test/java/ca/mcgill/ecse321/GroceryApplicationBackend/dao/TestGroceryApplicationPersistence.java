@@ -28,6 +28,8 @@ public class TestGroceryApplicationPersistence {
 
     @Autowired
     private AddressRepository addressRepository;
+    
+    @Autowired ProductRepository productRepository;
 
     @AfterEach
    public void clearDatabase() {
@@ -114,5 +116,37 @@ public class TestGroceryApplicationPersistence {
         assertEquals(country, address.getCountry());
         assertEquals(city, address.getCity());
     }
+    
+    @Test
+    public void testPersistAndLoadProduct() {
+        
+    int barCode = 123;
+    GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
+    groceryStoreApplication.setId(90);
+    groceryStoreApplicationRepository.save(groceryStoreApplication);
+    
+    Category category = new Category();
+    category.setGroceryStoreApplication(groceryStoreApplication);
+    category.setId(11);
+    categoryRepository.save(category);
+    
+    
+    
+    Product  product = new Product();
+    product.setGroceryStoreApplication(groceryStoreApplication);
+    product.setCategory(category);
+    product.setBarcode(barCode);
+    productRepository.save(product);
+    
+    product = null;
+    
+    product = productRepository.findProductByBarcode(barCode);
+    assertNotNull(product);
+    assertEquals(product.getCategory().getId(),category.getId());
+    assertEquals(product.getBarcode(),barCode);
+    
+   
+    }
+    
 
 }
