@@ -1,7 +1,7 @@
-package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
+// package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
 
-import org.springframework.data.repository.CrudRepository;
+// import org.springframework.data.repository.CrudRepository;
 
-public interface UserRoleRepository extends CrudRepository<UserRoleRepository,Integer> {
+// public interface UserRoleRepository extends CrudRepository<UserRoleRepository,Integer> {
 	
-}
+// }

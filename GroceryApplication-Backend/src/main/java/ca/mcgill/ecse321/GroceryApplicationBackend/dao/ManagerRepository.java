@@ -1,9 +1,9 @@
-package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
-import org.springframework.data.repository.CrudRepository;
+// package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
+// import org.springframework.data.repository.CrudRepository;
 
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Manager;
+// import ca.mcgill.ecse321.GroceryApplicationBackend.model.Manager;
 
-public interface ManagerRepository extends CrudRepository<Manager, String>{
+// public interface ManagerRepository extends CrudRepository<Manager, String>{
 
-    Manager findManagerByUserId(int id);
-}
+//     Manager findManagerByUserId(int id);
+// }

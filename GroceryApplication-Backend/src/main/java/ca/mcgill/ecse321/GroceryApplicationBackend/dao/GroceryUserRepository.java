@@ -1,53 +1,53 @@
-package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
+// package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
 
-import org.springframework.data.repository.CrudRepository;
+// import org.springframework.data.repository.CrudRepository;
 
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
+// import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
 
-public interface GroceryUserRepository extends CrudRepository<GroceryUserRepository,Integer> {
+// public interface GroceryUserRepository extends CrudRepository<GroceryUserRepository,Integer> {
 	
-	/**
-	 * Find a grocery user by their full name
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @return groceryUser (GroceryUser)
-	 * 
-	 * */
-	GroceryUser findGroceryUserByFirstNameAndLastName(String firstName, String lastName);
-	
-	
-	/**
-	 * Find a grocery user by email
-	 * 
-	 * @param email
-	 * @return groceryUser (GroceryUser)
-	 *  
-	 *  */
-	
-	GroceryUser findGroceryUserByEmail(String email);
-	
-	  /**
-	   * Check if grocery user exists by full name
-	   * 
-	   * @param firstName
-	   * @param lastName
-	   * @return boolean
-	   */
+// 	/**
+// 	 * Find a grocery user by their full name
+// 	 * 
+// 	 * @param firstName
+// 	 * @param lastName
+// 	 * @return groceryUser (GroceryUser)
+// 	 * 
+// 	 * */
+// 	GroceryUser findGroceryUserByFirstNameAndLastName(String firstName, String lastName);
 	
 	
-	boolean existsByFirstNameAndLastName(String firstName, String lastName);
+// 	/**
+// 	 * Find a grocery user by email
+// 	 * 
+// 	 * @param email
+// 	 * @return groceryUser (GroceryUser)
+// 	 *  
+// 	 *  */
+	
+// 	GroceryUser findGroceryUserByEmail(String email);
+	
+// 	  /**
+// 	   * Check if grocery user exists by full name
+// 	   * 
+// 	   * @param firstName
+// 	   * @param lastName
+// 	   * @return boolean
+// 	   */
 	
 	
-	/**
-	 * Check if a grocery user has an email
-	 * 
-	 * @param email
-	 * @return boolean
-	 *  
-	 *  */
+// 	boolean existsByFirstNameAndLastName(String firstName, String lastName);
 	
-	boolean existsByEmail(String email);
+	
+// 	/**
+// 	 * Check if a grocery user has an email
+// 	 * 
+// 	 * @param email
+// 	 * @return boolean
+// 	 *  
+// 	 *  */
+	
+// 	boolean existsByEmail(String email);
 	
 	
 		
@@ -58,4 +58,4 @@ public interface GroceryUserRepository extends CrudRepository<GroceryUserReposit
 	
 	
 	
-}
+// }
