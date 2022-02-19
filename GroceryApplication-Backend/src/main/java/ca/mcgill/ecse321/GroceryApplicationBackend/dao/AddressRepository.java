@@ -11,7 +11,7 @@ public interface AddressRepository extends CrudRepository<Address, Integer>{
 
     Address findAddressById(int id);
     Address findAddressByCity(String city);
-    Address findAddressByCustomer(Customer customer);
-    Address findAddressByStore(Store store);
-    boolean existsByStoreAndCustomer(Customer customerName  ,Store Storename);
+    // Address findAddressByCustomer(Customer customer);
+    // Address findAddressByStore(Store store);
+    // boolean existsByStoreAndCustomer(Customer customerName  ,Store Storename);
 }

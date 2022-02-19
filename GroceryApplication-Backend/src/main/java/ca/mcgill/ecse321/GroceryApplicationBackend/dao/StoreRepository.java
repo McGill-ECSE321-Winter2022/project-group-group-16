@@ -5,12 +5,12 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Store;
 
-public interface StoreRepository extends CrudRepository<StoreRepository,Integer> {
+public interface StoreRepository extends CrudRepository<Store,Integer> {
 	
 	Store findStoreByName(String name);
 	
 
 	
-	boolean existsByStoreName(String name);
+	// boolean existsByStoreName(String name);
 	
 }
