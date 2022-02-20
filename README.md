@@ -4,7 +4,7 @@ Grocery Store Application
 
 The goal of this project is to develop an online software application that supports the needs of a local grocery and its customers. Customers are able to have online accounts that lets them browse, purchase and order available items on the online store. The system also lets the manager to manage general aspects of the employees such as their status (active, banned, quit), their hourly pay as well as keeping track of their shifts and the date that they were hired. 
 
-Team Members : Michelle Lee, Arturo Mory Ramirez, Yoah Qiu, Danny Tu, Jian Long Ye (Noah), Yazdan Seyed Zinati
+Team Members : Michelle Lee, Arturo Mory Ramirez, Yoah Qiu, Danny Tu, Jian Long Ye (Noah), Yazdan Zinati
 
 ## Project Deliverable 1
 
@@ -18,7 +18,7 @@ Team Roles:
 | Danny |  Persistence layer, Project Management, Testing of persistence layer |
 | Yoah  |  Requirements model, Testing of persistence layer  |
 | Noah  |  Persistence layer, Testing of persistence layer |
-| Yazdan |  Domain model, Build system and continuous integration, Testing of persistence layer  |
+| Yazdan |  Domain model, Persistence layer, Build system, continuous integration, and deployment, Testing of persistence layer  |
 
 
 Individual efforts (in hours)
@@ -30,4 +30,4 @@ Individual efforts (in hours)
 | Danny Tu            | 2                                        | 0                                   | 0                                                | 0                                                 | 0              | 0    |
 | Yoah Qiu            | 5                                        | 0                                   | 0                                                | 0                                                 | 0              | 0    |
 | Jian Long Ye (Noah) | 2                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
-| Yazdan Seyed Zinati | 2                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
+| Yazdan Zinati | 2                                         | 0                                   | 0                                                | 0                                                 | 0              | 0    |
