@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
 
 
 @ExtendWith(SpringExtension.class)
@@ -45,6 +46,7 @@ public class TestGroceryApplicationPersistence {
 //        // Then we can clear the other tables
        storeRepository.deleteAll();
        addressRepository.deleteAll();
+       productRepository.deleteAll();
     //    categoryRepository.deleteAll();
     //    paymentRepository.deleteAll();
    }
@@ -55,24 +57,26 @@ public class TestGroceryApplicationPersistence {
         gs.setId(66);
         groceryStoreApplicationRepository.save(gs);
 
-        // Address address = new Address();
-        // int id = 10;
-        // address.setId(id);
-        // addressRepository.save(address);
+         Address address = new Address();
+         int id = 10;
+         address.setId(id);
+         addressRepository.save(address);
 
         String name = "Grocery";
     	Store store = new Store();
     	store.setGroceryStoreApplication(gs);
-        // store.setAddress(address);
+        store.setAddress(address);
         store.setName(name);
     	storeRepository.save(store);
         
-    	store = null;
+    	address= null;
 
     	store = storeRepository.findStoreByName(name);
         assertNotNull(store);
+        //Can't get address here 
+//        assertNotNull(store.getAddress());
         assertEquals(name, store.getName());
-        // assertEquals(address, store.getAddress());    	    
+       	    
     }
 
     @Test
@@ -134,8 +138,6 @@ public class TestGroceryApplicationPersistence {
         address.setStore(store);
         addressRepository.save(address);
         
-
-
         address = null;
         store=null;
 
@@ -154,6 +156,18 @@ public class TestGroceryApplicationPersistence {
     public void testPersistAndLoadProduct() {
         
     int barCode = 123;
+    String name = "apple";
+    String description = "good apple";
+    float price = 23.50f;
+    String image = "image";
+    float weight = 11f;
+    boolean refund = false;
+    float volume = 20f;
+    int quantity = 30;
+   
+    
+    
+    
     GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
     groceryStoreApplication.setId(90);
     groceryStoreApplicationRepository.save(groceryStoreApplication);
@@ -169,16 +183,35 @@ public class TestGroceryApplicationPersistence {
     product.setGroceryStoreApplication(groceryStoreApplication);
     product.setCategory(category);
     product.setBarcode(barCode);
+    product.setName(name);
+    product.setDescription(description);
+    product.setPrice(price);
+    product.setWeight(weight);
+    product.setImage(image);
+    product.setIsRefundable(refund);
+    product.setVolume(volume);
+    product.setAvailableQuantity(quantity);
+    product.setAvailability( Availability.DELIVERY);
     productRepository.save(product);
     
     product = null;
     
     product = productRepository.findProductByBarcode(barCode);
     assertNotNull(product);
+    assertNotNull(category);
     assertEquals(product.getCategory().getId(),category.getId());
     assertEquals(product.getBarcode(),barCode);
+    assertEquals(product.getName(),name);
+
     
    
+    }
+    
+    @Test
+    public void testPersistAndLoadShift() {
+    	
+    	
+    	
     }
     
 

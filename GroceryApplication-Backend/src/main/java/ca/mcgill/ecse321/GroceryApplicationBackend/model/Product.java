@@ -89,11 +89,11 @@ public class Product {
         return this.volume;
     }
 
-    private void setAvailability(Availability value) {
+    public void setAvailability(Availability value) {
         this.availability = value;
     }
 
-    private Availability getAvailability() {
+    public Availability getAvailability() {
         return this.availability;
     }
 

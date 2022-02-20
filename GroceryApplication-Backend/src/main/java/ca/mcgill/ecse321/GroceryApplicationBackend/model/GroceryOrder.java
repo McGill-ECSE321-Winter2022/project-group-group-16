@@ -41,7 +41,7 @@ public class GroceryOrder {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    private void setStatus(OrderStatus value) {
+    public void setStatus(OrderStatus value) {
         this.status = value;
     }
 
@@ -82,7 +82,7 @@ public class GroceryOrder {
         return this.customerNote;
     }
 
-    private void setPurchaseType(PurchaseType value) {
+    public void setPurchaseType(PurchaseType value) {
         this.purchaseType = value;
     }
 

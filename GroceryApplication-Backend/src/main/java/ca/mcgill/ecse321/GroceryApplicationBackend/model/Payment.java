@@ -48,11 +48,11 @@ public class Payment {
         return this.paymentCode;
     }
 
-    private void setPaymentType(PaymentType value) {
+    public void setPaymentType(PaymentType value) {
         this.paymentType = value;
     }
 
-    private PaymentType getPaymentType() {
+    public PaymentType getPaymentType() {
         return this.paymentType;
     }
 
