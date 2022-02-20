@@ -29,7 +29,15 @@ public class TestGroceryApplicationPersistence {
     @Autowired
     private AddressRepository addressRepository;
     
-    @Autowired ProductRepository productRepository;
+    @Autowired 
+    ProductRepository productRepository;
+    
+    
+    @Autowired 
+    StoreRepository StoreRepository;
+    
+    
+    
 
     @AfterEach
    public void clearDatabase() {
@@ -97,21 +105,46 @@ public class TestGroceryApplicationPersistence {
 
     @Test
     public void testPersistAndLoadAddress() {
+
+        GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
+        groceryStoreApplication.setId(90);
+        groceryStoreApplicationRepository.save(groceryStoreApplication);
+        
+        String storeName = "storeName";
+        Store store = new Store();
+        store.setName(storeName);
+        store.setGroceryStoreApplication(groceryStoreApplication);
+        storeRepository.save(store);
+       
         int id = 69;
         String country = "USA";
+        String province = "Province";
         String city = "Seattle";
+        String postalCode = "J3X 1E1";
+        String streetName = "Street";
         // First example for object save/load
         Address address = new Address();
         // First example for attribute save/load
         address.setId(id);
         address.setCountry(country);
         address.setCity(city);
+        address.setPostalCode(postalCode);
+        address.setProvince(province);
+        address.setStreetName(streetName);
+        address.setStore(store);
         addressRepository.save(address);
+        
+
 
         address = null;
+        store=null;
 
         address = addressRepository.findAddressById(id);
         assertNotNull(address);
+        assertNotNull(address.getStore());
+        assertEquals(postalCode, address.getPostalCode());
+        assertEquals(streetName, address.getStreetName());
+        assertEquals(province, address.getProvince());
         assertEquals(id, address.getId());
         assertEquals(country, address.getCountry());
         assertEquals(city, address.getCity());
