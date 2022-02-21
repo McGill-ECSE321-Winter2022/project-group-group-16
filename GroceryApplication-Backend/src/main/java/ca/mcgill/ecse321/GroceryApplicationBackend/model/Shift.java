@@ -25,11 +25,11 @@ public class Shift {
     // associations
     private Employee employee;
 
-    private void setDay(Day value) {
+    public void setDay(Day value) {
         this.day = value;
     }
 
-    private Day getDay() {
+    public Day getDay() {
         return this.day;
     }
 

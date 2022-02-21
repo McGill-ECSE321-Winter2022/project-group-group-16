@@ -3,6 +3,9 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Shift.Day;
 
 
 @ExtendWith(SpringExtension.class)
@@ -37,6 +41,11 @@ public class TestGroceryApplicationPersistence {
     @Autowired 
     StoreRepository StoreRepository;
     
+    @Autowired 
+    ShiftRepository shiftRepository;
+    
+    @Autowired 
+    EmployeeRepository employeeRepository;
     
     
 
@@ -47,8 +56,10 @@ public class TestGroceryApplicationPersistence {
        storeRepository.deleteAll();
        addressRepository.deleteAll();
        productRepository.deleteAll();
-    //    categoryRepository.deleteAll();
-    //    paymentRepository.deleteAll();
+       categoryRepository.deleteAll();
+       shiftRepository.deleteAll();
+   //    paymentRepository.deleteAll();
+      
    }
 
    @Test
@@ -70,42 +81,45 @@ public class TestGroceryApplicationPersistence {
     	storeRepository.save(store);
         
     	address= null;
+    	store = null;
 
     	store = storeRepository.findStoreByName(name);
+    	address =  addressRepository.findAddressById(id);
         assertNotNull(store);
+        assertNotNull(address);
         //Can't get address here 
-//        assertNotNull(store.getAddress());
+       // assertNotNull(store.getAddress());
         assertEquals(name, store.getName());
        	    
     }
 
-    @Test
-    public void testPersistAndLoadCategory() {
+   @Test
+   public void testPersistAndLoadCategory() {
 
-        GroceryStoreApplication gs = new GroceryStoreApplication();
-        gs.setId(66);
-        groceryStoreApplicationRepository.save(gs);
+       GroceryStoreApplication gs = new GroceryStoreApplication();
+       gs.setId(66);
+       groceryStoreApplicationRepository.save(gs);
 
-    	int id = 11;
-        // String name = "perishable";
-        // String image = "image";
-        // String desc = "desc";
-    	Category category = new Category();
-    	category.setId(id);
-        // category.setName(name);
-        category.setGroceryStoreApplication(gs);
-    	categoryRepository.save(category);
-        
-    	category = null;
+   	int id = 11;
+       // String name = "perishable";
+       // String image = "image";
+       // String desc = "desc";
+   	Category category = new Category();
+   	category.setId(id);
+       // category.setName(name);
+       category.setGroceryStoreApplication(gs);
+   	categoryRepository.save(category);
+       
+   	category = null;
 
-    	category = categoryRepository.findCategoryById(id);
-        // category = categoryRepository.findCategoryByname(name);
-        assertNotNull(category);
-        assertEquals(id, category.getId());    	 
-        // assertEquals(name, category.getName()); 
-        // assertEquals(image, category.getImage()); 
-        // assertEquals(desc, category.getDescription());  	   
-    }
+   	category = categoryRepository.findCategoryById(id);
+       // category = categoryRepository.findCategoryByname(name);
+       assertNotNull(category);
+       assertEquals(id, category.getId());    	 
+       // assertEquals(name, category.getName()); 
+       // assertEquals(image, category.getImage()); 
+       // assertEquals(desc, category.getDescription());  	   
+   }
 
     @Test
     public void testPersistAndLoadAddress() {
@@ -140,10 +154,11 @@ public class TestGroceryApplicationPersistence {
         
         address = null;
         store=null;
-
+        store = StoreRepository.findStoreByName(storeName);
         address = addressRepository.findAddressById(id);
         assertNotNull(address);
         assertNotNull(address.getStore());
+        assertNotNull(store);   
         assertEquals(postalCode, address.getPostalCode());
         assertEquals(streetName, address.getStreetName());
         assertEquals(province, address.getProvince());
@@ -195,9 +210,12 @@ public class TestGroceryApplicationPersistence {
     productRepository.save(product);
     
     product = null;
+    category = null;
     
     product = productRepository.findProductByBarcode(barCode);
+    category = categoryRepository.findCategoryById(11);
     assertNotNull(product);
+    assertNotNull(product.getCategory());
     assertNotNull(category);
     assertEquals(product.getCategory().getId(),category.getId());
     assertEquals(product.getBarcode(),barCode);
@@ -210,6 +228,36 @@ public class TestGroceryApplicationPersistence {
     @Test
     public void testPersistAndLoadShift() {
     	
+    	GroceryStoreApplication gs = new GroceryStoreApplication ();
+    	gs.setId(222);
+    	groceryStoreApplicationRepository.save(gs);
+    	
+    	Employee employee = new Employee();
+    	employee.setId(123);
+    	employee.setGroceryStoreApplication(gs);
+    	employeeRepository.save(employee);
+    	
+    	Shift shift = new Shift();
+    	shift.setId(111);
+    	shift.setDay(Shift.Day.FRIDAY);
+    	shift.setShift(Shift.ShiftType.CLOSING);
+    	shift.setEmployee(employee);
+    	shiftRepository.save(shift);
+    	
+    	shift = null;
+    	employee = null;
+    	
+    	shift = shiftRepository.findShiftById(111);
+    	employee = employeeRepository.findEmployeeById(123);
+    	
+    	assertNotNull(shift);
+    	assertNotNull(employee);
+    	assertNotNull(shift.getEmployee());
+    	assertEquals(shift.getEmployee().getId(),123);
+    	assertEquals(shift.getDay(),Day.FRIDAY);
+    	
+    	
+      	
     	
     	
     }
