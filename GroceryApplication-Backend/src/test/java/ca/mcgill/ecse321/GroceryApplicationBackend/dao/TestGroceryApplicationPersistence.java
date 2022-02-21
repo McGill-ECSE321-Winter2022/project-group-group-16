@@ -98,10 +98,14 @@ public class TestGroceryApplicationPersistence {
 
    @Test
    public void testPersistAndLoadCategory() {
+	   
+	   Set <Product> productSet = new HashSet();
 
        GroceryStoreApplication gs = new GroceryStoreApplication();
        gs.setId(66);
        groceryStoreApplicationRepository.save(gs);
+       
+      
 
    	int id = 11;
        // String name = "perishable";
@@ -110,18 +114,35 @@ public class TestGroceryApplicationPersistence {
    	Category category = new Category();
    	category.setId(id);
        // category.setName(name);
-       category.setGroceryStoreApplication(gs);
+    category.setGroceryStoreApplication(gs);
+    category.setName("meat");
    	categoryRepository.save(category);
+   	
+    Product  product1 = new Product();
+    product1.setGroceryStoreApplication(gs);
+    product1.setBarcode(123);
+    product1.setCategory(category);
+    productRepository.save(product1);
+    
+    Product  product2 = new Product();
+    product2.setGroceryStoreApplication(gs);
+    product2.setBarcode(1234);
+    product2.setCategory(category);
+    productRepository.save(product2);
+    
+    productSet.add(product2);
+    productSet.add(product1);
+    category.setProduct(productSet);
        
    	category = null;
+  
 
    	category = categoryRepository.findCategoryById(id);
-       // category = categoryRepository.findCategoryByname(name);
        assertNotNull(category);
-       assertEquals(id, category.getId());    	 
-       // assertEquals(name, category.getName()); 
-       // assertEquals(image, category.getImage()); 
-       // assertEquals(desc, category.getDescription());  	   
+       assertNotNull(category.getProduct());
+       assertEquals(id, category.getId());  
+       assertEquals("meat", category.getName());  
+     	   
    }
 
     @Test
