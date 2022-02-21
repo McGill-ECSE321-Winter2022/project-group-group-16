@@ -10,7 +10,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 
 public interface GroceryStoreApplicationRepository extends CrudRepository<GroceryStoreApplication, String> {
 
-    GroceryStoreApplication findGroceryOrderById(int id);
+    GroceryStoreApplication findGroceryStoreApplicationById(int id);
     // GroceryStoreApplication finGroceryOrderByGroceryUser(GroceryUser user);
     // GroceryStoreApplication finGroceryOrderByProducet(Product product);
     // GroceryStoreApplication finGroceryOrderCategoryd(Category category);
@@ -18,6 +18,8 @@ public interface GroceryStoreApplicationRepository extends CrudRepository<Grocer
     // boolean existsByGroceryUserAndProduct(GroceryUser user, Product product);
     // boolean existsByGroceryUserAndGroceryOrder(GroceryUser user, GroceryOrder order);
     // boolean existsByCategroyAndGroceryOrder(Category category, GroceryOrder order);
+
+	
     
     
 }

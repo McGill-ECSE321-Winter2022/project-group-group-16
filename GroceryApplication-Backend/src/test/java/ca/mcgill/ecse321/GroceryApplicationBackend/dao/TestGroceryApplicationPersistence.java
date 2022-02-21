@@ -50,12 +50,23 @@ public class TestGroceryApplicationPersistence {
     @Autowired 
     PaymentRepository paymentRepository;
     
+
+    @Autowired
+    GroceryUserRepository groceryUserRepository;
+    
+    @Autowired   
+    ManagerRepository managerRepository;
+    
+   /* @Autowired    
+    CustomerRepository customerRepository;*/
+    
     
 
     @AfterEach
    public void clearDatabase() {
 //        // First, we clear registrations to avoid exceptions due to inconsistencies
 //        // Then we can clear the other tables
+     
        groceryOrderRepository.deleteAll();
        storeRepository.deleteAll();
        addressRepository.deleteAll();
@@ -64,6 +75,14 @@ public class TestGroceryApplicationPersistence {
        shiftRepository.deleteAll();
        employeeRepository.deleteAll();
        paymentRepository.deleteAll();
+       groceryUserRepository.deleteAll();
+       managerRepository.deleteAll();
+       /*customerRepository.deleteAll();*/
+       
+       
+       
+      
+
       
    }
 
@@ -355,20 +374,134 @@ public class TestGroceryApplicationPersistence {
     	gs.setId(95);
     	groceryStoreApplicationRepository.save(gs);
     	
-    	
     	Employee employee = new Employee();
     	employee.setId(1234567);
     	employee.setGroceryStoreApplication(gs);
     	employeeRepository.save(employee);
+ 
     	
     	employee = null;
+    
     	
     	employee = employeeRepository.findEmployeeById(1234567);
+    	
+    	
+    	
     	
     	assertNotNull(employee);
     	assertEquals(employee.getId(),1234567);
 
     }
+    
+    @Test
+    public void testPersistAndLoadGroceryUser() {
+    	
+    	
+    	GroceryUser user = new GroceryUser();
+    	user.setEmail("danny@gmail.com");
+    	
+    	groceryUserRepository.save(user);
+    	
+    	
+    	user = null;
+    	user = groceryUserRepository.findGroceryUserByEmail("danny@gmail.com");
+    	
+    	assertNotNull(user);
+    	assertEquals("danny@gmail.com", user.getEmail());
+    	
+    	
+    }
+    
+    @Test
+    public void testPersistAndLoadManagerViaName() {
+    	
+    	GroceryStoreApplication gs = new GroceryStoreApplication ();
+    	gs.setId(110);
+    	groceryStoreApplicationRepository.save(gs);
+    	
+    	
+    	Manager manager = new Manager();
+    	manager.setId(12345);
+    	manager.setGroceryStoreApplication(gs);
+    	managerRepository.save(manager);
+    	
+    	manager = null;
+    	
+    	manager = managerRepository.findManagerById(12345);
+    	
+    	assertNotNull(manager);
+    	assertEquals(12345,manager.getId());
+
+    }
+    
+    
+    @Test
+    public void testPersistAndLoadGroceryApplication() {
+    	
+    	GroceryStoreApplication gs = new GroceryStoreApplication ();
+    	gs.setId(120);
+    	groceryStoreApplicationRepository.save(gs);
+	
+    	gs = null;
+    	
+    	gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(120);
+    	assertNotNull(gs);
+    	assertEquals(120,gs.getId());
+    	
+    	
+    	
+    }
+    
+    /*@Test
+    public void testPersistAndLoadCustomer() {
+    	
+    	 GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
+         groceryStoreApplication.setId(183);
+         groceryStoreApplicationRepository.save(groceryStoreApplication);
+    	
+    	
+    	Customer customer = new Customer();
+    	customer.setId(123);
+    	customer.setGroceryStoreApplication(groceryStoreApplication);
+    	customerRepository.save(customer);
+    	
+        int id = 17;
+        String country = "Canada";
+        String province = "Quebec";
+        String city = "Montreal";
+        String postalCode = "H9S 1E1";
+        String streetName = "Dawson";
+
+        Address address = new Address();
+
+        address.setId(id);
+        address.setCountry(country);
+        address.setCity(city);
+        address.setPostalCode(postalCode);
+        address.setProvince(province);
+        address.setStreetName(streetName);
+        address.setCustomer(customer);
+        addressRepository.save(address);
+    	
+    	
+        customer = null;
+        address = null;
+        customer = customerRepository.findCustomberById(123);
+        address = customer.getAddress();
+        
+        assertNotNull(address);
+        assertNotNull(address.getCustomer());
+        assertNotNull(customer);
+        assertEquals(postalCode, address.getPostalCode());
+        assertEquals(streetName, address.getStreetName());
+        assertEquals(province, address.getProvince());
+        assertEquals(id, address.getId());
+        assertEquals(country, address.getCountry());
+        assertEquals(city, address.getCity());
+
+    }*/
+    
+    
     
     
     
