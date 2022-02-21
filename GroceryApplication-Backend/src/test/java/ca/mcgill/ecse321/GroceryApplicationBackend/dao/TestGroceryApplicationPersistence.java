@@ -47,6 +47,9 @@ public class TestGroceryApplicationPersistence {
     @Autowired 
     GroceryOrderRepository groceryOrderRepository;
     
+    @Autowired 
+    PaymentRepository paymentRepository;
+    
     
 
     @AfterEach
@@ -60,8 +63,7 @@ public class TestGroceryApplicationPersistence {
        categoryRepository.deleteAll();
        shiftRepository.deleteAll();
        employeeRepository.deleteAll();
-
-   //    paymentRepository.deleteAll();
+       paymentRepository.deleteAll();
       
    }
 
@@ -138,8 +140,9 @@ public class TestGroceryApplicationPersistence {
   
 
    	category = categoryRepository.findCategoryById(id);
+   	productSet = category.getProduct();
        assertNotNull(category);
-       assertNotNull(category.getProduct());
+       assertNotNull(productSet);
        assertEquals(id, category.getId());  
        assertEquals("meat", category.getName());  
      	   
@@ -179,7 +182,7 @@ public class TestGroceryApplicationPersistence {
         address = null;
         store=null;
         store = storeRepository.findStoreByName(storeName);
-        address = addressRepository.findAddressById(id);
+        address = store.getAddress();
         assertNotNull(address);
         assertNotNull(address.getStore());
         assertNotNull(store);   
@@ -237,7 +240,7 @@ public class TestGroceryApplicationPersistence {
     category = null;
     
     product = productRepository.findProductByBarcode(barCode);
-    category = categoryRepository.findCategoryById(11);
+    category = product.getCategory();
     assertNotNull(product);
     assertNotNull(product.getCategory());
     assertNotNull(category);
@@ -272,7 +275,7 @@ public class TestGroceryApplicationPersistence {
     	employee = null;
     	
     	shift = shiftRepository.findShiftById(111);
-    	employee = employeeRepository.findEmployeeById(123);
+    	employee = shift.getEmployee();
     	
     	assertNotNull(shift);
     	assertNotNull(employee);
@@ -307,19 +310,40 @@ public class TestGroceryApplicationPersistence {
     	address=null;
     	
     	order = groceryOrderRepository.findGroceryOrderById(999);
-    	address = addressRepository.findAddressById(808);
+    	address = order.getBillingAddress();
     	assertNotNull(order);
     	assertNotNull(address);
     	assertEquals(order.getCustomerNote(),"no nuts");
     	assertEquals(order.getBillingAddress().getId(),808);
+   	
+    }
+    
+    @Test
+    public void testPersistAndLoadPayment() {
     	
+       	GroceryStoreApplication gs = new GroceryStoreApplication ();
+    	gs.setId(90);
+    	groceryStoreApplicationRepository.save(gs);
     	
-
+    	GroceryOrder order = new GroceryOrder();
+    	order.setGroceryStoreApplication(gs);
+    	order.setId(666);
+    	groceryOrderRepository.save(order);
     	
+    	Payment payment = new Payment();
+    	payment.setId(59);
+    	payment.setPaymentCode("f4x");
+    	payment.setOrder(order);
+    	paymentRepository.save(payment);
     	
-    	
-    	
-    	
+    	payment = null;
+    	order=null;
+    	payment = paymentRepository.findPaymentById(59);
+    	order =  payment.getOrder();    	
+    	assertNotNull(payment);
+    	assertNotNull(order);
+    	assertEquals(payment.getId(),59);
+    	assertEquals(payment.getPaymentCode(),"f4x");
     	
     }
     
