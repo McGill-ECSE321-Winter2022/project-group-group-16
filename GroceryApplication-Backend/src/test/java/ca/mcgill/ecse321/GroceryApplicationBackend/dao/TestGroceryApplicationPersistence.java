@@ -347,5 +347,33 @@ public class TestGroceryApplicationPersistence {
     	
     }
     
+    
+    @Test
+    public void testPersistAndLoadEmployee() {
+    	
+    	GroceryStoreApplication gs = new GroceryStoreApplication ();
+    	gs.setId(95);
+    	groceryStoreApplicationRepository.save(gs);
+    	
+    	
+    	Employee employee = new Employee();
+    	employee.setId(1234567);
+    	employee.setGroceryStoreApplication(gs);
+    	employeeRepository.save(employee);
+    	
+    	employee = null;
+    	
+    	employee = employeeRepository.findEmployeeById(1234567);
+    	
+    	assertNotNull(employee);
+    	assertEquals(employee.getId(),1234567);
+
+    }
+    
+    
+    
+    
+    
+    
 
 }
