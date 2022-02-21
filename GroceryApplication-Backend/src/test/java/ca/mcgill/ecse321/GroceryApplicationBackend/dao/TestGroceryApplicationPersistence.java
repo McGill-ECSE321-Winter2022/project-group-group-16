@@ -36,10 +36,7 @@ public class TestGroceryApplicationPersistence {
     
     @Autowired 
     ProductRepository productRepository;
-    
-    
-    @Autowired 
-    StoreRepository StoreRepository;
+ 
     
     @Autowired 
     ShiftRepository shiftRepository;
@@ -47,17 +44,23 @@ public class TestGroceryApplicationPersistence {
     @Autowired 
     EmployeeRepository employeeRepository;
     
+    @Autowired 
+    GroceryOrderRepository groceryOrderRepository;
+    
     
 
     @AfterEach
    public void clearDatabase() {
 //        // First, we clear registrations to avoid exceptions due to inconsistencies
 //        // Then we can clear the other tables
+       groceryOrderRepository.deleteAll();
        storeRepository.deleteAll();
        addressRepository.deleteAll();
        productRepository.deleteAll();
        categoryRepository.deleteAll();
        shiftRepository.deleteAll();
+       employeeRepository.deleteAll();
+
    //    paymentRepository.deleteAll();
       
    }
@@ -154,7 +157,7 @@ public class TestGroceryApplicationPersistence {
         
         address = null;
         store=null;
-        store = StoreRepository.findStoreByName(storeName);
+        store = storeRepository.findStoreByName(storeName);
         address = addressRepository.findAddressById(id);
         assertNotNull(address);
         assertNotNull(address.getStore());
@@ -258,6 +261,43 @@ public class TestGroceryApplicationPersistence {
     	
     	
       	
+    	
+    	
+    }
+    @Test
+    public void testPersistAndLoadGroceryOrder() {
+      	GroceryStoreApplication gs = new GroceryStoreApplication ();
+    	gs.setId(011);
+    	groceryStoreApplicationRepository.save(gs);
+    	
+    	Address address = new Address();
+    	address.setId(808);
+    	addressRepository.save(address);
+    	
+    	
+    	GroceryOrder order = new GroceryOrder();
+    	order.setGroceryStoreApplication(gs);
+    	order.setId(999);
+    	order.setCustomerNote("no nuts");
+    	order.setBillingAddress(address);
+    	groceryOrderRepository.save(order);
+    	
+    	order=null;
+    	address=null;
+    	
+    	order = groceryOrderRepository.findGroceryOrderById(999);
+    	address = addressRepository.findAddressById(808);
+    	assertNotNull(order);
+    	assertNotNull(address);
+    	assertEquals(order.getCustomerNote(),"no nuts");
+    	assertEquals(order.getBillingAddress().getId(),808);
+    	
+    	
+
+    	
+    	
+    	
+    	
     	
     	
     }
