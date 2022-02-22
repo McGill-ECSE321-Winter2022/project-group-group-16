@@ -374,24 +374,27 @@ public class TestGroceryApplicationPersistence {
     	gs.setId(95);
     	groceryStoreApplicationRepository.save(gs);
     	
+    	GroceryUser gu = new GroceryUser();
+    	gu.setEmail("johnnysins@gmail.com");
+    	groceryUserRepository.save(gu);
+    	
     	Employee employee = new Employee();
     	employee.setId(1234567);
-    	
+    	employee.setUser(gu);
     	employee.setGroceryStoreApplication(gs);
     	employeeRepository.save(employee);
- 
     	
+    	gu=null;
     	employee = null;
-    
     	
     	employee = employeeRepository.findEmployeeById(1234567);
-    	
-    	
-    	
+    	gu = employee.getUser();
     	
     	assertNotNull(employee);
+    	assertNotNull(gu);
+    	assertNotNull(employee.getUser());
     	assertEquals(employee.getId(),1234567);
-
+    	assertEquals(employee.getUser().getEmail(),"johnnysins@gmail.com");
     }
     
     @Test
