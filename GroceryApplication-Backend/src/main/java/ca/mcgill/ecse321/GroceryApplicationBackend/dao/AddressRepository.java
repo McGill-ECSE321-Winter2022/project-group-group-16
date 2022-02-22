@@ -9,8 +9,28 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Store;
 
 public interface AddressRepository extends CrudRepository<Address, Integer>{
 
+	/**
+	 * Find address via address id
+	 * @param id
+	 * @return address (Address)
+	 *  
+	 *  
+	 *  */
+	
     Address findAddressById(int id);
+    
+    /**
+     * Find address via the city
+     *  @param city
+     *  @return address (Address)
+     *  
+     *  */
+    
+    
+    
     Address findAddressByCity(String city);
+    
+    
     // Address findAddressByCustomer(Customer customer);
     // Address findAddressByStore(Store store);
     // boolean existsByStoreAndCustomer(Customer customerName  ,Store Storename);

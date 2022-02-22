@@ -10,6 +10,14 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 
 public interface GroceryStoreApplicationRepository extends CrudRepository<GroceryStoreApplication, String> {
 
+	/**
+	 * Find GroceryStore Application via id
+	 * @param id
+	 * @return groceryStoreApplication(GroceryStoreApplication)
+	 *  
+	 *  
+	 *  */
+	
     GroceryStoreApplication findGroceryStoreApplicationById(int id);
     // GroceryStoreApplication finGroceryOrderByGroceryUser(GroceryUser user);
     // GroceryStoreApplication finGroceryOrderByProducet(Product product);

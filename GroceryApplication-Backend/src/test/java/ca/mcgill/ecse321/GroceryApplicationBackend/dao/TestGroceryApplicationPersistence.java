@@ -66,7 +66,7 @@ public class TestGroceryApplicationPersistence {
    public void clearDatabase() {
 //        // First, we clear registrations to avoid exceptions due to inconsistencies
 //        // Then we can clear the other tables
-     
+       //customerRepository.deleteAll();
        groceryOrderRepository.deleteAll();
        storeRepository.deleteAll();
        addressRepository.deleteAll();
@@ -77,7 +77,7 @@ public class TestGroceryApplicationPersistence {
        paymentRepository.deleteAll();
        groceryUserRepository.deleteAll();
        managerRepository.deleteAll();
-       /*customerRepository.deleteAll();*/
+       
        
        
        
@@ -376,6 +376,7 @@ public class TestGroceryApplicationPersistence {
     	
     	Employee employee = new Employee();
     	employee.setId(1234567);
+    	
     	employee.setGroceryStoreApplication(gs);
     	employeeRepository.save(employee);
  
@@ -413,11 +414,14 @@ public class TestGroceryApplicationPersistence {
     }
     
     @Test
-    public void testPersistAndLoadManagerViaName() {
+    public void testPersistAndLoadManager() {
     	
     	GroceryStoreApplication gs = new GroceryStoreApplication ();
     	gs.setId(110);
     	groceryStoreApplicationRepository.save(gs);
+    	
+    	
+    	
     	
     	
     	Manager manager = new Manager();
@@ -440,6 +444,7 @@ public class TestGroceryApplicationPersistence {
     	
     	GroceryStoreApplication gs = new GroceryStoreApplication ();
     	gs.setId(120);
+    	
     	groceryStoreApplicationRepository.save(gs);
 	
     	gs = null;
@@ -455,49 +460,25 @@ public class TestGroceryApplicationPersistence {
     /*@Test
     public void testPersistAndLoadCustomer() {
     	
-    	 GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
-         groceryStoreApplication.setId(183);
-         groceryStoreApplicationRepository.save(groceryStoreApplication);
+    	GroceryStoreApplication gs = new GroceryStoreApplication ();
+    	gs.setId(168);
+    	groceryStoreApplicationRepository.save(gs);
+    	
     	
     	
     	Customer customer = new Customer();
-    	customer.setId(123);
-    	customer.setGroceryStoreApplication(groceryStoreApplication);
+    	
+    	customer.setId(789);
+    	customer.setGroceryStoreApplication(gs);
     	customerRepository.save(customer);
     	
-        int id = 17;
-        String country = "Canada";
-        String province = "Quebec";
-        String city = "Montreal";
-        String postalCode = "H9S 1E1";
-        String streetName = "Dawson";
-
-        Address address = new Address();
-
-        address.setId(id);
-        address.setCountry(country);
-        address.setCity(city);
-        address.setPostalCode(postalCode);
-        address.setProvince(province);
-        address.setStreetName(streetName);
-        address.setCustomer(customer);
-        addressRepository.save(address);
+    	customer = null;
     	
+    	customer = customerRepository.findCustomberById(789);
     	
-        customer = null;
-        address = null;
-        customer = customerRepository.findCustomberById(123);
-        address = customer.getAddress();
-        
-        assertNotNull(address);
-        assertNotNull(address.getCustomer());
-        assertNotNull(customer);
-        assertEquals(postalCode, address.getPostalCode());
-        assertEquals(streetName, address.getStreetName());
-        assertEquals(province, address.getProvince());
-        assertEquals(id, address.getId());
-        assertEquals(country, address.getCountry());
-        assertEquals(city, address.getCity());
+    	assertNotNull(customer);
+    	assertEquals(789, customer.getId());
+
 
     }*/
     
