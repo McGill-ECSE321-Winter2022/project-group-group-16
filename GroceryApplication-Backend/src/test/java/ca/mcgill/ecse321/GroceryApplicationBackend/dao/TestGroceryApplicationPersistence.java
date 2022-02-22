@@ -57,8 +57,8 @@ public class TestGroceryApplicationPersistence {
     @Autowired   
     ManagerRepository managerRepository;
     
-   /* @Autowired    
-    CustomerRepository customerRepository;*/
+    @Autowired    
+    CustomerRepository customerRepository;
     
     
 
@@ -66,7 +66,7 @@ public class TestGroceryApplicationPersistence {
    public void clearDatabase() {
 //        // First, we clear registrations to avoid exceptions due to inconsistencies
 //        // Then we can clear the other tables
-       //customerRepository.deleteAll();
+       
        groceryOrderRepository.deleteAll();
        storeRepository.deleteAll();
        addressRepository.deleteAll();
@@ -77,7 +77,7 @@ public class TestGroceryApplicationPersistence {
        paymentRepository.deleteAll();
        groceryUserRepository.deleteAll();
        managerRepository.deleteAll();
-       
+       customerRepository.deleteAll();
        
        
        
@@ -225,10 +225,7 @@ public class TestGroceryApplicationPersistence {
     boolean refund = false;
     float volume = 20f;
     int quantity = 30;
-   
-    
-    
-    
+
     GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
     groceryStoreApplication.setId(90);
     groceryStoreApplicationRepository.save(groceryStoreApplication);
@@ -237,8 +234,6 @@ public class TestGroceryApplicationPersistence {
     category.setGroceryStoreApplication(groceryStoreApplication);
     category.setId(11);
     categoryRepository.save(category);
-    
-    
     
     Product  product = new Product();
     product.setGroceryStoreApplication(groceryStoreApplication);
@@ -365,8 +360,7 @@ public class TestGroceryApplicationPersistence {
     	assertEquals(payment.getPaymentCode(),"f4x");
     	
     }
-    
-    
+       
     @Test
     public void testPersistAndLoadEmployee() {
     	
@@ -400,12 +394,15 @@ public class TestGroceryApplicationPersistence {
     @Test
     public void testPersistAndLoadGroceryUser() {
     	
+    	Set <UserRole> userSet = new HashSet();
+    	
     	
     	GroceryUser user = new GroceryUser();
     	user.setEmail("danny@gmail.com");
-    	
     	groceryUserRepository.save(user);
     	
+    	Employee employee = new Employee();   	
+    	userSet.add(employee);
     	
     	user = null;
     	user = groceryUserRepository.findGroceryUserByEmail("danny@gmail.com");
@@ -422,10 +419,7 @@ public class TestGroceryApplicationPersistence {
     	GroceryStoreApplication gs = new GroceryStoreApplication ();
     	gs.setId(110);
     	groceryStoreApplicationRepository.save(gs);
-    	
-    	
-    	
-    	
+
     	
     	Manager manager = new Manager();
     	manager.setId(12345);
@@ -440,8 +434,7 @@ public class TestGroceryApplicationPersistence {
     	assertEquals(12345,manager.getId());
 
     }
-    
-    
+      
     @Test
     public void testPersistAndLoadGroceryApplication() {
     	
@@ -460,30 +453,41 @@ public class TestGroceryApplicationPersistence {
     	
     }
     
-    /*@Test
+    @Test
     public void testPersistAndLoadCustomer() {
     	
     	GroceryStoreApplication gs = new GroceryStoreApplication ();
-    	gs.setId(168);
-    	groceryStoreApplicationRepository.save(gs);
-    	
-    	
-    	
-    	Customer customer = new Customer();
-    	
-    	customer.setId(789);
-    	customer.setGroceryStoreApplication(gs);
-    	customerRepository.save(customer);
-    	
-    	customer = null;
-    	
-    	customer = customerRepository.findCustomberById(789);
-    	
-    	assertNotNull(customer);
-    	assertEquals(789, customer.getId());
+        gs.setId(195);
+        groceryStoreApplicationRepository.save(gs);
 
+        GroceryUser gu = new GroceryUser();
+        gu.setEmail("johnnysin@gmail.com");
 
-    }*/
+        groceryUserRepository.save(gu);
+
+        Address address = new Address();
+        address.setId(245);
+        addressRepository.save(address);
+
+        Customer customer = new Customer();
+        customer.setId(12);
+        customer.setUser(gu);
+        customer.setAddress(address);
+        customer.setGroceryStoreApplication(gs);
+        customerRepository.save(customer);
+
+        gu=null;
+        customer = null;
+
+        customer = customerRepository.findCustomberById(12);
+        gu = customer.getUser();
+
+        assertNotNull(customer);
+        assertNotNull(gu);
+        assertNotNull(customer.getUser());
+        assertEquals(customer.getId(),12);
+        assertEquals(customer.getUser().getEmail(),"johnnysin@gmail.com");
+    }
     
     
     
