@@ -67,7 +67,8 @@ public class Store {
         return this.weekEndClosing;
     }
 
-    @OneToOne(mappedBy = "store", cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL}, optional = false)
+    @JoinColumn(name = "addr_id", referencedColumnName = "id")
     public Address getAddress() {
         return this.address;
     }

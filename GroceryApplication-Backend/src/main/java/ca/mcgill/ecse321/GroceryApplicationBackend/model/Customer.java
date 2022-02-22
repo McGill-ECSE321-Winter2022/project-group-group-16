@@ -8,7 +8,8 @@ public class Customer extends UserRole {
     // associations
     private Address address;
 
-    @OneToOne(mappedBy = "customer", cascade = {CascadeType.ALL}, optional = false)
+    @OneToOne(cascade = {CascadeType.ALL}, optional = false)
+    @JoinColumn(name = "addr_id", referencedColumnName = "id")
     public Address getAddress() {
         return this.address;
     }
