@@ -24,11 +24,11 @@ Team Roles:
 
 Individual efforts (in hours)
 
-| Team's Member Name | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Project Management and Project Report |
-|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|
-| Michelle Lee        | 2       | 4         | 3               | 10           | 0              | 10   |
-| Arturo Mory Ramirez | 2       | 2         | 10              | 18           | 0              | 0    |
-| Danny Tu            | 2       | 2         | 10              | 18           | 0              | 5    |
-| Yoah Qiu            | 5       | 2         | 3               | 5            | 0              | 0    |
-| Jian Long Ye (Noah) | 2       | 2         | 10              | 18           | 0              | 0    |
-| Yazdan Zinati       | 2       | 4         | 5               | 15           | 0              | 0    |
+| Team's Member Name | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Project Management and Project Report | Total |
+|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|--------------|
+| Michelle Lee        | 0.5       | 3           | 1               | 5            | 0              | 4    | 13.5 |
+| Arturo Mory Ramirez | 0.5       | 0.5         | 2               | 10           | 0              | 0    | 13   |
+| Danny Tu            | 0.5       | 0.5         | 2               | 10           | 0              | 2    | 13   |
+| Yoah Qiu            | 3         | 0.5         | 2               | 4            | 0              | 0    | 9.5  |
+| Jian Long Ye (Noah) | 0.5       | 0.5         | 2               | 10           | 0              | 0    | 13   |
+| Yazdan Zinati       | 0.5       | 3           | 3               | 5            | 2              | 0    | 13.5 |
