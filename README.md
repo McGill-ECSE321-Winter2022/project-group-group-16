@@ -4,7 +4,7 @@ Grocery Store Application
 
 The goal of this project is to develop an online software application that supports the needs of a local grocery store and its customers. Customers are able to create online accounts that lets them browse, purchase and order available items on the grocery store. The system also lets the owner manage general aspects of the employees, such as their status (active, banned, quit), their hourly pay, as well as their shifts and the date that they were hired. 
 
-Team Members : Michelle Lee, Arturo Mory Ramirez, Yoah Qiu, Danny Tu, Jian Long Ye (Noah), Yazdan Zinati <br/>
+Team Members : Michelle Lee, Arturo Mory Ramirez, Yoah Qiu, Danny Tu, Jian Long Ye (Noah), Yazdan Seyed Zinati <br/>
 
 ### Check our [Wiki!](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki)
 ## Project Deliverable 1
@@ -26,9 +26,9 @@ Individual efforts (in hours)
 
 | Team's Member Name | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Project Management and Project Report | Total |
 |---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|--------------|
-| Michelle Lee        | 0.5       | 3           | 1               | 5            | 0              | 4    | 13.5 |
-| Arturo Mory Ramirez | 0.5       | 0.5         | 2               | 10           | 0              | 0    | 13   |
-| Danny Tu            | 0.5       | 0.5         | 2               | 10           | 0              | 2    | 13   |
-| Yoah Qiu            | 3         | 0.5         | 2               | 4            | 0              | 0    | 9.5  |
-| Jian Long Ye (Noah) | 0.5       | 0.5         | 2               | 10           | 0              | 0    | 13   |
-| Yazdan Zinati       | 0.5       | 3           | 3               | 5            | 2              | 0    | 13.5 |
+| Michelle  | 0.5       | 3           | 1               | 5            | 0              | 4    | 13.5 |
+| Arturo    | 0.5       | 0.5         | 2               | 10           | 0              | 0    | 13   |
+| Danny     | 0.5       | 0.5         | 2               | 10           | 0              | 2    | 13   |
+| Yoah      | 3         | 0.5         | 2               | 4            | 0              | 0    | 9.5  |
+| Noah      | 0.5       | 0.5         | 2               | 10           | 0              | 0    | 13   |
+| Yazdan    | 0.5       | 3           | 3               | 5            | 2              | 0    | 13.5 |
