@@ -1,4 +1,4 @@
-package mcgill.ecse321.GroceryApplicationBackend.model;
+package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -70,7 +70,7 @@ public class Address {
         return this.province;
     }
 
-    @OneToOne
+    @OneToOne(mappedBy = "address")
     public Customer getCustomer() {
         return this.customer;
     }
@@ -79,7 +79,7 @@ public class Address {
         this.customer = customer;
     }
 
-    @OneToOne
+    @OneToOne(mappedBy = "address")
     public Store getStore() {
         return this.store;
     }

@@ -1,4 +1,4 @@
-package mcgill.ecse321.GroceryApplicationBackend.model;
+package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.Entity;
 import java.sql.Date;

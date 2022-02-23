@@ -1,4 +1,4 @@
-package mcgill.ecse321.GroceryApplicationBackend.model;
+package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -89,11 +89,11 @@ public class Product {
         return this.volume;
     }
 
-    private void setAvailability(Availability value) {
+    public void setAvailability(Availability value) {
         this.availability = value;
     }
 
-    private Availability getAvailability() {
+    public Availability getAvailability() {
         return this.availability;
     }
 

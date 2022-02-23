@@ -1,4 +1,4 @@
-package mcgill.ecse321.GroceryApplicationBackend.model;
+package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -25,11 +25,11 @@ public class Shift {
     // associations
     private Employee employee;
 
-    private void setDay(Day value) {
+    public void setDay(Day value) {
         this.day = value;
     }
 
-    private Day getDay() {
+    public Day getDay() {
         return this.day;
     }
 

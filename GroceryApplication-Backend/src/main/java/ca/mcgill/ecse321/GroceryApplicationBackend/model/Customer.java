@@ -1,4 +1,4 @@
-package mcgill.ecse321.GroceryApplicationBackend.model;
+package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -8,7 +8,8 @@ public class Customer extends UserRole {
     // associations
     private Address address;
 
-    @OneToOne(mappedBy = "customer", cascade = {CascadeType.ALL}, optional = false)
+    @OneToOne(cascade = {CascadeType.ALL}, optional = false)
+    @JoinColumn(name = "addr_id", referencedColumnName = "id")
     public Address getAddress() {
         return this.address;
     }
