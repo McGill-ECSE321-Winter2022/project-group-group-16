@@ -26,40 +26,36 @@ public class GroceryUser {
         this.userRole = userRoles;
     }
 
-    public void setUsername(String value) {
-        this.username = value;
-    }
-
     public String getUsername() {
         return this.username;
     }
 
-    public void setPassword(String value) {
-        this.password = value;
+    public void setUsername(String value) {
+        this.username = value;
     }
 
     public String getPassword() {
         return this.password;
     }
 
-    public void setFirstName(String value) {
-        this.firstName = value;
+    public void setPassword(String value) {
+        this.password = value;
     }
 
     public String getFirstName() {
         return this.firstName;
     }
 
-    public void setLastName(String value) {
-        this.lastName = value;
+    public void setFirstName(String value) {
+        this.firstName = value;
     }
 
     public String getLastName() {
         return this.lastName;
     }
 
-    public void setEmail(String value) {
-        this.email = value;
+    public void setLastName(String value) {
+        this.lastName = value;
     }
 
     @Id
@@ -67,11 +63,15 @@ public class GroceryUser {
         return this.email;
     }
 
-    public void setDateOfBirth(String value) {
-        this.dateOfBirth = value;
+    public void setEmail(String value) {
+        this.email = value;
     }
 
     public String getDateOfBirth() {
         return this.dateOfBirth;
+    }
+
+    public void setDateOfBirth(String value) {
+        this.dateOfBirth = value;
     }
 }

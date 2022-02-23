@@ -1,11 +1,10 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import javax.persistence.Entity;
-import java.util.Set;
 import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -28,38 +27,37 @@ public class Category {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    public void setName(String value) {
-        this.name = value;
-    }
-
     public String getName() {
         return this.name;
     }
 
-    public void setDescription(String value) {
-        this.description = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
     public String getDescription() {
         return this.description;
     }
 
-
-    public void setImage(String value) {
-        this.image = value;
+    public void setDescription(String value) {
+        this.description = value;
     }
 
     public String getImage() {
         return this.image;
     }
 
-    public void setId(int value) {
-        this.id = value;
+    public void setImage(String value) {
+        this.image = value;
     }
 
     @Id
     public int getId() {
         return this.id;
+    }
+
+    public void setId(int value) {
+        this.id = value;
     }
 
     @OneToMany(mappedBy = "category")

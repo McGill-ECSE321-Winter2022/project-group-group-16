@@ -61,12 +61,12 @@ public class GroceryStoreApplication {
         this.category = categorys;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Id
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

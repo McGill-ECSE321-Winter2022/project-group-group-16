@@ -23,11 +23,6 @@ public class Product {
     private Set<GroceryOrder> order;
     private GroceryStoreApplication groceryStoreApplication;
 
-    // enums
-    public enum Availability {
-        PICKUP, IN_STORE, DELIVERY, UNRESTRICTED
-    }
-
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
         return this.groceryStoreApplication;
@@ -37,69 +32,60 @@ public class Product {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    public void setName(String value) {
-        this.name = value;
-    }
-
     public String getName() {
         return this.name;
     }
 
-
-    public void setDescription(String value) {
-        this.description = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
     public String getDescription() {
         return this.description;
     }
 
-
-    public void setPrice(float value) {
-        this.price = value;
+    public void setDescription(String value) {
+        this.description = value;
     }
 
     public float getPrice() {
         return this.price;
     }
 
-    public void setImage(String value) {
-        this.image = value;
+    public void setPrice(float value) {
+        this.price = value;
     }
 
     public String getImage() {
         return this.image;
     }
 
-
-    public void setWeight(float value) {
-        this.weight = value;
+    public void setImage(String value) {
+        this.image = value;
     }
 
     public float getWeight() {
         return this.weight;
     }
 
-
-    public void setVolume(float value) {
-        this.volume = value;
+    public void setWeight(float value) {
+        this.weight = value;
     }
 
     public float getVolume() {
         return this.volume;
     }
 
-    public void setAvailability(Availability value) {
-        this.availability = value;
+    public void setVolume(float value) {
+        this.volume = value;
     }
 
     public Availability getAvailability() {
         return this.availability;
     }
 
-
-    public void setBarcode(int value) {
-        this.barcode = value;
+    public void setAvailability(Availability value) {
+        this.availability = value;
     }
 
     @Id
@@ -107,22 +93,24 @@ public class Product {
         return this.barcode;
     }
 
-
-    public void setIsRefundable(boolean value) {
-        this.isRefundable = value;
+    public void setBarcode(int value) {
+        this.barcode = value;
     }
 
     public boolean isIsRefundable() {
         return this.isRefundable;
     }
 
-
-    public void setAvailableQuantity(int value) {
-        this.availableQuantity = value;
+    public void setIsRefundable(boolean value) {
+        this.isRefundable = value;
     }
 
     public int getAvailableQuantity() {
         return this.availableQuantity;
+    }
+
+    public void setAvailableQuantity(int value) {
+        this.availableQuantity = value;
     }
 
     @ManyToOne(optional = false)
@@ -141,6 +129,11 @@ public class Product {
 
     public void setOrder(Set<GroceryOrder> orders) {
         this.order = orders;
+    }
+
+    // enums
+    public enum Availability {
+        PICKUP, IN_STORE, DELIVERY, UNRESTRICTED
     }
 
 }

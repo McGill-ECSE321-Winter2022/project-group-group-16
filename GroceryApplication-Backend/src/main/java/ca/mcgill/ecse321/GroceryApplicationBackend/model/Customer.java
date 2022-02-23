@@ -7,6 +7,7 @@ import java.util.Set;
 public class Customer extends UserRole {
     // associations
     private Address address;
+    private Set<GroceryOrder> order;
 
     @OneToOne(cascade = {CascadeType.ALL}, optional = false)
     @JoinColumn(name = "addr_id", referencedColumnName = "id")
@@ -17,8 +18,6 @@ public class Customer extends UserRole {
     public void setAddress(Address address) {
         this.address = address;
     }
-
-    private Set<GroceryOrder> order;
 
     @OneToMany(mappedBy = "customer")
     public Set<GroceryOrder> getOrder() {

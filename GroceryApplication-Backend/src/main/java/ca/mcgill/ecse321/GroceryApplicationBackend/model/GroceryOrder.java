@@ -6,14 +6,6 @@ import java.util.Set;
 
 @Entity
 public class GroceryOrder {
-    public enum PurchaseType {
-        INSTORE, ONLINE
-    }
-
-    public enum OrderStatus {
-        INCART, PLACED, READY_FOR_PICKUP, PICKED_UP, SHIPPED, DELIVERED, CANCELLED, PURCHASED_IN_STORE
-    }
-
     // attributes
     @Enumerated
     private OrderStatus status;
@@ -24,7 +16,6 @@ public class GroceryOrder {
     @Enumerated
     private PurchaseType purchaseType;
     private Payment payment;
-
     // associations
     private GroceryStoreApplication groceryStoreApplication;
     private Set<Product> product;
@@ -41,16 +32,12 @@ public class GroceryOrder {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    public void setStatus(OrderStatus value) {
-        this.status = value;
-    }
-
     private OrderStatus getStatus() {
         return this.status;
     }
 
-    public void setId(int value) {
-        this.id = value;
+    public void setStatus(OrderStatus value) {
+        this.status = value;
     }
 
     @Id
@@ -58,36 +45,40 @@ public class GroceryOrder {
         return this.id;
     }
 
-    public void setDatePlaced(Date value) {
-        this.datePlaced = value;
+    public void setId(int value) {
+        this.id = value;
     }
 
     public Date getDatePlaced() {
         return this.datePlaced;
     }
 
-    public void setDeliveryDate(Date value) {
-        this.deliveryDate = value;
+    public void setDatePlaced(Date value) {
+        this.datePlaced = value;
     }
 
     public Date getDeliveryDate() {
         return this.deliveryDate;
     }
 
-    public void setCustomerNote(String value) {
-        this.customerNote = value;
+    public void setDeliveryDate(Date value) {
+        this.deliveryDate = value;
     }
 
     public String getCustomerNote() {
         return this.customerNote;
     }
 
-    public void setPurchaseType(PurchaseType value) {
-        this.purchaseType = value;
+    public void setCustomerNote(String value) {
+        this.customerNote = value;
     }
 
     private PurchaseType getPurchaseType() {
         return this.purchaseType;
+    }
+
+    public void setPurchaseType(PurchaseType value) {
+        this.purchaseType = value;
     }
 
     @ManyToOne
@@ -133,6 +124,14 @@ public class GroceryOrder {
 
     public void setProduct(Set<Product> products) {
         this.product = products;
+    }
+
+    public enum PurchaseType {
+        INSTORE, ONLINE
+    }
+
+    public enum OrderStatus {
+        INCART, PLACED, READY_FOR_PICKUP, PICKED_UP, SHIPPED, DELIVERED, CANCELLED, PURCHASED_IN_STORE
     }
 
 }

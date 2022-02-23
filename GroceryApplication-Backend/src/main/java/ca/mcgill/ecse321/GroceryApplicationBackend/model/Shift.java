@@ -7,30 +7,20 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Shift {
-    // enums
-    public enum ShiftType {
-        OPENING, CLOSING
-    }
-
-    public enum Day {
-        MONDAY, THUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
-    }
-
     // attributes
     private Day day;
     private int id;
     @Enumerated
     private ShiftType shift;
-
     // associations
     private Employee employee;
 
-    public void setDay(Day value) {
-        this.day = value;
-    }
-
     public Day getDay() {
         return this.day;
+    }
+
+    public void setDay(Day value) {
+        this.day = value;
     }
 
     @ManyToOne(optional = false)
@@ -42,22 +32,30 @@ public class Shift {
         this.employee = employee;
     }
 
+    public ShiftType getShift() {
+        return this.shift;
+    }
 
     public void setShift(ShiftType value) {
         this.shift = value;
     }
 
-    public ShiftType getShift() {
-        return this.shift;
+    @Id
+    public int getId() {
+        return this.id;
     }
 
     public void setId(int value) {
         this.id = value;
     }
 
-    @Id
-    public int getId() {
-        return this.id;
+    // enums
+    public enum ShiftType {
+        OPENING, CLOSING
+    }
+
+    public enum Day {
+        MONDAY, THUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 
 }

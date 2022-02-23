@@ -30,12 +30,12 @@ public abstract class UserRole {
         this.user = user;
     }
 
-    public void setId(int value) {
-        this.id = value;
-    }
-
     @Id
     public int getId() {
         return this.id;
+    }
+
+    public void setId(int value) {
+        this.id = value;
     }
 }

@@ -1,11 +1,11 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.Entity;
-import java.sql.Date;
-import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
+import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class Employee extends UserRole {
@@ -18,28 +18,28 @@ public class Employee extends UserRole {
     // associations
     private Set<Shift> shift;
 
-    public void setHiredDate(Date value) {
-        this.hiredDate = value;
-    }
-
     public Date getHiredDate() {
         return this.hiredDate;
     }
 
-    public void setHourlyPay(float value) {
-        this.hourlyPay = value;
+    public void setHiredDate(Date value) {
+        this.hiredDate = value;
     }
 
     public float getHourlyPay() {
         return this.hourlyPay;
     }
 
-    public void setStatus(EmployeeStatus value) {
-        this.status = value;
+    public void setHourlyPay(float value) {
+        this.hourlyPay = value;
     }
 
     public EmployeeStatus getStatus() {
         return this.status;
+    }
+
+    public void setStatus(EmployeeStatus value) {
+        this.status = value;
     }
 
     @OneToMany(mappedBy = "employee", cascade = {CascadeType.ALL})

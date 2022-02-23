@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.Set;
 
 @Entity
@@ -17,57 +20,55 @@ public class Address {
     // associations
     private Set<GroceryOrder> order1;
     private Set<GroceryOrder> order;
-
-    public void setStreetNumber(int value) {
-        this.streetNumber = value;
-    }
+    private String country;
+    private String postalCode;
 
     public int getStreetNumber() {
         return this.streetNumber;
     }
 
-    public void setStreetName(String value) {
-        this.streetName = value;
+    public void setStreetNumber(int value) {
+        this.streetNumber = value;
     }
 
     public String getStreetName() {
         return this.streetName;
     }
 
-    public void setCity(String value) {
-        this.city = value;
+    public void setStreetName(String value) {
+        this.streetName = value;
     }
 
     public String getCity() {
         return this.city;
     }
 
-    private String country;
-
-    public void setCountry(String value) {
-        this.country = value;
+    public void setCity(String value) {
+        this.city = value;
     }
 
     public String getCountry() {
         return this.country;
     }
 
-    private String postalCode;
-
-    public void setPostalCode(String value) {
-        this.postalCode = value;
+    public void setCountry(String value) {
+        this.country = value;
     }
 
     public String getPostalCode() {
         return this.postalCode;
     }
 
-    public void setProvince(String value) {
-        this.province = value;
+    public void setPostalCode(String value) {
+        this.postalCode = value;
     }
 
     public String getProvince() {
         return this.province;
+    }
+
+    public void setProvince(String value) {
+        this.province = value;
     }
 
     @OneToOne(mappedBy = "address")
@@ -107,12 +108,12 @@ public class Address {
         this.order1 = order1s;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Id
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

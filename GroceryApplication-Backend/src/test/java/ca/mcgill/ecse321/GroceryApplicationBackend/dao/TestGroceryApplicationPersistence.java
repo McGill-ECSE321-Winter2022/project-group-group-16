@@ -1,11 +1,8 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.HashSet;
-import java.util.Set;
-
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Shift.Day;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Shift.Day;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @ExtendWith(SpringExtension.class)
@@ -79,6 +78,8 @@ public class TestGroceryApplicationPersistence {
 
     @Test
     public void testPersistAndLoadStore() {
+        //create a grocery store application
+        //mandatory to create for a store to exist
         GroceryStoreApplication gs = new GroceryStoreApplication();
         gs.setId(66);
         groceryStoreApplicationRepository.save(gs);
@@ -95,9 +96,6 @@ public class TestGroceryApplicationPersistence {
         store.setName(name);
         storeRepository.save(store);
 
-        address = null;
-        store = null;
-
         store = storeRepository.findStoreByName(name);
         address = addressRepository.findAddressById(id);
         assertNotNull(store);
@@ -112,19 +110,17 @@ public class TestGroceryApplicationPersistence {
     public void testPersistAndLoadCategory() {
 
         Set<Product> productSet = new HashSet();
-
+        //create a grocery store application
+        //mandatory to create for a store to exist
         GroceryStoreApplication gs = new GroceryStoreApplication();
         gs.setId(66);
         groceryStoreApplicationRepository.save(gs);
 
 
         int id = 11;
-        // String name = "perishable";
-        // String image = "image";
-        // String desc = "desc";
+
         Category category = new Category();
         category.setId(id);
-        // category.setName(name);
         category.setGroceryStoreApplication(gs);
         category.setName("meat");
         categoryRepository.save(category);
@@ -145,8 +141,6 @@ public class TestGroceryApplicationPersistence {
         productSet.add(product1);
         category.setProduct(productSet);
 
-        category = null;
-
 
         category = categoryRepository.findCategoryById(id);
         productSet = category.getProduct();
@@ -159,7 +153,8 @@ public class TestGroceryApplicationPersistence {
 
     @Test
     public void testPersistAndLoadAddress() {
-
+        //create a grocery store application
+        //mandatory to create for a store to exist
         GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
         groceryStoreApplication.setId(90);
         groceryStoreApplicationRepository.save(groceryStoreApplication);
@@ -189,8 +184,6 @@ public class TestGroceryApplicationPersistence {
         storeRepository.save(store);
         addressRepository.save(address);
 
-        address = null;
-        store = null;
         store = storeRepository.findStoreByName(storeName);
         address = store.getAddress();
         assertNotNull(address);
@@ -216,7 +209,8 @@ public class TestGroceryApplicationPersistence {
         boolean refund = false;
         float volume = 20f;
         int quantity = 30;
-
+        //create a grocery store application
+        //mandatory to create for a store to exist
         GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
         groceryStoreApplication.setId(90);
         groceryStoreApplicationRepository.save(groceryStoreApplication);
@@ -241,9 +235,6 @@ public class TestGroceryApplicationPersistence {
         product.setAvailability(Availability.DELIVERY);
         productRepository.save(product);
 
-        product = null;
-        category = null;
-
         product = productRepository.findProductByBarcode(barCode);
         category = product.getCategory();
         assertNotNull(product);
@@ -258,7 +249,8 @@ public class TestGroceryApplicationPersistence {
 
     @Test
     public void testPersistAndLoadShift() {
-
+        //create a grocery store application
+        //mandatory to create for a store to exist
         GroceryStoreApplication gs = new GroceryStoreApplication();
         gs.setId(222);
         groceryStoreApplicationRepository.save(gs);
@@ -275,8 +267,6 @@ public class TestGroceryApplicationPersistence {
         shift.setEmployee(employee);
         shiftRepository.save(shift);
 
-        shift = null;
-        employee = null;
 
         shift = shiftRepository.findShiftById(111);
         employee = shift.getEmployee();
@@ -292,6 +282,8 @@ public class TestGroceryApplicationPersistence {
 
     @Test
     public void testPersistAndLoadGroceryOrder() {
+        //create a grocery store application
+        //mandatory to create for a store to exist
         GroceryStoreApplication gs = new GroceryStoreApplication();
         gs.setId(011);
         groceryStoreApplicationRepository.save(gs);
@@ -308,9 +300,6 @@ public class TestGroceryApplicationPersistence {
         order.setBillingAddress(address);
         groceryOrderRepository.save(order);
 
-        order = null;
-        address = null;
-
         order = groceryOrderRepository.findGroceryOrderById(999);
         address = order.getBillingAddress();
         assertNotNull(order);
@@ -322,7 +311,8 @@ public class TestGroceryApplicationPersistence {
 
     @Test
     public void testPersistAndLoadPayment() {
-
+        //create a grocery store application
+        //mandatory to create for a store to exist
         GroceryStoreApplication gs = new GroceryStoreApplication();
         gs.setId(90);
         groceryStoreApplicationRepository.save(gs);
@@ -338,8 +328,6 @@ public class TestGroceryApplicationPersistence {
         payment.setOrder(order);
         paymentRepository.save(payment);
 
-        payment = null;
-        order = null;
         payment = paymentRepository.findPaymentById(59);
         order = payment.getOrder();
         assertNotNull(payment);
@@ -366,9 +354,6 @@ public class TestGroceryApplicationPersistence {
         employee.setGroceryStoreApplication(gs);
         employeeRepository.save(employee);
 
-        gu = null;
-        employee = null;
-
         employee = employeeRepository.findEmployeeById(1234567);
         gu = employee.getUser();
 
@@ -382,7 +367,7 @@ public class TestGroceryApplicationPersistence {
     @Test
     public void testPersistAndLoadGroceryUser() {
         Set<UserRole> roleSet = new HashSet<>();
-        GroceryStoreApplication gs = new GroceryStoreApplication ();
+        GroceryStoreApplication gs = new GroceryStoreApplication();
         gs.setId(95);
         groceryStoreApplicationRepository.save(gs);
 
@@ -429,8 +414,6 @@ public class TestGroceryApplicationPersistence {
         manager.setId(12345);
         manager.setGroceryStoreApplication(gs);
         managerRepository.save(manager);
-
-        manager = null;
 
         manager = managerRepository.findManagerById(12345);
 
@@ -479,10 +462,7 @@ public class TestGroceryApplicationPersistence {
         customer.setGroceryStoreApplication(gs);
         customerRepository.save(customer);
 
-        gu = null;
-        customer = null;
-
-        customer = customerRepository.findCustomberById(12);
+        customer = customerRepository.findCustomerById(12);
         gu = customer.getUser();
 
         assertNotNull(customer);
