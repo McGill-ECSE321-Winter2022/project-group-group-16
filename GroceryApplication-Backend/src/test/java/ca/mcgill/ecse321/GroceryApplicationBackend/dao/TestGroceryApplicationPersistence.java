@@ -63,22 +63,18 @@ public class TestGroceryApplicationPersistence {
 
     @AfterEach
     public void clearDatabase() {
-//        // First, we clear registrations to avoid exceptions due to inconsistencies
-//        // Then we can clear the other tables
-
-//       groceryOrderRepository.deleteAll();
-//       storeRepository.deleteAll();
-//       addressRepository.deleteAll();
-//       productRepository.deleteAll();
-//       categoryRepository.deleteAll();
-//       shiftRepository.deleteAll();
-//       employeeRepository.deleteAll();
-//       paymentRepository.deleteAll();
-//       groceryUserRepository.deleteAll();
-//       managerRepository.deleteAll();
-//       customerRepository.deleteAll();
-
-
+        managerRepository.deleteAll();
+        shiftRepository.deleteAll();
+        storeRepository.deleteAll();
+        paymentRepository.deleteAll();
+        groceryOrderRepository.deleteAll();
+        productRepository.deleteAll();
+        categoryRepository.deleteAll();
+        employeeRepository.deleteAll();
+        customerRepository.deleteAll();
+        groceryUserRepository.deleteAll();
+        addressRepository.deleteAll();
+        groceryStoreApplicationRepository.deleteAll();
     }
 
     @Test
@@ -385,24 +381,40 @@ public class TestGroceryApplicationPersistence {
 
     @Test
     public void testPersistAndLoadGroceryUser() {
+        Set<UserRole> roleSet = new HashSet<>();
+        GroceryStoreApplication gs = new GroceryStoreApplication ();
+        gs.setId(95);
+        groceryStoreApplicationRepository.save(gs);
 
-        Set<UserRole> userSet = new HashSet();
+        GroceryUser gu = new GroceryUser();
+        gu.setEmail("johnnysins@gmail.com");
+        groceryUserRepository.save(gu);
 
+        Employee employee1 = new Employee();
+        employee1.setId(1234567111);
+        employee1.setGroceryStoreApplication(gs);
+        employee1.setUser(gu);
+        employeeRepository.save(employee1);
+
+        Employee employee2 = new Employee();
+        employee2.setId(12343111);
+        employee2.setGroceryStoreApplication(gs);
+        employee2.setUser(gu);
+        employeeRepository.save(employee2);
+
+        roleSet.add(employee2);
+        roleSet.add(employee1);
 
         GroceryUser user = new GroceryUser();
         user.setEmail("danny@gmail.com");
+        user.setUserRole(roleSet);
         groceryUserRepository.save(user);
 
-        Employee employee = new Employee();
-        userSet.add(employee);
-
-        user = null;
+        Set<UserRole> userRoleSet = user.getUserRole();
         user = groceryUserRepository.findGroceryUserByEmail("danny@gmail.com");
-
         assertNotNull(user);
         assertEquals("danny@gmail.com", user.getEmail());
-
-
+        assertNotNull(userRoleSet);
     }
 
     @Test
