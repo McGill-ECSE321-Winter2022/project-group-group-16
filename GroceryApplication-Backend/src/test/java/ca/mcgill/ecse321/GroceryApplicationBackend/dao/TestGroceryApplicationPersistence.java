@@ -409,17 +409,29 @@ public class TestGroceryApplicationPersistence {
         gs.setId(110);
         groceryStoreApplicationRepository.save(gs);
 
+        String userEmail = "user@email.com";
+        GroceryUser user = new GroceryUser();
+        user.setEmail(userEmail);
+        groceryUserRepository.save(user);
+
 
         Manager manager = new Manager();
         manager.setId(12345);
         manager.setGroceryStoreApplication(gs);
+        manager.setUser(user);
         managerRepository.save(manager);
 
         manager = managerRepository.findManagerById(12345);
 
+        // entity
         assertNotNull(manager);
+
+        // attribute
         assertEquals(12345, manager.getId());
 
+        //relation
+        assertNotNull(manager.getUser());
+        assertEquals(manager.getUser().getEmail(), userEmail);
     }
 
     @Test
