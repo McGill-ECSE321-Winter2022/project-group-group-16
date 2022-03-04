@@ -31,4 +31,30 @@ Individual efforts (in hours)
 | Danny     | 0.5       | 0.5         | 2               | 10           | 0              | 2    | 13   |
 | Yoah      | 3         | 0.5         | 2               | 4            | 0              | 0    | 9.5  |
 | Noah      | 0.5       | 0.5         | 2               | 10           | 0              | 0    | 13   |
-| Yazdan    | 0       | 3           | 6               | 6            | 0.5              | 0    | 15.5 |
+| Yazdan    | 0       | 3           | 6               | 6            | 0.5              | 0    | 15.5 |  
+
+## Project Deliverable 2
+
+[Backend Services, Behavior Modeling, and Testing](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-2)
+
+Team Roles:
+| Name | Roles |
+| ---- | ----- |
+| Michelle | Backend Implementation and Evolution of Persistence Layer, Software Quality Assurance Plan and Report, Project Management  |
+| Arturo  | Testing (tbd)  |
+| Danny |  Testing (tbd) |
+| Yoah  |  Testing (tbd)  |
+| Noah  |  Backend Implementation and Evolution of Persistence Layer |
+| Yazdan |  Backend Implementation and Evolution of Persistence Layer, Build system, Continuous Integration, and Delivery |
+
+
+Individual efforts (in hours)
+
+| Team's Member Name | Backend Implementation and Evolution of Persistence Layer | Software Quality Assurance Plan and Report | Unit Testing of Backend | Integration Testing of Backend Services | Build System, Continuous Integration, and Delivery | Project Management and Project Report | Total |
+|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|--------------|
+| Michelle  | 0       | 0         | 0               | 0            | 0              | 0    | 0 |
+| Arturo    | 0       | 0         | 0               | 0           | 0              | 0    | 0   |
+| Danny     | 0       | 0         | 0               | 0           | 0              | 0    | 0   |
+| Yoah      | 0       | 0         | 0               | 0            | 0              | 0    | 0  |
+| Noah      | 0       | 0         | 0               | 0           | 0              | 0    | 0   |
+| Yazdan    | 0       | 0         | 0               | 0            | 0              | 0    | 0 |
