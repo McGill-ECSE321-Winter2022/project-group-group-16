@@ -34,28 +34,7 @@ public class OrderService {
     ProductRepository productRepository;
 
     @Transactional
-    public GroceryOrder placeOrder(OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType){
-        
-        GroceryStoreApplication gs = new GroceryStoreApplication();
-        gs.setId(011);
-        groceryStoreApplicationRepository.save(gs);
-
-        GroceryOrder order = new GroceryOrder();
-        order.setGroceryStoreApplication(gs);
-        order.setStatus(status);
-        order.setId(id);
-        order.setDatePlaced(datePlaced);
-        order.setDeliveryDate(deliveryDate);
-        order.setCustomerNote(customerNote);
-        order.setPurchaseType(purchaseType);
-        
-        groceryOrderRepository.save(order);
-        return order;
-    }
-
-    //associations
-    @Transactional
-    public GroceryOrder placeOrder(Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment){
+    public GroceryOrder placeOrder(OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment){
         
         Set<Product> productSet = new HashSet();
 
@@ -82,12 +61,18 @@ public class OrderService {
 
         GroceryOrder order = new GroceryOrder();
         order.setGroceryStoreApplication(gs);
+        order.setStatus(status);
+        order.setId(id);
+        order.setDatePlaced(datePlaced);
+        order.setDeliveryDate(deliveryDate);
+        order.setCustomerNote(customerNote);
+        order.setPurchaseType(purchaseType);
         order.setBillingAddress(address);
         order.setProduct(productSet);
         order.setCustomer(customer);
         order.setShippingAddress(shippingAddress);
         order.setPayment(payment);
-
+        
         groceryOrderRepository.save(order);
         return order;
     }
