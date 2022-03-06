@@ -14,5 +14,5 @@ public interface GroceryOrderRepository extends CrudRepository<GroceryOrder, Str
      */
 
     GroceryOrder findGroceryOrderById(int id);
-    void deleteGroceryORderById(int id);
+    void deleteGroceryOrderById(int id);
 }

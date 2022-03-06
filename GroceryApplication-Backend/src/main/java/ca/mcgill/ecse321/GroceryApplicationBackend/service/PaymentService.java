@@ -52,7 +52,7 @@ public class PaymentService {
     }
 
     @Transactional
-    public Payment getPayment(int paymentId) throws Exception {
+    public Payment getPaymentById(int paymentId) throws Exception {
     	if(paymentRepository.findPaymentById(paymentId) == null) {
     		throw new Exception("This id has no associated payment");
     	}
