@@ -13,4 +13,5 @@ public interface PaymentRepository extends CrudRepository<Payment, Integer> {
      * @return payment (Payment)
      */
     Payment findPaymentById(int id);
+    void deletePaymentById(int id);
 }
