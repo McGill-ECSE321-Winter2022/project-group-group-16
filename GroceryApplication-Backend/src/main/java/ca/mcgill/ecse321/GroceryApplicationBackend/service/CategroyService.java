@@ -16,12 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ProductRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 
 @Service
 public class CategroyService {
@@ -44,21 +41,20 @@ public class CategroyService {
 	 * @param name
 	 * @param description
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Category createCategory(String image,int categoryId, int applicationId, String name, String description) throws InvalidApplicationException {
+	public Category createCategory(String image,int categoryId, int applicationId, String name, String description)  {
 		if (name == null || name.trim().length() == 0) {
-			throw new InvalidApplicationException("requested name is null or length 0. Please enter valid namel.\n");
+			throw new InvalidInputException("requested name is null or length 0. Please enter valid namel.\n");
 		}
 		if (description == null || description.trim().length() == 0) {
-			throw new InvalidApplicationException(
+			throw new InvalidInputException(
 					"requested description is null or length 0. Please enter valid description.\n");
 		}
 
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidApplicationException("No application associated with this Id.");
+			throw new InvalidInputException("No application associated with this Id.");
 		}
 
 		Category category = new Category();
@@ -99,12 +95,11 @@ public class CategroyService {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Category deleteCategory(int id) throws InvalidApplicationException {
+	public Category deleteCategory(int id)  {
 		if (categoryRepository.findCategoryById(id) == null) {
-			throw new InvalidApplicationException("Category  with provided id does not exist.");
+			throw new InvalidInputException("Category  with provided id does not exist.");
 		}
 		Category category = categoryRepository.findCategoryById(id);
 		categoryRepository.delete(category);
@@ -117,22 +112,20 @@ public class CategroyService {
 	 * @param name
 	 * @param description
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Category updateCategory(int categoryId, int applicationId, String name, String description)
-			throws InvalidApplicationException {
+	public Category updateCategory(int categoryId, int applicationId, String name, String description) {
 		if (name == null || name.trim().length() == 0) {
-			throw new InvalidApplicationException("requested name is null or length 0. Please enter valid namel.\n");
+			throw new InvalidInputException("requested name is null or length 0. Please enter valid namel.\n");
 		}
 		if (description == null || description.trim().length() == 0) {
-			throw new InvalidApplicationException(
+			throw new InvalidInputException(
 					"requested description is null or length 0. Please enter valid description.\n");
 		}
 
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidApplicationException("No application associated with this Id.");
+			throw new InvalidInputException("No application associated with this Id.");
 		}
 
 		Category category = categoryRepository.findCategoryById(categoryId);

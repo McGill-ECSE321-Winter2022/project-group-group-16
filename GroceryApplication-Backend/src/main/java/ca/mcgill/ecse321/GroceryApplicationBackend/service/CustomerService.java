@@ -1,10 +1,5 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,29 +35,27 @@ public class CustomerService {
 	 * @param customerId
 	 * @param userEmail
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Customer createCustomer(int custiomerId, int applicationId, int addressId, int customerId, String userEmail)
-			throws InvalidApplicationException {
+	public Customer createCustomer(int custiomerId, int applicationId, int addressId, int customerId, String userEmail){
 		if (userEmail == null || userEmail.trim().length() == 0) {
-			throw new InvalidApplicationException(
+			throw new InvalidInputException(
 					"requested userEmail is null or length 0. Please enter valid userEmail.\n");
 		}
 
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidApplicationException("No application associated with this Id.");
+			throw new InvalidInputException("No application associated with this Id.");
 		}
 
 		GroceryUser gu = groceryUserRepository.findGroceryUserByEmail(userEmail);
-		if (gs == null) {
-			throw new InvalidApplicationException("No user associated with this email");
+		if (gu == null) {
+			throw new InvalidInputException("No user associated with this email");
 		}
 
 		Address address = addressRepository.findAddressById(addressId);
-		if (gs == null) {
-			throw new InvalidApplicationException("No address associated with this Id");
+		if (address == null) {
+			throw new InvalidInputException("No address associated with this Id");
 		}
 
 		Customer customer = new Customer();
@@ -101,12 +94,11 @@ public class CustomerService {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Customer deleteCustomer(int id) throws InvalidApplicationException {
+	public Customer deleteCustomer(int id)  {
 		if (customerRepository.findCustomerById(id) == null) {
-			throw new InvalidApplicationException("Customer account with provided id does not exist.");
+			throw new InvalidInputException("Customer account with provided id does not exist.");
 		}
 		Customer customer = customerRepository.findCustomerById(id);
 		customerRepository.delete(customer);

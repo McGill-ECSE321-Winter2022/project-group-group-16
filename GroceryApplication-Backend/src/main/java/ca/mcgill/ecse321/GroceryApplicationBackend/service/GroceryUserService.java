@@ -1,14 +1,10 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 
@@ -19,14 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Employee;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.UserRole;
+
 
 public class GroceryUserService {
 	 @Autowired
@@ -44,11 +34,10 @@ public class GroceryUserService {
 	 * @param email
 	 * @param date
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public GroceryUser createGroceryUser(String username, String password, String firstName, String Lastname, String email, Date date) throws InvalidApplicationException {
-	
+	public GroceryUser createGroceryUser(String username, String password, String firstName, String Lastname, String email, Date date)  {
+		//add security to name 
         GroceryUser gu = new GroceryUser();
         gu.setDateOfBirth(date);
         gu.setEmail(email);
@@ -94,10 +83,9 @@ public class GroceryUserService {
 	 * @param email
 	 * @param date
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public GroceryUser updateGroceryUser(String username, String password, String firstName, String Lastname, String email, Date date) throws InvalidApplicationException {
+	public GroceryUser updateGroceryUser(String username, String password, String firstName, String Lastname, String email, Date date)  {
 	
         GroceryUser gu = groceryUserRepository.findGroceryUserByEmail(email);
         gu.setDateOfBirth(date);
@@ -116,16 +104,15 @@ public class GroceryUserService {
 	   * @param email
 	   * @param password
 	   * @return
-	   * @throws InvalidApplicationException
 	   */
 	  @Transactional
-	  public GroceryUser loginGroceryUser(String email, String password) throws InvalidApplicationException {
+	  public GroceryUser loginGroceryUser(String email, String password)  {
 	    GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
 	    if(user == null){
-	      throw new InvalidApplicationException("no Customer exists with email "+ email);
+	      throw new InvalidInputException("no Customer exists with email "+ email);
 	    }
 	    if(!user.getPassword().equals(password)){
-	      throw new InvalidApplicationException("incorrect password : " + password + " ,  db password : " + user.getPassword());
+	      throw new InvalidInputException("incorrect password : " + password + " ,  db password : " + user.getPassword());
 	    }
 	    return user;
 	  }
@@ -134,12 +121,11 @@ public class GroceryUserService {
 	   * 
 	   * @param email
 	   * @return
-	   * @throws InvalidApplicationException
 	   */
 		@Transactional
-		public GroceryUser deleteGroceryUser(String email) throws InvalidApplicationException {
+		public GroceryUser deleteGroceryUser(String email) {
 			if (groceryUserRepository.findGroceryUserByEmail(email) == null) {
-				throw new InvalidApplicationException("Product with provided barcode does not exist.");
+				throw new InvalidInputException("Product with provided barcode does not exist.");
 			}
 			GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email) ;
 			groceryUserRepository.delete(user);

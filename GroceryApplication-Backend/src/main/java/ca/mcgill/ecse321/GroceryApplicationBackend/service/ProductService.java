@@ -1,7 +1,5 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ProductRepository;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
 
@@ -29,24 +25,27 @@ public class ProductService {
 	GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
+	@Autowired
+	CustomerRepository customerRepository;
     
-    /**
-     * 
-     * @param image
-     * @param applicationId
-     * @param categoryId
-     * @param name
-     * @param description
-     * @param price
-     * @param weight
-     * @param volume
-     * @param availability
-     * @param barCode
-     * @param isRefundable
-     * @param avaQuantity
-     * @return
-     * @throws InvalidApplicationException
-     */
+    
+	/**
+	 * 
+	 * @param image
+	 * @param applicationId
+	 * @param categoryId
+	 * @param name
+	 * @param description
+	 * @param price
+	 * @param weight
+	 * @param volume
+	 * @param availability
+	 * @param barCode
+	 * @param isRefundable
+	 * @param avaQuantity
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
 	@Transactional
 	public Product createProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity) throws InvalidApplicationException {
   
@@ -154,12 +153,11 @@ public class ProductService {
 	 * 
 	 * @param barCode
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Product deletProduct(int barCode) throws InvalidApplicationException {
+	public Product deletProduct(int barCode)  {
 		if (productRepository.findProductByBarcode(barCode) == null) {
-			throw new InvalidApplicationException("Product with provided barcode does not exist.");
+			throw new InvalidInputException("Product with provided barcode does not exist.");
 		}
 		Product product = productRepository.findProductByBarcode(barCode);
 		productRepository.delete(product);
@@ -169,19 +167,20 @@ public class ProductService {
 	 * 
 	 * @param barCode
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Product refundProduct(int barCode) throws InvalidApplicationException {
+	public Product refundProduct(int barCode)  {
 		Product product = productRepository.findProductByBarcode(barCode);
 		if(!product.isRefundable()) {
-			throw new InvalidApplicationException("Product is not refundable.");
+			throw new InvalidInputException("Product is not refundable.");
 		}
 		
 		product.setAvailableQuantity(product.getAvailableQuantity()+1);
 		productRepository.save(product);
 		return product;
 	}
+	
+		
 
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
