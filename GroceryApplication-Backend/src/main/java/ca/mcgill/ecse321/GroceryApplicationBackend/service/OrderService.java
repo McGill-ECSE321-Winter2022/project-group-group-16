@@ -33,31 +33,46 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
+    
+    /** 
+     * @param status
+     * @param id
+     * @param datePlaced
+     * @param deliveryDate
+     * @param customerNote
+     * @param purchaseType
+     * @param product
+     * @param billingAddress
+     * @param customer
+     * @param shippingAddress
+     * @param payment
+     * @return GroceryOrder
+     * @throws Exception
+     */
     @Transactional
-    public GroceryOrder placeOrder(OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment){
+    public GroceryOrder placeOrder(int barcode, int applicationId, int addressId, OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Address billingAddress, Customer customer, Address shippingAddress, Payment payment) throws Exception{
         
         Set<Product> productSet = new HashSet();
 
-        GroceryStoreApplication gs = new GroceryStoreApplication();
-        gs.setId(011);
-        groceryStoreApplicationRepository.save(gs);
+        GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 
-        Address address = new Address();
-        address.setId(808);
-        addressRepository.save(address);
+        if(gs == null){
+            throw new Exception("The application doesn't exist.");
+        }
 
-        Product product1 = new Product();
-        product1.setGroceryStoreApplication(gs);
-        product1.setBarcode(123);
-        productRepository.save(product1);
+        Address address = addressRepository.findAddressById(addressId);
 
-        Product product2 = new Product();
-        product2.setGroceryStoreApplication(gs);
-        product2.setBarcode(1234);
-        productRepository.save(product2);
+        if(address == null){
+            throw new Exception("The address doesn't exist.");
+        }
 
-        productSet.add(product2);
-        productSet.add(product1);
+        Product products = productRepository.findProductByBarcode(barcode);
+
+        if(products == null){
+            throw new Exception("The product doesn't exist.");
+        }
+
+        productSet.add(products);
 
         GroceryOrder order = new GroceryOrder();
         order.setGroceryStoreApplication(gs);
@@ -77,6 +92,13 @@ public class OrderService {
         return order;
     }
 
+    
+    /** 
+     * @param status
+     * @param id
+     * @return GroceryOrder
+     * @throws Exception
+     */
     @Transactional
     public GroceryOrder updateOrderStatus(OrderStatus status, int id) throws Exception{
 
@@ -93,6 +115,12 @@ public class OrderService {
         return order;
     }
 
+    
+    /** 
+     * @param id
+     * @return GroceryOrder
+     * @throws Exception
+     */
     @Transactional
     public GroceryOrder deleteOrder(int id) throws Exception{
 
@@ -108,6 +136,12 @@ public class OrderService {
         
     }
 
+    
+    /** 
+     * @param id
+     * @return GroceryOrder
+     * @throws Exception
+     */
     @Transactional
     public GroceryOrder getOrderById(int id) throws Exception {
     	if(groceryOrderRepository.findGroceryOrderById(id) == null) {
@@ -116,11 +150,20 @@ public class OrderService {
     	return groceryOrderRepository.findGroceryOrderById(id);
     }
     
+    
+    /** 
+     * @return List<GroceryOrder>
+     */
     @Transactional
     public List<GroceryOrder> getAllOrders() {
         return toList(groceryOrderRepository.findAll());
     }
 
+    
+    /** 
+     * @param iterable
+     * @return List<T>
+     */
     //helper
     private <T> List<T> toList(Iterable<T> iterable){
         List<T> resultList = new ArrayList<T>();

@@ -23,17 +23,28 @@ public class PaymentService {
     @Autowired
     GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
+    
+    /** 
+     * @param id
+     * @param amount
+     * @param paymentType
+     * @param paymentCode
+     * @param order
+     * @return Payment
+     * @throws Exception
+     */
     @Transactional
-    public Payment createPayment(int id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order){
+    public Payment createPayment(int applicationId, int groceryId, int id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order) throws Exception{
         
-        GroceryStoreApplication gs = new GroceryStoreApplication();
-        gs.setId(420);
-        groceryStoreApplicationRepository.save(gs);
+        GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
+        if(gs == null){
+            throw new Exception("The application doesn't exist.");
+        }
 
-        GroceryOrder go = new GroceryOrder();
-        go.setGroceryStoreApplication(gs);
-        go.setId(666);
-        groceryOrderRepository.save(go);
+        GroceryOrder go = groceryOrderRepository.findGroceryOrderById(groceryId);
+        if(go == null){
+            throw new Exception("The order doesn't exist.");
+        }
 
         Payment payment = new Payment();
         payment.setId(id);
@@ -46,11 +57,21 @@ public class PaymentService {
         return payment;
     }
 
+    
+    /** 
+     * @return List<Payment>
+     */
     @Transactional
     public List<Payment> getAllPayments(){
     	return toList(paymentRepository.findAll());
     }
 
+    
+    /** 
+     * @param paymentId
+     * @return Payment
+     * @throws Exception
+     */
     @Transactional
     public Payment getPaymentById(int paymentId) throws Exception {
     	if(paymentRepository.findPaymentById(paymentId) == null) {
@@ -59,6 +80,16 @@ public class PaymentService {
     	return paymentRepository.findPaymentById(paymentId);
     }
 
+    
+    /** 
+     * @param id
+     * @param amount
+     * @param paymentType
+     * @param paymentCode
+     * @param order
+     * @return Payment
+     * @throws Exception
+     */
     @Transactional
     public Payment updatePayment(int id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order) throws Exception{
         
@@ -84,6 +115,12 @@ public class PaymentService {
         return payment;
     }
 
+    
+    /** 
+     * @param id
+     * @return Payment
+     * @throws Exception
+     */
     @Transactional
     public Payment deletePayment(int id) throws Exception{
         
