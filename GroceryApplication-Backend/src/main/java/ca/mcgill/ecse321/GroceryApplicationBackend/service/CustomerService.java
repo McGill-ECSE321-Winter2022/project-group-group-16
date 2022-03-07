@@ -31,7 +31,17 @@ public class CustomerService {
 
 	@Autowired
 	GroceryUserRepository groceryUserRepository;
-
+	
+	/**
+	 * 
+	 * @param custiomerId
+	 * @param applicationId
+	 * @param addressId
+	 * @param customerId
+	 * @param userEmail
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
 	@Transactional
 	public Customer createCustomer(int custiomerId, int applicationId, int addressId, int customerId, String userEmail)
 			throws InvalidApplicationException {
@@ -66,21 +76,33 @@ public class CustomerService {
 
 		return customer;
 	}
-
+	/**
+	 * 
+	 * @param Id
+	 * @return
+	 */
 	@Transactional
 	public Customer getCustomer(int Id) {
 		Customer customer = customerRepository.findCustomerById(Id);
 		return customer;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	@Transactional
-	public List<Customer> getAllCustomers(Customer customer) {
+	public List<Customer> getAllCustomers() {
 		return toList(customerRepository.findAll());
 
 	}
 
 	// update customer through Groceyuser?
-
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
 	@Transactional
 	public Customer deleteCustomer(int id) throws InvalidApplicationException {
 		if (customerRepository.findCustomerById(id) == null) {
@@ -90,6 +112,8 @@ public class CustomerService {
 		customerRepository.delete(customer);
 		return customer;
 	}
+	
+
 
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();

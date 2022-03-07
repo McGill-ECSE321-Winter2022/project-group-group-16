@@ -36,7 +36,18 @@ public class CategroyService {
 	ProductRepository productRepository;
 
 	// image??
-	public Category createCategory(int categoryId, int applicationId, String name, String description) throws InvalidApplicationException {
+	/**
+	 * 
+	 * @param image
+	 * @param categoryId
+	 * @param applicationId
+	 * @param name
+	 * @param description
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
+	@Transactional
+	public Category createCategory(String image,int categoryId, int applicationId, String name, String description) throws InvalidApplicationException {
 		if (name == null || name.trim().length() == 0) {
 			throw new InvalidApplicationException("requested name is null or length 0. Please enter valid namel.\n");
 		}
@@ -55,24 +66,41 @@ public class CategroyService {
 		category.setName(name);
 		category.setDescription(description);
 		category.setId(categoryId);
+		category.setImage(image);
 		categoryRepository.save(category);
 
 		return category;
 
 	}
+	
+	/**
+	 * 
+	 * @param categoryId
+	 * @return
+	 */
 
 	@Transactional
 	public Category getCategory(int categoryId) {
 		Category c = categoryRepository.findCategoryById(categoryId);
 		return c;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	@Transactional
-	public List<Category> getAllCategory(Category categroy) {
+	public List<Category> getAllCategory() {
 		return toList(categoryRepository.findAll());
 
 	}
-
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
 	@Transactional
 	public Category deleteCategory(int id) throws InvalidApplicationException {
 		if (categoryRepository.findCategoryById(id) == null) {
@@ -82,7 +110,16 @@ public class CategroyService {
 		categoryRepository.delete(category);
 		return category;
 	}
-
+	/**
+	 * 
+	 * @param categoryId
+	 * @param applicationId
+	 * @param name
+	 * @param description
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
+	@Transactional
 	public Category updateCategory(int categoryId, int applicationId, String name, String description)
 			throws InvalidApplicationException {
 		if (name == null || name.trim().length() == 0) {

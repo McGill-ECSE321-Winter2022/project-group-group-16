@@ -97,7 +97,7 @@ public class Product {
         this.barcode = value;
     }
 
-    public boolean isIsRefundable() {
+    public boolean isRefundable() {
         return this.isRefundable;
     }
 

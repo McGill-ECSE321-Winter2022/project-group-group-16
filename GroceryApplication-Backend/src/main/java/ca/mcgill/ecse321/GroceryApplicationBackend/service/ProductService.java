@@ -30,7 +30,23 @@ public class ProductService {
 	@Autowired
 	CategoryRepository categoryRepository;
     
-    
+    /**
+     * 
+     * @param image
+     * @param applicationId
+     * @param categoryId
+     * @param name
+     * @param description
+     * @param price
+     * @param weight
+     * @param volume
+     * @param availability
+     * @param barCode
+     * @param isRefundable
+     * @param avaQuantity
+     * @return
+     * @throws InvalidApplicationException
+     */
 	@Transactional
 	public Product createProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity) throws InvalidApplicationException {
   
@@ -65,7 +81,24 @@ public class ProductService {
         return product;
 
 	}
-	
+	/**
+	 * 
+	 * @param image
+	 * @param applicationId
+	 * @param categoryId
+	 * @param name
+	 * @param description
+	 * @param price
+	 * @param weight
+	 * @param volume
+	 * @param availability
+	 * @param barCode
+	 * @param isRefundable
+	 * @param avaQuantity
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
+	@Transactional
 	public Product updateProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity) throws InvalidApplicationException {
 		  
         //create a grocery store application
@@ -98,25 +131,55 @@ public class ProductService {
         return product;
 
 	}
-	
+	/**
+	 * 
+	 * @param barCode
+	 * @return
+	 */
 	@Transactional
 	public Product getProduct(int barCode) {
 		Product product = productRepository.findProductByBarcode(barCode);
 		return product;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	@Transactional
-	public List<Product> getAllProduct(Product product) {
+	public List<Product> getAllProduct() {
 		return toList(productRepository.findAll());
 
 	}
+	/**
+	 * 
+	 * @param barCode
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
 	@Transactional
 	public Product deletProduct(int barCode) throws InvalidApplicationException {
 		if (productRepository.findProductByBarcode(barCode) == null) {
-			throw new InvalidApplicationException("Customer account with provided id does not exist.");
+			throw new InvalidApplicationException("Product with provided barcode does not exist.");
 		}
 		Product product = productRepository.findProductByBarcode(barCode);
 		productRepository.delete(product);
+		return product;
+	}
+	/**
+	 * 
+	 * @param barCode
+	 * @return
+	 * @throws InvalidApplicationException
+	 */
+	@Transactional
+	public Product refundProduct(int barCode) throws InvalidApplicationException {
+		Product product = productRepository.findProductByBarcode(barCode);
+		if(!product.isRefundable()) {
+			throw new InvalidApplicationException("Product is not refundable.");
+		}
+		
+		product.setAvailableQuantity(product.getAvailableQuantity()+1);
+		productRepository.save(product);
 		return product;
 	}
 
