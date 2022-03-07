@@ -22,16 +22,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class TestGroceryApplicationPersistence {
 
     @Autowired
-    private StoreRepository storeRepository;
+    StoreRepository storeRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
     @Autowired
-    private GroceryStoreApplicationRepository groceryStoreApplicationRepository;
+     GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
     @Autowired
-    private AddressRepository addressRepository;
+     AddressRepository addressRepository;
 
     @Autowired
     ProductRepository productRepository;

@@ -4,7 +4,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface GroceryUserRepository extends CrudRepository<GroceryUser, Integer> {
+public interface GroceryUserRepository extends CrudRepository<GroceryUser, String> {
 
 
     /**
