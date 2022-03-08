@@ -37,7 +37,7 @@ public class CustomerService {
 	 * @return
 	 */
 	@Transactional
-	public Customer createCustomer(int custiomerId, int applicationId, int addressId, int customerId, String userEmail){
+	public Customer createCustomer( int customerId, int applicationId, int addressId, String userEmail){
 		if (userEmail == null || userEmail.trim().length() == 0) {
 			throw new InvalidInputException(
 					"requested userEmail is null or length 0. Please enter valid userEmail.\n");
@@ -75,7 +75,7 @@ public class CustomerService {
 	 * @return
 	 */
 	@Transactional
-	public Customer getCustomer(int Id) {
+	public Customer getCustomerById(int Id) {
 		Customer customer = customerRepository.findCustomerById(Id);
 		return customer;
 	}
@@ -83,6 +83,7 @@ public class CustomerService {
 	 * 
 	 * @return
 	 */
+	
 	@Transactional
 	public List<Customer> getAllCustomers() {
 		return toList(customerRepository.findAll());

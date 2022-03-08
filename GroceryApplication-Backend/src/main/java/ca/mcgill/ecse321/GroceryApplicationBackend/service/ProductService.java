@@ -44,21 +44,20 @@ public class ProductService {
 	 * @param isRefundable
 	 * @param avaQuantity
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Product createProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity) throws InvalidApplicationException {
+	public Product createProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity)  {
   
         //create a grocery store application
         //mandatory to create for a store to exist
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidApplicationException("No application associated with this Id.");
+			throw new InvalidInputException("No application associated with this Id.");
 		}
 
         Category category = categoryRepository.findCategoryById(categoryId);
         if (category == null) {
-			throw new InvalidApplicationException("No category associated with this Id.");
+			throw new InvalidInputException("No category associated with this Id.");
 		}
        
 
@@ -95,21 +94,20 @@ public class ProductService {
 	 * @param isRefundable
 	 * @param avaQuantity
 	 * @return
-	 * @throws InvalidApplicationException
 	 */
 	@Transactional
-	public Product updateProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity) throws InvalidApplicationException {
+	public Product updateProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity)  {
 		  
         //create a grocery store application
         //mandatory to create for a store to exist
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidApplicationException("No application associated with this Id.");
+			throw new InvalidInputException("No application associated with this Id.");
 		}
 
         Category category = categoryRepository.findCategoryById(categoryId);
         if (category == null) {
-			throw new InvalidApplicationException("No category associated with this Id.");
+			throw new InvalidInputException("No category associated with this Id.");
 		}
        
 
@@ -136,7 +134,7 @@ public class ProductService {
 	 * @return
 	 */
 	@Transactional
-	public Product getProduct(int barCode) {
+	public Product getProductByBarcode(int barCode) {
 		Product product = productRepository.findProductByBarcode(barCode);
 		return product;
 	}
@@ -147,7 +145,6 @@ public class ProductService {
 	@Transactional
 	public List<Product> getAllProduct() {
 		return toList(productRepository.findAll());
-
 	}
 	/**
 	 * 
@@ -171,7 +168,7 @@ public class ProductService {
 	@Transactional
 	public Product refundProduct(int barCode)  {
 		Product product = productRepository.findProductByBarcode(barCode);
-		if(!product.isRefundable()) {
+		if(!product.getIsRefundable()) {
 			throw new InvalidInputException("Product is not refundable.");
 		}
 		

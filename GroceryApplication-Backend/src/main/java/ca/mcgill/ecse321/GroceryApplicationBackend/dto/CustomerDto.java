@@ -12,6 +12,9 @@ public class CustomerDto {
 		this.customerId = customerId;
 	}
 	
+	
+	// ------------------ Getters and Setters ------------------------
+	
 	public int getCustomerId(){
 		return this.customerId;
 	}

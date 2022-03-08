@@ -36,7 +36,7 @@ public class GroceryUserService {
 	 * @return
 	 */
 	@Transactional
-	public GroceryUser createGroceryUser(String username, String password, String firstName, String Lastname, String email, Date date)  {
+	public GroceryUser createGroceryUser(String username, String password, String firstName, String lastName, String email, Date date)  {
 		//add security to name 
         GroceryUser gu = new GroceryUser();
         gu.setDateOfBirth(date);
@@ -44,7 +44,7 @@ public class GroceryUserService {
         gu.setFirstName(firstName);
         gu.setPassword(password);
         gu.setUsername(username);
-        gu.setLastName(Lastname);
+        gu.setLastName(lastName);
         
   
         groceryUserRepository.save(gu);
@@ -60,7 +60,7 @@ public class GroceryUserService {
 	 */
 	
 	@Transactional
-	public GroceryUser getGroceryUser(String email) {
+	public GroceryUser getGroceryUserByEmail(String email) {
 		GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
 		return user;
 	}
@@ -69,7 +69,7 @@ public class GroceryUserService {
 	 * @return
 	 */
 	@Transactional
-	public List<GroceryUser> getGroceryUser() {
+	public List<GroceryUser> getAllGroceryUser() {
 		return toList(groceryUserRepository.findAll());
 
 	}

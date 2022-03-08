@@ -76,7 +76,7 @@ public class CategroyService {
 	 */
 
 	@Transactional
-	public Category getCategory(int categoryId) {
+	public Category getCategorybyId(int categoryId) {
 		Category c = categoryRepository.findCategoryById(categoryId);
 		return c;
 	}
@@ -97,11 +97,11 @@ public class CategroyService {
 	 * @return
 	 */
 	@Transactional
-	public Category deleteCategory(int id)  {
-		if (categoryRepository.findCategoryById(id) == null) {
+	public Category deleteCategory(int categoryId)  {
+		if (categoryRepository.findCategoryById(categoryId) == null) {
 			throw new InvalidInputException("Category  with provided id does not exist.");
 		}
-		Category category = categoryRepository.findCategoryById(id);
+		Category category = categoryRepository.findCategoryById(categoryId);
 		categoryRepository.delete(category);
 		return category;
 	}
@@ -114,7 +114,7 @@ public class CategroyService {
 	 * @return
 	 */
 	@Transactional
-	public Category updateCategory(int categoryId, int applicationId, String name, String description) {
+	public Category updateCategory(int categoryId, int applicationId, String name, String description, String image) {
 		if (name == null || name.trim().length() == 0) {
 			throw new InvalidInputException("requested name is null or length 0. Please enter valid namel.\n");
 		}
@@ -133,6 +133,7 @@ public class CategroyService {
 		category.setName(name);
 		category.setDescription(description);
 		category.setId(categoryId);
+		category.setImage(image);
 		categoryRepository.save(category);
 
 		return category;
