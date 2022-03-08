@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +19,11 @@ public class ManagerRestController {
     @Autowired
     ManagerService managerService;
 
+    
+    /** 
+     * @param createManager(
+     * @return ManagerDto
+     */
     @GetMapping(value = {"/manager", "/manager/"})
     public ManagerDto createManager(
         @PathVariable("applicationId") int applicationId,
@@ -29,11 +33,21 @@ public class ManagerRestController {
 
     }
 
-    @GetMapping(value = {"/manager/", "/manager/{id}/"})
+    
+    /** 
+     * @param id
+     * @return ManagerDto
+     */
+    @GetMapping(value = {"/manager/{id}", "/manager/{id}/"})
     public ManagerDto getManagerById(@PathVariable("id") int id){
         return convertToDto(managerService.getManager(id));
     }
 
+    
+    /** 
+     * @param id
+     * @return boolean
+     */
     @DeleteMapping(value = {"/manager", "/manager/"})
     public boolean deleteManager(@PathVariable("id") int id){
         if(id == 0) {
@@ -42,6 +56,11 @@ public class ManagerRestController {
         return managerService.deleteManager(id);
     }
 
+    
+    /** 
+     * @param m
+     * @return ManagerDto
+     */
     //helper
     public static ManagerDto convertToDto(Manager m) {
     	if(m == null) {
