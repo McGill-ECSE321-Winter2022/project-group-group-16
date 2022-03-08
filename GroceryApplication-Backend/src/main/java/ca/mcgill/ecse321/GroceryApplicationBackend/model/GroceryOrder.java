@@ -15,7 +15,7 @@ public class GroceryOrder {
     private String customerNote;
     @Enumerated
     private PurchaseType purchaseType;
-    private Payment payment;
+    public Payment payment;
     // associations
     private GroceryStoreApplication groceryStoreApplication;
     private Set<Product> product;
@@ -32,7 +32,7 @@ public class GroceryOrder {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    private OrderStatus getStatus() {
+    public OrderStatus getStatus() {
         return this.status;
     }
 
@@ -73,7 +73,7 @@ public class GroceryOrder {
         this.customerNote = value;
     }
 
-    private PurchaseType getPurchaseType() {
+    public PurchaseType getPurchaseType() {
         return this.purchaseType;
     }
 

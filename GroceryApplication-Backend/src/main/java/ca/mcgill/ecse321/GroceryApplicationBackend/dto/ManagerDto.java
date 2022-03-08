@@ -2,16 +2,11 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.dto;
 
 public class ManagerDto {
 
-    // attributes
     private int id;
-    // private String dateOfBirth;
-    // private String username;
-    // private String password;
-    // private String firstName;
-    // private String lastName;
-    // private String email;
 
-    //String dateOfBirth, String username, String password, String firstName, String lastName, String email
+    public ManagerDto(){
+
+    }
 
     public ManagerDto(int id){
 
@@ -21,6 +16,10 @@ public class ManagerDto {
 
     public int getManagerId(){
         return id;
+    }
+
+    public void setManagerId(int id){
+        this.id = id;
     }
 
     //get user from GroceryUserDto

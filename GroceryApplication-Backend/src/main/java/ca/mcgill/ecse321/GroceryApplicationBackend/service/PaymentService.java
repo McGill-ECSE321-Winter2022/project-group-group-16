@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +35,16 @@ public class PaymentService {
      * @throws Exception
      */
     @Transactional
-    public Payment createPayment(int applicationId, int groceryId, int id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order) throws Exception{
+    public Payment createPayment(int applicationId, int orderId, int id, float amount, PaymentType paymentType, String paymentCode){
         
         GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
         if(gs == null){
-            throw new Exception("The application doesn't exist.");
+            throw new InvalidInputException("The application doesn't exist.");
         }
 
-        GroceryOrder go = groceryOrderRepository.findGroceryOrderById(groceryId);
+        GroceryOrder go = groceryOrderRepository.findGroceryOrderById(orderId);
         if(go == null){
-            throw new Exception("The order doesn't exist.");
+            throw new InvalidInputException("The order doesn't exist.");
         }
 
         Payment payment = new Payment();
@@ -51,12 +52,10 @@ public class PaymentService {
         payment.setAmount(amount);
         payment.setPaymentType(paymentType);
         payment.setPaymentCode(paymentCode);
-        payment.setOrder(order);
         
         paymentRepository.save(payment);
         return payment;
     }
-
     
     /** 
      * @return List<Payment>
@@ -68,14 +67,33 @@ public class PaymentService {
 
     
     /** 
+     * @return List<Float>
+     */
+    @Transactional
+    public List<Float> getAllSortedPayment() {
+
+        List<Float> amounts = new ArrayList<>();
+
+        List<Payment> payments = toList(paymentRepository.findAll());
+
+        for(int i=0; i < payments.size(); i++){
+            amounts.add(payments.get(i).getAmount());
+        }
+
+        Collections.sort(amounts);
+
+        return amounts;
+    }
+    
+    /** 
      * @param paymentId
      * @return Payment
      * @throws Exception
      */
     @Transactional
-    public Payment getPaymentById(int paymentId) throws Exception {
+    public Payment getPaymentById(int paymentId){
     	if(paymentRepository.findPaymentById(paymentId) == null) {
-    		throw new Exception("This id has no associated payment");
+    		throw new InvalidInputException("This id has no associated payment");
     	}
     	return paymentRepository.findPaymentById(paymentId);
     }
@@ -91,10 +109,10 @@ public class PaymentService {
      * @throws Exception
      */
     @Transactional
-    public Payment updatePayment(int id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order) throws Exception{
+    public Payment updatePayment(int id, float amount, PaymentType paymentType, String paymentCode){
         
         if(paymentRepository.findPaymentById(id)==null) {
-    		throw new Exception("Payment id is not valid!");
+    		throw new InvalidInputException("Payment id is not valid!");
     	}
     	
     	Payment payment = paymentRepository.findPaymentById(id);
@@ -106,9 +124,6 @@ public class PaymentService {
         }
         if(paymentCode != null){
             payment.setPaymentCode(paymentCode);
-        }
-        if(order != null){
-            payment.setOrder(order);
         }
 
         paymentRepository.save(payment);
@@ -122,23 +137,27 @@ public class PaymentService {
      * @throws Exception
      */
     @Transactional
-    public Payment deletePayment(int id) throws Exception{
+    public boolean deletePayment(int id){
         
         if(paymentRepository.findPaymentById(id)==null) {
-    		throw new Exception("Payment id is not valid!");
+    		throw new InvalidInputException("Payment id is not valid!");
     	}
 
         Payment payment = paymentRepository.findPaymentById(id);
         if(payment == null){
-            throw new Exception("payment doesn't exist");
+            throw new InvalidInputException("payment doesn't exist");
         }
 
-        Payment deletedP = null;
         paymentRepository.deletePaymentById(id);
 
-        return deletedP;
+        return true;
     }
 
+    
+    /** 
+     * @param iterable
+     * @return List<T>
+     */
     //helper
     private <T> List<T> toList(Iterable<T> iterable){
         List<T> resultList = new ArrayList<T>();

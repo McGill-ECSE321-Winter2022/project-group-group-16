@@ -1,10 +1,5 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,25 +26,25 @@ public class ManagerService {
      * @throws Exception
      */
     @Transactional
-    public Manager createManager(int applicationId, String email, int id) throws Exception{ //no id? email should alr be unique id
+    public Manager createManager(int applicationId, String email, int id){ //no id? email should alr be unique id
         
         if(id == 0){
-            throw new Exception("The id cannot be null");
+            throw new InvalidInputException("The id cannot be null");
         }
 
         if(email == null){
-            throw new Exception("The email cannot be null.");
+            throw new InvalidInputException("The email cannot be null.");
         }
 
         GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 
         if(gs == null){
-            throw new Exception("The application doesn't exist.");
+            throw new InvalidInputException("The application doesn't exist.");
         }
 
         GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
         if(user == null){
-            throw new Exception("The user doesn't exist.");
+            throw new InvalidInputException("The user doesn't exist.");
         }
 
         Manager manager = new Manager();
@@ -64,24 +59,23 @@ public class ManagerService {
     //there's only 1 manager/owner, don't need to getAll managers
 
     //do we ever need to update the managers account?
-    
     /** 
      * @param id
      * @return Manager
      * @throws Exception
      */
-    @Transactional
-    public Manager updateManager(int id) throws Exception{
+    // @Transactional
+    // public Manager updateManager(int id) throws Exception{
 
-        if(managerRepository.findManagerById(id)==null) {
-    		throw new Exception("Manager not found.");
-    	}
+    //     if(managerRepository.findManagerById(id)==null) {
+    // 		throw new InvalidInputException("Manager not found.");
+    // 	}
 
-        Manager manager = managerRepository.findManagerById(id);
+    //     Manager manager = managerRepository.findManagerById(id);
 
-        managerRepository.save(manager);
-        return manager;
-    }
+    //     managerRepository.save(manager);
+    //     return manager;
+    // }
 
     
     /** 
@@ -91,17 +85,26 @@ public class ManagerService {
      */
     //can the store exist even if we delete the manager?
     @Transactional
-    public Manager deleteManager(int id) throws Exception{
+    public boolean deleteManager(int id){
 
         Manager manager = managerRepository.findManagerById(id);
         
         if(manager == null){
-            throw new Exception("Manager does not exist");
+            throw new InvalidInputException("Manager does not exist");
         }
         managerRepository.deleteManagerById(id);
 
-        return null;
+        return true;
     }
 
+    
+    /** 
+     * @param id
+     * @return Manager
+     */
+    @Transactional
+    public Manager getManager(int id){
+        return managerRepository.findManagerById(id);
+    }
     
 }

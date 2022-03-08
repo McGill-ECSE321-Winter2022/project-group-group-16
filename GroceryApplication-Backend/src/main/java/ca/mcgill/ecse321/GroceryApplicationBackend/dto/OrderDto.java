@@ -28,7 +28,6 @@ public class OrderDto {
     private Address shippingAddress;
 
     public OrderDto(){
-
     }
 
     public OrderDto(OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment){
@@ -129,7 +128,7 @@ public class OrderDto {
         return customer;
     }
 
-    public void getCustomer(Customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 }

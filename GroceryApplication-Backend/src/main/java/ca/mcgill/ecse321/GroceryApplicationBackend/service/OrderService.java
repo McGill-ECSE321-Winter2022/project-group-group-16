@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.checkerframework.checker.units.qual.s;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,8 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    PaymentRepository paymentRepository;
     
     /** 
      * @param status
@@ -50,26 +53,26 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public GroceryOrder placeOrder(int barcode, int applicationId, int addressId, OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Address billingAddress, Customer customer, Address shippingAddress, Payment payment) throws Exception{
+    public GroceryOrder placeOrder(int barcode, int applicationId, int addressId, OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Address billingAddress, Customer customer, Address shippingAddress){
         
         Set<Product> productSet = new HashSet();
 
         GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 
         if(gs == null){
-            throw new Exception("The application doesn't exist.");
+            throw new InvalidInputException("The application doesn't exist.");
         }
 
         Address address = addressRepository.findAddressById(addressId);
 
         if(address == null){
-            throw new Exception("The address doesn't exist.");
+            throw new InvalidInputException("The address doesn't exist.");
         }
 
         Product products = productRepository.findProductByBarcode(barcode);
 
         if(products == null){
-            throw new Exception("The product doesn't exist.");
+            throw new InvalidInputException("The product doesn't exist.");
         }
 
         productSet.add(products);
@@ -86,7 +89,6 @@ public class OrderService {
         order.setProduct(productSet);
         order.setCustomer(customer);
         order.setShippingAddress(shippingAddress);
-        order.setPayment(payment);
         
         groceryOrderRepository.save(order);
         return order;
@@ -100,10 +102,27 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public GroceryOrder updateOrderStatus(OrderStatus status, int id) throws Exception{
+    public GroceryOrder updateAddress(Address bAdd, Address sAdd, int id){
 
         if(groceryOrderRepository.findGroceryOrderById(id)==null) {
-    		throw new Exception("Order id is not valid!");
+    		throw new InvalidInputException("Order id is not valid!");
+    	}
+
+        GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
+        if(bAdd != null && sAdd != null){
+            order.setBillingAddress(bAdd);
+            order.setShippingAddress(sAdd);
+        }
+
+        groceryOrderRepository.save(order);
+        return order;
+    }
+
+    @Transactional
+    public GroceryOrder updateOrderStatus(OrderStatus status, int id){
+
+        if(groceryOrderRepository.findGroceryOrderById(id)==null) {
+    		throw new InvalidInputException("Order id is not valid!");
     	}
 
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
@@ -122,18 +141,15 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public GroceryOrder deleteOrder(int id) throws Exception{
+    public boolean deleteOrder(int id){
 
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
         if(order == null){
-            throw new Exception("Order does not exist");
+            throw new InvalidInputException("Order does not exist");
         }
-        
-        GroceryOrder deletedO = null;
         groceryOrderRepository.deleteGroceryOrderById(id);
 
-        return deletedO;
-        
+        return true;
     }
 
     
@@ -143,12 +159,16 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public GroceryOrder getOrderById(int id) throws Exception {
-    	if(groceryOrderRepository.findGroceryOrderById(id) == null) {
-    		throw new Exception("This id has no associated order");
+    public GroceryOrder getOrderById(int id){
+
+        GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
+    	if(order == null) {
+    		throw new InvalidInputException("This id has no associated order");
     	}
-    	return groceryOrderRepository.findGroceryOrderById(id);
+    	return order;
     }
+
+    //get all orders from past years
     
     
     /** 
@@ -160,10 +180,6 @@ public class OrderService {
     }
 
     
-    /** 
-     * @param iterable
-     * @return List<T>
-     */
     //helper
     private <T> List<T> toList(Iterable<T> iterable){
         List<T> resultList = new ArrayList<T>();
