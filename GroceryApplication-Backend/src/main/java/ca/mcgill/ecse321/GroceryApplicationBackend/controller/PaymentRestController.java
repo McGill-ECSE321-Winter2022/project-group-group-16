@@ -25,6 +25,11 @@ public class PaymentRestController {
     @Autowired
     PaymentService paymentService;
 
+    
+    /** 
+     * @param createPayment(
+     * @return PaymentDto
+     */
     @PostMapping(value = {"/payment", "/payment/"})
     public PaymentDto createPayment(
         @PathVariable("applicationId") int applicationId,
@@ -36,6 +41,11 @@ public class PaymentRestController {
             return convertToDto(paymentService.createPayment(applicationId, orderId, id, amount, paymentType, paymentCode));
     }
 
+    
+    /** 
+     * @param updatePayment(
+     * @return PaymentDto
+     */
     @PutMapping(value = {"/payment/updatePayment", "/payment/updatePayment/"})
     public PaymentDto updatePayment(
         @PathVariable("id") int id,
@@ -45,11 +55,20 @@ public class PaymentRestController {
             return convertToDto(paymentService.updatePayment(id, amount, paymentType, paymentCode));
     }
 
+    
+    /** 
+     * @param id
+     * @return PaymentDto
+     */
     @GetMapping(value = {"/payment/{id}", "/payment/{id}/"})
     public PaymentDto getPaymentById(@PathVariable("id") int id){
         return convertToDto(paymentService.getPaymentById(id));
     }
 
+    
+    /** 
+     * @return List<PaymentDto>
+     */
     @GetMapping(value = {"/payment/{id}", "/payment/{id}/"})
     public List<PaymentDto> getAllPayments(){
         List<PaymentDto> paymentDtos = new ArrayList<>();
@@ -59,6 +78,10 @@ public class PaymentRestController {
 	    return paymentDtos;
     }
 
+    
+    /** 
+     * @return List<Float>
+     */
     @GetMapping(value = {"/payments/sorted", "/payments/sorted/"})
     public List<Float> getSortedPayments(){
         List<Float> paymentDtos = new ArrayList<>();
@@ -68,6 +91,11 @@ public class PaymentRestController {
 	    return paymentDtos;
     }
 
+    
+    /** 
+     * @param id
+     * @return boolean
+     */
     @DeleteMapping(value = {"/payments", "/payments/"})
     public boolean deletePayment(@PathVariable("id") int id){
         if(id == 0) {
@@ -76,6 +104,11 @@ public class PaymentRestController {
         return paymentService.deletePayment(id);
     }
 
+    
+    /** 
+     * @param paymentDto
+     * @return boolean
+     */
     @DeleteMapping(value = {"/payments", "/payments/"})
     public boolean deletePayment(PaymentDto paymentDto){
         if(paymentDto == null) {
@@ -84,6 +117,11 @@ public class PaymentRestController {
         return paymentService.deletePayment(paymentDto.getId());
     }
 
+    
+    /** 
+     * @param p
+     * @return PaymentDto
+     */
     //helper
     public static PaymentDto convertToDto(Payment p) {
     	if(p == null) {

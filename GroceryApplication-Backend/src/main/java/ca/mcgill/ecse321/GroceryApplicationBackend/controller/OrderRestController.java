@@ -30,6 +30,11 @@ public class OrderRestController {
     @Autowired
     OrderService orderService;
 
+    
+    /** 
+     * @param placeOrder(
+     * @return OrderDto
+     */
     //place order
     @PostMapping(value = {"/orders/placeOrder", "/orders/placeOrder/"})
     public OrderDto placeOrder(
@@ -49,6 +54,11 @@ public class OrderRestController {
         return convertToDto(orderService.placeOrder(barcode, applicationId, addressId, status, id, datePlaced, deliveryDate, customerNote, purchaseType, billingAddress, customer, shippingAddress));
     }
 
+    
+    /** 
+     * @param updateOrderStatus(
+     * @return OrderDto
+     */
     //update status
     @PutMapping(value = {"/orders/updateOrderStatus/{status}", "/orders/updateOrderStatus/{status}/"})
     public OrderDto updateOrderStatus(
@@ -57,6 +67,11 @@ public class OrderRestController {
         return convertToDto(orderService.updateOrderStatus(status, id));
     }
 
+    
+    /** 
+     * @param updateOrderAddress(
+     * @return OrderDto
+     */
     @PutMapping(value = {"/orders/updateOrderStatus/{bAdd}/{sAdd}", "/orders/updateOrderStatus/{bAdd}/{sAdd}/"})
     public OrderDto updateOrderAddress(
         @PathVariable("bAdd") Address bAddress,
@@ -65,11 +80,21 @@ public class OrderRestController {
         return convertToDto(orderService.updateAddress(bAddress, sAddress, id));
     }
 
+    
+    /** 
+     * @param id
+     * @return OrderDto
+     * @throws Exception
+     */
     @GetMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
     public OrderDto getOrderById(@PathVariable("id") int id) throws Exception{
         return convertToDto(orderService.getOrderById(id));
     }
 
+    
+    /** 
+     * @return List<OrderDto>
+     */
     @GetMapping(value = {"/groceryOrders/allOrders", "groceryOrders/allOrders/"})
     public List<OrderDto> getAllOrders() {
         List<OrderDto> orderDtos = new ArrayList<>();
@@ -79,6 +104,11 @@ public class OrderRestController {
 	    return orderDtos;
     }
 
+    
+    /** 
+     * @param id
+     * @return boolean
+     */
     @DeleteMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
     public boolean deleteOrder(@PathVariable("id") int id){
         if(id == 0) {
@@ -87,6 +117,11 @@ public class OrderRestController {
         return orderService.deleteOrder(id);
     }
 
+    
+    /** 
+     * @param orderDto
+     * @return boolean
+     */
     @DeleteMapping(value = {"/groceryOrders", "/groceryOrders/"})
     public boolean deleteOrder(OrderDto orderDto){
         if(orderDto == null) {
@@ -95,6 +130,11 @@ public class OrderRestController {
         return orderService.deleteOrder(orderDto.getOrderId());
     }
 
+    
+    /** 
+     * @param order
+     * @return OrderDto
+     */
     //helper
 
     public static OrderDto convertToDto(GroceryOrder order) {

@@ -118,6 +118,12 @@ public class OrderService {
         return order;
     }
 
+    
+    /** 
+     * @param status
+     * @param id
+     * @return GroceryOrder
+     */
     @Transactional
     public GroceryOrder updateOrderStatus(OrderStatus status, int id){
 
@@ -180,6 +186,11 @@ public class OrderService {
     }
 
     
+    
+    /** 
+     * @param iterable
+     * @return List<T>
+     */
     //helper
     private <T> List<T> toList(Iterable<T> iterable){
         List<T> resultList = new ArrayList<T>();
