@@ -29,7 +29,7 @@ public class ManagerRestController {
 
     }
 
-    @GetMapping(value = {"/manager/", "/manager/{id}/"})
+    @GetMapping(value = {"/manager/{id}", "/manager/{id}/"})
     public ManagerDto getManagerById(@PathVariable("id") int id){
         return convertToDto(managerService.getManager(id));
     }
