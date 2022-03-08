@@ -83,7 +83,6 @@ public class CustomerService {
 	 * 
 	 * @return
 	 */
-	
 	@Transactional
 	public List<Customer> getAllCustomers() {
 		return toList(customerRepository.findAll());
@@ -107,7 +106,7 @@ public class CustomerService {
 	}
 	
 
-
+	  // ------------------ Helper Methods ---------------------
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {

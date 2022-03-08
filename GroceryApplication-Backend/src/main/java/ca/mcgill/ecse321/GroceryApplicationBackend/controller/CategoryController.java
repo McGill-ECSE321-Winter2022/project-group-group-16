@@ -62,6 +62,11 @@ public class CategoryController {
 	  
 		//-------------------------- Helper Methods -----------------------------
 	  
+	  /**
+	   * @author noahye
+	   * @param category
+	   * @return
+	   */
 	  
 		private CategoryDto convertToDto(Category category) {
 			if (category == null) {

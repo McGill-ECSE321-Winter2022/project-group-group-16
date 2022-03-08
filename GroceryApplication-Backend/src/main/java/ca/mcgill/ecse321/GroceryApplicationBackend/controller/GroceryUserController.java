@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.GroceryUserDto;
-import ca.mcgill.ecse321.GroceryApplicationBackend.dto.ProductDto;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.GroceryUserService;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.InvalidInputException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -38,6 +37,14 @@ public class GroceryUserController {
 	  
 	  @PutMapping(value = { "/updateGroceryUser/{username}/{password}/{firstName}/{lastName}/(email}/{date}", "/updateGroceryUser/{username}/{password}/{firstName}/{lastName}/(email}/{date}/" })
 	  public GroceryUserDto updateGroceryUser (@PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("email") String email, @PathVariable("date") Date date) {
+		 List <GroceryUser> users =  groceryUserService.getAllGroceryUser();
+		 for(int i = 0; i<users.size(); i++) {
+			if (users.get(i).getEmail().equals(email)){
+				throw new InvalidInputException(
+						"User with this email already exists.\n");
+			}
+			 
+		 }
 		  GroceryUser user =  groceryUserService.createGroceryUser(username, password, firstName, lastName, email, date);
 		    return convertToDto(user);
 	  }
@@ -74,7 +81,11 @@ public class GroceryUserController {
 	  
 	//-------------------------- Helper Methods -----------------------------
 	  
-	  
+	  /**
+	   * @author noahye
+	   * @param user
+	   * @return
+	   */
 			private GroceryUserDto convertToDto(GroceryUser user) {
 				if (user == null) {
 					throw new IllegalArgumentException("The provided user does not exist.");

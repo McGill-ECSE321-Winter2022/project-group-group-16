@@ -2,9 +2,9 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
 
 import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.management.InvalidApplicationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +48,7 @@ public class ProductService {
 	@Transactional
 	public Product createProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity)  {
   
-        //create a grocery store application
+		   //create a grocery store application
         //mandatory to create for a store to exist
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
@@ -58,6 +58,14 @@ public class ProductService {
         Category category = categoryRepository.findCategoryById(categoryId);
         if (category == null) {
 			throw new InvalidInputException("No category associated with this Id.");
+		}
+        
+        if (name == null || name.trim().length() == 0) {
+			throw new InvalidInputException("Requested name is null or length 0. Please enter valid namel.\n");
+		}
+        
+        if (description == null || description.trim().length() == 0) {
+			throw new InvalidInputException("Requested description is null or length 0. Please enter valid descriptionl.\n");
 		}
        
 
@@ -108,6 +116,14 @@ public class ProductService {
         Category category = categoryRepository.findCategoryById(categoryId);
         if (category == null) {
 			throw new InvalidInputException("No category associated with this Id.");
+		}
+        
+        if (name == null || name.trim().length() == 0) {
+			throw new InvalidInputException("Requested name is null or length 0. Please enter valid namel.\n");
+		}
+        
+        if (description == null || description.trim().length() == 0) {
+			throw new InvalidInputException("Requested description is null or length 0. Please enter valid descriptionl.\n");
 		}
        
 
@@ -177,7 +193,7 @@ public class ProductService {
 		return product;
 	}
 	
-		
+	  // ------------------ Helper Methods ---------------------
 
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
@@ -186,6 +202,4 @@ public class ProductService {
 		}
 		return resultList;
 	}
-
-
 }

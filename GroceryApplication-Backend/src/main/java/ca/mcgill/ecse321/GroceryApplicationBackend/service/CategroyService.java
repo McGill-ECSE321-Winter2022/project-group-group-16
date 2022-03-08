@@ -1,19 +1,11 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import javax.management.InvalidApplicationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ProductRepository;
@@ -22,7 +14,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication
 
 @Service
 public class CategroyService {
-
+	
 	@Autowired
 	CategoryRepository categoryRepository;
 
@@ -51,6 +43,11 @@ public class CategroyService {
 			throw new InvalidInputException(
 					"requested description is null or length 0. Please enter valid description.\n");
 		}
+		
+		if (description == null || description.trim().length() == 0) {
+			throw new InvalidInputException(
+					"requested description is null or length 0. Please enter valid description.\n");
+		}
 
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
@@ -66,7 +63,6 @@ public class CategroyService {
 		categoryRepository.save(category);
 
 		return category;
-
 	}
 	
 	/**
@@ -88,7 +84,6 @@ public class CategroyService {
 	@Transactional
 	public List<Category> getAllCategory() {
 		return toList(categoryRepository.findAll());
-
 	}
 	
 	/**
@@ -118,6 +113,10 @@ public class CategroyService {
 		if (name == null || name.trim().length() == 0) {
 			throw new InvalidInputException("requested name is null or length 0. Please enter valid namel.\n");
 		}
+		
+		if (image == null || image.trim().length() == 0) {
+			throw new InvalidInputException("requested image is null or length 0. Please enter validimagel.\n");
+		}
 		if (description == null || description.trim().length() == 0) {
 			throw new InvalidInputException(
 					"requested description is null or length 0. Please enter valid description.\n");
@@ -139,7 +138,8 @@ public class CategroyService {
 		return category;
 
 	}
-
+	
+	  // ------------------ Helper Methods ---------------------
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {

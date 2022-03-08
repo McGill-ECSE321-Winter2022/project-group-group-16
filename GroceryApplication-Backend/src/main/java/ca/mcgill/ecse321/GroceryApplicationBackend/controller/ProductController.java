@@ -65,7 +65,11 @@ public class ProductController {
 	  
 		//-------------------------- Helper Methods -----------------------------
 	  
-	  
+	  /**
+	   * @author noahye
+	   * @param product
+	   * @return
+	   */
 		private ProductDto convertToDto(Product product) {
 			if (product == null) {
 				throw new IllegalArgumentException("The provided product does not exist.");

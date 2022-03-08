@@ -52,7 +52,11 @@ public class CustomerController {
   
 	//-------------------------- Helper Methods -----------------------------
 	  
-	  
+	  /**
+	   * @author noahye
+	   * @param customer
+	   * @return
+	   */
 		private CustomerDto convertToDto(Customer customer) {
 			if (customer == null) {
 				throw new IllegalArgumentException("The provided customer does not exist.");
