@@ -1,16 +1,16 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class Address {
     // attributes
-    private int streetNumber;
-    private int id;
+    private Integer streetNumber;
+    private Integer id;
     private String streetName;
     private String province;
     private Customer customer;
@@ -23,11 +23,11 @@ public class Address {
     private String country;
     private String postalCode;
 
-    public int getStreetNumber() {
+    public Integer getStreetNumber() {
         return this.streetNumber;
     }
 
-    public void setStreetNumber(int value) {
+    public void setStreetNumber(Integer value) {
         this.streetNumber = value;
     }
 
@@ -81,6 +81,7 @@ public class Address {
     }
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     public Store getStore() {
         return this.store;
     }
@@ -109,11 +110,13 @@ public class Address {
     }
 
     @Id
-    public int getId() {
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

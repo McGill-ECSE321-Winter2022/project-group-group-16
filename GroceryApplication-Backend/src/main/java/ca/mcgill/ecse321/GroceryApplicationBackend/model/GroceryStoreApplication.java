@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -43,6 +45,7 @@ public class GroceryStoreApplication {
         this.userRole = userRoles;
     }
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Store getStore() {
         return this.store;

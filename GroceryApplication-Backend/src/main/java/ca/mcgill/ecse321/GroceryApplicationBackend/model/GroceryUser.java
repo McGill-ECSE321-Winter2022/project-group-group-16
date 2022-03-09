@@ -26,6 +26,7 @@ public class GroceryUser {
         this.userRole = userRoles;
     }
 
+    @Column(unique = true)
     public String getUsername() {
         return this.username;
     }
