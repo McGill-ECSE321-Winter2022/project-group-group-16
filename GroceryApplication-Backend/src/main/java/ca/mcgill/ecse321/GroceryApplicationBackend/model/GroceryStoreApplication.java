@@ -36,6 +36,7 @@ public class GroceryStoreApplication {
         this.product = products;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<UserRole> getUserRole() {
         return this.userRole;

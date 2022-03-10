@@ -13,7 +13,7 @@ public class Employee extends UserRole {
     private Date hiredDate;
     @Enumerated
     private EmployeeStatus status;
-    private float hourlyPay;
+    private Float hourlyPay;
 
     // associations
     private Set<Shift> shift;
@@ -26,11 +26,11 @@ public class Employee extends UserRole {
         this.hiredDate = value;
     }
 
-    public float getHourlyPay() {
+    public Float getHourlyPay() {
         return this.hourlyPay;
     }
 
-    public void setHourlyPay(float value) {
+    public void setHourlyPay(Float value) {
         this.hourlyPay = value;
     }
 
