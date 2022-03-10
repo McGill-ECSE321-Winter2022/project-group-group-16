@@ -1,15 +1,15 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 public class Shift {
     // attributes
     private Day day;
-    private int id;
+    private Integer id;
     @Enumerated
     private ShiftType shift;
     // associations
@@ -24,6 +24,7 @@ public class Shift {
     }
 
     @ManyToOne(optional = false)
+    @JsonBackReference
     public Employee getEmployee() {
         return this.employee;
     }
@@ -40,12 +41,14 @@ public class Shift {
         this.shift = value;
     }
 
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
     @Id
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 
