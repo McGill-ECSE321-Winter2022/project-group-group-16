@@ -26,6 +26,15 @@ public class EmployeeService {
     @Autowired
     private GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
+    /**
+     * Service method for creating an employee.
+     * @param hiredDate
+     * @param employeeStatus
+     * @param hourlyPay
+     * @param email of the grocery user associated.
+     * @param groceryStoreApplicationId
+     * @return created employee.
+     */
     @Transactional
     public Employee createEmployee(Date hiredDate, Employee.EmployeeStatus employeeStatus, Float hourlyPay,
                                    String email, Integer groceryStoreApplicationId) {
@@ -53,6 +62,11 @@ public class EmployeeService {
         return employee;
     }
 
+    /**
+     * Service method for getting an employee by id.
+     * @param id
+     * @return employee with the input id.
+     */
     @Transactional
     public Employee getEmployeeById(Integer id) {
         Employee employee = employeeRepository.findEmployeeById(id);
@@ -60,6 +74,12 @@ public class EmployeeService {
         return employee;
     }
 
+    /**
+     * Service method for getting an employee by the email
+     * of the associated grocery user.
+     * @param email of the grocery user.
+     * @return employee.
+     */
     @Transactional
     public Employee getEmployeeByEmail(String email) {
         GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
@@ -72,6 +92,16 @@ public class EmployeeService {
         return employee;
     }
 
+    /**
+     * Service method for updating an employee.
+     * @param id of the employee to update.
+     * @param hiredDate
+     * @param employeeStatus
+     * @param hourlyPay
+     * @param email
+     * @param groceryStoreApplicationId
+     * @return updated employee.
+     */
     @Transactional
     public Employee updateEmployee(Integer id, Date hiredDate, Employee.EmployeeStatus employeeStatus,
                                    Float hourlyPay, String email, Integer groceryStoreApplicationId) {
@@ -104,6 +134,10 @@ public class EmployeeService {
         return employee;
     }
 
+    /**
+     * Service method for deleting an employee given their id.
+     * @param id of the employee to delete.
+     */
     @Transactional
     public void deleteEmployeeById(Integer id) {
         Employee employee = employeeRepository.findEmployeeById(id);
@@ -112,6 +146,10 @@ public class EmployeeService {
         employeeRepository.deleteEmployeeById(id);
     }
 
+    /**
+     * Service method for deleting an employee given the email of their associated grocery user.
+     * @param email of the grocery user for whom to delete the employee role.
+     */
     @Transactional
     public void deleteEmployeeByEmail(String email) {
         GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
@@ -125,16 +163,28 @@ public class EmployeeService {
         employeeRepository.deleteEmployeeByUser(user);
     }
 
+    /**
+     * Service method for getting all employees without any ordering.
+     * @return all employees.
+     */
     @Transactional
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
+    /**
+     * Service method for getting all employees sorted by descending pay.
+     * @return employees sorted by descending pay.
+     */
     @Transactional
     public List<Employee> getAllEmployeesSortByPay() {
         return employeeRepository.findAllByOrderByHourlyPayDesc();
     }
 
+    /**
+     * Service method for getting all employees sorted by their descending hired date.
+     * @return employees sorted by descending hired date.
+     */
     @Transactional
     public List<Employee> getAllEmployeesSortByHiredDate() {
         return employeeRepository.findAllByOrderByHiredDateDesc();
