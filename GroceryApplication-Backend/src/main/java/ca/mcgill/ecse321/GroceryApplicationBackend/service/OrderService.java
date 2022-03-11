@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.checkerframework.checker.units.qual.s;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,11 +43,9 @@ public class OrderService {
      * @param deliveryDate
      * @param customerNote
      * @param purchaseType
-     * @param product
      * @param billingAddress
      * @param customer
      * @param shippingAddress
-     * @param payment
      * @return GroceryOrder
      * @throws Exception
      */
@@ -95,8 +92,7 @@ public class OrderService {
     }
 
     
-    /** 
-     * @param status
+    /**
      * @param id
      * @return GroceryOrder
      * @throws Exception
