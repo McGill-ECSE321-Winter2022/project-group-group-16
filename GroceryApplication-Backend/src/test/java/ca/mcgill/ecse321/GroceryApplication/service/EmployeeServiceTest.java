@@ -36,6 +36,7 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.AddressRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Employee;
@@ -46,14 +47,12 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.service.EmployeeService;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
-	
-	
-	
-
-
 
 	@Mock
 	private EmployeeRepository employeeRepository;
+	
+	@Mock
+	 private GroceryUserRepository groceryUserRepository;
 	
 	@InjectMocks
 	private EmployeeService employeeService;
@@ -62,6 +61,7 @@ public class EmployeeServiceTest {
 	private static final float HOURLYPAY = 18;
 	private static final String EMAIL ="john@gmail.com";
 	private static final Integer GROCERYAPPID=453;
+	private static final String INEXISTANTEMAIL ="danny@hotmail.com";
 	
 	private static final int EMPLOYEEID2= 697;
 	private static final float HOURLYPAY2 = 19;
@@ -72,10 +72,15 @@ public class EmployeeServiceTest {
 		lenient().when(employeeRepository.findEmployeeById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if(invocation.getArgument(0).equals(EMPLOYEEID)) {
 				
+
 				Employee employee = new Employee();
+				GroceryUser user = new GroceryUser();
+				user.setEmail(EMAIL);
+				employee.setUser(user);
 				employee.setId(EMPLOYEEID);
 				employee.setHourlyPay(HOURLYPAY);
 				employee.setStatus(Employee.EmployeeStatus.ACTIVE);
+				
 				
 				
 				return employee;
@@ -189,6 +194,9 @@ public class EmployeeServiceTest {
 	/*@Test
 	public void testCreateEmployee() {
 		Employee employee = null;
+		
+		lenient().when(groceryUserRepository.findGroceryUserByEmail(anyString())).thenReturn(true);
+		
 		Calendar c1 = Calendar.getInstance();
 		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
 		Date date1 = new Date(c1.getTimeInMillis());
@@ -293,7 +301,7 @@ public class EmployeeServiceTest {
 	}
 	
 	//Test to create employee with inexistant email
-	/*@Test
+	@Test
 	public void testCreateEmployeeWithInexistantEmail() {
 		Employee employee = null;
 		String error = null;
@@ -301,21 +309,47 @@ public class EmployeeServiceTest {
 		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
 		Date date1 = new Date(c1.getTimeInMillis());
 		try {
-			employee = employeeService.createEmployee(date1, EmployeeStatus.ACTIVE, HOURLYPAY,EMAIL, GROCERYAPPID);
+			employee = employeeService.createEmployee(date1, EmployeeStatus.ACTIVE, HOURLYPAY, INEXISTANTEMAIL  , GROCERYAPPID);
 			
 		}catch (ApiRequestException e) {
 			error = e.getMessage();		
 		}
 		
 		assertNull(employee);
-		assertEquals("The grocery user with email " + "danny@hotmail.com" + " does not exist."
+		assertEquals("The grocery user with email " + INEXISTANTEMAIL + " does not exist."
                 + "Create a grocery user before creating employee.",error);		
+
+	}
+	
+	//Test to get employee with invalid id 
+	@Test
+	public void testGetEmployeeWithInvalidId() {
+		Employee employee = null;
+		String error = null;
+		try {
+			employee = employeeService.getEmployeeById(5489);
+					
+			
+		}catch (ApiRequestException e) {
+			error = e.getMessage();		
+		}
+		assertNull(employee);
+		assertEquals("Employee with id " + 5489 + " does not exist",error);
 		
 		
 		
+	}
+	
+	//Test for getting all the employees
+	@Test
+	public void testGetAllEmployees() {
+		List<Employee> employees = null;
+		employees = employeeService.getAllEmployees();
+		assertNotNull(employees);
 		
 		
-	}*/
+		
+	}
 	
 	
 	
@@ -323,14 +357,7 @@ public class EmployeeServiceTest {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
