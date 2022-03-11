@@ -164,8 +164,6 @@ public class AddressServiceTest {
 	}
 	
 	//A test for creating an address sucessfully
-	
-	
 	@Test
 	public void testCreateAddress() {
 		Address address = null;
@@ -312,9 +310,50 @@ public class AddressServiceTest {
 		
 	}
 	
+	//Test for updating the address with empty Id
+	@Test
+	public void testUpdateAddressByEmptyId() {
+		Address address = null;
+		String error = null;
+		try {
+			address = addressService.updateAddress(null, 1234567, "NewStreetName", "NewProvince", "NewCity", "NewCountry", "NewPostalCode");
+			
+			
+		}catch(Exception e) {
+			error = e.getMessage();
+			
+		}
+		assertNull(address);
+		assertEquals("No address exists with id:" + null ,error);
+		
+		
+	}
+	
 
 	
 	//Test for getting the address by nonexistant Id
+	@Test
+	public void testgetAddressByEmptyId() {
+		Address address = null;
+		String error = null;
+		
+		try {
+			address = addressService.getAddressById(null);
+			}
+			catch(Exception e) {
+				
+				error = e.getMessage();
+			}
+		
+		assertNull(address);
+		assertEquals("No address exists with id:"+ null, error );
+		
+		
+		
+	}
+	
+	
+	//Test getting address with empty id
 	@Test
 	public void testgetAddressByInexistantId() {
 		Address address = null;
@@ -334,7 +373,6 @@ public class AddressServiceTest {
 		
 		
 	}
-	
 	
 	
 	
