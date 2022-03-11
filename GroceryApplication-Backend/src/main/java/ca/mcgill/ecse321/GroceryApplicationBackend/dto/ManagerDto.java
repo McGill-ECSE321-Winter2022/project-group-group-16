@@ -2,23 +2,23 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.dto;
 
 public class ManagerDto {
 
-    private int id;
+    private Integer id;
 
     public ManagerDto(){
 
     }
 
-    public ManagerDto(int id){
+    public ManagerDto(Integer id){
 
         //super() //for GroceryUserDto
         this.id = id;
     }
 
-    public int getManagerId(){
+    public Integer getManagerId(){
         return id;
     }
 
-    public void setManagerId(int id){
+    public void setManagerId(Integer id){
         this.id = id;
     }
 

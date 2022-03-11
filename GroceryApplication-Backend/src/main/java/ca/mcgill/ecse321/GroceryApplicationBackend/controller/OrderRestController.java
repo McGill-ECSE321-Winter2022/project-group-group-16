@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.OrderDto;
@@ -38,19 +39,19 @@ public class OrderRestController {
     //place order
     @PostMapping(value = {"/orders/placeOrder", "/orders/placeOrder/"})
     public OrderDto placeOrder(
-        @PathVariable("barcode") int barcode,
-        @PathVariable("applicationId") int applicationId,
-        @PathVariable("addressId") int addressId,
-        @PathVariable("status") OrderStatus status,
-        @PathVariable("id") int id,
-        @PathVariable("datePlaced") Date datePlaced,
-        @PathVariable("deliveryDate") Date deliveryDate,
-        @PathVariable("customerNote") String customerNote,
-        @PathVariable("purchaseType") PurchaseType purchaseType,
-        @PathVariable("product") Product product,
-        @PathVariable("billingAddress") Address billingAddress,
-        @PathVariable("customer") Customer customer,
-        @PathVariable("shippingAddress") Address shippingAddress) throws Exception{
+        @RequestParam("barcode") Integer barcode,
+        @RequestParam("applicationId") Integer applicationId,
+        @RequestParam("addressId") Integer addressId,
+        @RequestParam("status") OrderStatus status,
+        @RequestParam("id") Integer id,
+        @RequestParam("datePlaced") Date datePlaced,
+        @RequestParam("deliveryDate") Date deliveryDate,
+        @RequestParam("customerNote") String customerNote,
+        @RequestParam("purchaseType") PurchaseType purchaseType,
+        @RequestParam("product") Product product,
+        @RequestParam("billingAddress") Address billingAddress,
+        @RequestParam("customer") Customer customer,
+        @RequestParam("shippingAddress") Address shippingAddress){
         return convertToDto(orderService.placeOrder(barcode, applicationId, addressId, status, id, datePlaced, deliveryDate, customerNote, purchaseType, billingAddress, customer, shippingAddress));
     }
 
@@ -60,10 +61,10 @@ public class OrderRestController {
      * @return OrderDto
      */
     //update status
-    @PutMapping(value = {"/orders/updateOrderStatus/{status}", "/orders/updateOrderStatus/{status}/"})
+    @PutMapping(value = {"/orders/updateOrderStatus/{id}", "/orders/updateOrderStatus/{id}/"})
     public OrderDto updateOrderStatus(
-        @PathVariable("status") OrderStatus status,
-        @PathVariable("id") int id){
+        @RequestParam("status") OrderStatus status,
+        @PathVariable("id") Integer id){
         return convertToDto(orderService.updateOrderStatus(status, id));
     }
 
@@ -72,11 +73,11 @@ public class OrderRestController {
      * @param updateOrderAddress(
      * @return OrderDto
      */
-    @PutMapping(value = {"/orders/updateOrderStatus/{bAdd}/{sAdd}", "/orders/updateOrderStatus/{bAdd}/{sAdd}/"})
+    @PutMapping(value = {"/orders/updateOrderStatus/{id}]", "/orders/updateOrderStatus/{id}/"})
     public OrderDto updateOrderAddress(
-        @PathVariable("bAdd") Address bAddress,
-        @PathVariable("sAdd") Address sAddress,
-        @PathVariable("id") int id){
+        @RequestParam("bAdd") Address bAddress,
+        @RequestParam("sAdd") Address sAddress,
+        @PathVariable("id") Integer id){
         return convertToDto(orderService.updateAddress(bAddress, sAddress, id));
     }
 
@@ -87,7 +88,7 @@ public class OrderRestController {
      * @throws Exception
      */
     @GetMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
-    public OrderDto getOrderById(@PathVariable("id") int id) throws Exception{
+    public OrderDto getOrderById(@PathVariable("id") Integer id) throws Exception{
         return convertToDto(orderService.getOrderById(id));
     }
 
@@ -95,7 +96,7 @@ public class OrderRestController {
     /** 
      * @return List<OrderDto>
      */
-    @GetMapping(value = {"/groceryOrders/allOrders", "groceryOrders/allOrders/"})
+    @GetMapping(value = {"/groceryOrders/allOrders", "/groceryOrders/allOrders/"})
     public List<OrderDto> getAllOrders() {
         List<OrderDto> orderDtos = new ArrayList<>();
 	    for (GroceryOrder order : orderService.getAllOrders()) {
@@ -110,7 +111,7 @@ public class OrderRestController {
      * @return boolean
      */
     @DeleteMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
-    public boolean deleteOrder(@PathVariable("id") int id){
+    public boolean deleteOrder(@PathVariable("id") Integer id){
         if(id == 0) {
             throw new InvalidInputException("The id is not valid.");
         }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.PaymentDto;
@@ -32,12 +33,12 @@ public class PaymentRestController {
      */
     @PostMapping(value = {"/payment", "/payment/"})
     public PaymentDto createPayment(
-        @PathVariable("applicationId") int applicationId,
-        @PathVariable("orderId") int orderId,
-        @PathVariable("id") int id,
-        @PathVariable("amount") float amount,
-        @PathVariable("paymentType") PaymentType paymentType,
-        @PathVariable("paymentCode") String paymentCode){
+        @RequestParam("applicationId") Integer applicationId,
+        @RequestParam("orderId") Integer orderId,
+        @RequestParam("id") Integer id,
+        @RequestParam("amount") Float amount,
+        @RequestParam("paymentType") PaymentType paymentType,
+        @RequestParam("paymentCode") String paymentCode){
             return convertToDto(paymentService.createPayment(applicationId, orderId, id, amount, paymentType, paymentCode));
     }
 
@@ -46,12 +47,12 @@ public class PaymentRestController {
      * @param updatePayment(
      * @return PaymentDto
      */
-    @PutMapping(value = {"/payment/updatePayment", "/payment/updatePayment/"})
+    @PutMapping(value = {"/payment/updatePayment/{id}", "/payment/updatePayment/{id}/"})
     public PaymentDto updatePayment(
-        @PathVariable("id") int id,
-        @PathVariable("amount") float amount,
-        @PathVariable("paymentType") PaymentType paymentType,
-        @PathVariable("paymentCode") String paymentCode){
+        @PathVariable("id") Integer id,
+        @RequestParam("amount") Float amount,
+        @RequestParam("paymentType") PaymentType paymentType,
+        @RequestParam("paymentCode") String paymentCode){
             return convertToDto(paymentService.updatePayment(id, amount, paymentType, paymentCode));
     }
 
@@ -61,7 +62,7 @@ public class PaymentRestController {
      * @return PaymentDto
      */
     @GetMapping(value = {"/payment/{id}", "/payment/{id}/"})
-    public PaymentDto getPaymentById(@PathVariable("id") int id){
+    public PaymentDto getPaymentById(@PathVariable("id") Integer id){
         return convertToDto(paymentService.getPaymentById(id));
     }
 
@@ -69,7 +70,7 @@ public class PaymentRestController {
     /** 
      * @return List<PaymentDto>
      */
-    @GetMapping(value = {"/payment/{id}", "/payment/{id}/"})
+    @GetMapping(value = {"/payment", "/payment/"})
     public List<PaymentDto> getAllPayments(){
         List<PaymentDto> paymentDtos = new ArrayList<>();
 	    for (Payment payment : paymentService.getAllPayments()) {
@@ -96,8 +97,8 @@ public class PaymentRestController {
      * @param id
      * @return boolean
      */
-    @DeleteMapping(value = {"/payments", "/payments/"})
-    public boolean deletePayment(@PathVariable("id") int id){
+    @DeleteMapping(value = {"/payments/{id}", "/payments/{id}/"})
+    public boolean deletePayment(@PathVariable("id") Integer id){
         if(id == 0) {
             throw new InvalidInputException("The id is not valid.");
         }

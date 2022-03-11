@@ -8,7 +8,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
 public class PaymentDto {
 
     // attributes
-    private int id;
+    private Integer id;
     private float amount;
     @Enumerated
     private PaymentType paymentType;
@@ -20,7 +20,7 @@ public class PaymentDto {
 
     }
 
-    public PaymentDto(int id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order){
+    public PaymentDto(Integer id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order){
         this.id = id;
         this.amount = amount;
         this.paymentType = paymentType;
@@ -28,7 +28,7 @@ public class PaymentDto {
         this.order = order;
     }
 
-    public int getId(){
+    public Integer getId(){
         return id;
     }
 

@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import java.sql.Date;
 import java.util.Set;
 
@@ -9,7 +12,7 @@ public class GroceryOrder {
     // attributes
     @Enumerated
     private OrderStatus status;
-    private int id;
+    private Integer id;
     private Date datePlaced;
     private Date deliveryDate;
     private String customerNote;
@@ -40,12 +43,14 @@ public class GroceryOrder {
         this.status = value;
     }
 
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
     @Id
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 

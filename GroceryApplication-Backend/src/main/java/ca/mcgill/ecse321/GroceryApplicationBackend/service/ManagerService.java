@@ -26,7 +26,7 @@ public class ManagerService {
      * @throws Exception
      */
     @Transactional
-    public Manager createManager(int applicationId, String email, int id){ //no id? email should alr be unique id
+    public Manager createManager(Integer applicationId, String email, Integer id){ //no id? email should alr be unique id
         
         if(id == 0){
             throw new InvalidInputException("The id cannot be null");
@@ -85,7 +85,7 @@ public class ManagerService {
      */
     //can the store exist even if we delete the manager?
     @Transactional
-    public boolean deleteManager(int id){
+    public boolean deleteManager(Integer id){
 
         Manager manager = managerRepository.findManagerById(id);
         
@@ -103,7 +103,7 @@ public class ManagerService {
      * @return Manager
      */
     @Transactional
-    public Manager getManager(int id){
+    public Manager getManager(Integer id){
         return managerRepository.findManagerById(id);
     }
     

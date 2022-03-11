@@ -109,7 +109,7 @@ public class PaymentService {
      * @throws Exception
      */
     @Transactional
-    public Payment updatePayment(int id, float amount, PaymentType paymentType, String paymentCode){
+    public Payment updatePayment(Integer id, float amount, PaymentType paymentType, String paymentCode){
         
         if(paymentRepository.findPaymentById(id)==null) {
     		throw new InvalidInputException("Payment id is not valid!");
@@ -137,7 +137,7 @@ public class PaymentService {
      * @throws Exception
      */
     @Transactional
-    public boolean deletePayment(int id){
+    public boolean deletePayment(Integer id){
         
         if(paymentRepository.findPaymentById(id)==null) {
     		throw new InvalidInputException("Payment id is not valid!");

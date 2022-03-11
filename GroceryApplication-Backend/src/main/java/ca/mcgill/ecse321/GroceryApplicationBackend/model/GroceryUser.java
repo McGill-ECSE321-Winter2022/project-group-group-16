@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 
-import java.sql.Date;
 import java.util.Set;
 
 @Entity

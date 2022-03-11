@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.ManagerDto;
@@ -24,11 +26,11 @@ public class ManagerRestController {
      * @param createManager(
      * @return ManagerDto
      */
-    @GetMapping(value = {"/manager", "/manager/"})
+    @PostMapping(value = {"/manager", "/manager/"})
     public ManagerDto createManager(
-        @PathVariable("applicationId") int applicationId,
-        @PathVariable("email") String email,
-        @PathVariable("id") int id){
+        @RequestParam("applicationId") Integer applicationId,
+        @RequestParam("email") String email,
+        @RequestParam("id") Integer id){
         return convertToDto(managerService.createManager(applicationId, email, id));
 
     }
@@ -39,7 +41,7 @@ public class ManagerRestController {
      * @return ManagerDto
      */
     @GetMapping(value = {"/manager/{id}", "/manager/{id}/"})
-    public ManagerDto getManagerById(@PathVariable("id") int id){
+    public ManagerDto getManagerById(@PathVariable("id") Integer id){
         return convertToDto(managerService.getManager(id));
     }
 
@@ -48,8 +50,8 @@ public class ManagerRestController {
      * @param id
      * @return boolean
      */
-    @DeleteMapping(value = {"/manager", "/manager/"})
-    public boolean deleteManager(@PathVariable("id") int id){
+    @DeleteMapping(value = {"/manager/{id}", "/manager/{id}/"})
+    public boolean deleteManager(@PathVariable("id") Integer id){
         if(id == 0) {
             throw new InvalidInputException("The id is not valid.");
         }

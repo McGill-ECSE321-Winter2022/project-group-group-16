@@ -53,7 +53,7 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public GroceryOrder placeOrder(int barcode, int applicationId, int addressId, OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Address billingAddress, Customer customer, Address shippingAddress){
+    public GroceryOrder placeOrder(Integer barcode, Integer applicationId, Integer addressId, OrderStatus status, Integer id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Address billingAddress, Customer customer, Address shippingAddress){
         
         Set<Product> productSet = new HashSet();
 
@@ -102,7 +102,7 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public GroceryOrder updateAddress(Address bAdd, Address sAdd, int id){
+    public GroceryOrder updateAddress(Address bAdd, Address sAdd, Integer id){
 
         if(groceryOrderRepository.findGroceryOrderById(id)==null) {
     		throw new InvalidInputException("Order id is not valid!");
@@ -125,7 +125,7 @@ public class OrderService {
      * @return GroceryOrder
      */
     @Transactional
-    public GroceryOrder updateOrderStatus(OrderStatus status, int id){
+    public GroceryOrder updateOrderStatus(OrderStatus status, Integer id){
 
         if(groceryOrderRepository.findGroceryOrderById(id)==null) {
     		throw new InvalidInputException("Order id is not valid!");
@@ -147,7 +147,7 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public boolean deleteOrder(int id){
+    public boolean deleteOrder(Integer id){
 
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
         if(order == null){
@@ -165,7 +165,7 @@ public class OrderService {
      * @throws Exception
      */
     @Transactional
-    public GroceryOrder getOrderById(int id){
+    public GroceryOrder getOrderById(Integer id){
 
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
     	if(order == null) {

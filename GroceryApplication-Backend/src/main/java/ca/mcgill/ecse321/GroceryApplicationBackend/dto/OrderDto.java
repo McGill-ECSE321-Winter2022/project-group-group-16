@@ -14,7 +14,7 @@ public class OrderDto {
     // attributes
     @Enumerated
     private OrderStatus status;
-    private int id;
+    private Integer id;
     private Date datePlaced;
     private Date deliveryDate;
     private String customerNote;
@@ -30,7 +30,7 @@ public class OrderDto {
     public OrderDto(){
     }
 
-    public OrderDto(OrderStatus status, int id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment){
+    public OrderDto(OrderStatus status, Integer id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment){
         this.status = status;
         this.id = id;
         this.datePlaced = datePlaced;
@@ -44,11 +44,11 @@ public class OrderDto {
         this.shippingAddress = shippingAddress;
     }
 
-    public int getOrderId(){
+    public Integer getOrderId(){
         return id;
     }
 
-    public void setOrderId(int id){
+    public void setOrderId(Integer id){
         this.id = id;
     }
     
