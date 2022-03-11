@@ -17,6 +17,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.management.InvalidApplicationException;
 
@@ -83,6 +84,8 @@ public class AddressServiceTest {
 				address.setCountry(COUNTRY);
 				address.setProvince(PROVINCE);
 				address.setPostalCode(POSTALCODE);
+
+		
 				return address;
 				
 				
@@ -184,7 +187,7 @@ public class AddressServiceTest {
 		assertEquals(address.getCity(), CITY);
 		assertEquals(address.getCountry(), COUNTRY);
 		assertEquals(address.getPostalCode(),POSTALCODE);
-		
+
 		
 		
 	}
@@ -285,6 +288,49 @@ public class AddressServiceTest {
 		
 		assertNull(address);
 		assertEquals("Country is null or empty.", error);
+		
+		
+	}
+	
+	
+	//Test for updating the  address by nonexistant Id
+	@Test
+	public void testUpdateAddressByInexistantId() {
+		Address address = null;
+		String error = null;
+		try {
+		address = addressService.updateAddress(6789, 1234567, "NewStreetName", "NewProvince", "NewCity", "NewCountry", "NewPostalCode");
+		}
+		catch(Exception e) {
+			
+			error = e.getMessage();
+		}
+		
+		assertNull(address);
+		assertEquals("No address exists with id:" + 6789, error);
+		
+		
+	}
+	
+
+	
+	//Test for getting the address by nonexistant Id
+	@Test
+	public void testgetAddressByInexistantId() {
+		Address address = null;
+		String error = null;
+		
+		try {
+			address = addressService.getAddressById(1237890);
+			}
+			catch(Exception e) {
+				
+				error = e.getMessage();
+			}
+		
+		assertNull(address);
+		assertEquals("No address exists with id:"+ 1237890, error );
+		
 		
 		
 	}
