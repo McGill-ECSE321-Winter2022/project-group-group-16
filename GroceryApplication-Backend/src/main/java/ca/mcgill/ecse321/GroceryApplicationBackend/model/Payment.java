@@ -2,34 +2,39 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Payment {
     // attributes
-    private int id;
-    private float amount;
+    private Integer id;
+    private Float amount;
     @Enumerated
     private PaymentType paymentType;
     private String paymentCode;
     // associations
     private GroceryOrder order;
 
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
     @Id
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 
-    public float getAmount() {
+    public Float getAmount() {
         return this.amount;
     }
 
-    public void setAmount(float value) {
+    public void setAmount(Float value) {
         this.amount = value;
     }
 
