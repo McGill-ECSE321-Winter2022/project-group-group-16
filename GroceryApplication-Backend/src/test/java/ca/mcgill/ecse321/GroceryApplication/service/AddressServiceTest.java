@@ -41,10 +41,7 @@ public class AddressServiceTest {
 	
 	@Mock
 	private AddressRepository addressRepository;
-	
-	@Mock
-	 private CustomerRepository customerRepository;
-	
+
 	@InjectMocks
 	private AddressService addressService;
 	

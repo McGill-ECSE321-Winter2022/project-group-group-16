@@ -340,6 +340,86 @@ public class EmployeeServiceTest {
 		
 	}
 	
+	//Test delete employee by id
+	@Test
+	public void testDeleteEmployee() {
+		
+		try{
+			employeeService.deleteEmployeeById(EMPLOYEEID);
+			
+		} catch(ApiRequestException e) {
+			fail();	
+		}
+
+	}
+	
+	//Test delete employee with a nonexistant id
+	@Test
+	public void testDeleteEmployeeWithNonExistantId() {
+		String error = null;
+		
+		try {
+			
+			employeeService.deleteEmployeeById(696969);
+			
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+		}
+		assertEquals(error,"Employee with id " + 696969 + "does not exist");
+		
+		
+	}
+	
+	/*@Test
+	public void testDeleteEmployeeWithEmail() {
+		try {
+			
+			employeeService.deleteEmployeeByEmail("johnny@hotmail.com");
+		} catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		
+		
+	}*/
+	
+	//Test delete employee with invalid email, grocery user
+	@Test
+	public void testDeleteEmployeeWithInvalidEmail() {
+		String error = null;
+		try {
+			
+			employeeService.deleteEmployeeByEmail("johnnysins@gmail.com");
+			
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+		}
+		
+		assertEquals(error, "Grocery user with email " + "johnnysins@gmail.com" + " does not exist" );
+		
+		
+		
+	}
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//Test for getting all the employees
 	@Test
 	public void testGetAllEmployees() {
