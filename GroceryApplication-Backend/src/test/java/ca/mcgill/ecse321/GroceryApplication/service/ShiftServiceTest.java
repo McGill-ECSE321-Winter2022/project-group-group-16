@@ -200,8 +200,7 @@ public class ShiftServiceTest {
 	}
 	
 	
-	//Test for getting shift with Id
-	
+	//Test for getting shift with Id	
 	@Test
 	public void testGetShiftWithId() {
 		Shift shift = null;
@@ -241,7 +240,43 @@ public class ShiftServiceTest {
 		
 	}
 	
+	//Test for deleting shift by id
+	@Test
+	public void testDeleteShiftById() {
+		
+		try {
+			shiftService.deleteShift(SHIFTID);
+			
+			
+		} catch(ApiRequestException e) {
+			
+			fail();
+			
+			
+		}
+		
+		
+		
+	}
 	
+	//Test for deleting shift with invalid id
+	@Test
+	public void testDeleteShiftWithInvalidId() {
+		String error = null;
+		try {
+			
+			shiftService.deleteShift(9999);
+			
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+		}
+		assertEquals(error, "Shift with id " + 9999 + " does not exist" );
+		
+	}
+	
+
 	
 
 	//Test for updating shift with an Id that doesn't exists
