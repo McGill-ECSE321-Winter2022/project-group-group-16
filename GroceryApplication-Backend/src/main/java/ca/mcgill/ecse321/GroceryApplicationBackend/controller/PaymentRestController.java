@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.PaymentDto;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
-import ca.mcgill.ecse321.GroceryApplicationBackend.service.InvalidInputException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.PaymentService;
 
 @CrossOrigin(origins = "*")
@@ -33,13 +33,13 @@ public class PaymentRestController {
      */
     @PostMapping(value = {"/payment", "/payment/"})
     public PaymentDto createPayment(
-        @RequestParam("applicationId") Integer applicationId,
-        @RequestParam("orderId") Integer orderId,
-        @RequestParam("id") Integer id,
-        @RequestParam("amount") Float amount,
-        @RequestParam("paymentType") PaymentType paymentType,
-        @RequestParam("paymentCode") String paymentCode){
-            return convertToDto(paymentService.createPayment(applicationId, orderId, id, amount, paymentType, paymentCode));
+        @RequestParam Integer applicationId,
+        @RequestParam Integer orderId,
+        @RequestParam Integer id,
+        @RequestParam Float amount,
+        @RequestParam PaymentType paymentType,
+        @RequestParam String paymentCode) throws ApiRequestException{
+            return convertToDto(paymentService.createPayment(applicationId, orderId, amount, paymentType, paymentCode));
     }
 
     
@@ -50,9 +50,9 @@ public class PaymentRestController {
     @PutMapping(value = {"/payment/updatePayment/{id}", "/payment/updatePayment/{id}/"})
     public PaymentDto updatePayment(
         @PathVariable("id") Integer id,
-        @RequestParam("amount") Float amount,
-        @RequestParam("paymentType") PaymentType paymentType,
-        @RequestParam("paymentCode") String paymentCode){
+        @RequestParam Float amount,
+        @RequestParam PaymentType paymentType,
+        @RequestParam String paymentCode) throws ApiRequestException{
             return convertToDto(paymentService.updatePayment(id, amount, paymentType, paymentCode));
     }
 
@@ -62,7 +62,7 @@ public class PaymentRestController {
      * @return PaymentDto
      */
     @GetMapping(value = {"/payment/{id}", "/payment/{id}/"})
-    public PaymentDto getPaymentById(@PathVariable("id") Integer id){
+    public PaymentDto getPaymentById(@PathVariable("id") Integer id) throws ApiRequestException{
         return convertToDto(paymentService.getPaymentById(id));
     }
 
@@ -71,7 +71,7 @@ public class PaymentRestController {
      * @return List<PaymentDto>
      */
     @GetMapping(value = {"/payment", "/payment/"})
-    public List<PaymentDto> getAllPayments(){
+    public List<PaymentDto> getAllPayments() throws ApiRequestException{
         List<PaymentDto> paymentDtos = new ArrayList<>();
 	    for (Payment payment : paymentService.getAllPayments()) {
 	      paymentDtos.add(convertToDto(payment));
@@ -84,7 +84,7 @@ public class PaymentRestController {
      * @return List<Float>
      */
     @GetMapping(value = {"/payments/sorted", "/payments/sorted/"})
-    public List<Float> getSortedPayments(){
+    public List<Float> getSortedPayments() throws ApiRequestException{
         List<Float> paymentDtos = new ArrayList<>();
 	    for (Float payment : paymentService.getAllSortedPayment()) {
 	      paymentDtos.add(payment);
@@ -98,9 +98,9 @@ public class PaymentRestController {
      * @return boolean
      */
     @DeleteMapping(value = {"/payments/{id}", "/payments/{id}/"})
-    public boolean deletePayment(@PathVariable("id") Integer id){
+    public boolean deletePayment(@PathVariable("id") Integer id) throws ApiRequestException{
         if(id == 0) {
-            throw new InvalidInputException("The id is not valid.");
+            throw new ApiRequestException("The id is not valid.");
         }
         return paymentService.deletePayment(id);
     }
@@ -111,22 +111,18 @@ public class PaymentRestController {
      * @return boolean
      */
     @DeleteMapping(value = {"/payments", "/payments/"})
-    public boolean deletePayment(PaymentDto paymentDto){
+    public boolean deletePayment(PaymentDto paymentDto) throws ApiRequestException{
         if(paymentDto == null) {
-            throw new InvalidInputException("The order is not valid.");
+            throw new ApiRequestException("The order is not valid.");
         }
         return paymentService.deletePayment(paymentDto.getId());
     }
 
     
-    /** 
-     * @param p
-     * @return PaymentDto
-     */
     //helper
     public static PaymentDto convertToDto(Payment p) {
     	if(p == null) {
-    		throw new IllegalArgumentException("Payment does not exist");
+    		throw new ApiRequestException("Payment does not exist");
     	}
 
         return new PaymentDto(p.getId(), p.getAmount(), p.getPaymentType(), p.getPaymentCode(), p.getOrder());

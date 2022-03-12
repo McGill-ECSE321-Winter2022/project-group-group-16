@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
 
@@ -25,30 +26,20 @@ public class PaymentService {
     GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
     
-    /** 
-     * @param id
-     * @param amount
-     * @param paymentType
-     * @param paymentCode
-     * @param order
-     * @return Payment
-     * @throws Exception
-     */
     @Transactional
-    public Payment createPayment(int applicationId, int orderId, int id, float amount, PaymentType paymentType, String paymentCode){
+    public Payment createPayment(int applicationId, int orderId, Float amount, PaymentType paymentType, String paymentCode){
         
         GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
         if(gs == null){
-            throw new InvalidInputException("The application doesn't exist.");
+            throw new ApiRequestException("The application doesn't exist.");
         }
 
         GroceryOrder go = groceryOrderRepository.findGroceryOrderById(orderId);
         if(go == null){
-            throw new InvalidInputException("The order doesn't exist.");
+            throw new ApiRequestException("The order doesn't exist.");
         }
 
         Payment payment = new Payment();
-        payment.setId(id);
         payment.setAmount(amount);
         payment.setPaymentType(paymentType);
         payment.setPaymentCode(paymentCode);
@@ -57,18 +48,14 @@ public class PaymentService {
         return payment;
     }
     
-    /** 
-     * @return List<Payment>
-     */
+   
     @Transactional
     public List<Payment> getAllPayments(){
     	return toList(paymentRepository.findAll());
     }
 
     
-    /** 
-     * @return List<Float>
-     */
+ 
     @Transactional
     public List<Float> getAllSortedPayment() {
 
@@ -84,35 +71,23 @@ public class PaymentService {
 
         return amounts;
     }
-    
-    /** 
-     * @param paymentId
-     * @return Payment
-     * @throws Exception
-     */
+
+
     @Transactional
     public Payment getPaymentById(int paymentId){
     	if(paymentRepository.findPaymentById(paymentId) == null) {
-    		throw new InvalidInputException("This id has no associated payment");
+    		throw new ApiRequestException("This id has no associated payment");
     	}
     	return paymentRepository.findPaymentById(paymentId);
     }
 
     
-    /** 
-     * @param id
-     * @param amount
-     * @param paymentType
-     * @param paymentCode
-     * @param order
-     * @return Payment
-     * @throws Exception
-     */
+
     @Transactional
-    public Payment updatePayment(Integer id, float amount, PaymentType paymentType, String paymentCode){
+    public Payment updatePayment(Integer id, Float amount, PaymentType paymentType, String paymentCode){
         
         if(paymentRepository.findPaymentById(id)==null) {
-    		throw new InvalidInputException("Payment id is not valid!");
+    		throw new ApiRequestException("Payment id is not valid!");
     	}
     	
     	Payment payment = paymentRepository.findPaymentById(id);
@@ -130,22 +105,17 @@ public class PaymentService {
         return payment;
     }
 
-    
-    /** 
-     * @param id
-     * @return Payment
-     * @throws Exception
-     */
+
     @Transactional
     public boolean deletePayment(Integer id){
         
         if(paymentRepository.findPaymentById(id)==null) {
-    		throw new InvalidInputException("Payment id is not valid!");
+    		throw new ApiRequestException("Payment id is not valid!");
     	}
 
         Payment payment = paymentRepository.findPaymentById(id);
         if(payment == null){
-            throw new InvalidInputException("payment doesn't exist");
+            throw new ApiRequestException("payment doesn't exist");
         }
 
         paymentRepository.deletePaymentById(id);
@@ -154,10 +124,7 @@ public class PaymentService {
     }
 
     
-    /** 
-     * @param iterable
-     * @return List<T>
-     */
+
     //helper
     private <T> List<T> toList(Iterable<T> iterable){
         List<T> resultList = new ArrayList<T>();
