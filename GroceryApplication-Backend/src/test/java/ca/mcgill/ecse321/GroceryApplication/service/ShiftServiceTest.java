@@ -263,11 +263,7 @@ public class ShiftServiceTest {
 		}
 		assertNull(shift);
 		assertEquals("Employee with id " + 45 + " does not exist",error);
-		
-		
-		
-		
-		
+
 	}
 	
 	
