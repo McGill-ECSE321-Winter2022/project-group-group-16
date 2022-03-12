@@ -4,20 +4,20 @@ public class CategoryDto {
 	private String name;
 	private String description;
 	private String image;
-	private int categoryId;
+	private Integer categoryId;
 	
 	public CategoryDto() {
 		
 	}
 	
-	public CategoryDto(int categoryId) {
+	public CategoryDto(Integer categoryId) {
 		this.name = null;
 		this.description = null;
 		this.image = null;
 		this.categoryId = categoryId;
 	}
 	
-	public CategoryDto(int categoryId, String name, String description, String image) {
+	public CategoryDto(Integer categoryId, String name, String description, String image) {
 		this.name = name;
 		this.description = description;
 		this.image = image;
@@ -52,11 +52,11 @@ public class CategoryDto {
     }
 
     
-    public int getId() {
+    public Integer getId() {
         return this.categoryId;
     }
 
-    public void setId(int categoryId) {
+    public void setId(Integer categoryId) {
     	this.categoryId = categoryId;
     }
 

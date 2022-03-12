@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
 
 @Service
@@ -39,23 +40,23 @@ public class CustomerService {
 	@Transactional
 	public Customer createCustomer( int customerId, int applicationId, int addressId, String userEmail){
 		if (userEmail == null || userEmail.trim().length() == 0) {
-			throw new InvalidInputException(
+			throw new ApiRequestException(
 					"requested userEmail is null or length 0. Please enter valid userEmail.\n");
 		}
 
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidInputException("No application associated with this Id.");
+			throw new ApiRequestException("No application associated with this Id.");
 		}
 
 		GroceryUser gu = groceryUserRepository.findGroceryUserByEmail(userEmail);
 		if (gu == null) {
-			throw new InvalidInputException("No user associated with this email");
+			throw new ApiRequestException("No user associated with this email");
 		}
 
 		Address address = addressRepository.findAddressById(addressId);
 		if (address == null) {
-			throw new InvalidInputException("No address associated with this Id");
+			throw new ApiRequestException("No address associated with this Id");
 		}
 
 		Customer customer = new Customer();
@@ -98,7 +99,7 @@ public class CustomerService {
 	@Transactional
 	public Customer deleteCustomer(int id)  {
 		if (customerRepository.findCustomerById(id) == null) {
-			throw new InvalidInputException("Customer account with provided id does not exist.");
+			throw new ApiRequestException("Customer account with provided id does not exist.");
 		}
 		Customer customer = customerRepository.findCustomerById(id);
 		customerRepository.delete(customer);

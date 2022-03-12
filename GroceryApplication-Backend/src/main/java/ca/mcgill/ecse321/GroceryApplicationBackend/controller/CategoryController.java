@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.CategoryDto;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
 
@@ -24,14 +26,14 @@ public class CategoryController {
 	  @Autowired
 	  private CategroyService categoryService;
 	  
-	  @PostMapping(value = { "/createCategroy/{image}/{categoryId}/{applicationId}/{name}/{description}", "/createCustomer/{image}/{categoryId}/{applicationId}/{name}/{description}/" })
-	  public CategoryDto createCategory (@PathVariable("image") String image, @PathVariable("categoryId") int categoryId, @PathVariable("applicationId") int applicationId, @PathVariable("name") String name, @PathVariable("description") String description) {
-		  Category category = categoryService.createCategory(image, categoryId, applicationId, name, description);
-		    return convertToDto(category);
+	  @PostMapping(value = {"/category", "/category/"})
+	  public CategoryDto createCategory (@RequestParam String image, @RequestParam Integer applicationId, @RequestParam String name, @RequestParam String description) throws ApiRequestException {
+		  Category category = categoryService.createCategory(image, applicationId, name, description);
+		   return convertToDto(category);
 	  }
 	  
-	  @PutMapping(value = { "/updateCategory/{categoryId}/{applicationId}/{name}/{description}/{image}", "/updateCategory/{categoryId}/{applicationId}/{name}/{description}/{image}/" })
-	  public CategoryDto updateCategory(@PathVariable("categoryid") int categoryId, @PathVariable("applicationId")int applicationId, @PathVariable("name") String name, @PathVariable("description") String description, @PathVariable("image") String image) {
+	  @PutMapping(value = {"/category/{categoryId}", "/category/{categoryId}/"})
+	  public CategoryDto updateCategory(@PathVariable("categoryId") Integer categoryId, @RequestParam Integer applicationId, @RequestParam String name, @RequestParam String description, @RequestParam String image) throws ApiRequestException {
 		  Category category = categoryService.updateCategory(categoryId, applicationId, name, description,image);
 		    return convertToDto(category);
 	  }
@@ -39,13 +41,13 @@ public class CategoryController {
 	  
 	  
 	  @DeleteMapping(value = { "/deleteCategory/{categoryId}", "deleteCategory/{categoryId}/" }) 
-	  public CategoryDto deleteCategory(@PathVariable("categoryId") int categoryId) {
+	  public CategoryDto deleteCategory(@PathVariable("categoryId") Integer categoryId) throws ApiRequestException {
 		  Category category = categoryService.deleteCategory(categoryId);
 		    return convertToDto(category);
 	  }
 	  
 	  @GetMapping(value = { "/getCategory/{categoryId}", "/getCategory/{categoryId}/" })
-	  public CategoryDto getCategoryById(@PathVariable("categoryId") int categoryId) {
+	  public CategoryDto getCategoryById(@PathVariable("categoryId") int categoryId) throws ApiRequestException {
 	    return convertToDto(categoryService.getCategorybyId(categoryId));
 	  }
 	  

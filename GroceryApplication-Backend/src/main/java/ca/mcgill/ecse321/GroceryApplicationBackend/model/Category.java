@@ -1,9 +1,13 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Set;
 
 @Entity
@@ -12,7 +16,7 @@ public class Category {
     private String description;
     private String name;
     private String image;
-    private int id;
+    private Integer id;
 
     // associations
     private Set<Product> product;
@@ -50,13 +54,16 @@ public class Category {
     public void setImage(String value) {
         this.image = value;
     }
-
+    
+  
     @Id
-    public int getId() {
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 

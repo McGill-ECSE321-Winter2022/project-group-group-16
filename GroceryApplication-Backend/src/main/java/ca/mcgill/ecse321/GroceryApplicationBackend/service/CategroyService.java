@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ProductRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 
@@ -35,30 +36,29 @@ public class CategroyService {
 	 * @return
 	 */
 	@Transactional
-	public Category createCategory(String image,int categoryId, int applicationId, String name, String description)  {
+	public Category createCategory(String image, Integer applicationId, String name, String description)  {
 		if (name == null || name.trim().length() == 0) {
-			throw new InvalidInputException("requested name is null or length 0. Please enter valid namel.\n");
+			throw new ApiRequestException("requested name is null or length 0. Please enter valid namel.\n");
 		}
 		if (description == null || description.trim().length() == 0) {
-			throw new InvalidInputException(
+			throw new ApiRequestException(
 					"requested description is null or length 0. Please enter valid description.\n");
 		}
 		
 		if (description == null || description.trim().length() == 0) {
-			throw new InvalidInputException(
+			throw new ApiRequestException(
 					"requested description is null or length 0. Please enter valid description.\n");
 		}
 
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidInputException("No application associated with this Id.");
+			throw new ApiRequestException("No application associated with this Id.");
 		}
 
 		Category category = new Category();
 		category.setGroceryStoreApplication(gs);
 		category.setName(name);
 		category.setDescription(description);
-		category.setId(categoryId);
 		category.setImage(image);
 		categoryRepository.save(category);
 
@@ -72,7 +72,10 @@ public class CategroyService {
 	 */
 
 	@Transactional
-	public Category getCategorybyId(int categoryId) {
+	public Category getCategorybyId(Integer categoryId) {
+		if (categoryRepository.findCategoryById(categoryId) == null) {
+			throw new ApiRequestException("Category  with provided id does not exist.");
+		}
 		Category c = categoryRepository.findCategoryById(categoryId);
 		return c;
 	}
@@ -92,9 +95,9 @@ public class CategroyService {
 	 * @return
 	 */
 	@Transactional
-	public Category deleteCategory(int categoryId)  {
+	public Category deleteCategory(Integer categoryId)  {
 		if (categoryRepository.findCategoryById(categoryId) == null) {
-			throw new InvalidInputException("Category  with provided id does not exist.");
+			throw new ApiRequestException("Category  with provided id does not exist.");
 		}
 		Category category = categoryRepository.findCategoryById(categoryId);
 		categoryRepository.delete(category);
@@ -109,22 +112,22 @@ public class CategroyService {
 	 * @return
 	 */
 	@Transactional
-	public Category updateCategory(int categoryId, int applicationId, String name, String description, String image) {
+	public Category updateCategory(Integer categoryId, Integer applicationId, String name, String description, String image) {
 		if (name == null || name.trim().length() == 0) {
-			throw new InvalidInputException("requested name is null or length 0. Please enter valid namel.\n");
+			throw new ApiRequestException("requested name is null or length 0. Please enter valid namel.\n");
 		}
 		
 		if (image == null || image.trim().length() == 0) {
-			throw new InvalidInputException("requested image is null or length 0. Please enter validimagel.\n");
+			throw new ApiRequestException("requested image is null or length 0. Please enter validimagel.\n");
 		}
 		if (description == null || description.trim().length() == 0) {
-			throw new InvalidInputException(
+			throw new ApiRequestException(
 					"requested description is null or length 0. Please enter valid description.\n");
 		}
 
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidInputException("No application associated with this Id.");
+			throw new ApiRequestException("No application associated with this Id.");
 		}
 
 		Category category = categoryRepository.findCategoryById(categoryId);

@@ -13,6 +13,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ProductRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
@@ -52,20 +53,20 @@ public class ProductService {
         //mandatory to create for a store to exist
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidInputException("No application associated with this Id.");
+			throw new ApiRequestException("No application associated with this Id.");
 		}
 
         Category category = categoryRepository.findCategoryById(categoryId);
         if (category == null) {
-			throw new InvalidInputException("No category associated with this Id.");
+			throw new ApiRequestException("No category associated with this Id.");
 		}
         
         if (name == null || name.trim().length() == 0) {
-			throw new InvalidInputException("Requested name is null or length 0. Please enter valid namel.\n");
+			throw new ApiRequestException("Requested name is null or length 0. Please enter valid namel.\n");
 		}
         
         if (description == null || description.trim().length() == 0) {
-			throw new InvalidInputException("Requested description is null or length 0. Please enter valid descriptionl.\n");
+			throw new ApiRequestException("Requested description is null or length 0. Please enter valid descriptionl.\n");
 		}
        
 
@@ -110,20 +111,20 @@ public class ProductService {
         //mandatory to create for a store to exist
 		GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 		if (gs == null) {
-			throw new InvalidInputException("No application associated with this Id.");
+			throw new ApiRequestException("No application associated with this Id.");
 		}
 
         Category category = categoryRepository.findCategoryById(categoryId);
         if (category == null) {
-			throw new InvalidInputException("No category associated with this Id.");
+			throw new ApiRequestException("No category associated with this Id.");
 		}
         
         if (name == null || name.trim().length() == 0) {
-			throw new InvalidInputException("Requested name is null or length 0. Please enter valid namel.\n");
+			throw new ApiRequestException("Requested name is null or length 0. Please enter valid namel.\n");
 		}
         
         if (description == null || description.trim().length() == 0) {
-			throw new InvalidInputException("Requested description is null or length 0. Please enter valid descriptionl.\n");
+			throw new ApiRequestException("Requested description is null or length 0. Please enter valid descriptionl.\n");
 		}
        
 
@@ -170,7 +171,7 @@ public class ProductService {
 	@Transactional
 	public Product deletProduct(int barCode)  {
 		if (productRepository.findProductByBarcode(barCode) == null) {
-			throw new InvalidInputException("Product with provided barcode does not exist.");
+			throw new ApiRequestException("Product with provided barcode does not exist.");
 		}
 		Product product = productRepository.findProductByBarcode(barCode);
 		productRepository.delete(product);
@@ -185,7 +186,7 @@ public class ProductService {
 	public Product refundProduct(int barCode)  {
 		Product product = productRepository.findProductByBarcode(barCode);
 		if(!product.getIsRefundable()) {
-			throw new InvalidInputException("Product is not refundable.");
+			throw new ApiRequestException("Product is not refundable.");
 		}
 		
 		product.setAvailableQuantity(product.getAvailableQuantity()+1);
