@@ -32,7 +32,6 @@ public class ManagerRestController {
         @RequestParam Integer applicationId,
         @RequestParam String email) throws ApiRequestException{
         return convertToDto(managerService.createManager(applicationId, email));
-
     }
 
      
@@ -41,9 +40,14 @@ public class ManagerRestController {
      * @return ManagerDto
      * @throws ApiRequestException
      */
-    @GetMapping(value = {"/manager/{id}", "/manager/{id}/"})
+    @GetMapping(value = {"/manager/id/{id}", "/manager/id/{id}/"})
     public ManagerDto getManagerById(@PathVariable("id") Integer id) throws ApiRequestException{
-        return convertToDto(managerService.getManager(id));
+        return convertToDto(managerService.getManagerbyId(id));
+    }
+
+    @GetMapping(value = {"/manager/email/{email}", "/manager/email/{email}/"})
+    public ManagerDto getManagerByEmail(@PathVariable("email") String email) throws ApiRequestException{
+        return convertToDto(managerService.getManagerByEmail(email));
     }
 
  
@@ -53,12 +57,17 @@ public class ManagerRestController {
      * @return boolean
      * @throws ApiRequestException
      */
-    @DeleteMapping(value = {"/manager/{id}", "/manager/{id}/"})
-    public boolean deleteManager(@PathVariable("id") Integer id) throws ApiRequestException{
+    @DeleteMapping(value = {"/manager/id/{id}", "/manager/id/{id}/"})
+    public boolean deleteManagerById(@PathVariable("id") Integer id) throws ApiRequestException{
         if(id == 0) {
             throw new ApiRequestException("The id is not valid.");
         }
-        return managerService.deleteManager(id);
+        return managerService.deleteManagerById(id);
+    }
+
+    @DeleteMapping(value = {"/manager/email/{email}", "/manager/email/{email}/"})
+    public boolean deleteManagerByEmail(@PathVariable("email") String email) throws ApiRequestException{
+        return managerService.deleteManagerByEmail(email);
     }
 
   

@@ -26,6 +26,15 @@ public class PaymentService {
     GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
     
+    
+    /** 
+     * @param applicationId
+     * @param orderId
+     * @param amount
+     * @param paymentType
+     * @param paymentCode
+     * @return Payment
+     */
     @Transactional
     public Payment createPayment(int applicationId, int orderId, Float amount, PaymentType paymentType, String paymentCode){
         
@@ -49,6 +58,10 @@ public class PaymentService {
     }
     
    
+    
+    /** 
+     * @return List<Payment>
+     */
     @Transactional
     public List<Payment> getAllPayments(){
     	return toList(paymentRepository.findAll());
@@ -56,6 +69,10 @@ public class PaymentService {
 
     
  
+    
+    /** 
+     * @return List<Float>
+     */
     @Transactional
     public List<Float> getAllSortedPayment() {
 
@@ -73,6 +90,11 @@ public class PaymentService {
     }
 
 
+    
+    /** 
+     * @param paymentId
+     * @return Payment
+     */
     @Transactional
     public Payment getPaymentById(int paymentId){
     	if(paymentRepository.findPaymentById(paymentId) == null) {
@@ -83,6 +105,14 @@ public class PaymentService {
 
     
 
+    
+    /** 
+     * @param id
+     * @param amount
+     * @param paymentType
+     * @param paymentCode
+     * @return Payment
+     */
     @Transactional
     public Payment updatePayment(Integer id, Float amount, PaymentType paymentType, String paymentCode){
         
@@ -106,6 +136,11 @@ public class PaymentService {
     }
 
 
+    
+    /** 
+     * @param id
+     * @return boolean
+     */
     @Transactional
     public boolean deletePayment(Integer id){
         
