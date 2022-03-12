@@ -41,9 +41,9 @@ Team Roles:
 | Name | Roles |
 | ---- | ----- |
 | Michelle | Backend Implementation and Evolution of Persistence Layer, Software Quality Assurance Plan and Report, Project Management  |
-| Arturo  | Testing (tbd)  |
-| Danny |  Testing (tbd) |
-| Yoah  |  Testing (tbd)  |
+| Arturo  | Unit Testing of Backend (tbd) and Integration Testing of Backend Services  |
+| Danny |  Unit Testing of Backend (tbd) and Integration Testing of Backend Services |
+| Yoah  |  Unit Testing of Backend (tbd) and Integration Testing of Backend Services  |
 | Noah  |  Backend Implementation and Evolution of Persistence Layer |
 | Yazdan |  Backend Implementation and Evolution of Persistence Layer, Build system, Continuous Integration, and Delivery |
 
