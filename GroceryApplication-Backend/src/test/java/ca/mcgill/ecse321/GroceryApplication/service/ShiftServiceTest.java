@@ -201,8 +201,27 @@ public class ShiftServiceTest {
 	
 	
 	//Test for getting shift with Id
+	
 	@Test
-	public void testGetShift() {
+	public void testGetShiftWithId() {
+		Shift shift = null;
+		try {
+			
+			shift = shiftService.getShift(SHIFTID);
+		} catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		
+		assertNotNull(shift);
+		assertEquals(SHIFTID, shift.getId());
+		
+	}
+	
+	//Test for getting shift with nonexistant Id
+	@Test
+	public void testGetShiftWithNonexistantId() {
 		Shift shift = null;
 		String error = null;
 		
@@ -221,6 +240,8 @@ public class ShiftServiceTest {
 		
 		
 	}
+	
+	
 	
 
 	//Test for updating shift with an Id that doesn't exists
@@ -265,6 +286,7 @@ public class ShiftServiceTest {
 		assertEquals("Employee with id " + 45 + " does not exist",error);
 
 	}
+	
 	
 	
 	

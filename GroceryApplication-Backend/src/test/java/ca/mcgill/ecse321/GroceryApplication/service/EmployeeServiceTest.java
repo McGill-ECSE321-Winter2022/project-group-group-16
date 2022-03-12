@@ -342,7 +342,7 @@ public class EmployeeServiceTest {
 	
 	//Test delete employee by id
 	@Test
-	public void testDeleteEmployee() {
+	public void testDeleteEmployeeByiId() {
 		
 		try{
 			employeeService.deleteEmployeeById(EMPLOYEEID);
@@ -407,18 +407,6 @@ public class EmployeeServiceTest {
 	
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//Test for getting all the employees
 	@Test
