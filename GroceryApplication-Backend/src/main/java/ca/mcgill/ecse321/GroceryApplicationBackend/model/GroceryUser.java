@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 import java.util.Set;
@@ -19,6 +21,7 @@ public class GroceryUser {
     private Set<UserRole> userRole;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     public Set<UserRole> getUserRole() {
         return this.userRole;
     }
@@ -27,6 +30,7 @@ public class GroceryUser {
         this.userRole = userRoles;
     }
 
+    @Column(unique = true)
     public String getUsername() {
         return this.username;
     }
