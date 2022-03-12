@@ -150,7 +150,7 @@ public class StoreServiceTest {
 		try {
 			
 			store = storeService.createStore(STORENAME, weekDayOpening, weekDayClosing, weekendOpening, weekendClosing, 12, 15);
-		} catch (Exception e) {
+		} catch (ApiRequestException e) {
 			fail();
 			
 			
@@ -451,8 +451,7 @@ public class StoreServiceTest {
 			
 		}
 		
-		assertEquals("Store with name " +  null + "does not exist",error);
-		
+		assertEquals("Store with name " +  null + "does not exist",error);		
 	}
 	
 	//Test delete store with an inexistant name

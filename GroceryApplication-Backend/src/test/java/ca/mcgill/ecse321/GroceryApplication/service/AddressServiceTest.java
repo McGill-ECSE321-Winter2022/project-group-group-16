@@ -31,6 +31,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.AddressRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.AddressService;
@@ -41,10 +42,15 @@ public class AddressServiceTest {
 	@Mock
 	private AddressRepository addressRepository;
 	
+	@Mock
+	 private CustomerRepository customerRepository;
+	
 	@InjectMocks
 	private AddressService addressService;
 	
-	private static final int ADDRESSID = 345;
+	 //private static final String ADDRESS_KEY = "Montreal";
+	
+	private static final Integer ADDRESSID = 345;
 	private static final int STREETNUMBER = 450;
 	private static final String STREETNAME = "Bourg";
 	private static final String CITY = "Montreal";
@@ -290,6 +296,38 @@ public class AddressServiceTest {
 		
 	}
 	
+	//Test for updating the address
+	@Test
+	public void testUpdateAddress() {
+		
+		Address address = null;
+		Integer NEWSTREENUMBER =1234567;
+		String NEWSTREETNAME = "NEWSTREETNAME";
+		String NEWCITY = "NEWCITY";
+		String NEWPROVINCE = "NEWPROVINCE";
+		String NEWCOUNTRY = "NEWCOUNTRY";
+		String NEWPOSTALCODE = "NEWPOSTALCODE";
+		
+		try {
+			address = addressService.updateAddress(ADDRESSID, NEWSTREENUMBER, NEWSTREETNAME, NEWPROVINCE, NEWCITY, NEWCOUNTRY, NEWPOSTALCODE );
+			
+		} catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		assertNotNull(address);
+		assertEquals(NEWSTREENUMBER, address.getStreetNumber());
+		assertEquals(NEWSTREETNAME, address.getStreetName());
+		assertEquals(NEWCITY, address.getCity());
+		assertEquals(NEWPROVINCE, address.getProvince());
+		assertEquals(NEWCOUNTRY, address.getCountry());
+		assertEquals(NEWPOSTALCODE, address.getPostalCode());
+		
+		
+		
+		
+	}
 	
 	//Test for updating the  address by nonexistant Id
 	@Test
@@ -328,12 +366,82 @@ public class AddressServiceTest {
 		
 		
 	}
+
 	
+	//Test to delete address with empty id
+	@Test
+	public void testDeleteAdressWithNullId() {
+		String error = null;
+		try {
+			
+			addressService.deleteAddress(null);
+		}catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+		}
+		assertEquals(error,"No address exists with id:" + null);
+
+	}
+	
+	//Test to delete with invalid id
+	@Test
+	public void testDeleteAddressWithInvalidId() {
+		String error = null;
+		try {
+			
+			addressService.deleteAddress(12345);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+		}
+		
+		assertEquals(error, "No address exists with id:" + 12345);
+		
+		
+	}
+	
+	
+	//Test to delete address
+	@Test
+	public void testDeleteAddress() {
+
+		try {
+			
+			addressService.deleteAddress(ADDRESSID);
+			
+		} catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		
+		
+	}
+	
+	
+	//Test get the address by id
+	/*@Test
+	public void testGetAddressById() {
+		Address address = null;
+		try {
+			
+			address = addressService.getAddressById(ADDRESSID);
+		} catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		
+		assertNotNull(address);
+		assertEquals(ADDRESS_KEY, address.getCity());
+		
+	}*/
 
 	
 	//Test for getting the address by nonexistant Id
 	@Test
-	public void testgetAddressByEmptyId() {
+	public void testGetAddressByEmptyId() {
 		Address address = null;
 		String error = null;
 		
@@ -355,7 +463,7 @@ public class AddressServiceTest {
 	
 	//Test getting address with empty id
 	@Test
-	public void testgetAddressByInexistantId() {
+	public void testGetAddressByInexistantId() {
 		Address address = null;
 		String error = null;
 		
