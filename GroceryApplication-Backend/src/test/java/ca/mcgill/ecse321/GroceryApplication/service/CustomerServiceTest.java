@@ -32,6 +32,7 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
@@ -40,11 +41,14 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.CustomerService;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.GroceryUserService;
 
 @ExtendWith(MockitoExtension.class)
 public class CustomerServiceTest {
 	@Mock
 	private CustomerRepository customerRepository;
+	private GroceryUserService groceryUserService;
+	private GroceryUserRepository groceryUserRepository;
 	
 	@InjectMocks
 	private CustomerService customerService;
@@ -148,7 +152,7 @@ public class CustomerServiceTest {
 		public void testCreateCustomer() {
 			Customer customer = null;
 			try {
-				customer = customerService.createCustomer(CUSTOMERID, APPLICATIONID, ADDRESSID, USEREMAIL);
+				customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, USEREMAIL);
 			} catch(Exception e) {
 				fail();
 			}
@@ -165,7 +169,7 @@ public class CustomerServiceTest {
 			Customer customer = null;
 			String error = null;
 			try {
-				customer = customerService.createCustomer(CUSTOMERID, APPLICATIONID, ADDRESSID, "");
+				customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, "");
 								
 			} catch(ApiRequestException e) {
 				error = e.getMessage();
@@ -182,8 +186,19 @@ public class CustomerServiceTest {
 		public void testCreateCategoryEmptyGroceryStore() {
 			Customer customer = null;
 			String error = null;
-			GroceryStoreApplication gs = new GroceryStoreApplication();
+			GroceryUser groceryUser = null;
+			GroceryStoreApplication gsa = null;
+			try {
+				customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, USEREMAIL);
+				groceryUser = groceryUserService.getGroceryUserByEmail(USEREMAIL);		
+				gsa = customer.getGroceryStoreApplication();
+			} catch(ApiRequestException e) {
+				error = e.getMessage();
+								
+			}
 			
+			assertNull(customer);
+			assertEquals("Customer grocery store is null or empty.", error);
 			
 			
 		}

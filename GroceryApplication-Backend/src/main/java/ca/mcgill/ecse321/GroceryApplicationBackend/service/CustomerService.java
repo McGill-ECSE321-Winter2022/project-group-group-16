@@ -38,7 +38,7 @@ public class CustomerService {
 	 * @return
 	 */
 	@Transactional
-	public Customer createCustomer(Integer customerId, Integer applicationId, Integer addressId, String userEmail){
+	public Customer createCustomer(Integer applicationId, Integer addressId, String userEmail){
 		if (userEmail == null || userEmail.trim().length() == 0) {
 			throw new ApiRequestException(
 					"requested userEmail is null or length 0. Please enter valid userEmail.\n");
@@ -61,7 +61,6 @@ public class CustomerService {
 
 		Customer customer = new Customer();
 		gu.setEmail(userEmail);
-		customer.setId(customerId);
 		customer.setAddress(address);
 		customer.setUser(gu);
 		customer.setAddress(address);

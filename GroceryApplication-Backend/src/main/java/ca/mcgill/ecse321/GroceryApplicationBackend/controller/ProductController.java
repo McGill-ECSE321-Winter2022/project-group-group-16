@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.ProductDto;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.ProductService;
@@ -26,7 +27,7 @@ public class ProductController {
 
 
 	  @PostMapping(value = {"/product", "/product/"})
-	  public ProductDto createProduct (@PathVariable("image") String image,  @PathVariable("applicationId") Integer applicationId, @PathVariable("categoryId") Integer categoryId, @PathVariable("name") String name, @PathVariable("description") String description, @PathVariable("price") Float price, @PathVariable("weight") Float weight, @PathVariable("volume") Float volume, @PathVariable("availability") Availability availability,  @PathVariable("isRefundable") boolean isRefundable,  @PathVariable("avaQuantity") Integer avaQuantity  ) {
+	  public ProductDto createProduct (@PathVariable("image") String image,  @PathVariable("applicationId") Integer applicationId, @PathVariable("categoryId") Integer categoryId, @PathVariable("name") String name, @PathVariable("description") String description, @PathVariable("price") Float price, @PathVariable("weight") Float weight, @PathVariable("volume") Float volume, @PathVariable("availability") Availability availability,  @PathVariable("isRefundable") boolean isRefundable,  @PathVariable("avaQuantity") Integer avaQuantity)throws ApiRequestException {
 		  Product product = productService.createProduct(image, applicationId, categoryId, name, description, price, weight, volume, availability, isRefundable, avaQuantity);
 		  return convertToDto(product);
 	  }
