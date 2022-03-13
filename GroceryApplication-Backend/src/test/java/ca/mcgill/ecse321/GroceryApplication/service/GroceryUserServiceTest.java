@@ -398,7 +398,7 @@ public class GroceryUserServiceTest {
 		
 	}
 	
-	//Test for updating grocery user by finding the puser by email
+	//Test for updating grocery user by finding the user by email
 	@Test
 	public void testUpdateGroceryUsers() {
 		GroceryUser groceryUser = null;
@@ -424,14 +424,253 @@ public class GroceryUserServiceTest {
 		assertEquals(PASSWORD2,groceryUser.getPassword());
 		assertEquals(FNAME2, groceryUser.getFirstName());
 		assertEquals(LNAME2,groceryUser.getLastName());
-		//assertEquals(EMAIL2,groceryUser.getEmail());
 		assertEquals(DATEOFBIRTH2,groceryUser.getDateOfBirth());
+
+	}
+	
+	//Test for updating grocery user by finding the by email with date as null
+	@Test
+	public void testUpdateGroceryUserWithNullDate() {
+		GroceryUser groceryUser = null;
+		String error = null;
 		
+		String USERNAME2= "YoMam";
+		String PASSWORD2 =" ILoveYouand";
+		String FNAME2 ="Danny";
+		String LNAME2 ="Too";	
 		
-		
-		
+		try {
+			groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, null);
+			
+			
+		}catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+			
+		}
+		assertNull(groceryUser);
+		assertEquals("A date is null and has to be created.\n",error);
 		
 	}
+		
+	//Test for updating grocery user by finding the by email with email as null
+	@Test
+	public void testUpdateGroceryUserWithNullEmail() {
+		GroceryUser groceryUser = null;
+		String error = null;
+		
+		String USERNAME2= "YoMam";
+		String PASSWORD2 =" ILoveYouand";
+		String FNAME2 ="Danny";
+		String LNAME2 ="Too";	
+		Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+		
+		try {
+			groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, null, DATEOFBIRTH2);
+			
+			
+		}catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+			
+		}
+		assertNull(groceryUser);
+		assertEquals("Requested email is null or length 0. Please enter valid email.\n",error);
+		
+	}
+	
+	
+	
+	    //Test for updating grocery user by finding by email with wrong password
+		@Test
+		public void testUpdateGroceryUserWithWrongPass() {
+			GroceryUser groceryUser = null;
+			String error = null;
+			
+			String USERNAME2= "YoMam";
+			String PASSWORD2 =" tre";
+			String FNAME2 ="Danny";
+			String LNAME2 ="Too";	
+			Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+			
+			try {
+				groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, DATEOFBIRTH2);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+
+			}
+			assertNull(groceryUser);
+			assertEquals("Your password must be at least 5 characters long and contian a uppercasecase and lowercase character",error);
+			
+		}
+		
+		//Test for updating grocery user by finding by email with wrong Username
+		@Test
+		public void testUpdateGroceryUserWithWrongUsername() {
+			GroceryUser groceryUser = null;
+			String error = null;
+			
+			String USERNAME2= "";
+			String PASSWORD2 =" ILoveYouand";
+			String FNAME2 ="Danny";
+			String LNAME2 ="Too";	
+			Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+			try {
+				groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, DATEOFBIRTH2);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("Requested username is null or length 0. Please enter valid username.\n",error);
+			
+		}
+		
+		//Test for updating grocery user by finding by email with wrong first name
+		@Test
+		public void testUpdateGroceryUserWithWrongFName() {
+			GroceryUser groceryUser = null;
+			String error = null;
+			
+			String USERNAME2= "Yesyesyesno";
+			String PASSWORD2 =" ILoveYouand";
+			String FNAME2 ="";
+			String LNAME2 ="Too";	
+			Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+			try {
+				groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, DATEOFBIRTH2);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("Requested first name is null or length 0. Please enter valid first namel.\n",error);
+			
+		}
+		
+		//Test for updating grocery user by finding by email with spec char in first name
+		
+		@Test
+		public void testUpdateGroceryUserWithSpecFName() {
+			GroceryUser groceryUser = null;
+			String error = null;
+			
+			String USERNAME2= "Yesyesyesno";
+			String PASSWORD2 =" ILoveYouand";
+			String FNAME2 ="Danny*";
+			String LNAME2 ="Too";	
+			Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+			try {
+				groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, DATEOFBIRTH2);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("Your first name cannot contain a number or a special character.",error);
+			
+		}
+		
+		//Test for updating grocery user by finding email with null last name
+		
+		
+		@Test
+		public void testUpdateGroceryUserWithNullLName() {
+			GroceryUser groceryUser = null;
+			String error = null;
+			
+			String USERNAME2= "Yesyesyesno";
+			String PASSWORD2 =" ILoveYouand";
+			String FNAME2 ="Danny";
+			String LNAME2 ="";	
+			Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+			try {
+				groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, DATEOFBIRTH2);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("Requested last name is null or length 0. Please enter valid last namel.\n",error);
+			
+		}
+		
+		//Test for updating grocery user with spec char in last name
+				
+		@Test
+		public void testUpdateGroceryUserWithSpecLName() {
+			
+			GroceryUser groceryUser = null;
+			String error = null;
+			
+			String USERNAME2= "Yesyesyesno";
+			String PASSWORD2 =" ILoveYouand";
+			String FNAME2 ="Danny";
+			String LNAME2 ="Too*";	
+			Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+			try {
+				groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, DATEOFBIRTH2);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("Your last name cannot contain a number or a special character.",error);
+			
+		}
+		
+		//Test for loging grocery user 
+		@Test
+		public void testLoginGroceryUser() {
+			
+			GroceryUser groceryUser = null;
+			
+			try {
+				
+				groceryUser = groceryUserService.loginGroceryUser(EMAIL,PASSWORD);
+				
+				
+			} catch(ApiRequestException e) {
+				fail();
+				
+				
+			}
+			
+			assertNotNull(groceryUser);
+			assertEquals(EMAIL, groceryUser.getEmail());
+			assertEquals(PASSWORD, groceryUser.getPassword());
+			
+		}
+		
+		
+		
+		
+			
+	
 	
 	
 	
