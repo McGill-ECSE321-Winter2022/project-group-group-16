@@ -28,20 +28,19 @@ public class PaymentService {
 
 
     /**
-     * @param applicationId
-     * @param orderId
-     * @param amount
-     * @param paymentType
-     * @param paymentCode
-     * @return Payment
+     * Method to create a new payment in the payment repo
+     * @param orderId The order ID
+     * @param amount The amount
+     * @param paymentType The payment type
+     * @param paymentCode The payment code
+     * @return The payment object
      */
     @Transactional
-    public Payment createPayment(int orderId, Float amount, PaymentType paymentType, String paymentCode) {
-
+    public Payment createPayment(Integer orderId, Float amount, PaymentType paymentType, String paymentCode) {
 
         GroceryOrder go = groceryOrderRepository.findGroceryOrderById(orderId);
         if (go == null) {
-            throw new ApiRequestException("The order doesn't exist.");
+            throw new ApiRequestException("The order doesn't exist!");
         }
 
         Payment payment = new Payment();
@@ -56,7 +55,8 @@ public class PaymentService {
 
 
     /**
-     * @return List<Payment>
+     * Method to return a list of all the payments
+     * @return A list<Payments> of all payments
      */
     @Transactional
     public List<Payment> getAllPayments() {
@@ -65,7 +65,8 @@ public class PaymentService {
 
 
     /**
-     * @return List<Float>
+     * Method to return a sorted list of all payments
+     * @return A sorted list<Payment> of all payments
      */
     @Transactional
     public List<Payment> getAllSortedPayment() {
@@ -74,34 +75,44 @@ public class PaymentService {
 
 
     /**
-     * @param paymentId
-     * @return Payment
+     * Method to get a payment from ID
+     * @param paymentId The payment ID
+     * @return The payment object
      */
     @Transactional
-    public Payment getPaymentById(int paymentId) {
+    public Payment getPaymentById(Integer paymentId) {
+        if (paymentId == null) {
+            throw new ApiRequestException("Payment id cannot be null!");
+        }
+
         if (paymentRepository.findPaymentById(paymentId) == null) {
-            throw new ApiRequestException("This id has no associated payment");
+            throw new ApiRequestException("Payment doesn't exist!");
         }
         return paymentRepository.findPaymentById(paymentId);
     }
 
 
     /**
-     * @param id
-     * @param amount
-     * @param paymentType
-     * @param paymentCode
-     * @return Payment
+     * Method to update an existing payment
+     * @param paymentId The payment ID
+     * @param amount The new amount
+     * @param paymentType The new payment type
+     * @param paymentCode The new payment code
+     * @return The updated payment object
      */
     @Transactional
-    public Payment updatePayment(Integer id, Float amount, PaymentType paymentType, String paymentCode) {
-
-        if (paymentRepository.findPaymentById(id) == null) {
-            throw new ApiRequestException("Payment id is not valid!");
+    public Payment updatePayment(Integer paymentId, Float amount, PaymentType paymentType, String paymentCode) {
+        if (paymentId == null) {
+            throw new ApiRequestException("Payment id cannot be null!");
         }
 
-        Payment payment = paymentRepository.findPaymentById(id);
-        if (amount != 0) {
+        if (paymentRepository.findPaymentById(paymentId) == null) {
+            throw new ApiRequestException("Payment doesn't exist!");
+        }
+
+        Payment payment = paymentRepository.findPaymentById(paymentId);
+
+        if (amount != null) {
             payment.setAmount(amount);
         }
         if (paymentType != null) {
@@ -117,29 +128,32 @@ public class PaymentService {
 
 
     /**
-     * @param id
-     * @return
+     * Method to delete an existing payment
+     * @param paymentId The payment ID
      */
     @Transactional
-    public void deletePayment(Integer id) {
-        if (id == null) {
-            throw new ApiRequestException("Payment id is not valid!");
+    public void deletePayment(Integer paymentId) {
+        if (paymentId == null) {
+            throw new ApiRequestException("Payment id cannot be null!");
         }
 
-        Payment payment = paymentRepository.findPaymentById(id);
-
-        if (payment == null) {
-            throw new ApiRequestException("payment doesn't exist");
+        if (paymentRepository.findPaymentById(paymentId) == null) {
+            throw new ApiRequestException("Payment doesn't exist!");
         }
 
-        paymentRepository.deletePaymentById(id);
+        paymentRepository.deletePaymentById(paymentId);
 
     }
 
 
-    //helper
+    /**
+     * Helper method to convert an iterable to a list
+     * @param iterable The object to be converted
+     * @param <T> The type
+     * @return The converted list
+     */
     private <T> List<T> toList(Iterable<T> iterable) {
-        List<T> resultList = new ArrayList<T>();
+        List<T> resultList = new ArrayList<>();
         for (T t : iterable) {
             resultList.add(t);
         }

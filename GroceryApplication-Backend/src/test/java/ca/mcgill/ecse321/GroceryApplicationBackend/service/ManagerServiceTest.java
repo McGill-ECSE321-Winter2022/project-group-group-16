@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
@@ -25,10 +26,11 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.controller.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ManagerServiceTest {
 
-    //TODO implement tests
+
 
 }
