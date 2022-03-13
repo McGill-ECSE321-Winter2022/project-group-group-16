@@ -395,11 +395,45 @@ public class GroceryUserServiceTest {
 		groceryUsers = groceryUserService.getAllGroceryUser();
 		assertNotNull(groceryUsers);
 
-	        
+		
+	}
+	
+	//Test for updating grocery user by finding the puser by email
+	@Test
+	public void testUpdateGroceryUsers() {
+		GroceryUser groceryUser = null;
+		String USERNAME2= "YoMam";
+		String PASSWORD2 =" ILoveYouand";
+		String FNAME2 ="Danny";
+		String LNAME2 ="Too";		
+		Date DATEOFBIRTH2= Date.valueOf("2001-03-27");
+		
+		try {
+			
+			groceryUser = groceryUserService.updateGroceryUser(USERNAME2, PASSWORD2, FNAME2, LNAME2, EMAIL, DATEOFBIRTH2);
+			
+			
+		} catch(ApiRequestException e) {
+			fail();
+			
+			
+		}
+		
+		assertNotNull(groceryUser);
+		assertEquals(USERNAME2,groceryUser.getUsername());
+		assertEquals(PASSWORD2,groceryUser.getPassword());
+		assertEquals(FNAME2, groceryUser.getFirstName());
+		assertEquals(LNAME2,groceryUser.getLastName());
+		//assertEquals(EMAIL2,groceryUser.getEmail());
+		assertEquals(DATEOFBIRTH2,groceryUser.getDateOfBirth());
+		
+		
 		
 		
 		
 	}
+	
+	
 	
 	
 	
