@@ -1,27 +1,20 @@
 package ca.mcgill.ecse321.GroceryApplication.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+
 
 
 import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import javax.management.InvalidApplicationException;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,17 +25,12 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
+
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
+
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
-import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
-import ca.mcgill.ecse321.GroceryApplicationBackend.service.CustomerService;
+
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.GroceryUserService;
 
 
