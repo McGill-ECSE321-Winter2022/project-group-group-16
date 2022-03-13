@@ -1,13 +1,7 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.ManagerDto;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
@@ -21,11 +15,13 @@ public class ManagerRestController {
     @Autowired
     ManagerService managerService;
 
-    
-  
-    /** 
-     * @param createManager(
-     * @return ManagerDto
+    /**
+     * Rest method for creating a manager
+     * 
+     * @param applicationId
+     * @param email
+     * @return created manager
+     * @throws ApiRequestException
      */
     @PostMapping(value = {"/manager", "/manager/"})
     public ManagerDto createManager(
@@ -34,10 +30,11 @@ public class ManagerRestController {
         return convertToDto(managerService.createManager(applicationId, email));
     }
 
-     
-    /** 
+    /**
+     * Rest method to retrieve the manager by id
+     * 
      * @param id
-     * @return ManagerDto
+     * @return requested manager
      * @throws ApiRequestException
      */
     @GetMapping(value = {"/manager/id/{id}", "/manager/id/{id}/"})
@@ -45,33 +42,42 @@ public class ManagerRestController {
         return convertToDto(managerService.getManagerbyId(id));
     }
 
+    /**
+     * Rest method to retrieve the manager by email
+     * 
+     * @param email
+     * @return requested manager
+     * @throws ApiRequestException
+     */
     @GetMapping(value = {"/manager/email/{email}", "/manager/email/{email}/"})
     public ManagerDto getManagerByEmail(@PathVariable("email") String email) throws ApiRequestException{
         return convertToDto(managerService.getManagerByEmail(email));
     }
 
- 
-    
-    /** 
-     * @param id
-     * @return boolean
-     * @throws ApiRequestException
-     */
+  
+   /**
+    * Rest method to delete the manager by id
+    * 
+    * @param id
+    * @throws ApiRequestException
+    */
     @DeleteMapping(value = {"/manager/id/{id}", "/manager/id/{id}/"})
-    public boolean deleteManagerById(@PathVariable("id") Integer id) throws ApiRequestException{
-        if(id == 0) {
-            throw new ApiRequestException("The id is not valid.");
-        }
-        return managerService.deleteManagerById(id);
+    public void deleteManagerById(@PathVariable("id") Integer id) throws ApiRequestException{
+        managerService.deleteManagerById(id);
     }
 
+    /**
+     * Rest method for deleting the manager by email
+     * 
+     * @param email
+     * @throws ApiRequestException
+     */
     @DeleteMapping(value = {"/manager/email/{email}", "/manager/email/{email}/"})
-    public boolean deleteManagerByEmail(@PathVariable("email") String email) throws ApiRequestException{
-        return managerService.deleteManagerByEmail(email);
+    public void deleteManagerByEmail(@PathVariable("email") String email) throws ApiRequestException{
+        managerService.deleteManagerByEmail(email);
     }
 
   
-    //helper
     public static ManagerDto convertToDto(Manager m) {
     	if(m == null) {
     		throw new ApiRequestException("Payment does not exist");
