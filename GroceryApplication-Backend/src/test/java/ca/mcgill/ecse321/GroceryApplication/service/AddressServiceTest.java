@@ -32,8 +32,12 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.AddressRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.StoreRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Store;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.AddressService;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,6 +45,13 @@ public class AddressServiceTest {
 	
 	@Mock
 	private AddressRepository addressRepository;
+	
+	@Mock
+	private StoreRepository storeRepository;
+	
+	@Mock 
+	private CustomerRepository customerRepository;
+	
 
 	@InjectMocks
 	private AddressService addressService;
@@ -63,6 +74,14 @@ public class AddressServiceTest {
 	private static final String PROVINCE2 ="States";
 	private static final String POSTALCODE2 ="3RT 34E";
 	
+	private static final Integer NEWSTREENUMBER =1234567;
+	private static String NEWSTREETNAME = "NEWSTREETNAME";
+	private static String NEWCITY = "NEWCITY";
+	private String NEWPROVINCE = "NEWPROVINCE";
+	private String NEWCOUNTRY = "NEWCOUNTRY";
+	private String NEWPOSTALCODE = "NEWPOSTALCODE";
+	
+	
 	
 	
 	/**
@@ -78,7 +97,18 @@ public class AddressServiceTest {
 		lenient().when(addressRepository.findById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			
 			if(invocation.getArgument(0).equals(ADDRESSID)) {
+				
 				Address address = new Address ();
+
+				Customer customer = new Customer();
+				Store store = new Store();				
+				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
+				store.setGroceryStoreApplication(groceryStoreApplication);
+				customer.setGroceryStoreApplication(groceryStoreApplication);
+				address.setStore(store);
+				address.setCustomer(customer);
+				
+				
 				
 				address.setId(ADDRESSID);
 				address.setCity(STREETNAME);
@@ -97,6 +127,17 @@ public class AddressServiceTest {
 			else if(invocation.getArgument(0).equals(ADDRESSID2)) {
 				
 				Address address = new Address();
+				Customer customer = new Customer();
+				Store store = new Store();				
+				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
+				store.setGroceryStoreApplication(groceryStoreApplication);
+				customer.setGroceryStoreApplication(groceryStoreApplication);
+				address.setStore(store);
+				address.setCustomer(customer);
+				
+				
+				
+				
 				address.setId(ADDRESSID2);
 				address.setStreetNumber(STREETNUMBER2);
 				address.setStreetName(STREETNAME2);
@@ -120,6 +161,14 @@ public class AddressServiceTest {
 			if(invocation.getArgument(0).equals(CITY)) {
 				Address address = new Address();
 				
+				Customer customer = new Customer();
+				Store store = new Store();				
+				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
+				store.setGroceryStoreApplication(groceryStoreApplication);
+				customer.setGroceryStoreApplication(groceryStoreApplication);
+				address.setStore(store);
+				address.setCustomer(customer);
+				
 				address.setId(ADDRESSID);
 				address.setStreetNumber(STREETNUMBER);
 				address.setStreetName(STREETNAME);
@@ -134,6 +183,15 @@ public class AddressServiceTest {
 			else if (invocation.getArgument(0).equals(CITY2)) {
 				
 				Address address = new Address();
+				
+				Customer customer = new Customer();
+				Store store = new Store();				
+				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
+				store.setGroceryStoreApplication(groceryStoreApplication);
+				customer.setGroceryStoreApplication(groceryStoreApplication);
+				address.setStore(store);
+				address.setCustomer(customer);
+				
 				address.setId(ADDRESSID2);
 				address.setStreetNumber(STREETNUMBER2);
 				address.setStreetName(STREETNAME2);
@@ -175,7 +233,7 @@ public class AddressServiceTest {
 			
 			address = addressService.createAddress(STREETNUMBER, STREETNAME, PROVINCE, CITY, COUNTRY, POSTALCODE);
 			
-		} catch(Exception e) {
+		} catch(ApiRequestException e) {
 			fail();
 			
 			
@@ -298,13 +356,7 @@ public class AddressServiceTest {
 	public void testUpdateAddress() {
 		
 		Address address = null;
-		Integer NEWSTREENUMBER =1234567;
-		String NEWSTREETNAME = "NEWSTREETNAME";
-		String NEWCITY = "NEWCITY";
-		String NEWPROVINCE = "NEWPROVINCE";
-		String NEWCOUNTRY = "NEWCOUNTRY";
-		String NEWPOSTALCODE = "NEWPOSTALCODE";
-		
+
 		try {
 			address = addressService.updateAddress(ADDRESSID, NEWSTREENUMBER, NEWSTREETNAME, NEWPROVINCE, NEWCITY, NEWCOUNTRY, NEWPOSTALCODE );
 			
@@ -316,8 +368,8 @@ public class AddressServiceTest {
 		assertNotNull(address);
 		assertEquals(NEWSTREENUMBER, address.getStreetNumber());
 		assertEquals(NEWSTREETNAME, address.getStreetName());
-		assertEquals(NEWCITY, address.getCity());
 		assertEquals(NEWPROVINCE, address.getProvince());
+		assertEquals(NEWCITY, address.getCity());
 		assertEquals(NEWCOUNTRY, address.getCountry());
 		assertEquals(NEWPOSTALCODE, address.getPostalCode());
 		
