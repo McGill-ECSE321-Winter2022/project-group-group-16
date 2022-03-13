@@ -177,7 +177,7 @@ public class CategroyServiceTest {
 		}
 			
 		assertNull(category);
-		assertEquals("Category image is null or empty.", error);
+		assertEquals("requested image is null or length 0. Please enter valid description.\n", error);
 			
 			
 	}	

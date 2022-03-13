@@ -165,7 +165,7 @@ public class CustomerServiceTest {
 		
 		//test for creating a customer with empty name
 		@Test
-		public void testCreateCategoryEmptyUserEmail() {
+		public void testCreateCategoryWithEmptyUserEmail() {
 			Customer customer = null;
 			String error = null;
 			try {
@@ -177,7 +177,7 @@ public class CustomerServiceTest {
 			}
 			
 			assertNull(customer);
-			assertEquals("Customer name is null or empty.", error);
+			assertEquals("requested userEmail is null or length 0. Please enter valid userEmail.\n", error);
 						
 		}
 		
@@ -203,12 +203,12 @@ public class CustomerServiceTest {
 			
 		}
 		
-		//Test delete employee by id
+		//Test delete customer by id
 		@Test
-		public void testDeleteCustomerByiId() {
+		public void testDeleteCustomerBy() {
 			
 			try{
-				customerService.deleteCustomer(ADDRESSID);
+				customerService.deleteCustomer(CUSTOMERID);
 				
 			} catch(ApiRequestException e) {
 				fail();	
@@ -216,9 +216,14 @@ public class CustomerServiceTest {
 
 		}
 		
-		//Test for getting all the employees
+
+		
+		
+		
+		
+		//Test for getting all the customers
 		@Test
-		public void testGetAllEmployees() {
+		public void testGetAllCustomers() {
 			List<Customer> customers = null;
 			customers = customerService.getAllCustomers();
 			assertNotNull(customers);
