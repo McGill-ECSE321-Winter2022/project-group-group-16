@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface PaymentRepository extends CrudRepository<Payment, Integer> {
 
-
     /**
      * Find payment via id
      *

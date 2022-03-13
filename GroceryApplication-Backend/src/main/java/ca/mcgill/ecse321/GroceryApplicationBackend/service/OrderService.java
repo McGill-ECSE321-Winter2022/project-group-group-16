@@ -37,13 +37,12 @@ public class OrderService {
     
     /**
      * Service method for placing an order
-     * 
-     * @param applicationId
-     * @param status
-     * @param datePlaced
-     * @param deliveryDate
-     * @param customerNote
-     * @param purchaseType
+     * @param applicationId the application ID
+     * @param status the order status
+     * @param datePlaced the date placed
+     * @param deliveryDate the planned delivery date
+     * @param customerNote the customer note
+     * @param purchaseType the purchase type
      * @return placed order
      */
     @Transactional
@@ -52,7 +51,7 @@ public class OrderService {
         GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 
         if(gs == null){
-            throw new ApiRequestException("The application doesn't exist.");
+            throw new ApiRequestException("The application doesn't exist!");
         }
 
         GroceryOrder order = new GroceryOrder();
@@ -68,19 +67,17 @@ public class OrderService {
     }
 
 
-
     /** 
      * Service method to update an order status
-     * 
-     * @param status
-     * @param id
-     * @return GroceryOrder
+     * @param status the new status
+     * @param id the order id
+     * @return GroceryOrder the updated order
      */
     @Transactional
     public GroceryOrder updateOrderStatus(OrderStatus status, Integer id){
 
         if(groceryOrderRepository.findGroceryOrderById(id)==null) {
-    		throw new ApiRequestException("Order id is not valid!");
+    		throw new ApiRequestException("Order does not exist!");
     	}
 
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
@@ -95,52 +92,103 @@ public class OrderService {
     
     /**
      * Service method to delete an order by id
-     * 
-     * @param id
-     * @return
+     * @param id the order id
      */
     @Transactional
     public void deleteOrder(Integer id){
 
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
         if(order == null){
-            throw new ApiRequestException("Order does not exist");
+            throw new ApiRequestException("Order does not exist!");
         }
         groceryOrderRepository.deleteGroceryOrderById(id);
     }
 
-    
 
-    
     /** 
      * Service method to retrieve an order by id
-     * 
-     * @param id
-     * @return GroceryOrder
+     * @param id the order id
+     * @return GroceryOrder the requested id
      */
     @Transactional
     public GroceryOrder getOrderById(Integer id){
-
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
     	if(order == null) {
-    		throw new ApiRequestException("This id has no associated order");
+    		throw new ApiRequestException("Order does not exist!");
     	}
     	return order;
     }
 
     /**
-     * Service method to retrieve all orders in the database
-     * 
-     * @return all orders
+     * Service method to mark an order as refunded
+     * @param id the order id
+     * @return the marked order
+     */
+    @Transactional
+    public GroceryOrder refundOrderById(Integer id) {
+        GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
+        if (order == null) {
+            throw new ApiRequestException("Order does not exist!");
+        }
+        order.setStatus(OrderStatus.CANCELLED);
+        return order;
+    }
+
+    /**
+     * Service method to get all orders
+     * @return a list of all orders
      */
     @Transactional
     public List<GroceryOrder> getAllOrders() {
         return toList(groceryOrderRepository.findAll());
     }
 
+    /**
+     * Service method to get all placed orders sorted by date
+     * @return a list of sorted orders
+     */
+    @Transactional
+    public List<GroceryOrder> getOrdersSortedByDateDesc() {
+        return groceryOrderRepository.findAllByStatusOrderByDatePlacedDesc(OrderStatus.PLACED);
+    }
 
+    /**
+     * Service method to view all completed orders (purchased in store, picked up, or delivered)
+     * @return a list of completed orders
+     */
+    @Transactional
+    public List<GroceryOrder> viewCompletedOrders() {
+        List<GroceryOrder> completedOrders = new ArrayList<>();
+        List<GroceryOrder> toAppend;
+
+        toAppend = groceryOrderRepository.findAllByStatus(OrderStatus.PURCHASED_IN_STORE);
+        completedOrders.addAll(toAppend);
+        toAppend = groceryOrderRepository.findAllByStatus(OrderStatus.PICKED_UP);
+        completedOrders.addAll(toAppend);
+        toAppend = groceryOrderRepository.findAllByStatus(OrderStatus.DELIVERED);
+        completedOrders.addAll(toAppend);
+
+        return completedOrders;
+    }
+
+    /**
+     * Service method to view all order to be delivered
+     * @return a list of orders to be delivered
+     */
+    @Transactional
+    public List<GroceryOrder> viewOrdersToBeDelivered() {
+        return groceryOrderRepository.findAllByStatus(OrderStatus.PLACED);
+    }
+
+
+    /**
+     * Helper method to convert an iterable to a list
+     * @param iterable the iterable
+     * @param <T> the type
+     * @return a converted list
+     */
     private <T> List<T> toList(Iterable<T> iterable){
-        List<T> resultList = new ArrayList<T>();
+        List<T> resultList = new ArrayList<>();
         for (T t : iterable) {
             resultList.add(t);
         }
