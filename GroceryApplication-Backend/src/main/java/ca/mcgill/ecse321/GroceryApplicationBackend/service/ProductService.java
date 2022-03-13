@@ -47,7 +47,7 @@ public class ProductService {
 	 * @return
 	 */
 	@Transactional
-	public Product createProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity)  {
+	public Product createProduct(String image, Integer applicationId, Integer categoryId, String name, String description, Float price, Float weight, Float volume, Availability availability, boolean isRefundable, Integer avaQuantity)  {
   
 		   //create a grocery store application
         //mandatory to create for a store to exist
@@ -73,7 +73,6 @@ public class ProductService {
         Product product = new Product();
         product.setGroceryStoreApplication(gs);
         product.setCategory(category);
-        product.setBarcode(barCode);
         product.setName(name);
         product.setDescription(description);
         product.setPrice(price);
@@ -105,7 +104,7 @@ public class ProductService {
 	 * @return
 	 */
 	@Transactional
-	public Product updateProduct(String image, int applicationId, int categoryId, String name, String description, float price, float weight, float volume, Availability availability, int barCode, boolean isRefundable, int avaQuantity)  {
+	public Product updateProduct(String image, Integer applicationId, Integer categoryId, String name, String description, Float price, Float weight, Float volume, Availability availability, Integer barCode, boolean isRefundable, Integer avaQuantity)  {
 		  
         //create a grocery store application
         //mandatory to create for a store to exist
@@ -151,7 +150,7 @@ public class ProductService {
 	 * @return
 	 */
 	@Transactional
-	public Product getProductByBarcode(int barCode) {
+	public Product getProductByBarcode(Integer barCode) {
 		Product product = productRepository.findProductByBarcode(barCode);
 		return product;
 	}
@@ -169,7 +168,7 @@ public class ProductService {
 	 * @return
 	 */
 	@Transactional
-	public Product deletProduct(int barCode)  {
+	public Product deletProduct(Integer barCode)  {
 		if (productRepository.findProductByBarcode(barCode) == null) {
 			throw new ApiRequestException("Product with provided barcode does not exist.");
 		}
@@ -183,7 +182,7 @@ public class ProductService {
 	 * @return
 	 */
 	@Transactional
-	public Product refundProduct(int barCode)  {
+	public Product refundProduct(Integer barCode)  {
 		Product product = productRepository.findProductByBarcode(barCode);
 		if(!product.getIsRefundable()) {
 			throw new ApiRequestException("Product is not refundable.");

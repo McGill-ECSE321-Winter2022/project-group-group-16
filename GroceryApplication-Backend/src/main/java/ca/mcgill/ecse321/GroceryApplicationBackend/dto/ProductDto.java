@@ -7,13 +7,13 @@ public class ProductDto {
 	// attributes
     private String name;
     private String description;
-    private float price;
+    private Float price;
     private String image;
-    private float weight;
-    private float volume;
-    private int barcode;
+    private Float weight;
+    private Float volume;
+    private Integer barcode;
     private boolean isRefundable;
-    private int availableQuantity;
+    private Integer availableQuantity;
     private Availability availability;
   
 	
@@ -22,20 +22,20 @@ public class ProductDto {
 		
 	}
 	
-	public ProductDto(int barcode) {
+	public ProductDto(Integer barcode) {
 		this.name = null;
 		this.description = null;
-		this.price = 0f;
+		this.price = null;
 		this.image = null;
-		this.weight = 0f;
-		this.volume = 0f;
+		this.weight = null;
+		this.volume = null;
 		this.barcode = barcode;
 		this.availability = null;
 		this.isRefundable = false;
-		this.availableQuantity = 0;
+		this.availableQuantity = null;
 	}
 	
-	public ProductDto(float volume, String name, String description,float price, String image, float weight, int barcode, boolean isRefundable, int availableQuantity, Availability availability) {
+	public ProductDto(Float volume, String name, String description,Float price, String image, Float weight, Integer barcode, boolean isRefundable, Integer availableQuantity, Availability availability) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -66,11 +66,11 @@ public class ProductDto {
 	        this.description = value;
 	    }
 
-	    public float getPrice() {
+	    public Float getPrice() {
 	        return this.price;
 	    }
 
-	    public void setPrice(float value) {
+	    public void setPrice(Float value) {
 	        this.price = value;
 	    }
 
@@ -82,19 +82,19 @@ public class ProductDto {
 	        this.image = value;
 	    }
 
-	    public float getWeight() {
+	    public Float getWeight() {
 	        return this.weight;
 	    }
 
-	    public void setWeight(float value) {
+	    public void setWeight(Float value) {
 	        this.weight = value;
 	    }
 
-	    public float getVolume() {
+	    public Float getVolume() {
 	        return this.volume;
 	    }
 
-	    public void setVolume(float value) {
+	    public void setVolume(Float value) {
 	        this.volume = value;
 	    }
 
@@ -106,11 +106,11 @@ public class ProductDto {
 	        this.availability = value;
 	    }
 
-	    public int getBarcode() {
+	    public Integer getBarcode() {
 	        return this.barcode;
 	    }
 
-	    public void setBarcode(int value) {
+	    public void setBarcode(Integer value) {
 	        this.barcode = value;
 	    }
 
@@ -122,11 +122,11 @@ public class ProductDto {
 	        this.isRefundable = value;
 	    }
 
-	    public int getAvailableQuantity() {
+	    public Integer getAvailableQuantity() {
 	        return this.availableQuantity;
 	    }
 
-	    public void setAvailableQuantity(int value) {
+	    public void setAvailableQuantity(Integer value) {
 	        this.availableQuantity = value;
 	    }
 

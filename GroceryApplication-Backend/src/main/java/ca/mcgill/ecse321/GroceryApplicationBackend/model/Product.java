@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Set;
 
 @Entity
@@ -8,13 +11,13 @@ public class Product {
     // attributes
     private String name;
     private String description;
-    private float price;
+    private Float price;
     private String image;
-    private float weight;
-    private int barcode;
+    private Float weight;
+    private Integer barcode;
     private boolean isRefundable;
-    private float volume;
-    private int availableQuantity;
+    private Float volume;
+    private Integer availableQuantity;
     @Enumerated
     private Availability availability;
 
@@ -48,11 +51,11 @@ public class Product {
         this.description = value;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return this.price;
     }
 
-    public void setPrice(float value) {
+    public void setPrice(Float value) {
         this.price = value;
     }
 
@@ -64,19 +67,19 @@ public class Product {
         this.image = value;
     }
 
-    public float getWeight() {
+    public Float getWeight() {
         return this.weight;
     }
 
-    public void setWeight(float value) {
+    public void setWeight(Float value) {
         this.weight = value;
     }
 
-    public float getVolume() {
+    public Float getVolume() {
         return this.volume;
     }
 
-    public void setVolume(float value) {
+    public void setVolume(Float value) {
         this.volume = value;
     }
 
@@ -88,12 +91,14 @@ public class Product {
         this.availability = value;
     }
 
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
     @Id
-    public int getBarcode() {
+    public Integer getBarcode() {
         return this.barcode;
     }
 
-    public void setBarcode(int value) {
+    public void setBarcode(Integer value) {
         this.barcode = value;
     }
 
@@ -105,11 +110,11 @@ public class Product {
         this.isRefundable = value;
     }
 
-    public int getAvailableQuantity() {
+    public Integer getAvailableQuantity() {
         return this.availableQuantity;
     }
 
-    public void setAvailableQuantity(int value) {
+    public void setAvailableQuantity(Integer value) {
         this.availableQuantity = value;
     }
 

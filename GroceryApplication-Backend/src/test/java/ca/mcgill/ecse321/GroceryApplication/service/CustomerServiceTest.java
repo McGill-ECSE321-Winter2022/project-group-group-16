@@ -36,6 +36,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.CustomerService;
@@ -50,18 +51,18 @@ public class CustomerServiceTest {
 	
 	private static final String CUSTOMER_KEY = "TestCustomer";
 	
-	private static final int CUSTOMERID = 770;
-	private static final int APPLICATIONID = 19;
-	private static final int ADDRESSID = 203;
+	private static final Integer CUSTOMERID = 770;
+	private static final Integer APPLICATIONID = 19;
+	private static final Integer ADDRESSID = 203;
 	private static final String USEREMAIL = "who@gmail.com";
 	
-	private static final int CUSTOMERID2 = 987;
-	private static final int APPLICATIONID2 = 28;
-	private static final int ADDRESSID2 = 746;
+	private static final Integer CUSTOMERID2 = 987;
+	private static final Integer APPLICATIONID2 = 28;
+	private static final Integer ADDRESSID2 = 746;
 	private static final String USEREMAIL2 = "asked@gmail.com";
 	
-	private static final int VALID_ID = 11;
-	private static final int INVALID_ID = 57;
+	private static final Integer VALID_ID = 11;
+	private static final Integer INVALID_ID = 57;
 	private static final Integer NULL_ID = null;
 	
 	/**
@@ -174,6 +175,17 @@ public class CustomerServiceTest {
 			assertNull(customer);
 			assertEquals("Customer name is null or empty.", error);
 						
+		}
+		
+		//test for creating a customer with empty grocery store
+		@Test
+		public void testCreateCategoryEmptyGroceryStore() {
+			Customer customer = null;
+			String error = null;
+			GroceryStoreApplication gs = new GroceryStoreApplication();
+			
+			
+			
 		}
 		
 		//Test delete employee by id

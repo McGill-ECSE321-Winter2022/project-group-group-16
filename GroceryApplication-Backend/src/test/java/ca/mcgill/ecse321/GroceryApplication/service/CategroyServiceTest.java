@@ -52,8 +52,8 @@ public class CategroyServiceTest {
 	private static final String NAME = "Noah";
 	private static final String DESCRIPTION = "Banana";
 	
-	private static final int VALID_ID = 12;
-	private static final int INVALID_ID = 59;
+	private static final Integer VALID_ID = 12;
+	private static final Integer INVALID_ID = 59;
 	private static final Integer NULL_ID = null;
 	
 	/**

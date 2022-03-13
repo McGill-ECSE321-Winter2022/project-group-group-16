@@ -38,7 +38,7 @@ public class CustomerService {
 	 * @return
 	 */
 	@Transactional
-	public Customer createCustomer( int customerId, int applicationId, int addressId, String userEmail){
+	public Customer createCustomer(Integer customerId, Integer applicationId, Integer addressId, String userEmail){
 		if (userEmail == null || userEmail.trim().length() == 0) {
 			throw new ApiRequestException(
 					"requested userEmail is null or length 0. Please enter valid userEmail.\n");
@@ -76,7 +76,7 @@ public class CustomerService {
 	 * @return
 	 */
 	@Transactional
-	public Customer getCustomerById(int Id) {
+	public Customer getCustomerById(Integer Id) {
 		Customer customer = customerRepository.findCustomerById(Id);
 		return customer;
 	}
@@ -97,7 +97,7 @@ public class CustomerService {
 	 * @return
 	 */
 	@Transactional
-	public Customer deleteCustomer(int id)  {
+	public Customer deleteCustomer(Integer id)  {
 		if (customerRepository.findCustomerById(id) == null) {
 			throw new ApiRequestException("Customer account with provided id does not exist.");
 		}
