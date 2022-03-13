@@ -643,7 +643,7 @@ public class GroceryUserServiceTest {
 			
 		}
 		
-		//Test for loging grocery user 
+		//Test for logging grocery user 
 		@Test
 		public void testLoginGroceryUser() {
 			
@@ -663,6 +663,54 @@ public class GroceryUserServiceTest {
 			assertNotNull(groceryUser);
 			assertEquals(EMAIL, groceryUser.getEmail());
 			assertEquals(PASSWORD, groceryUser.getPassword());
+			
+		}
+		
+		//Test for with logging grocery users with wrong email
+		@Test
+		public void testLoginGroceryUserWithWrongEmail() {
+			GroceryUser groceryUser = null;
+			String error = null;
+
+			try {
+				groceryUser = groceryUserService.loginGroceryUser("Noah@hotmail.com", PASSWORD);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("No user exists with email " + "Noah@hotmail.com" ,error);
+			
+			
+			
+		}
+		
+		
+		//Test for logging grocery user with wrong password
+		@Test
+		public void testLoginGroceryUserWithWrongPass() {
+			GroceryUser groceryUser = null;
+			String error = null;
+			String INCORRECTPASSWORD = "IncorrectPassword";
+			
+			try {
+				groceryUser = groceryUserService.loginGroceryUser(EMAIL, INCORRECTPASSWORD);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("incorrect password : " + INCORRECTPASSWORD + " ,  db password : " + PASSWORD  ,error);
+			
+			
 			
 		}
 		
