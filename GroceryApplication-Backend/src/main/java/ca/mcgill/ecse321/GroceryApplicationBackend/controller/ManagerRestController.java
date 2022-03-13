@@ -39,7 +39,7 @@ public class ManagerRestController {
      */
     @GetMapping(value = {"/manager/id/{id}", "/manager/id/{id}/"})
     public ManagerDto getManagerById(@PathVariable("id") Integer id) throws ApiRequestException{
-        return convertToDto(managerService.getManagerbyId(id));
+        return convertToDto(managerService.getManagerById(id));
     }
 
     /**

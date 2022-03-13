@@ -21,28 +21,27 @@ public class ManagerService {
     GroceryUserRepository groceryUserRepository;
 
     /**
-     * Service method for creating a manager
-     * 
-     * @param applicationId
-     * @param email
-     * @return created manager
+     * Method to create a new manager
+     * @param applicationId the application
+     * @param email the user email
+     * @return the created manager
      */
     @Transactional
     public Manager createManager(Integer applicationId, String email) { // no id? email should alr be unique id
 
         if (email == null) {
-            throw new ApiRequestException("The email cannot be null.");
+            throw new ApiRequestException("The email cannot be null!");
         }
 
         GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 
         if (gs == null) {
-            throw new ApiRequestException("The application doesn't exist.");
+            throw new ApiRequestException("The application doesn't exist!");
         }
 
         GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
         if (user == null) {
-            throw new ApiRequestException("The user doesn't exist.");
+            throw new ApiRequestException("The user doesn't exist!");
         }
 
         Manager manager = new Manager();
@@ -59,11 +58,10 @@ public class ManagerService {
 
     /**
      * Service method for updating a manager
-     * 
-     * @param id
-     * @param email
-     * @param applicationId
-     * @return updated manager
+     * @param id the manager id
+     * @param email the new user email
+     * @param applicationId the new application id
+     * @return the updated manager
      */
     @Transactional
     public Manager updateManager(Integer id, String email, Integer applicationId) {
@@ -71,13 +69,13 @@ public class ManagerService {
         Manager manager = managerRepository.findManagerById(id);
 
         if (manager == null) {
-            throw new ApiRequestException("Manager not found.");
+            throw new ApiRequestException("Manager not found!");
         }
 
         if (email != null) {
             GroceryUser groceryUser = groceryUserRepository.findGroceryUserByEmail(email);
             if (groceryUser == null)
-                throw new ApiRequestException("This user does not exist");
+                throw new ApiRequestException("This user does not exist!");
             manager.setUser(groceryUser);
         }
 
@@ -85,7 +83,7 @@ public class ManagerService {
             GroceryStoreApplication groceryStoreApplication = groceryStoreApplicationRepository
                     .findGroceryStoreApplicationById(applicationId);
             if (groceryStoreApplication == null) {
-                throw new ApiRequestException("Application with id " + applicationId + " does not exist.");
+                throw new ApiRequestException("Application does not exist!");
             }
 
             manager.setGroceryStoreApplication(groceryStoreApplication);
@@ -95,55 +93,17 @@ public class ManagerService {
         return manager;
     }
 
-    // can the store exist even if we delete the manager?
-
-    /**
-     * Service method for deleting a manager by id
-     * 
-     * @param id
-     */
-    @Transactional
-    public void deleteManagerById(Integer id) {
-
-        Manager manager = managerRepository.findManagerById(id);
-
-        if (manager == null) {
-            throw new ApiRequestException("Manager does not exist");
-        }
-        managerRepository.deleteManagerById(id);
-    }
-
-    /**
-     * Service method for deleting a manager by email
-     * 
-     * @param email
-     */
-    @Transactional
-    public void deleteManagerByEmail(String email) {
-        GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
-        if (user == null)
-            throw new ApiRequestException("User does not exist");
-
-        Manager manager = managerRepository.findManagerByUser(user);
-        if (manager == null)
-            throw new ApiRequestException("Manager does not exist");
-
-        managerRepository.deleteManagerByUser(user);
-
-    }
-
     /**
      * Service method for retrieving a manager by id
-     * 
-     * @param id
+     * @param id the manager ID
      * @return requested manager
      */
     @Transactional
-    public Manager getManagerbyId(Integer id) {
+    public Manager getManagerById(Integer id) {
         Manager manager = managerRepository.findManagerById(id);
 
         if (manager == null) {
-            throw new ApiRequestException("Manager does not exist");
+            throw new ApiRequestException("Manager does not exist!");
         }
 
         return manager;
@@ -151,21 +111,55 @@ public class ManagerService {
 
     /**
      * Service method for retrieving a manager by email
-     * 
-     * @param email
-     * @return
+     * @param email The manager's user email
+     * @return the manager
      */
     @Transactional
     public Manager getManagerByEmail(String email) {
         GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
         if (user == null)
-            throw new ApiRequestException("This user does not exist");
+            throw new ApiRequestException("User does not exist!");
 
         Manager manager = managerRepository.findManagerByUser(user);
         if (manager == null)
-            throw new ApiRequestException("Manager does not exist");
+            throw new ApiRequestException("User is not a manager!");
 
         return manager;
+    }
+
+    // can the store exist even if we delete the manager?
+
+    /**
+     * Service method for deleting a manager by id
+     * @param id the manager ID to be deleted
+     */
+    @Transactional
+    public void deleteManagerById(Integer id) {
+
+        Manager manager = managerRepository.findManagerById(id);
+
+        if (manager == null) {
+            throw new ApiRequestException("Manager does not exist!");
+        }
+        managerRepository.deleteManagerById(id);
+    }
+
+    /**
+     * Service method for deleting a manager by email
+     * @param email the manager's user email
+     */
+    @Transactional
+    public void deleteManagerByEmail(String email) {
+        GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
+        if (user == null)
+            throw new ApiRequestException("User does not exist!");
+
+        Manager manager = managerRepository.findManagerByUser(user);
+        if (manager == null)
+            throw new ApiRequestException("User is not a manager!");
+
+        managerRepository.deleteManagerByUser(user);
+
     }
 
 }
