@@ -38,11 +38,11 @@ public class CategroyService {
 	@Transactional
 	public Category createCategory(String image, Integer applicationId, String name, String description)  {
 		if (name == null || name.trim().length() == 0) {
-			throw new ApiRequestException("requested name is null or length 0. Please enter valid namel.\n");
+			throw new ApiRequestException("requested name is null or length 0. Please enter valid name.\n");
 		}
-		if (description == null || description.trim().length() == 0) {
+		if (image == null || image.trim().length() == 0) {
 			throw new ApiRequestException(
-					"requested description is null or length 0. Please enter valid description.\n");
+					"requested image is null or length 0. Please enter valid description.\n");
 		}
 		
 		if (description == null || description.trim().length() == 0) {
