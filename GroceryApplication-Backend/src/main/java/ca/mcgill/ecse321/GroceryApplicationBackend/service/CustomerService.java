@@ -75,8 +75,17 @@ public class CustomerService {
 	 * @return
 	 */
 	@Transactional
-	public Customer getCustomerById(Integer Id) {
+	public Customer getCustomerById(Integer Id) {//Test
+		
+		
 		Customer customer = customerRepository.findCustomerById(Id);
+		
+		if(customer == null) {
+			throw new ApiRequestException("Customer account with provided id does not exists");
+			
+			
+		}
+		
 		return customer;
 	}
 	/**

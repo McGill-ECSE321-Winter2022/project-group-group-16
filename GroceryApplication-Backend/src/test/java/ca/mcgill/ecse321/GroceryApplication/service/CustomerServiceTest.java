@@ -205,7 +205,7 @@ public class CustomerServiceTest {
 		
 		//Test delete customer by id
 		@Test
-		public void testDeleteCustomerBy() {
+		public void testDeleteCustomer() {
 			
 			try{
 				customerService.deleteCustomer(CUSTOMERID);
@@ -215,12 +215,79 @@ public class CustomerServiceTest {
 			}
 
 		}
+		//Test for deleting a customer with wrong id
+		
+		@Test 
+		public void testDeleteCustomerWrongId() {
+			
+			Customer customer = null;
+			String error = null;
+
+			Integer INCORRECTID = 123123123;
+			
+			try {
+				customer = customerService.deleteCustomer(INCORRECTID);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(customer);
+			assertEquals("Customer account with provided id does not exist.",error);
+			
+			
+		}
 		
 
+		//Test for getting a customer by id
+		@Test
+		public void testGetCustomer() {
+			
+			
+			Customer customer = null;
+			try {
+				
+			customer = customerService.getCustomerById(CUSTOMERID);
+			} catch(ApiRequestException e) {
+				
+				fail();
+				
+			}
+			
+			assertNotNull(customer);
+			assertEquals(CUSTOMERID,customer.getId());
+			
+			
+		}
 		
+		//Test for getting a customer with wrong id
 		
+		@Test
+		public void testGetCustomerWithWrongId() {
+			
+			Customer customer = null;
+			String error = "";
+			
+			Integer CUSTOMERWRONGID = 69420;
+			try {
+				
+				customer = customerService.getCustomerById(CUSTOMERWRONGID);
+				
+			} catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+			}
+			assertNull(customer);
+			assertEquals(error, "Customer account with provided id does not exists");
+			
+			
+		}
 		
-		
+
 		//Test for getting all the customers
 		@Test
 		public void testGetAllCustomers() {
