@@ -7,13 +7,10 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
 
 public class PaymentDto {
 
-    // attributes
     private Integer id;
-    private float amount;
-    @Enumerated
+    private Float amount;
     private PaymentType paymentType;
     private String paymentCode;
-    // associations
     private GroceryOrder order;
 
     public PaymentDto(){
@@ -32,7 +29,7 @@ public class PaymentDto {
         return id;
     }
 
-    public float getAmount(){
+    public Float getAmount(){
         return amount;
     }
 

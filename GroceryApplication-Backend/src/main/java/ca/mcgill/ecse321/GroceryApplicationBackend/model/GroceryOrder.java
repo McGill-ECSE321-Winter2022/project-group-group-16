@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
@@ -26,6 +28,7 @@ public class GroceryOrder {
     private Customer customer;
     private Address shippingAddress;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
         return this.groceryStoreApplication;
@@ -113,6 +116,7 @@ public class GroceryOrder {
         this.billingAddress = billingAddress;
     }
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "order", cascade = {CascadeType.ALL})
     public Payment getPayment() {
         return this.payment;

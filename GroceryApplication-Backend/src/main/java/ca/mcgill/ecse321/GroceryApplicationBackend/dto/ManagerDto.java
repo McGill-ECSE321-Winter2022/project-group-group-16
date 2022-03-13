@@ -9,8 +9,6 @@ public class ManagerDto {
     }
 
     public ManagerDto(Integer id){
-
-        //super() //for GroceryUserDto
         this.id = id;
     }
 

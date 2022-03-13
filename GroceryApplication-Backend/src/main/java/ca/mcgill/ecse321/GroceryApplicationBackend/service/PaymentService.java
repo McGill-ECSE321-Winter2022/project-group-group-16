@@ -1,17 +1,18 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryOrderRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.PaymentRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
-import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PaymentService {
@@ -25,9 +26,8 @@ public class PaymentService {
     @Autowired
     GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
-    
-    
-    /** 
+
+    /**
      * @param applicationId
      * @param orderId
      * @param amount
@@ -36,15 +36,11 @@ public class PaymentService {
      * @return Payment
      */
     @Transactional
-    public Payment createPayment(int applicationId, int orderId, Float amount, PaymentType paymentType, String paymentCode){
-        
-        GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
-        if(gs == null){
-            throw new ApiRequestException("The application doesn't exist.");
-        }
+    public Payment createPayment(int orderId, Float amount, PaymentType paymentType, String paymentCode) {
+
 
         GroceryOrder go = groceryOrderRepository.findGroceryOrderById(orderId);
-        if(go == null){
+        if (go == null) {
             throw new ApiRequestException("The order doesn't exist.");
         }
 
@@ -52,61 +48,45 @@ public class PaymentService {
         payment.setAmount(amount);
         payment.setPaymentType(paymentType);
         payment.setPaymentCode(paymentCode);
-        
+        payment.setOrder(go);
+
         paymentRepository.save(payment);
         return payment;
     }
-    
-   
-    
-    /** 
+
+
+    /**
      * @return List<Payment>
      */
     @Transactional
-    public List<Payment> getAllPayments(){
-    	return toList(paymentRepository.findAll());
+    public List<Payment> getAllPayments() {
+        return toList(paymentRepository.findAll());
     }
 
-    
- 
-    
-    /** 
+
+    /**
      * @return List<Float>
      */
     @Transactional
-    public List<Float> getAllSortedPayment() {
-
-        List<Float> amounts = new ArrayList<>();
-
-        List<Payment> payments = toList(paymentRepository.findAll());
-
-        for(int i=0; i < payments.size(); i++){
-            amounts.add(payments.get(i).getAmount());
-        }
-
-        Collections.sort(amounts);
-
-        return amounts;
+    public List<Payment> getAllSortedPayment() {
+        return paymentRepository.findAllByOrderByAmountDesc();
     }
 
 
-    
-    /** 
+    /**
      * @param paymentId
      * @return Payment
      */
     @Transactional
-    public Payment getPaymentById(int paymentId){
-    	if(paymentRepository.findPaymentById(paymentId) == null) {
-    		throw new ApiRequestException("This id has no associated payment");
-    	}
-    	return paymentRepository.findPaymentById(paymentId);
+    public Payment getPaymentById(int paymentId) {
+        if (paymentRepository.findPaymentById(paymentId) == null) {
+            throw new ApiRequestException("This id has no associated payment");
+        }
+        return paymentRepository.findPaymentById(paymentId);
     }
 
-    
 
-    
-    /** 
+    /**
      * @param id
      * @param amount
      * @param paymentType
@@ -114,20 +94,20 @@ public class PaymentService {
      * @return Payment
      */
     @Transactional
-    public Payment updatePayment(Integer id, Float amount, PaymentType paymentType, String paymentCode){
-        
-        if(paymentRepository.findPaymentById(id)==null) {
-    		throw new ApiRequestException("Payment id is not valid!");
-    	}
-    	
-    	Payment payment = paymentRepository.findPaymentById(id);
-        if(amount != 0){
+    public Payment updatePayment(Integer id, Float amount, PaymentType paymentType, String paymentCode) {
+
+        if (paymentRepository.findPaymentById(id) == null) {
+            throw new ApiRequestException("Payment id is not valid!");
+        }
+
+        Payment payment = paymentRepository.findPaymentById(id);
+        if (amount != 0) {
             payment.setAmount(amount);
         }
-        if(paymentType != null){
+        if (paymentType != null) {
             payment.setPaymentType(paymentType);
         }
-        if(paymentCode != null){
+        if (paymentCode != null) {
             payment.setPaymentCode(paymentCode);
         }
 
@@ -136,37 +116,34 @@ public class PaymentService {
     }
 
 
-    
-    /** 
+    /**
      * @param id
-     * @return boolean
+     * @return
      */
     @Transactional
-    public boolean deletePayment(Integer id){
-        
-        if(paymentRepository.findPaymentById(id)==null) {
-    		throw new ApiRequestException("Payment id is not valid!");
-    	}
+    public void deletePayment(Integer id) {
+        if (id == null) {
+            throw new ApiRequestException("Payment id is not valid!");
+        }
 
         Payment payment = paymentRepository.findPaymentById(id);
-        if(payment == null){
+
+        if (payment == null) {
             throw new ApiRequestException("payment doesn't exist");
         }
 
         paymentRepository.deletePaymentById(id);
 
-        return true;
     }
 
-    
 
     //helper
-    private <T> List<T> toList(Iterable<T> iterable){
+    private <T> List<T> toList(Iterable<T> iterable) {
         List<T> resultList = new ArrayList<T>();
         for (T t : iterable) {
             resultList.add(t);
         }
         return resultList;
     }
-    
+
 }

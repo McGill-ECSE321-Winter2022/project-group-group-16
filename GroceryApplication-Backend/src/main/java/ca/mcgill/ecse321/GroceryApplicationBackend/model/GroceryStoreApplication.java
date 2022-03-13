@@ -18,6 +18,7 @@ public class GroceryStoreApplication {
     private Set<UserRole> userRole;
 
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<GroceryOrder> getOrder() {
         return this.order;

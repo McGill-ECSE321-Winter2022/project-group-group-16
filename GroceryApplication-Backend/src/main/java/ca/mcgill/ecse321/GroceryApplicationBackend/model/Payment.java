@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -54,6 +55,7 @@ public class Payment {
         this.paymentType = value;
     }
 
+    @JsonBackReference
     @OneToOne(optional = false)
     public GroceryOrder getOrder() {
         return this.order;
