@@ -714,6 +714,83 @@ public class GroceryUserServiceTest {
 			
 		}
 		
+		//Test for deleting a grocery user
+		@Test
+		public void testDeleteGroceryUser() {
+			GroceryUser groceryUser = null;
+			
+			try {
+				
+				groceryUser = groceryUserService.deleteGroceryUser(EMAIL);
+				
+				
+			} catch(ApiRequestException e) {
+				fail();
+				
+				
+			}
+			
+			assertNotNull(groceryUser);
+			assertEquals(EMAIL, groceryUser.getEmail());
+	
+		}
+		
+		
+		//Test for deleting a grocery user with a incorrect email
+		@Test
+		public void testDeleteGroceryUserWithIncorrectEmail() {
+			GroceryUser groceryUser = null;
+			String error = null;
+
+			String INCORRECTEMAIL = "bad@hotmail.com";
+			
+			try {
+				groceryUser = groceryUserService.deleteGroceryUser(INCORRECTEMAIL);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("Grocery user with provided email does not exist.",error);
+
+		}
+		
+		//Test for deleting a grocery user with a null email
+		@Test
+		public void testDeleteGroceryUserWithNullEmail() {
+			GroceryUser groceryUser = null;
+			String error = null;
+			
+			String NULLEMAIL =null;
+			
+			try {
+				groceryUser = groceryUserService.deleteGroceryUser(NULLEMAIL);
+				
+				
+			}catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+				
+			}
+			assertNull(groceryUser);
+			assertEquals("Grocery user with provided email does not exist.",error);
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

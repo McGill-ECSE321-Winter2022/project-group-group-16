@@ -193,7 +193,7 @@ public class GroceryUserService {
 		@Transactional
 		public GroceryUser deleteGroceryUser(String email) {
 			if (groceryUserRepository.findGroceryUserByEmail(email) == null) {
-				throw new ApiRequestException("Product with provided barcode does not exist.");
+				throw new ApiRequestException("Grocery user with provided email does not exist.");
 			}
 			GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email) ;
 			groceryUserRepository.delete(user);
