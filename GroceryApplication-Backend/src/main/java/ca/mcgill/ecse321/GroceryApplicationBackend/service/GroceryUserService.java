@@ -99,6 +99,10 @@ public class GroceryUserService {
 	@Transactional
 	public GroceryUser getGroceryUserByEmail(String email) {
 		GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
+		if(user == null) {
+			throw new ApiRequestException ("Invalid email, could not find associated user with email" + email);
+			
+		}
 		return user;
 	}
 	/**

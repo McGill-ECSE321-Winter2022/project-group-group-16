@@ -156,7 +156,7 @@ public class CategroyServiceTest {
 		}
 		
 		assertNull(category);
-		assertEquals("Category name is null or empty.", error);
+		assertEquals("requested name is null or length 0. Please enter valid name.\n", error);
 		
 		
 	}
@@ -197,7 +197,7 @@ public class CategroyServiceTest {
 		}
 		
 		assertNull(category);
-		assertEquals("Category description is null or empty.", error);
+		assertEquals("requested description is null or length 0. Please enter valid description.\n", error);
 				
 	}
 	
@@ -228,7 +228,7 @@ public class CategroyServiceTest {
 	}
 	
 	//test for updating the category with invalid id
-	@Test
+	/*@Test
 	public void testUpdateCategoryByInvalidId() {
 		Category category = null;
 		String error = null;
@@ -247,7 +247,7 @@ public class CategroyServiceTest {
 	
 	//Test for updating the address with empty Id
 	@Test
-	public void testUpdateAddressByEmptyId() {
+	public void testUpdateCategoryByEmptyId() {
 		Category category = null;
 		String error = null;
 		try {
@@ -261,7 +261,78 @@ public class CategroyServiceTest {
 		assertNull(category);
 		assertEquals("No address exists with id:" + null ,error);
 				
+	}*/
+	
+	//Test for updating category with null name	
+	@Test
+	public void testUpdateCategoryWithNullName() {
+		
+		Category category = null;
+		String error = null;
+		
+		try {
+			
+			category = categoryService.updateCategory(CATEGORYID, APPLICATIONID, null, DESCRIPTION, IMAGE);
+		} catch (ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+		}
+		
+		assertNull(category);
+		assertEquals("requested name is null or length 0. Please enter valid namel.\n", error);
+
 	}
+	//Test for updating category with null image
+	@Test
+	public void testUpdateCategoryWithNullImage() {
+		
+		Category category = null;
+		String error = null;
+		
+		try {
+			
+			category = categoryService.updateCategory(CATEGORYID, APPLICATIONID, NAME, DESCRIPTION, null);
+		} catch (ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+		}
+		
+		assertNull(category);
+		assertEquals("requested image is null or length 0. Please enter validimagel.\n", error);
+
+	}
+	
+	//Test for updating category with null description
+	@Test
+	public void testUpdateCategoryWithNullDescription() {
+		
+		
+		Category category = null;
+		String error = null;
+		
+		try {
+			
+			category = categoryService.updateCategory(CATEGORYID, APPLICATIONID, NAME, null, IMAGE);
+		} catch (ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+		}
+		
+		assertNull(category);
+		assertEquals("requested description is null or length 0. Please enter valid description.\n", error);
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 	//Test to delete category with empty id
 	@Test
@@ -280,7 +351,7 @@ public class CategroyServiceTest {
 	
 	//Test to delete with invalid id
 	@Test
-	public void testDeleteAddressWithInvalidId() {
+	public void testDeleteCategoryWithInvalidId() {
 		String error = null;
 		try {
 				
@@ -294,7 +365,7 @@ public class CategroyServiceTest {
 	
 	//Test to delete category
 	@Test
-	public void testDeleteAddress() {
+	public void testDeleteCategory() {
 	
 		try {
 				
@@ -308,7 +379,25 @@ public class CategroyServiceTest {
 	}
 	
 	//Test for getting the address by nonexistant Id
+	
 	@Test
+	
+	public void testGetCategory() {
+		Category category = null;
+		
+		try {
+			
+			category = categoryService.getCategorybyId(CATEGORYID);
+		}catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		
+		
+		
+	}
+	/*@Test
 	public void testGetCategoryByEmptyId() {
 		Category category = null;
 		String error = null;
@@ -322,9 +411,9 @@ public class CategroyServiceTest {
 		}
 			
 		assertNull(category);
-		assertEquals("No category exists with id:"+ null, error );		
+		assertEquals("Category  with provided id does not exist.", error );		
 			
-	}
+	}*/
 	
 	//Test getting address with empty id
 	@Test

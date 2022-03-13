@@ -1,0 +1,433 @@
+package ca.mcgill.ecse321.GroceryApplication.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
+
+
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.management.InvalidApplicationException;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
+
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.CustomerService;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.GroceryUserService;
+
+
+
+@ExtendWith(MockitoExtension.class)
+public class GroceryUserServiceTest {
+	
+	@Mock
+	private GroceryUserRepository groceryUserRepository;
+	
+	@InjectMocks
+	private GroceryUserService groceryUserService;
+	
+	private static final String USERNAME ="John Cena";
+	private static final String PASSWORD ="Apassword";
+	private static final String FNAME ="First Name";
+	
+	private static final String LNAME ="Last Name";
+	private static final String EMAIL ="john@gmail.com";
+	
+;
+	private static final Date DATEOFBIRTH = Date.valueOf("2001-03-18");
+	
+	
+	@BeforeEach
+	public void setMockOutPut() {
+		
+		lenient().when(groceryUserRepository.findGroceryUserByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			
+			if(invocation.getArgument(0).equals(EMAIL)) {
+				
+				GroceryUser user = new GroceryUser();
+				user.setFirstName(FNAME);
+				user.setLastName(LNAME);
+				user.setUsername(USERNAME);
+				user.setPassword(PASSWORD);
+				user.setEmail(EMAIL);
+				user.setDateOfBirth(DATEOFBIRTH);
+				
+				return user;
+				
+			} else {
+				
+				return null;
+				
+			}
+			
+			
+			
+		});
+		
+		
+		 Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);
+	     lenient().when(groceryUserRepository.save(any(GroceryUser.class))).thenAnswer(returnParameterAsAnswer);
+
+	}
+	
+	//Test for create a Grocery user
+	@Test 
+	public void testCreateGroceryUser() {
+		GroceryUser groceryUser = null;
+		
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, FNAME, LNAME, EMAIL, DATEOFBIRTH);
+			
+			
+		} catch(ApiRequestException e) {
+			fail();
+			
+			
+		}
+		
+		assertNotNull(groceryUser);
+		assertEquals(USERNAME,groceryUser.getUsername());
+		assertEquals(PASSWORD,groceryUser.getPassword());
+		assertEquals(FNAME, groceryUser.getFirstName());
+		assertEquals(LNAME,groceryUser.getLastName());
+		assertEquals(EMAIL,groceryUser.getEmail());
+		assertEquals(DATEOFBIRTH,groceryUser.getDateOfBirth());
+
+		
+	}
+	
+	//Test for creating groceryUser when date is null
+	@Test
+	public void testCreateGroceryUserWithNullDate() {
+		GroceryUser groceryUser = null;
+		String error = null;
+		
+		try {
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, FNAME, LNAME, EMAIL, null);
+			
+			
+		}catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+			
+		}
+		assertNull(groceryUser);
+		assertEquals("A date is null and has to be created.\n",error);
+
+		
+	}
+	
+	
+	//Test for creating groceryUser with null email
+	@Test
+	public void testCreateGroceryUserWithNullEmail() {
+		GroceryUser groceryUser =null;
+		String error = null;
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, FNAME, LNAME, null, DATEOFBIRTH);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+			
+		}
+		assertNull(groceryUser);
+		assertEquals("Requested email is null or length 0. Please enter valid email.\n",error);
+
+	}
+	
+	//Test for creating a groceryUser with valid email
+	@Test
+	public void testCreateGroceryUserWithInvalidEmail() {
+		GroceryUser groceryUser =null;
+		String error = null;
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, FNAME, LNAME, "usermail.com", DATEOFBIRTH);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+			
+		}
+		
+		assertNull(groceryUser);
+		assertEquals("Requested email is not valid.\n",error);
+
+	}
+	
+	//Test for creating a groceryUser with invalid password
+	@Test
+	public void testCreateGroceryUserWithBadPass() {
+		GroceryUser groceryUser =null;
+		String error = null;
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, "ert", FNAME, LNAME, EMAIL, DATEOFBIRTH);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+			
+		}
+		assertNull(groceryUser);
+		assertEquals("Your password must be at least 5 characters long and contian a uppercasecase and lowercase character",error);
+		
+		
+		
+	}
+	
+	//Test for creating a groceryUser
+	@Test
+	public void testCreateGroceryUserWithNullUsername() {
+		GroceryUser groceryUser =null;
+		String error = null;
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(null, PASSWORD, FNAME, LNAME, EMAIL, DATEOFBIRTH);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+			
+		}
+		
+		assertNull(groceryUser);
+		assertEquals("Requested username is null or length 0. Please enter valid username.\n",error);
+
+	}
+	
+	//Test for creating a grocery user with a null  first name
+	@Test
+	public void testCreateGroceryUserWithNullFName() {
+		GroceryUser groceryUser = null;
+		String error = null;
+		
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, null, LNAME, EMAIL, DATEOFBIRTH);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+			
+		}
+		
+		assertNull(groceryUser);
+		assertEquals("Requested first name is null or length 0. Please enter valid first namel.\n", error);
+
+	}
+	
+	
+	//Test for creating a grocery user with a number of spec in first name
+	@Test
+	public void testCreateGroceryUserWithSpecFName() {
+		GroceryUser groceryUser = null;
+		String error = null;
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, "*NoahYe", LNAME, EMAIL, DATEOFBIRTH);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+			
+			
+		}
+		
+		assertNull(groceryUser);
+		assertEquals("Your first name cannot contain a number or a special character.",error);
+		
+		
+		
+		
+	}
+	
+	//Test for creating a grocery user with null last name
+	@Test
+	public void testCreateGroceryUserWithNullName() {
+		GroceryUser groceryUser = null;
+		String error = null;
+		
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, FNAME, null, EMAIL, DATEOFBIRTH);
+			
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+		}
+		
+		assertNull(groceryUser);
+		assertEquals("Requested last name is null or length 0. Please enter valid last namel.\n",error);
+		
+		
+		
+	}
+	
+	
+	//Test for creating a grocery user with spec last name
+	
+	@Test
+	public void testCreateGroceryUserWithSpecLName() {
+		GroceryUser groceryUser = null;
+		String error = null;
+		
+		try {
+			
+			groceryUser = groceryUserService.createGroceryUser(USERNAME, PASSWORD, FNAME, "Tyronne.", EMAIL, DATEOFBIRTH);
+			
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+		}
+		
+		assertNull(groceryUser);
+		assertEquals("Your last name cannot contain a number or a special character.",error);
+		
+		
+		
+	}
+	
+	//Test for getting groceryUser by email
+	@Test
+	public void testGetGroceryUser() {
+		
+		GroceryUser groceryUser = null;
+		try {
+			
+		groceryUser = groceryUserService.getGroceryUserByEmail(EMAIL);
+		} catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		
+		assertNotNull(groceryUser);
+		assertEquals(EMAIL,groceryUser.getEmail());
+		
+		
+		
+		
+	}
+	
+	//Test for getting a groceryUser with invalid email
+	@Test
+	public void testGetGroceryUserWithInvalidEmail() {
+		
+		GroceryUser groceryUser = null;
+		String error = "";
+		try {
+			
+			groceryUser = groceryUserService.getGroceryUserByEmail("yaboidre@hotmail.com");
+			
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+		}
+		assertNull(groceryUser);
+		assertEquals(error,"Invalid email, could not find associated user with email" + "yaboidre@hotmail.com" );
+	
+	}
+	
+	//Test for getting a groceryUser with null email
+	@Test
+	public void testGetGroceryUserWithNullEmail() {
+		
+		GroceryUser groceryUser = null;
+		String error = "";
+		try {
+			
+			groceryUser = groceryUserService.getGroceryUserByEmail(null);
+			
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+			
+			
+		}
+		assertNull(groceryUser);
+		assertEquals(error,"Invalid email, could not find associated user with email" + null);
+	
+	}
+	
+	//Test for getting all the list of grocery users
+	@Test
+	public void testGetAllGroceryUsers() {
+		
+		List<GroceryUser> groceryUsers = null;
+		groceryUsers = groceryUserService.getAllGroceryUser();
+		assertNotNull(groceryUsers);
+
+	        
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}
