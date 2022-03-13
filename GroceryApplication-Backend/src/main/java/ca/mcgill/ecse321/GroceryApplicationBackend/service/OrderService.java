@@ -2,9 +2,7 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,46 +35,25 @@ public class OrderService {
     @Autowired
     PaymentRepository paymentRepository;
     
- 
-    
-    /** 
-     * @param barcode
+    /**
+     * Service method for placing an order
+     * 
      * @param applicationId
-     * @param addressId
      * @param status
      * @param datePlaced
      * @param deliveryDate
      * @param customerNote
      * @param purchaseType
-     * @param billingAddress
-     * @param customer
-     * @param shippingAddress
-     * @return GroceryOrder
+     * @return placed order
      */
     @Transactional
-    public GroceryOrder placeOrder(Integer barcode, Integer applicationId, Integer addressId, OrderStatus status, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Address billingAddress, Customer customer, Address shippingAddress){
-        
-        Set<Product> productSet = new HashSet();
+    public GroceryOrder placeOrder(Integer applicationId, OrderStatus status, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType){
 
         GroceryStoreApplication gs = groceryStoreApplicationRepository.findGroceryStoreApplicationById(applicationId);
 
         if(gs == null){
             throw new ApiRequestException("The application doesn't exist.");
         }
-
-        Address address = addressRepository.findAddressById(addressId);
-
-        if(address == null){
-            throw new ApiRequestException("The address doesn't exist.");
-        }
-
-        Product products = productRepository.findProductByBarcode(barcode);
-
-        if(products == null){
-            throw new ApiRequestException("The product doesn't exist.");
-        }
-
-        productSet.add(products);
 
         GroceryOrder order = new GroceryOrder();
         order.setGroceryStoreApplication(gs);
@@ -85,43 +62,16 @@ public class OrderService {
         order.setDeliveryDate(deliveryDate);
         order.setCustomerNote(customerNote);
         order.setPurchaseType(purchaseType);
-        order.setBillingAddress(address);
-        order.setProduct(productSet);
-        order.setCustomer(customer);
-        order.setShippingAddress(shippingAddress);
         
         groceryOrderRepository.save(order);
         return order;
     }
 
 
-    
+
     /** 
-     * @param bAdd
-     * @param sAdd
-     * @param id
-     * @return GroceryOrder
-     */
-    @Transactional
-    public GroceryOrder updateAddress(Address bAdd, Address sAdd, Integer id){
-
-        if(groceryOrderRepository.findGroceryOrderById(id)==null) {
-    		throw new ApiRequestException("Order id is not valid!");
-    	}
-
-        GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
-        if(bAdd != null && sAdd != null){
-            order.setBillingAddress(bAdd);
-            order.setShippingAddress(sAdd);
-        }
-
-        groceryOrderRepository.save(order);
-        return order;
-    }
-
-
-    
-    /** 
+     * Service method to update an order status
+     * 
      * @param status
      * @param id
      * @return GroceryOrder
@@ -143,26 +93,28 @@ public class OrderService {
     }
 
     
-    /** 
+    /**
+     * Service method to delete an order by id
+     * 
      * @param id
-     * @return boolean
+     * @return
      */
     @Transactional
-    public boolean deleteOrder(Integer id){
+    public void deleteOrder(Integer id){
 
         GroceryOrder order = groceryOrderRepository.findGroceryOrderById(id);
         if(order == null){
             throw new ApiRequestException("Order does not exist");
         }
         groceryOrderRepository.deleteGroceryOrderById(id);
-
-        return true;
     }
 
     
 
     
     /** 
+     * Service method to retrieve an order by id
+     * 
      * @param id
      * @return GroceryOrder
      */
@@ -176,18 +128,17 @@ public class OrderService {
     	return order;
     }
 
-    
-    /** 
-     * @return List<GroceryOrder>
+    /**
+     * Service method to retrieve all orders in the database
+     * 
+     * @return all orders
      */
-    //get all orders from past years
     @Transactional
     public List<GroceryOrder> getAllOrders() {
         return toList(groceryOrderRepository.findAll());
     }
 
 
-    //helper
     private <T> List<T> toList(Iterable<T> iterable){
         List<T> resultList = new ArrayList<T>();
         for (T t : iterable) {

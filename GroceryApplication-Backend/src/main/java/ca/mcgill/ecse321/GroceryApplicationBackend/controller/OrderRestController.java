@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.OrderDto;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder.PurchaseType;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.OrderService;
@@ -31,38 +29,41 @@ public class OrderRestController {
     @Autowired
     OrderService orderService;
 
-    
-    
-    
-    /** 
-     * @param placeOrder(
-     * @return OrderDto
+    /**
+     * Rest method for creating an order
+     * 
+     * @param applicationId
+     * @param status
+     * @param datePlaced
+     * @param deliveryDate
+     * @param customerNote
+     * @param purchaseType
+     * @return
+     * @throws ApiRequestException
      */
-    //place order
-    @PostMapping(value = {"/orders/placeOrder", "/orders/placeOrder/"})
+    @PostMapping(value = {"/orders", "/orders/"})
     public OrderDto placeOrder(
-        @RequestParam Integer barcode,
         @RequestParam Integer applicationId,
-        @RequestParam Integer addressId,
         @RequestParam OrderStatus status,
-        @RequestParam Date datePlaced,
-        @RequestParam Date deliveryDate,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date datePlaced,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date deliveryDate,
         @RequestParam String customerNote,
-        @RequestParam PurchaseType purchaseType,
-        @RequestParam Product product,
-        @RequestParam Address billingAddress,
-        @RequestParam Customer customer,
-        @RequestParam Address shippingAddress) throws ApiRequestException{
-        return convertToDto(orderService.placeOrder(barcode, applicationId, addressId, status, datePlaced, deliveryDate, customerNote, purchaseType, billingAddress, customer, shippingAddress));
+        @RequestParam PurchaseType purchaseType) throws ApiRequestException{
+            java.sql.Date sqlDatePlaced = new java.sql.Date(datePlaced.getTime());
+            java.sql.Date sqlDeliveryDate = new java.sql.Date(deliveryDate.getTime());
+        return convertToDto(orderService.placeOrder(applicationId, status, sqlDatePlaced, sqlDeliveryDate, customerNote, purchaseType));
     }
 
     
-    /** 
-     * @param updateOrderStatus(
-     * @return OrderDto
+    /**
+     * Rest method for updating an order status
+     * 
+     * @param status
+     * @param id
+     * @return updated status
+     * @throws ApiRequestException
      */
-    //update status
-    @PutMapping(value = {"/orders/updateOrderStatus/{id}", "/orders/updateOrderStatus/{id}/"})
+    @PutMapping(value = {"/orders/{id}", "/orders/{id}/"})
     public OrderDto updateOrderStatus(
         @RequestParam OrderStatus status,
         @PathVariable("id") Integer id) throws ApiRequestException{
@@ -70,23 +71,12 @@ public class OrderRestController {
     }
 
     
-    /** 
-     * @param updateOrderAddress(
-     * @return OrderDto
-     */
-    @PutMapping(value = {"/orders/updateOrderStatus/{id}]", "/orders/updateOrderStatus/{id}/"})
-    public OrderDto updateOrderAddress(
-        @RequestParam Address bAddress,
-        @RequestParam Address sAddress,
-        @PathVariable("id") Integer id) throws ApiRequestException{
-        return convertToDto(orderService.updateAddress(bAddress, sAddress, id));
-    }
-
-    
-    /** 
+    /**
+     * Rest method for retrieving an order by id
+     * 
      * @param id
-     * @return OrderDto
-     * @throws Exception
+     * @return requested order
+     * @throws ApiRequestException
      */
     @GetMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
     public OrderDto getOrderById(@PathVariable("id") Integer id) throws ApiRequestException{
@@ -94,10 +84,13 @@ public class OrderRestController {
     }
 
     
-    /** 
-     * @return List<OrderDto>
+    /**
+     * Rest method to retrieve all orders in the database
+     * 
+     * @return all orders
+     * @throws ApiRequestException
      */
-    @GetMapping(value = {"/groceryOrders/allOrders", "/groceryOrders/allOrders/"})
+    @GetMapping(value = {"/groceryOrders", "/groceryOrders/"})
     public List<OrderDto> getAllOrders() throws ApiRequestException {
         List<OrderDto> orderDtos = new ArrayList<>();
 	    for (GroceryOrder order : orderService.getAllOrders()) {
@@ -106,38 +99,20 @@ public class OrderRestController {
 	    return orderDtos;
     }
 
-    
-    /** 
+    /**
+     * Rest method to delete an order
+     * 
      * @param id
-     * @return boolean
+     * @throws ApiRequestException
      */
     @DeleteMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
-    public boolean deleteOrder(@PathVariable("id") Integer id) throws ApiRequestException{
-        if(id == 0) {
+    public void deleteOrder(@PathVariable("id") Integer id) throws ApiRequestException{
+        if(id == null) {
             throw new ApiRequestException("The id is not valid.");
         }
-        return orderService.deleteOrder(id);
+        orderService.deleteOrder(id);
     }
-
     
-    /** 
-     * @param orderDto
-     * @return boolean
-     */
-    @DeleteMapping(value = {"/groceryOrders", "/groceryOrders/"})
-    public boolean deleteOrder(OrderDto orderDto){
-        if(orderDto == null) {
-            throw new ApiRequestException("The order is not valid.");
-        }
-        return orderService.deleteOrder(orderDto.getOrderId());
-    }
-
-    
-    /** 
-     * @param order
-     * @return OrderDto
-     */
-    //helper
 
     public static OrderDto convertToDto(GroceryOrder order) {
         if (order == null){

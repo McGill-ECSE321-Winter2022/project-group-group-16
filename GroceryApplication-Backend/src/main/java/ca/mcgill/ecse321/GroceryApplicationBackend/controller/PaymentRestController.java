@@ -19,7 +19,16 @@ public class PaymentRestController {
     PaymentService paymentService;
 
 
-
+    /**
+     * Rest method for creating a payment
+     * 
+     * @param orderId
+     * @param amount
+     * @param paymentType
+     * @param paymentCode
+     * @return created payment
+     * @throws ApiRequestException
+     */
     @PostMapping(value = {"/payment", "/payment/"})
     public PaymentDto createPayment(
             @RequestParam Integer orderId,
@@ -31,7 +40,16 @@ public class PaymentRestController {
 
 
 
-    @PutMapping(value = {"/payment/updatePayment/{id}", "/payment/updatePayment/{id}/"})
+    /**
+     * 
+     * @param id
+     * @param amount
+     * @param paymentType
+     * @param paymentCode
+     * @return updated payment
+     * @throws ApiRequestException
+     */
+    @PutMapping(value = {"/payment/{id}", "/payment/{id}/"})
     public PaymentDto updatePayment(
             @PathVariable("id") Integer id,
             @RequestParam Float amount,
@@ -42,8 +60,11 @@ public class PaymentRestController {
 
 
     /**
+     * Rest method for retrieving a payment by id
+     * 
      * @param id
-     * @return PaymentDto
+     * @return request payment
+     * @throws ApiRequestException
      */
     @GetMapping(value = {"/payment/{id}", "/payment/{id}/"})
     public PaymentDto getPaymentById(@PathVariable("id") Integer id) throws ApiRequestException {
@@ -52,7 +73,11 @@ public class PaymentRestController {
 
 
     /**
-     * @return List<PaymentDto>
+     * Rest method for retrieving all payments
+     * The returned list is unsorted
+     * 
+     * @return all payments
+     * @throws ApiRequestException
      */
     @GetMapping(value = {"/payment", "/payment/"})
     public List<PaymentDto> getAllPayments() throws ApiRequestException {
@@ -64,9 +89,12 @@ public class PaymentRestController {
     }
 
 
-    /**
-     * @return List<Float>
-     */
+   /**
+    * Rest method for retrieving all ascending payments
+    * 
+    * @return all sorted payments
+    * @throws ApiRequestException
+    */
     @GetMapping(value = {"/payment/sorted", "/payment/sorted/"})
     public List<PaymentDto> getSortedPayments() throws ApiRequestException {
         List<PaymentDto> paymentDtos = new ArrayList<>();
@@ -80,8 +108,10 @@ public class PaymentRestController {
 
 
     /**
+     * Rest method to delete a payment by id
+     * 
      * @param id
-     * @return boolean
+     * @throws ApiRequestException
      */
     @DeleteMapping(value = {"/payments/{id}", "/payments/{id}/"})
     public void deletePayment(@PathVariable("id") Integer id) throws ApiRequestException {
