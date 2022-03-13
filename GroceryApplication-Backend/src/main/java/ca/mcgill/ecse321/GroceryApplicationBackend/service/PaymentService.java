@@ -145,6 +145,15 @@ public class PaymentService {
 
     }
 
+    /**
+     * Method to return true if the input is PAYED
+     * @param input the input
+     * @return if payed
+     */
+    public boolean validatePayment(String input) {
+        return input.equals("PAYED");
+    }
+
 
     /**
      * Helper method to convert an iterable to a list
