@@ -24,8 +24,8 @@ public class CustomerController {
       
       
       
-      @PostMapping(value = { "/category", "/category/"})
-      public CustomerDto createCustomer (@PathVariable("applicationId") int applicationId, @PathVariable("addressId") int addressId, @PathVariable("userEmail") String userEmail) {
+      @PostMapping(value = { "/customer", "/customer/"})
+      public CustomerDto createCustomer (@PathVariable("applicationId") Integer applicationId, @PathVariable("addressId") Integer addressId, @PathVariable("userEmail") String userEmail) {
           Customer customer = customerService.createCustomer(applicationId, addressId, userEmail);
             return convertToDto(customer);
       }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,17 +30,16 @@ public class GroceryUserController {
 
 
 
-      @PostMapping(value = { "/category", "/category/"})
-      public GroceryUserDto createGroceryUser (@RequestParam("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("date") Date date) {
+      @PostMapping(value = { "/gorceryUser", "/gorceryUser/"})
+      public GroceryUserDto createGroceryUser (@RequestParam("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName,  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
           GroceryUser user =  groceryUserService.createGroceryUser(username, password, firstName, lastName, email, date);
             return convertToDto(user);
       }
 
 
       @PutMapping(value = { "/gorceryUser/{email}", "/gorceryUser/{email}/" })
-      public GroceryUserDto updateGroceryUser ( @RequestParam("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("date") Date date) {
-         List <GroceryUser> users =  groceryUserService.getAllGroceryUser();
-          GroceryUser user =  groceryUserService.createGroceryUser(username, password, firstName, lastName, email, date);
+      public GroceryUserDto updateGroceryUser ( @RequestParam("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName,  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+          GroceryUser user =  groceryUserService.updateGroceryUser(username, password, firstName, lastName, email, date);
             return convertToDto(user);
       }
 

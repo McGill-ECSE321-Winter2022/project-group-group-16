@@ -32,7 +32,7 @@ public class ProductController {
 		  return convertToDto(product);
 	  }
 
-	  @PutMapping(value = {"/product/{barCode}\", \"/product/{barCode}/"})
+	  @PutMapping(value = {"/product/{barCode}", "/product/{barCode}/"})
 	  public ProductDto updateProduct (@RequestParam("barCode") Integer barCode,  @PathVariable("image") String image,  @PathVariable("applicationId") Integer applicationId, @PathVariable("categoryId") Integer categoryId, @PathVariable("name") String name, @PathVariable("description") String description, @PathVariable("price") Float price, @PathVariable("weight") Float weight, @PathVariable("volume") Float volume, @PathVariable("availability") Availability availability,  @PathVariable("isRefundable") boolean isRefundable,  @PathVariable("avaQuantity") Integer avaQuantity  ) {
 		  Product product = productService.updateProduct(image, applicationId, categoryId, name, description, price, weight, volume, availability, barCode, isRefundable, avaQuantity);
 		  return convertToDto(product);

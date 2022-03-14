@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
@@ -18,7 +19,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
-
+@Service
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
