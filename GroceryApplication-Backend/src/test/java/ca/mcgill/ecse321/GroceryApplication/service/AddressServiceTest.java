@@ -9,17 +9,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
 
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.management.InvalidApplicationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,11 +23,10 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.AddressRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.StoreRepository;
+
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Store;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.AddressService;
 
@@ -70,6 +60,8 @@ public class AddressServiceTest {
 	private String NEWCOUNTRY = "NEWCOUNTRY";
 	private String NEWPOSTALCODE = "NEWPOSTALCODE";
 	
+	private static Integer INVALIDADDRESSID = 420420;
+	
 	/**
 	 * 
 	 * Service test method for address
@@ -95,22 +87,16 @@ public class AddressServiceTest {
 				address.setCity(CITY);
 				address.setCountry(COUNTRY);
 				address.setProvince(PROVINCE);
-				address.setPostalCode(POSTALCODE);
-
-		
+				address.setPostalCode(POSTALCODE);		
 				return address;
-				
-				
+
 			} else {
 				
-				return null;
-				
+				return null;				
 			}
-			
-			
+	
 		});
-		
-		
+
 		lenient().when(addressRepository.findAddressByCity(anyString())).thenAnswer((InvocationOnMock invocation) -> {
 			
 			if(invocation.getArgument(0).equals(CITY)) {
@@ -130,44 +116,27 @@ public class AddressServiceTest {
 				address.setPostalCode(POSTALCODE);
 				return address;
 
-			}
-			
-			
-			else {
-			
-			
+			} else {
+
 			return null;
 			
 			}
 		});
 		
 		lenient().when(customerRepository.findCustomerById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			
-			
+						
 			if(invocation.getArgument(0).equals(CUSTOMERID)) {
 				
 				Customer customer = new Customer();
 				customer.setId(CUSTOMERID);
-				return customer;
-				
+				return customer;				
 			}
-			
-			
-			
 			return null;
 			
 		});
-		
-		
-		
-		
-		
-		//When anything is saved, return the parameter object
-		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);
-			
 
+		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);			
 		lenient().when(addressRepository.save(any(Address.class))).thenAnswer(returnParameterAsAnswer);
-
 		
 	}
 	
@@ -204,17 +173,14 @@ public class AddressServiceTest {
 		String error = null;
 		try {
 			address = addressService.createAddress(STREETNUMBER,"", PROVINCE, CITY, COUNTRY, POSTALCODE);
-			
-			
+
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
-			
-			
+
 		}
 		
 		assertNull(address);
 		assertEquals("Street name is null or empty.", error);
-		
 		
 	}
 	//Test to create address with empty province
@@ -225,17 +191,14 @@ public class AddressServiceTest {
 		try {
 			address = addressService.createAddress(STREETNUMBER, STREETNAME, "", CITY, COUNTRY, POSTALCODE);
 			
-			
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
-			
-			
+	
 		}
 		
 		assertNull(address);
 		assertEquals("Province is null or empty.", error);
-		
-		
+	
 	}
 	//Test to create an address with empty city
 	@Test
@@ -294,8 +257,7 @@ public class AddressServiceTest {
 		
 		assertNull(address);
 		assertEquals("Country is null or empty.", error);
-		
-		
+
 	}
 	
 	//Test for updating the address
@@ -305,7 +267,7 @@ public class AddressServiceTest {
 		Address address = null;
 
 		try {
-			address = addressService.updateAddress(ADDRESSID, NEWSTREENUMBER, NEWSTREETNAME, NEWPROVINCE, NEWCITY, NEWCOUNTRY, NEWPOSTALCODE );
+			address = addressService.updateAddress(ADDRESSID, NEWSTREENUMBER, NEWSTREETNAME, NEWPROVINCE, NEWCITY, NEWCOUNTRY, NEWPOSTALCODE);
 			
 		} catch(ApiRequestException e) {
 			
@@ -332,7 +294,7 @@ public class AddressServiceTest {
 		Address address = null;
 		String error = null;
 		try {
-		address = addressService.updateAddress(6789, 1234567, "NewStreetName", "NewProvince", "NewCity", "NewCountry", "NewPostalCode");
+		address = addressService.updateAddress(INVALIDADDRESSID, NEWSTREENUMBER, NEWSTREETNAME, NEWPROVINCE, NEWCITY, NEWCOUNTRY, NEWPOSTALCODE);
 		}
 		catch(Exception e) {
 			
@@ -340,7 +302,7 @@ public class AddressServiceTest {
 		}
 		
 		assertNull(address);
-		assertEquals("No address exists with id:" + 6789, error);
+		assertEquals("No address exists with id:" + INVALIDADDRESSID, error);
 		
 		
 	}
@@ -351,7 +313,7 @@ public class AddressServiceTest {
 		Address address = null;
 		String error = null;
 		try {
-			address = addressService.updateAddress(null, 1234567, "NewStreetName", "NewProvince", "NewCity", "NewCountry", "NewPostalCode");
+			address = addressService.updateAddress(null, NEWSTREENUMBER, NEWSTREETNAME, NEWPROVINCE, NEWCITY, NEWCOUNTRY, NEWPOSTALCODE);
 			
 			
 		}catch(Exception e) {
@@ -387,18 +349,16 @@ public class AddressServiceTest {
 		String error = null;
 		try {
 			
-			addressService.deleteAddress(12345);
+			addressService.deleteAddress(INVALIDADDRESSID);
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
 			
 		}
 		
-		assertEquals(error, "No address exists with id:" + 12345);
-		
+		assertEquals(error, "No address exists with id:" + INVALIDADDRESSID);
 		
 	}
-	
-	
+		
 	//Test to delete address
 	@Test
 	public void testDeleteAddress() {
@@ -412,12 +372,9 @@ public class AddressServiceTest {
 			fail();
 			
 		}
-		
-		
-		
+
 	}
 	
-
 	//Test get the address by id
 	@Test
 	public void testGetAddress() {
@@ -454,10 +411,8 @@ public class AddressServiceTest {
 		assertNull(address);
 		assertEquals("No address exists with id:"+ null, error );
 		
-		
-		
+
 	}
-	
 	
 	//Test getting address with empty id
 	@Test
@@ -466,7 +421,7 @@ public class AddressServiceTest {
 		String error = null;
 		
 		try {
-			address = addressService.getAddressById(1237890);
+			address = addressService.getAddressById(INVALIDADDRESSID);
 			}
 			catch(Exception e) {
 				
@@ -474,13 +429,12 @@ public class AddressServiceTest {
 			}
 		
 		assertNull(address);
-		assertEquals("No address exists with id:"+ 1237890, error );
+		assertEquals("No address exists with id:"+ INVALIDADDRESSID, error );
 		
 		
 		
 	}
 	
-	
-	
+
 
 }

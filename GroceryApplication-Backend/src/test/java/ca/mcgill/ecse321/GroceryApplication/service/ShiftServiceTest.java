@@ -6,21 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
 
-
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
-
-import javax.management.InvalidApplicationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,11 +45,13 @@ public class ShiftServiceTest {
 	private static final Shift.ShiftType SHIFTTYPE = Shift.ShiftType.CLOSING;
 	private static final Integer EMPLOYEEID = 6969;
 	
+	private static final Shift.Day NEWDAY = Day.WEDNESDAY;
+	private static final Shift.ShiftType NEWSHIFTTYPE = ShiftType.CLOSING;
 	
-	private static final int SHIFTID2 =181;
 	
-	
-	
+	private static final Integer INVALIDEMPLOYEEID =42069420;
+	private static final Integer INVALIDSHIFTID = 5678912;
+
 	@BeforeEach
 	public void setMockOutput() {
 		lenient().when(shiftRepository.findShiftById(anyInt())).thenAnswer((InvocationOnMock invocation ) -> {
@@ -73,7 +63,6 @@ public class ShiftServiceTest {
 				shift.setId(SHIFTID);
 				shift.setDay(DAY);
 				shift.setShift(SHIFTTYPE);
-				//need to set employee as well
 				return shift;
 				
 			} else {
@@ -128,19 +117,9 @@ public class ShiftServiceTest {
 			
 		});
 		
-		
-		
-		
-		
-		
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);
         lenient().when(shiftRepository.save(any(Shift.class))).thenAnswer(returnParameterAsAnswer);
 				
-
-			
-
-
-		
 	}
 	
 	
@@ -165,8 +144,6 @@ public class ShiftServiceTest {
 		assertEquals(shift.getEmployee().getId(), EMPLOYEEID);
 
 	}
-	
-	
 	
 	//Test creating shift without a day
 	@Test
@@ -215,7 +192,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			
-			shift=shiftService.createShift(DAY, SHIFTTYPE, 123);
+			shift=shiftService.createShift(DAY, SHIFTTYPE, INVALIDEMPLOYEEID);
 			
 		}catch(ApiRequestException e) {
 			error = e.getMessage();
@@ -223,7 +200,7 @@ public class ShiftServiceTest {
 			
 		}		
 		assertNull(shift);
-		assertEquals("Employee with id " + 123 + " does not exist",error);
+		assertEquals("Employee with id " + INVALIDEMPLOYEEID + " does not exist",error);
 				
 	}
 	
@@ -274,7 +251,7 @@ public class ShiftServiceTest {
 		String error = null;
 		
 		try {
-			shift= shiftService.getShift(456);
+			shift= shiftService.getShift(INVALIDSHIFTID);
 			
 		}catch(ApiRequestException e) {
 			
@@ -283,7 +260,7 @@ public class ShiftServiceTest {
 			
 		}		
 		assertNull(shift);
-		assertEquals("Shift with id " + 456 + " does not exist",error);
+		assertEquals("Shift with id " + INVALIDSHIFTID + " does not exist",error);
 		
 		
 		
@@ -314,14 +291,14 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			
-			shiftService.deleteShift(9999);
+			shiftService.deleteShift(INVALIDSHIFTID);
 			
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
 			
 			
 		}
-		assertEquals(error, "Shift with id " + 9999 + " does not exist" );
+		assertEquals(error, "Shift with id " + INVALIDSHIFTID + " does not exist" );
 		
 	}
 	
@@ -336,7 +313,7 @@ public class ShiftServiceTest {
 
 		try {
 			
-			shift = shiftService.updateShift(SHIFTID, Day.WEDNESDAY, ShiftType.CLOSING, EMPLOYEEID);
+			shift = shiftService.updateShift(SHIFTID, NEWDAY, NEWSHIFTTYPE, EMPLOYEEID);
 			
 		}catch(ApiRequestException e) {
 			
@@ -346,8 +323,8 @@ public class ShiftServiceTest {
 		
 		assertNotNull(shift);
 		assertEquals(shift.getId(),SHIFTID);
-		assertEquals(shift.getDay(),Day.WEDNESDAY);
-		assertEquals(shift.getShift(),ShiftType.CLOSING);
+		assertEquals(shift.getDay(),NEWDAY);
+		assertEquals(shift.getShift(),NEWSHIFTTYPE);
 		assertEquals(shift.getEmployee().getId(),EMPLOYEEID);
 		
 
@@ -362,7 +339,7 @@ public class ShiftServiceTest {
 		String error = null;
 		
 		try {
-			shift= shiftService.updateShift(23, DAY, SHIFTTYPE, EMPLOYEEID);
+			shift= shiftService.updateShift(INVALIDSHIFTID, DAY, SHIFTTYPE, EMPLOYEEID);
 			
 		}catch(ApiRequestException e) {
 			
@@ -372,7 +349,7 @@ public class ShiftServiceTest {
 		}
 		
 		assertNull(shift);
-		assertEquals("Shift with id " + 23 + " does not exist",error);
+		assertEquals("Shift with id " + INVALIDSHIFTID + " does not exist",error);
 		
 	}
 	
@@ -384,7 +361,7 @@ public class ShiftServiceTest {
 		String error = null;
 		
 		try {
-			shift= shiftService.updateShift(SHIFTID, DAY, SHIFTTYPE, 45);
+			shift= shiftService.updateShift(SHIFTID, DAY, SHIFTTYPE, INVALIDEMPLOYEEID);
 			
 		}catch(ApiRequestException e) {
 			
@@ -393,15 +370,9 @@ public class ShiftServiceTest {
 			
 		}
 		assertNull(shift);
-		assertEquals("Employee with id " + 45 + " does not exist",error);
+		assertEquals("Employee with id " + INVALIDEMPLOYEEID + " does not exist",error);
 
 	}
-	
-	
-	
-	
-	
-	
 	
 	//Test for  finding all shift	
 	@Test

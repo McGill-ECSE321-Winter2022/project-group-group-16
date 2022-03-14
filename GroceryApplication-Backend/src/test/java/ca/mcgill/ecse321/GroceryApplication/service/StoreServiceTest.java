@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+
 
 
 import java.sql.Date;
@@ -29,7 +29,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-import ca.mcgill.ecse321.GroceryApplicationBackend.GroceryApplicationBackendApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.AddressRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.StoreRepository;
@@ -57,9 +56,9 @@ public class StoreServiceTest {
 	
 
 	private static final Integer GROCERYSTOREAPPLICATION = 4444;
-	private static final String INVALIDSTORENAME = "JimmyNeutron";
+
 	
-	
+	private static final Integer ADDRESSID = 12;
 	private static final String STORENAME = "IGA";
 	
 	private static final String input ="10:00:00";
@@ -73,9 +72,6 @@ public class StoreServiceTest {
 	private static final LocalTime WEEKENDOPENING = LocalTime.parse(input2);
 	private static final LocalTime WEEKENDCLOSING= LocalTime.parse(input3);
 	
-		
-	private static final String STORENAME2 = "MAXI";
-	
 	private static final String input4 ="10:30:00";
 	private static final String input5 = "22:00:00";	
 	private static final String input6 ="10:00:00";
@@ -87,21 +83,18 @@ public class StoreServiceTest {
 	private static final LocalTime WEEKENDOPENING2 = LocalTime.parse(input6);
 	private static final LocalTime WEEKENDCLOSING2 = LocalTime.parse(input7);
 	
-	private static final Integer ADDRESSID = 12;
-	
-	
-	
-	
+	private static final String INVALIDSTORENAME = "JimmyNeutron";
+	private static final Integer INVALIDADDRESSID = 13;
+	private static final Integer INVALIDAPPGROCERYID = 14;
+
 	@BeforeEach
 	public void setMockOutput() {
 		//might need to put id of store
 		lenient().when(storeRepository.findStoreByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
 			if(invocation.getArgument(0).equals(STORENAME)) {
 				
-				Store store = new Store();
-				
-				Address address = new Address();
-				
+				Store store = new Store();				
+				Address address = new Address();				
 				address.setId(ADDRESSID);
 				
 				store.setName(STORENAME);				
@@ -111,11 +104,8 @@ public class StoreServiceTest {
 				store.setWeekEndOpening(WEEKENDOPENING);
 				store.setWeekEndClosing(WEEKENDCLOSING);
 
-				
 				return store;
-				
-				
-				
+
 			}
 			else {
 
@@ -132,14 +122,9 @@ public class StoreServiceTest {
 				GroceryStoreApplication gs = new GroceryStoreApplication();
 				gs.setId(GROCERYSTOREAPPLICATION);
 				return gs;
-
-				
-				
-				
+			
 			}
-			
-			
-			
+
 			return null;
 			
 		});
@@ -150,25 +135,13 @@ public class StoreServiceTest {
 				Address address = new Address ();
 				address.setId(ADDRESSID);
 				return address;
-				
-				
-				
+
 			}
-			
-			
-			
+
 			return null;
 			
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
@@ -184,9 +157,7 @@ public class StoreServiceTest {
 			store = storeService.createStore(STORENAME, WEEKDAYOPENING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, ADDRESSID, GROCERYSTOREAPPLICATION);
 		} catch (ApiRequestException e) {
 			fail();
-			
-			
-			
+
 		}
 		
 		assertNotNull(store);
@@ -319,7 +290,7 @@ public class StoreServiceTest {
 		
 		try {
 			
-			store = storeService.createStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, 666, GROCERYSTOREAPPLICATION);			
+			store = storeService.createStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, INVALIDADDRESSID , GROCERYSTOREAPPLICATION);			
 		} catch(ApiRequestException e) {
 			
 			error = e.getMessage();
@@ -327,7 +298,7 @@ public class StoreServiceTest {
 		}
 		
 		assertNull(store);
-		assertEquals("Address with id" + 666 + "does not exist.",error);
+		assertEquals("Address with id" +INVALIDADDRESSID  + "does not exist.",error);
 
 	}
 	
@@ -340,7 +311,7 @@ public class StoreServiceTest {
 		
 	try {
 			
-			store = storeService.createStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, ADDRESSID, 777);			
+			store = storeService.createStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, ADDRESSID, INVALIDAPPGROCERYID );			
 		} catch(ApiRequestException e) {
 			
 			error = e.getMessage();
@@ -348,11 +319,11 @@ public class StoreServiceTest {
 		}
 		
 		assertNull(store);
-		assertEquals("Application with id " + 777 + " does not exist.",error);
+		assertEquals("Application with id " + INVALIDAPPGROCERYID + " does not exist.",error);
 		
 	}
 	
-	//Test for updaying store
+	//Test for updating store
 	@Test
 	public void testUpdateStore() {
 		Store store = null;
@@ -407,7 +378,7 @@ public class StoreServiceTest {
 		
 		try {
 			
-			store = storeService.updateStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, 696,  GROCERYSTOREAPPLICATION);			
+			store = storeService.updateStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, INVALIDADDRESSID ,  GROCERYSTOREAPPLICATION);			
 		} catch(ApiRequestException e) {
 			
 			error = e.getMessage();
@@ -415,7 +386,7 @@ public class StoreServiceTest {
 		}
 		
 		assertNull(store);
-		assertEquals("Address with id " + 696 + " does not exist.",error);
+		assertEquals("Address with id " + INVALIDADDRESSID  + " does not exist.",error);
 	
 	}
 	
@@ -427,7 +398,7 @@ public class StoreServiceTest {
 		
 	try {
 			
-			store = storeService.updateStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, ADDRESSID,  6578);			
+			store = storeService.updateStore(STORENAME, WEEKDAYCLOSING, WEEKDAYCLOSING, WEEKENDOPENING, WEEKENDCLOSING, ADDRESSID,  INVALIDAPPGROCERYID);			
 		} catch(ApiRequestException e) {
 			
 			error = e.getMessage();
@@ -435,11 +406,7 @@ public class StoreServiceTest {
 		}
 		
 		assertNull(store);
-		assertEquals("Application with id " + 6578 + " does not exist.",error);
-		
-		
-		
-		
+		assertEquals("Application with id " + INVALIDAPPGROCERYID + " does not exist.",error);
 		
 	}
 	
@@ -522,10 +489,8 @@ public class StoreServiceTest {
 			
 		}catch(ApiRequestException e) {
 			error= e.getMessage();
-			
-			
-		}
-		
+						
+		}		
 		assertEquals("Store with name " +  INVALIDSTORENAME + "does not exist",error);
 	
 	}

@@ -11,19 +11,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+
 
 
 import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import javax.management.InvalidApplicationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,17 +30,14 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.AddressRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.EmployeeRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Employee;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Employee.EmployeeStatus;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
-import ca.mcgill.ecse321.GroceryApplicationBackend.service.AddressService;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.EmployeeService;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,16 +59,16 @@ public class EmployeeServiceTest {
 	private static final float HOURLYPAY = 18;
 	private static final String EMAIL ="john@gmail.com";
 	private static final Integer GROCERYAPPID=453;
-	private static final String INEXISTANTEMAIL ="danny@hotmail.com";
-	
-	
-	private static final float INVALIDHOURLYPAY = -3;
-	private static final int EMPLOYEEID2= 697;
-	private static final float NEWHOURLYPAY = 19;
+	private static final Date DATE = Date.valueOf("2001-03-18");
 	private static final EmployeeStatus STATUS = EmployeeStatus.ACTIVE;
+	
+	
+	private static final float NEWHOURLYPAY = 19;
+	private static final Date NEWDATE = Date.valueOf("2001-03-16");
+
 	private static final EmployeeStatus NEWSTATUS = EmployeeStatus.BANNED;
 	
-	
+	private static final float INVALIDHOURLYPAY = -3;
 	private static final String INVALIDEMAIL = "danny@hotmail.com";
 	private static final Integer INVALIDGROCERYAPPID =42069;
 	private static final Integer INVALIDEMPLOYEEID = 420420;
@@ -225,14 +218,7 @@ public class EmployeeServiceTest {
 	public void testCreateEmployee() {
 		Employee employee = null;
 		
-		
-		
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
-		Date DATE = new Date(c1.getTimeInMillis());
-		
-		try {
-			//Date hiredDate, Employee.EmployeeStatus employeeStatus, Float hourlyPay,  String email, Integer groceryStoreApplicationId         
+		try {       
 			employee = employeeService.createEmployee(DATE, STATUS, HOURLYPAY,EMAIL, GROCERYAPPID);
 			
 		}catch (Exception e) {
@@ -275,10 +261,7 @@ public class EmployeeServiceTest {
 	public void testCreateEmployeeWithoutStatus() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
-		Date DATE = new Date(c1.getTimeInMillis());
-		
+
 		try {
 			employee = employeeService.createEmployee(DATE, null, HOURLYPAY,EMAIL, GROCERYAPPID);
 			
@@ -295,10 +278,7 @@ public class EmployeeServiceTest {
 	public void testCreateEmployeeWithoutHourlyPay() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
-		Date DATE = new Date(c1.getTimeInMillis());
-		
+
 		try {
 			employee = employeeService.createEmployee(DATE, STATUS, null,EMAIL, GROCERYAPPID);
 			
@@ -315,9 +295,6 @@ public class EmployeeServiceTest {
 		
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
-		Date DATE = new Date(c1.getTimeInMillis());
 		
 		try {
 			employee = employeeService.createEmployee(DATE, STATUS, INVALIDHOURLYPAY,EMAIL, GROCERYAPPID);
@@ -335,18 +312,16 @@ public class EmployeeServiceTest {
 	public void testCreateEmployeeWithInexistantEmail() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
-		Date DATE = new Date(c1.getTimeInMillis());
+
 		try {
-			employee = employeeService.createEmployee(DATE, STATUS, HOURLYPAY, INEXISTANTEMAIL  , GROCERYAPPID);
+			employee = employeeService.createEmployee(DATE, STATUS, HOURLYPAY, INVALIDEMAIL  , GROCERYAPPID);
 			
 		}catch (ApiRequestException e) {
 			error = e.getMessage();		
 		}
 		
 		assertNull(employee);
-		assertEquals("The grocery user with email " + INEXISTANTEMAIL + " does not exist."
+		assertEquals("The grocery user with email " + INVALIDEMAIL + " does not exist."
                 + "Create a grocery user before creating employee.",error);		
 
 	}
@@ -356,9 +331,7 @@ public class EmployeeServiceTest {
 	public void testCreateEmployeeWithWrongAppId() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
-		Date DATE = new Date(c1.getTimeInMillis());
+
 		try {
 			
 			employee = employeeService.createEmployee(DATE, STATUS, HOURLYPAY, EMAIL, INVALIDGROCERYAPPID);
@@ -379,10 +352,7 @@ public class EmployeeServiceTest {
 	@Test
 	public void testUpdateEmployee() {
 		Employee employee = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.AUGUST, 10,0,0,0);
-		Date NEWDATE = new Date(c1.getTimeInMillis());
-		
+
 		try {
 			
 			employee = employeeService.updateEmployee(EMPLOYEEID, NEWDATE,  NEWSTATUS, NEWHOURLYPAY , EMAIL, GROCERYAPPID);
@@ -397,8 +367,7 @@ public class EmployeeServiceTest {
 		assertEquals(employee.getHiredDate(),NEWDATE);
 		assertEquals(employee.getStatus(),NEWSTATUS);
 		assertEquals(employee.getHourlyPay(),NEWHOURLYPAY);
-		
-		
+
 	}
 	
 	//Test update employee with wrong id	
@@ -406,10 +375,6 @@ public class EmployeeServiceTest {
 	public void testUpdateEmployeeWithWrongId() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.AUGUST, 10,0,0,0);
-		Date NEWDATE = new Date(c1.getTimeInMillis());
-		
 		
 		try {
 			
@@ -428,9 +393,7 @@ public class EmployeeServiceTest {
 	public void testUpdateEmployeeWithInvalidHourlyPay() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.AUGUST, 10,0,0,0);
-		Date NEWDATE = new Date(c1.getTimeInMillis());
+
 		try {
 			
 			employee = employeeService.updateEmployee(EMPLOYEEID,NEWDATE,NEWSTATUS,INVALIDHOURLYPAY,EMAIL,GROCERYAPPID);
@@ -452,9 +415,7 @@ public class EmployeeServiceTest {
 	public void testUpdateEmployeeWithInvalidEmail() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.AUGUST, 10,0,0,0);
-		Date NEWDATE = new Date(c1.getTimeInMillis());
+
 		try {
 			
 			employee = employeeService.updateEmployee(EMPLOYEEID,NEWDATE,NEWSTATUS,HOURLYPAY,INVALIDEMAIL,GROCERYAPPID);
@@ -473,9 +434,7 @@ public class EmployeeServiceTest {
 	public void testUpdateEmployeeWithInvalidAppId() {
 		Employee employee = null;
 		String error = null;
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2021, Calendar.AUGUST, 10,0,0,0);
-		Date NEWDATE = new Date(c1.getTimeInMillis());
+
 		try {
 			
 			employee = employeeService.updateEmployee(EMPLOYEEID,NEWDATE,NEWSTATUS,HOURLYPAY,EMAIL,INVALIDGROCERYAPPID);
@@ -553,14 +512,14 @@ public class EmployeeServiceTest {
 		Employee employee = null;
 		String error = null;
 		try {
-			employee = employeeService.getEmployeeByEmail(INEXISTANTEMAIL);
+			employee = employeeService.getEmployeeByEmail(INVALIDEMAIL);
 					
 			
 		}catch (ApiRequestException e) {
 			error = e.getMessage();		
 		}
 		assertNull(employee);
-		assertEquals("Grocery user with email " + INEXISTANTEMAIL + " does not exist",error);
+		assertEquals("Grocery user with email " + INVALIDEMAIL + " does not exist",error);
 
 	}
 
@@ -616,7 +575,7 @@ public class EmployeeServiceTest {
 		String error = null;
 		try {
 			
-			employeeService.deleteEmployeeByEmail(INEXISTANTEMAIL);
+			employeeService.deleteEmployeeByEmail(INVALIDEMAIL);
 			
 		} catch(ApiRequestException e) {
 			
@@ -624,7 +583,7 @@ public class EmployeeServiceTest {
 			
 		}
 		
-		assertEquals(error, "Grocery user with email " + INEXISTANTEMAIL + " does not exist" );
+		assertEquals(error, "Grocery user with email " + INVALIDEMAIL + " does not exist" );
 		
 		
 		
