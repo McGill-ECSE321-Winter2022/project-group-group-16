@@ -100,7 +100,7 @@ public class CategoryService {
 			throw new ApiRequestException("Category  with provided id does not exist.");
 		}
 		Category category = categoryRepository.findCategoryById(categoryId);
-		categoryRepository.delete(category);
+		categoryRepository.deleteCategoryById(categoryId);;
 		return category;
 	}
 	/**
