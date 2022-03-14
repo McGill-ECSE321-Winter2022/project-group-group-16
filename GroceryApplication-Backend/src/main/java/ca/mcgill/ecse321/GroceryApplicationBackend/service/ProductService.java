@@ -168,7 +168,7 @@ public class ProductService {
 	 * @return
 	 */
 	@Transactional
-	public Product deletProduct(Integer barCode)  {
+	public Product deleteProduct(Integer barCode)  {
 		if (productRepository.findProductByBarcode(barCode) == null) {
 			throw new ApiRequestException("Product with provided barcode does not exist.");
 		}

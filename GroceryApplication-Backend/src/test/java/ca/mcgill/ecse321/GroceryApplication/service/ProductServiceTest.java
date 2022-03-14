@@ -162,7 +162,21 @@ public class ProductServiceTest {
 		
 	}
 	
-	
+	//test for create product with null name
+	@Test
+	public void testCreateProductWithoutName() {
+		Product product = null;
+		String error = null;
+		
+		try {
+			product = productService.createProduct(IMAGE, CATEGORYID, GROCERYAPPID, null, PRODUCTDESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, false, AVAILABLEQUANTITY);
+		} catch(ApiRequestException e){
+			error = e.getMessage();
+		}
+		
+		assertNull(product);
+		assertEquals("Product name is null or length 0", error);
+	}
 	
 	
 	
