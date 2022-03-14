@@ -63,6 +63,21 @@ public class ProductServiceTest {
 	private static final Integer AVAILABLEQUANTITY =10;
 	private static final Integer CATEGORYID = 123;
 	
+	private static final Integer INVALID_APP_ID = 3249;
+	
+	private static final String NEWPRODUCTNAME = "Bread";
+	private static final String NEWPRODUCTDESCRIPTION = "Made of natural wheat";
+	private static final Float NEWPRICE = (float) 4.50;
+	private static final String NEWIMAGE = "WhiteBread";
+	private static final Float NEWWEIGHT = (float) 5;
+	private static final Float NEWVOLUME = (float) 20;
+	private static final Availability NEWAVAILABILITY = Availability.IN_STORE;
+	private static final Boolean NEWISREFUNDABLE = false;
+	private static final Integer NEWBARCODE = 54321;
+	private static final Integer NEWGROCERYAPPID = 555;
+	private static final Integer NEWAVAILABLEQUANTITY =5;
+	private static final Integer NEWCATEGORYID = 321;
+	
 	
 	@BeforeEach
 	public void setMockOutput() {
@@ -178,7 +193,65 @@ public class ProductServiceTest {
 		assertEquals("Product name is null or length 0", error);
 	}
 	
+	//test for create product with null name
+	@Test
+	public void testCreateProductWithoutDescription() {
+		Product product = null;
+		String error = null;
+			
+		try {
+			product = productService.createProduct(IMAGE, CATEGORYID, GROCERYAPPID, PRODUCTNAME, null, PRICE, WEIGHT, VOLUME, AVAILABILITY, false, AVAILABLEQUANTITY);
+		} catch(ApiRequestException e){
+			error = e.getMessage();
+		}
+			
+		assertNull(product);
+		assertEquals("Product description is null or length 0", error);
+	}
 	
+	//test for create product with null name
+	@Test
+	public void testCreateProductWithoutGroceryStoreApp() {
+		Product product = null;
+		String error = null;
+		
+		try {
+			
+			product = productService.createProduct(IMAGE, CATEGORYID, INVALID_APP_ID, PRODUCTNAME, PRODUCTDESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, false, AVAILABLEQUANTITY);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+		}
+		
+		assertNull(product);
+		assertEquals("Application with id " + INVALID_APP_ID + " does not exist.",error);
+	}
+	
+	//test for updating product
+	public void testUpdateProduct() {
+		Product product = null;
+		
+		try {
+			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, NEWPRODUCTNAME, NEWPRODUCTDESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, AVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+		} catch(ApiRequestException e) {
+			fail();
+		}
+		assertNotNull(product);
+		assertEquals(product.getAvailability(),NEWAVAILABILITY);
+		assertEquals(product.getAvailableQuantity(), NEWAVAILABLEQUANTITY);
+		assertEquals(product.getBarcode(),NEWBARCODE);
+		assertEquals(product.getCategory(),NEWCATEGORYID);
+		assertEquals(product.getDescription(),NEWPRODUCTDESCRIPTION);
+		assertEquals(product.getImage(),NEWIMAGE);
+		assertEquals(product.getIsRefundable(),NEWISREFUNDABLE);
+		assertEquals(product.getName(),NEWPRODUCTNAME);
+		assertEquals(product.getPrice(),NEWPRICE);
+		assertEquals(product.getVolume(),NEWVOLUME);
+		assertEquals(product.getWeight(),NEWWEIGHT);
+	}
+	
+	//test for updating product with null name
 	
 	
 	
