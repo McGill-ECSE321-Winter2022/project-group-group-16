@@ -158,13 +158,11 @@ public class ProductServiceTest {
 		assertEquals(VOLUME,product.getVolume());
 		assertEquals(AVAILABILITY, product.getAvailability());
 		assertEquals(ISREFUNDABLE, product.getIsRefundable());
-		assertEquals(10, product.getAvailableQuantity());
-
-		
-		
-		
+		assertEquals(10, product.getAvailableQuantity());	
 		
 	}
+	
+	
 	
 	
 	
