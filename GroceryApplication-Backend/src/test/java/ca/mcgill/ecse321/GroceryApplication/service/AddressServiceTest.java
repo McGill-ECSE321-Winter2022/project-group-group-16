@@ -46,43 +46,29 @@ public class AddressServiceTest {
 	@Mock
 	private AddressRepository addressRepository;
 	
-	@Mock
-	private StoreRepository storeRepository;
-	
 	@Mock 
 	private CustomerRepository customerRepository;
 	
-
 	@InjectMocks
 	private AddressService addressService;
 	
-	 //private static final String ADDRESS_KEY = "Montreal";
+	private static final Integer CUSTOMERID = 6942969;
 	
-	private static final Integer ADDRESSID = 345;
+	
+	private static final Integer ADDRESSID = 1;
 	private static final int STREETNUMBER = 450;
 	private static final String STREETNAME = "Bourg";
 	private static final String CITY = "Montreal";
 	private static final String COUNTRY = "Canada";
 	private static final String PROVINCE ="Quebec";
 	private static final String POSTALCODE ="H8R 3R1";
-	
-	private static final int ADDRESSID2 = 444;
-	private static final int STREETNUMBER2 = 900;
-	private static final String STREETNAME2 = "Sheerbroke";
-	private static final String CITY2 = "New York";
-	private static final String COUNTRY2 = "USA";
-	private static final String PROVINCE2 ="States";
-	private static final String POSTALCODE2 ="3RT 34E";
-	
+
 	private static final Integer NEWSTREENUMBER =1234567;
 	private static String NEWSTREETNAME = "NEWSTREETNAME";
 	private static String NEWCITY = "NEWCITY";
 	private String NEWPROVINCE = "NEWPROVINCE";
 	private String NEWCOUNTRY = "NEWCOUNTRY";
 	private String NEWPOSTALCODE = "NEWPOSTALCODE";
-	
-	
-	
 	
 	/**
 	 * 
@@ -94,24 +80,17 @@ public class AddressServiceTest {
 	@BeforeEach
 	public void setMockOutput() {
 		
-		lenient().when(addressRepository.findById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+		lenient().when(addressRepository.findAddressById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			
 			if(invocation.getArgument(0).equals(ADDRESSID)) {
 				
 				Address address = new Address ();
-
 				Customer customer = new Customer();
-				Store store = new Store();				
-				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
-				store.setGroceryStoreApplication(groceryStoreApplication);
-				customer.setGroceryStoreApplication(groceryStoreApplication);
+				Store store = new Store();	
 				address.setStore(store);
 				address.setCustomer(customer);
-				
-				
-				
 				address.setId(ADDRESSID);
-				address.setCity(STREETNAME);
+				address.setStreetName(STREETNAME);
 				address.setStreetNumber(STREETNUMBER);
 				address.setCity(CITY);
 				address.setCountry(COUNTRY);
@@ -122,36 +101,12 @@ public class AddressServiceTest {
 				return address;
 				
 				
+			} else {
+				
+				return null;
+				
 			}
 			
-			else if(invocation.getArgument(0).equals(ADDRESSID2)) {
-				
-				Address address = new Address();
-				Customer customer = new Customer();
-				Store store = new Store();				
-				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
-				store.setGroceryStoreApplication(groceryStoreApplication);
-				customer.setGroceryStoreApplication(groceryStoreApplication);
-				address.setStore(store);
-				address.setCustomer(customer);
-				
-				
-				
-				
-				address.setId(ADDRESSID2);
-				address.setStreetNumber(STREETNUMBER2);
-				address.setStreetName(STREETNAME2);
-				address.setCity(CITY2);
-				address.setCountry(COUNTRY2);
-				address.setProvince(PROVINCE2);
-				address.setPostalCode(POSTALCODE2);
-				return address;
-				
-				
-			}
-			else {
-
-			return null;}
 			
 		});
 		
@@ -163,9 +118,6 @@ public class AddressServiceTest {
 				
 				Customer customer = new Customer();
 				Store store = new Store();				
-				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
-				store.setGroceryStoreApplication(groceryStoreApplication);
-				customer.setGroceryStoreApplication(groceryStoreApplication);
 				address.setStore(store);
 				address.setCustomer(customer);
 				
@@ -180,31 +132,6 @@ public class AddressServiceTest {
 
 			}
 			
-			else if (invocation.getArgument(0).equals(CITY2)) {
-				
-				Address address = new Address();
-				
-				Customer customer = new Customer();
-				Store store = new Store();				
-				GroceryStoreApplication groceryStoreApplication = new GroceryStoreApplication();
-				store.setGroceryStoreApplication(groceryStoreApplication);
-				customer.setGroceryStoreApplication(groceryStoreApplication);
-				address.setStore(store);
-				address.setCustomer(customer);
-				
-				address.setId(ADDRESSID2);
-				address.setStreetNumber(STREETNUMBER2);
-				address.setStreetName(STREETNAME2);
-				address.setCity(CITY2);
-				address.setCountry(COUNTRY2);
-				address.setProvince(PROVINCE2);
-				address.setPostalCode(POSTALCODE2);
-				return address;
-				
-				
-				
-				
-			}
 			
 			else {
 			
@@ -213,18 +140,38 @@ public class AddressServiceTest {
 			
 			}
 		});
+		
+		lenient().when(customerRepository.findCustomerById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			
+			if(invocation.getArgument(0).equals(CUSTOMERID)) {
+				
+				Customer customer = new Customer();
+				customer.setId(CUSTOMERID);
+				return customer;
+				
+			}
+			
+			
+			
+			return null;
+			
+		});
+		
+		
+		
+		
+		
 		//When anything is saved, return the parameter object
-		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
+		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);
 			
-			return invocation.getArgument(0);
-			
-		};
+
 		lenient().when(addressRepository.save(any(Address.class))).thenAnswer(returnParameterAsAnswer);
 
 		
 	}
 	
-	//A test for creating an address sucessfully
+	//A test for creating an address successfully
 	@Test
 	public void testCreateAddress() {
 		Address address = null;
@@ -366,6 +313,7 @@ public class AddressServiceTest {
 			
 		}
 		assertNotNull(address);
+		assertEquals(ADDRESSID,address.getId());
 		assertEquals(NEWSTREENUMBER, address.getStreetNumber());
 		assertEquals(NEWSTREETNAME, address.getStreetName());
 		assertEquals(NEWPROVINCE, address.getProvince());
@@ -466,12 +414,13 @@ public class AddressServiceTest {
 		}
 		
 		
+		
 	}
 	
-	
+
 	//Test get the address by id
-	/*@Test
-	public void testGetAddressById() {
+	@Test
+	public void testGetAddress() {
 		Address address = null;
 		try {
 			
@@ -483,9 +432,9 @@ public class AddressServiceTest {
 		}
 		
 		assertNotNull(address);
-		assertEquals(ADDRESS_KEY, address.getCity());
+		assertEquals(ADDRESSID, address.getId());
 		
-	}*/
+	}
 
 	
 	//Test for getting the address by nonexistant Id

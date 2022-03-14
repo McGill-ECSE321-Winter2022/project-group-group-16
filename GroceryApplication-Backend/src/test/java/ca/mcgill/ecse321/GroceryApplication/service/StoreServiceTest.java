@@ -144,7 +144,7 @@ public class StoreServiceTest {
 	}
 		
 	
-	/*@Test
+	@Test
 	public void testCreateStore() {
 		Store store = null;
 		try {
@@ -166,7 +166,7 @@ public class StoreServiceTest {
 		assertEquals(store.getAddress().getId(),12);
 		assertEquals(store.getGroceryStoreApplication().getId(),15);
 		
-	}*/
+	}
 	
 	
 	//Test creating a store without a name
@@ -364,7 +364,7 @@ public class StoreServiceTest {
 	}
 	
 	//Test for updating a store with inexistant grocery app id
-	/*@Test
+	@Test
 	public void testUpdateStoreWithInexistantGroceryAppId() {
 		Store store = null;
 		String error = null;
@@ -385,7 +385,7 @@ public class StoreServiceTest {
 		
 		
 		
-	}*/
+	}
 	
 	//Test get correct store
 	@Test

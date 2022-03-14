@@ -191,11 +191,12 @@ public class EmployeeServiceTest {
 	}
 	
 	//Test to create employee
-	/*@Test
+	
+	@Test
 	public void testCreateEmployee() {
 		Employee employee = null;
 		
-		lenient().when(groceryUserRepository.findGroceryUserByEmail(anyString())).thenReturn(true);
+		
 		
 		Calendar c1 = Calendar.getInstance();
 		c1.set(2021, Calendar.DECEMBER, 10,0,0,0);
@@ -218,7 +219,8 @@ public class EmployeeServiceTest {
 		assertEquals(employee.getUser().getEmail(),EMAIL);
 
 		
-	}*/
+	}
+	
 	//Test to create employee without date
 	@Test
 	public void testCreateEmployeeWithoutDate() {
@@ -371,7 +373,7 @@ public class EmployeeServiceTest {
 		
 	}
 	
-	/*@Test
+	@Test
 	public void testDeleteEmployeeWithEmail() {
 		try {
 			
@@ -383,7 +385,7 @@ public class EmployeeServiceTest {
 		}
 		
 		
-	}*/
+	}
 	
 	//Test delete employee with invalid email, grocery user
 	@Test

@@ -36,6 +36,8 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ShiftRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Employee;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Shift;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Shift.Day;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Shift.ShiftType;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.ShiftService;
 
 @ExtendWith(MockitoExtension.class)
@@ -74,27 +76,76 @@ public class ShiftServiceTest {
 				//need to set employee as well
 				return shift;
 				
-			}
-			
-			else if(invocation.getArgument(0).equals(SHIFTID2)) {
+			} else {
 				
-				Shift shift = new Shift();
-				shift.setId(SHIFTID2);
-				shift.setDay(Shift.Day.THURSDAY);
-				shift.setShift(Shift.ShiftType.OPENING);
-				return shift;
-			}else {
-	
-			return null;
+				return null;
 			}
 			
 		});
+		
+		lenient().when(shiftRepository.findShiftByEmployee(any())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			Employee employee = invocation.getArgument(0);
+			
+			
+			
+			if(employee.getId().equals(EMPLOYEEID)) {
+				Employee employee1= new Employee();
+				Shift shift = new Shift();
+				
+				employee1.setId(EMPLOYEEID);
+				shift.setEmployee(employee1);
+				return shift;
+
+			}
+			
+			else {
+			return null;
+				
+			}
+			
+			
+		});
+		
+		lenient().when(employeeRepository.findEmployeeById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			
+			if(invocation.getArgument(0).equals(EMPLOYEEID)) {
+				
+				
+				Employee employee = new Employee();
+				employee.setId(EMPLOYEEID);
+				return employee;
+				
+			}
+
+			
+			else {
+			return null;
+				
+			}
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);
+        lenient().when(shiftRepository.save(any(Shift.class))).thenAnswer(returnParameterAsAnswer);
+				
+
+			
+
+
 		
 	}
 	
 	
 	//Test for creating a shift
-	/*@Test
+	@Test
 	public void testCreateShift() {
 		
 		Shift shift = null;
@@ -113,11 +164,10 @@ public class ShiftServiceTest {
 		assertEquals(shift.getDay(), Shift.Day.MONDAY);
 		assertEquals(shift.getShift(),Shift.ShiftType.OPENING);
 		assertEquals(shift.getEmployee().getId(), EMPLOYEEID);
-		
-		
-		
-		
-	}*/
+
+	}
+	
+	
 	
 	//Test creating shift without a day
 	@Test
@@ -278,6 +328,32 @@ public class ShiftServiceTest {
 	
 
 	
+	
+	//Test for updating shift
+	@Test
+	public void testUpdateShift() {
+		
+		Shift shift = null;
+
+		try {
+			
+			shift = shiftService.updateShift(SHIFTID, Day.WEDNESDAY, ShiftType.CLOSING, EMPLOYEEID);
+			
+		}catch(ApiRequestException e) {
+			
+			fail();
+			
+		}
+		
+		assertNotNull(shift);
+		assertEquals(shift.getId(),SHIFTID);
+		assertEquals(shift.getDay(),Day.WEDNESDAY);
+		assertEquals(shift.getShift(),ShiftType.CLOSING);
+		assertEquals(shift.getEmployee().getId(),EMPLOYEEID);
+		
+
+		
+	}
 
 	//Test for updating shift with an Id that doesn't exists
 	
@@ -301,7 +377,7 @@ public class ShiftServiceTest {
 		
 	}
 	
-	//Test for updating shift with an employeeId that doesn't exists
+	//Test for updating shift with an employee Id that doesn't exists
 	@Test
 	public void testUpdateShiftWithWrongEmployeeId() {
 		
