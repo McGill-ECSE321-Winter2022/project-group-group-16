@@ -39,7 +39,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
-import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategoryService;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.CustomerService;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.GroceryUserService;
 

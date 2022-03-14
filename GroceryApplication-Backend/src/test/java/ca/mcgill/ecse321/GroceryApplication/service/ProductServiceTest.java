@@ -64,6 +64,8 @@ public class ProductServiceTest {
 	private static final Integer CATEGORYID = 123;
 	
 	private static final Integer INVALID_APP_ID = 3249;
+	private static final Integer INVALID_CATEGORY_ID = 9991;
+	private static final Integer INVALID_BARCODE = 821;
 	
 	private static final String NEWPRODUCTNAME = "Bread";
 	private static final String NEWPRODUCTDESCRIPTION = "Made of natural wheat";
@@ -229,11 +231,12 @@ public class ProductServiceTest {
 	}
 	
 	//test for updating product
+	@Test
 	public void testUpdateProduct() {
 		Product product = null;
 		
 		try {
-			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, NEWPRODUCTNAME, NEWPRODUCTDESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, AVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, NEWPRODUCTNAME, NEWPRODUCTDESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
 		} catch(ApiRequestException e) {
 			fail();
 		}
@@ -252,14 +255,134 @@ public class ProductServiceTest {
 	}
 	
 	//test for updating product with null name
+	@Test
+	public void testUpdateProductWithoutName() {
+		Product product = null;
+		String error = null;
+		
+		try {
+			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, null, NEWPRODUCTDESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+		}
+		assertNull(product);
+		assertEquals("New product name is null or has length 0",error);
+	}
 	
+	//test for updating product with null description
+	@Test
+	public void testUpdateProductWithoutDescription() {
+		Product product = null;
+		String error = null;
+		
+		try {
+			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, NEWPRODUCTNAME, null, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+		}
+		assertNull(product);
+		assertEquals("New product description is null or has length 0",error);
+	}
 	
+	//test for updating product with null grocery store application
+	@Test
+	public void testUpdateProductWithInvalidGroceryStoreApp() {
+		Product product = null;
+		String error = null;
+		
+		try {
+			product = productService.updateProduct(NEWIMAGE, INVALID_APP_ID, NEWCATEGORYID, NEWPRODUCTNAME, null, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+		}
+		assertNull(product);
+		assertEquals("New product grocery store application id is invalid",error);
+	}
 	
+	//test for updating product with null grocery store application
+	@Test
+	public void testUpdateProductWithInvalidCategoryApp() {
+		Product product = null;
+		String error = null;
+		
+		try {
+			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, INVALID_CATEGORY_ID, NEWPRODUCTNAME, null, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+		}
+		assertNull(product);
+		assertEquals("New product category id is invalid",error);
+	}
 	
-	
-	
-	
-	
-	
+	//Test delete product by bar code
+	@Test
+	public void testDeleteProductbyBarCode() {
+			
+		try{
+			productService.deleteProduct(BARCODE);
+				
+		} catch(ApiRequestException e) {
+			fail();	
+		}
 
+	}
+	
+	//test delete product by invalid bar code
+	@Test
+	public void testDeleteProductbyInvalidBarCode() {
+		String error = null;
+		
+		try {
+			productService.deleteProduct(INVALID_BARCODE);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+		}
+		assertEquals("This product cannont be deleted since the bar code does not exist",error);
+	}
+	
+	//test refund product by bar code
+	@Test
+	public void testRefundProductbyBarCode() {
+		
+		try {
+			productService.refundProduct(BARCODE);
+		} catch(ApiRequestException e) {
+			fail();
+		}
+	}
+	
+	//test refund product by bar code
+	@Test
+	public void testRefundProductbyInvalidBarCode() {
+		String error = null;
+		try {
+			productService.refundProduct(INVALID_BARCODE);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+		}
+		assertEquals("This product cannot be refunded since the bar code does not exist",error);
+	}
+	
+	//test get product by bar code
+	@Test
+	public void testGetProductbyBarCode() {
+		Product product = null;
+		try {
+			product = productService.getProductByBarcode(BARCODE);
+		} catch(ApiRequestException e) {
+			fail();
+		}
+		
+		assertNotNull(product);
+		assertEquals(product.getBarcode(),BARCODE);
+	}
+	
+	//test get all products 
+	@Test
+	public void testGetAllProducts() {
+		List<Product> products = null;
+		products = productService.getAllProduct();
+		assertNotNull(products);
+	}
+	
 }

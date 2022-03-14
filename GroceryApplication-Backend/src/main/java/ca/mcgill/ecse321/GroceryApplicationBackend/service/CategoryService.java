@@ -14,7 +14,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 
 @Service
-public class CategroyService {
+public class CategoryService {
 	
 	@Autowired
 	CategoryRepository categoryRepository;

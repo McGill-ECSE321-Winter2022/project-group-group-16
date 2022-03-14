@@ -33,16 +33,17 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
-import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategoryService;
+
 
 @ExtendWith(MockitoExtension.class)
-public class CategroyServiceTest {
+public class CategoryServiceTest {
 	
 	@Mock
 	private CategoryRepository categoryRepository;
 	
 	@InjectMocks
-	private CategroyService categoryService;
+	private CategoryService categoryService;
 	
 	private static final String CATEGORY_KEY = "TestCatgeory";
 	

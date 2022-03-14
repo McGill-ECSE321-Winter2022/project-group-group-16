@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.CategoryDto;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
-import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategoryService;
 
 
 @CrossOrigin(origins = "*")
@@ -24,7 +24,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategroyService;
 public class CategoryController {
 	
 	  @Autowired
-	  private CategroyService categoryService;
+	  private CategoryService categoryService;
 	  
 	  @PostMapping(value = {"/category", "/category/"})
 	  public CategoryDto createCategory (@RequestParam String image, @RequestParam Integer applicationId, @RequestParam String name, @RequestParam String description) throws ApiRequestException {

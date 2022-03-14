@@ -40,7 +40,7 @@ public class ProductController {
 
 	  @DeleteMapping(value = { "/deleteProduct/{barCode}", "deleteProduct/{barCode}/" }) 
 	  public ProductDto deleteProduct(@RequestParam("barCode") Integer barCode) {
-		  Product product = productService.deletProduct(barCode);
+		  Product product = productService.deleteProduct(barCode);
 		    return convertToDto(product);
 	  }
 

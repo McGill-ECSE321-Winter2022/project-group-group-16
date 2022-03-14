@@ -11,6 +11,7 @@ import java.util.List;
 import javax.management.InvalidApplicationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
@@ -18,7 +19,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
 
-
+@Service
 public class GroceryUserService {
 	 @Autowired
 	 GroceryStoreApplicationRepository groceryStoreApplicationRepository;
