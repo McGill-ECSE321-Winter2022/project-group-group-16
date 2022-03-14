@@ -203,6 +203,27 @@ public class CustomerServiceTest {
 			
 		}
 		
+		//test for creating a customer with empty grocery store
+		@Test
+		public void testCreateCategoryEmptyGroceryUser() {
+			Customer customer = null;
+			String error = null;
+			GroceryUser groceryUser = null;
+			GroceryStoreApplication gsa = null;
+				try {
+					customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, USEREMAIL);
+					groceryUser = groceryUserService.getGroceryUserByEmail(USEREMAIL);	
+					
+				} catch(ApiRequestException e) {
+					error = e.getMessage();
+										
+				}
+					
+				assertNull(customer);
+				assertEquals("Customer grocery store is null or empty.", error);
+					
+		}
+		
 		//Test delete customer by id
 		@Test
 		public void testDeleteCustomer() {
