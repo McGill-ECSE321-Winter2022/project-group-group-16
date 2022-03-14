@@ -6,14 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dto.OrderDto;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
@@ -41,7 +34,7 @@ public class OrderRestController {
      * @return
      * @throws ApiRequestException
      */
-    @PostMapping(value = {"/orders", "/orders/"})
+    @PostMapping(value = {"/groceryOrder", "/order/"})
     public OrderDto placeOrder(
         @RequestParam Integer applicationId,
         @RequestParam OrderStatus status,
@@ -63,11 +56,23 @@ public class OrderRestController {
      * @return updated status
      * @throws ApiRequestException
      */
-    @PutMapping(value = {"/orders/{id}", "/orders/{id}/"})
+    @PutMapping(value = {"/groceryOrder/{id}", "/order/{id}/"})
     public OrderDto updateOrderStatus(
         @RequestParam OrderStatus status,
         @PathVariable("id") Integer id) throws ApiRequestException{
         return convertToDto(orderService.updateOrderStatus(status, id));
+    }
+
+    /**
+     * Rest method for marking an order as refunded
+     *
+     * @param id
+     * @return requested order
+     */
+    @PutMapping(value= {"/order/refund/{id}", "/order/refund/{id}/"})
+    public OrderDto refundOrderById(
+        @PathVariable("id") Integer id) throws ApiRequestException{
+            return convertToDto(orderService.refundOrderById(id));
     }
 
     
@@ -78,7 +83,7 @@ public class OrderRestController {
      * @return requested order
      * @throws ApiRequestException
      */
-    @GetMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
+    @GetMapping(value = {"/groceryOrder/{id}", "/groceryOrder/{id}/"})
     public OrderDto getOrderById(@PathVariable("id") Integer id) throws ApiRequestException{
         return convertToDto(orderService.getOrderById(id));
     }
@@ -90,7 +95,7 @@ public class OrderRestController {
      * @return all orders
      * @throws ApiRequestException
      */
-    @GetMapping(value = {"/groceryOrders", "/groceryOrders/"})
+    @GetMapping(value = {"/groceryOrder", "/groceryOrder/"})
     public List<OrderDto> getAllOrders() throws ApiRequestException {
         List<OrderDto> orderDtos = new ArrayList<>();
 	    for (GroceryOrder order : orderService.getAllOrders()) {
@@ -105,7 +110,7 @@ public class OrderRestController {
      * @param id
      * @throws ApiRequestException
      */
-    @DeleteMapping(value = {"/groceryOrders/{id}", "/groceryOrders/{id}/"})
+    @DeleteMapping(value = {"/groceryOrder/{id}", "/groceryOrder/{id}/"})
     public void deleteOrder(@PathVariable("id") Integer id) throws ApiRequestException{
         if(id == null) {
             throw new ApiRequestException("The id is not valid.");

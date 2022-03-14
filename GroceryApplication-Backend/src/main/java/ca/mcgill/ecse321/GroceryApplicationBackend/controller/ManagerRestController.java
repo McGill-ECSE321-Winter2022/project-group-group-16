@@ -54,6 +54,23 @@ public class ManagerRestController {
         return convertToDto(managerService.getManagerByEmail(email));
     }
 
+    /**
+     * Rest method for updating a manager
+     *
+     * @param id
+     * @param email
+     * @param groceryStoreApplicationId
+     * @return updated manager
+     * @throws ApiRequestException
+     */
+    @PutMapping(value = {"/manager/id/{id}", "/manager/id/{id}/"})
+    public ManagerDto updateManager(
+            @PathVariable("id") Integer id,
+            @RequestParam("email") String email,
+            @RequestParam Integer groceryStoreApplicationId) throws ApiRequestException{
+        return convertToDto(managerService.updateManager(id, email, groceryStoreApplicationId));
+    }
+
   
    /**
     * Rest method to delete the manager by id

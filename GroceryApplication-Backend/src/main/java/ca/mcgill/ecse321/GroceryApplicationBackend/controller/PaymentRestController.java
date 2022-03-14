@@ -41,6 +41,7 @@ public class PaymentRestController {
 
 
     /**
+     * Rest method for updating a payment
      * 
      * @param id
      * @param amount
