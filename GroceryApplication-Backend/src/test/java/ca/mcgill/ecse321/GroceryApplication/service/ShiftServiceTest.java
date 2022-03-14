@@ -161,8 +161,7 @@ public class ShiftServiceTest {
 		}
 		
 		assertNotNull(shift);
-		assertEquals(shift.getDay(), Shift.Day.MONDAY);
-		assertEquals(shift.getShift(),Shift.ShiftType.OPENING);
+		assertEquals(shift.getShift(),SHIFTTYPE);
 		assertEquals(shift.getEmployee().getId(), EMPLOYEEID);
 
 	}
