@@ -117,21 +117,7 @@ public class StoreServiceTest {
 				
 				
 			}
-			
-			else if (invocation.getArgument(0).equals(STORENAME2)) {
-				
-				Store store = new Store();
-				
-				store.setName(STORENAME2);
-				
-				store.setWeekDayOpening(WEEKDAYOPENING2);
-				store.setWeekDayClosing(WEEKDAYCLOSING2);
-				store.setWeekEndOpening(WEEKENDOPENING2);
-				store.setWeekEndClosing(WEEKENDCLOSING2);
-				
-				return store;
-				
-			}else {
+			else {
 
 			return null;
 			
@@ -365,6 +351,30 @@ public class StoreServiceTest {
 		assertEquals("Application with id " + 777 + " does not exist.",error);
 		
 	}
+	
+	//Test for updaying store
+	@Test
+	public void testUpdateStore() {
+		Store store = null;
+		try {
+			store = storeService.updateStore(STORENAME, WEEKDAYOPENING2, WEEKDAYCLOSING2, WEEKENDOPENING2, WEEKENDCLOSING2, ADDRESSID, GROCERYSTOREAPPLICATION);
+			
+		}catch (ApiRequestException e) {
+			
+			fail();
+			
+			
+		}
+		assertNotNull(store);
+		assertEquals(WEEKDAYOPENING2,store.getWeekDayOpening());
+		assertEquals(WEEKDAYCLOSING2, store.getWeekDayClosing());
+		assertEquals(WEEKENDOPENING2,store.getWeekEndOpening());
+		assertEquals(WEEKENDCLOSING2,store.getWeekEndClosing());
+		
+		
+		
+	}
+	
 	
 	//Test for updating a store with invalid store name	
 	@Test
