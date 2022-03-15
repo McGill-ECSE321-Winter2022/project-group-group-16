@@ -60,11 +60,28 @@ public class CustomerService {
 		}
 
 		Customer customer = new Customer();
+		customer.setGroceryStoreApplication(gs);
 		gu.setEmail(userEmail);
 		customer.setAddress(address);
 		customer.setUser(gu);
 		customer.setAddress(address);
-		customer.setGroceryStoreApplication(gs);
+		customerRepository.save(customer);
+
+		return customer;
+	}
+	
+	
+	public Customer updateCustomer(Integer customerId, Integer addressId){
+		
+
+
+		Address address = addressRepository.findAddressById(addressId);
+		if (address == null) {
+			throw new ApiRequestException("No address associated with this Id");
+		}
+
+		Customer customer = customerRepository.findCustomerById(customerId);
+		customer.setAddress(address);
 		customerRepository.save(customer);
 
 		return customer;
