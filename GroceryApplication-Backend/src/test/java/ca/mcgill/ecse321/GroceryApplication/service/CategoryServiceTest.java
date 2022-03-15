@@ -67,6 +67,8 @@ public class CategoryServiceTest {
 	private static final String NEWNAME = "NEWNAME";
 	private static final String NEWDESCRIPTION = "NEWDESCRIPTION";
 	
+	
+	private static final Integer INVALIDAPPID =69;
 	private static final Integer VALID_ID = 12;
 	private static final Integer INVALID_ID = 59;
 	private static final Integer NULL_ID = null;
@@ -234,6 +236,31 @@ public class CategoryServiceTest {
 			
 	}	
 	
+
+	
+	//test for creating a category invalid applicationId
+	@Test
+	public void testCreateCategoryInvalidAppId() {
+		
+		Category category = null;
+		String error = null;
+		try {
+			category = categoryService.createCategory(IMAGE, INVALIDAPPID, NAME, DESCRIPTION);
+				
+				
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+				
+				
+		}
+			
+		assertNull(category);
+		assertEquals("No application associated with this Id.", error);
+		
+		
+	}
+	
+	
 	
 	//test for creating a category with empty description
 	@Test
@@ -274,41 +301,7 @@ public class CategoryServiceTest {
 	
 	}
 	
-	//test for updating the category with invalid id
-	/*@Test
-	public void testUpdateCategoryByInvalidId() {
-		Category category = null;
-		String error = null;
-		try {
-		category = categoryService.updateCategory(INVALID_ID, 92, "NewName", "NewDescription", "NewImage");
-		}
-		catch(Exception e) {
-			
-			error = e.getMessage();
-		}
-		
-		assertNull(category);
-		assertEquals("No address exists with id:" + INVALID_ID, error);
-				
-	}
 	
-	//Test for updating the address with empty Id
-	@Test
-	public void testUpdateCategoryByEmptyId() {
-		Category category = null;
-		String error = null;
-		try {
-			category = categoryService.updateCategory(NULL_ID, 92, "NewName", "NewDescription", "NewImage");
-						
-		}catch(Exception e) {
-			error = e.getMessage();
-			
-		}
-		
-		assertNull(category);
-		assertEquals("No address exists with id:" + null ,error);
-				
-	}*/
 	
 	//Test for updating category with null name	
 	@Test
@@ -424,23 +417,7 @@ public class CategoryServiceTest {
 		
 		
 	}
-	/*@Test
-	public void testGetCategoryByEmptyId() {
-		Category category = null;
-		String error = null;
-			
-		try {
-			category = categoryService.getCategorybyId(NULL_ID);
-		}
-			catch(Exception e) {
-					
-				error = e.getMessage();
-		}
-			
-		assertNull(category);
-		assertEquals("Category  with provided id does not exist.", error );		
-			
-	}*/
+
 	
 	//Test getting address with empty id
 	@Test
@@ -460,6 +437,17 @@ public class CategoryServiceTest {
 		assertEquals("Category  with provided id does not exist.", error );			
 			
 	}
+	
+	//Test to get all CATEGORY
+		@Test
+		public void testGetAllProduct() {
+			
+			List<Category> categories = null;
+			categories = categoryService.getAllCategory();
+			assertNotNull(categories);
+			
+			
+		}
 	
 
 }
