@@ -81,7 +81,7 @@ public class ProductService {
         product.setIsRefundable(isRefundable);
         product.setVolume(volume);
         product.setAvailableQuantity(avaQuantity);
-        product.setAvailability(Availability.DELIVERY);
+        product.setAvailability(availability);
         productRepository.save(product);
 
         return product;
@@ -138,7 +138,7 @@ public class ProductService {
         product.setIsRefundable(isRefundable);
         product.setVolume(volume);
         product.setAvailableQuantity(avaQuantity);
-        product.setAvailability(Availability.DELIVERY);
+        product.setAvailability(availability);
         productRepository.save(product);
 
         return product;

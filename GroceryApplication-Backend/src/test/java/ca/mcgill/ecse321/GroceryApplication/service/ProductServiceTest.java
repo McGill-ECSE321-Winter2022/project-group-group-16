@@ -8,8 +8,19 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
 
+
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.management.InvalidApplicationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,257 +32,210 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ProductRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product.Availability;
+import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategoryService;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.ProductService;
-
 
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
-		
-	@Mock
-	private ProductRepository productServiceRepository;
+	
 	
 	@Mock
-	private GroceryStoreApplicationRepository groceryStoreApplicationRepository;
+	private ProductRepository productRepository;
 	
-	@Mock
+    @Mock
+    private GroceryStoreApplicationRepository gsRepository;
+    
+    @Mock
 	private CategoryRepository categoryRepository;
 	
 	@InjectMocks
 	private ProductService productService;
 	
-	private static final String PRODUCTNAME = "Cake";
-	private static final String PRODUCTDESCRIPTION ="Item to eat correctly";
-	private static final Float PRICE = (float) 14.50;
-	private static final String IMAGE = "Fruit";
-	private static final Float WEIGHT = (float) 10;
-	private static final Float VOLUME = (float) 5;
+	private static final String IMAGE = "IMAGE";
+	private static final Integer APPID = 1;
+	private static final Integer CATEGORYID = 2;
+	private static final String NAME ="NAME";
+	private static final String DESCRIPTION ="DESCRIPTION";
+	private static final Float PRICE = (float) 14;
+	private static final Float WEIGHT = (float) 90;
+	private static final Float VOLUME = (float) 100;
+	private static final Integer BARCODE =123;
 	private static final Availability AVAILABILITY = Availability.IN_STORE;
 	private static final Boolean ISREFUNDABLE = true;
-	private static final Integer BARCODE = 12345;
-	private static final Integer GROCERYAPPID = 444;
-	private static final Integer AVAILABLEQUANTITY =10;
-	private static final Integer CATEGORYID = 123;
+	private static final Integer AVAQUANTITY = 10;
 	
-	private static final String INVALID_NAME = "Me";
-	private static final String INVALID_DESCRIPTION = "bla bla";
-	private static final Integer INVALID_APP_ID = 3249;
-	private static final Integer INVALID_CATEGORY_ID = 9991;
-	private static final Integer INVALID_BARCODE = 821;
-	
-	private static final String NEWPRODUCTNAME = "Bread";
-	private static final String NEWPRODUCTDESCRIPTION = "Made of natural wheat";
-	private static final Float NEWPRICE = (float) 4.50;
-	private static final String NEWIMAGE = "WhiteBread";
-	private static final Float NEWWEIGHT = (float) 5;
-	private static final Float NEWVOLUME = (float) 20;
-	private static final Availability NEWAVAILABILITY = Availability.IN_STORE;
+	private static final String NEWIMAGE = "FRUIT";
+	private static final String NEWNAME ="NEWNAME";
+	private static final String NEWDESCRIPTION ="NEWDESCRIPTION";
+	private static final Integer NEWBARCODE =555;
+	private static final Float NEWPRICE = (float) 15;
+	private static final Float NEWWEIGHT = (float) 95;
+	private static final Float NEWVOLUME = (float) 155;
+	private static final Integer NEWAPPID = 6666;
+	private static final Integer NEWCATEGORYID= 777;
+
+	private static final Availability NEWAVAILABILITY = Availability.DELIVERY;
 	private static final Boolean NEWISREFUNDABLE = false;
-	private static final Integer NEWBARCODE = 54321;
-	private static final Integer NEWGROCERYAPPID = 555;
-	private static final Integer NEWAVAILABLEQUANTITY =5;
-	private static final Integer NEWCATEGORYID = 321;
+	private static final Integer NEWAVAQUANTITY = 11;
 	
 	
+	private static final Integer NONREFUNDABLEBARCODE = 420420;
+	
+	
+	private static final Integer INVALIDBARCODE =696;
+	private static final Integer INVALIDAPPID =3;
+	private static final Integer INVALIDCATEGORYID= 4;
+
 	@BeforeEach
 	public void setMockOutput() {
-		 lenient().when(productServiceRepository.findProductByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
-			 
-			 if(invocation.getArgument(0).equals(PRODUCTNAME)) {
-				 Product product = new Product();
-				 GroceryStoreApplication app = new GroceryStoreApplication();
-				 Category category = new Category();
-				 
-				 product.setAvailability(AVAILABILITY);
-				 product.setName(PRODUCTNAME);
-				 product.setDescription(PRODUCTDESCRIPTION);
-				 product.setPrice(PRICE);
-				 product.setVolume(VOLUME);
-				 product.setWeight(WEIGHT);
-				 product.setImage(IMAGE);
-				 product.setIsRefundable(ISREFUNDABLE);
-				 product.setAvailability(AVAILABILITY);
-				 product.setBarcode(BARCODE);
-				 
-				 
-				 category.setId(CATEGORYID);
-				 product.setAvailableQuantity(AVAILABLEQUANTITY);
-				 product.setCategory(category);
-				 app.setId(GROCERYAPPID);
-				 product.setGroceryStoreApplication(app);
-				 
-
-				 return product;
-			 } else {
-
-			 return null;
-			 }
-			 
-		 });
-		 
-		 
-		 
-		 lenient().when(productServiceRepository.findProductByBarcode(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			 
-			 if(invocation.getArgument(0).equals(BARCODE)) {
-				 Product product = new Product();
-				 product.setAvailability(AVAILABILITY);
-				 product.setName(PRODUCTNAME);
-				 product.setDescription(PRODUCTDESCRIPTION);
-				 product.setPrice(PRICE);
-				 product.setVolume(VOLUME);
-				 product.setWeight(WEIGHT);
-				 product.setImage(IMAGE);
-				 product.setIsRefundable(ISREFUNDABLE);
-				 product.setAvailability(AVAILABILITY);
-				 product.setBarcode(BARCODE);
-
-				 return product;
-			 } else {
-
-			 return null;
-			 }
-
-		 });
-		 
-		 lenient().when(productServiceRepository.findProductByAvailability(any())).thenAnswer((InvocationOnMock invocation) -> {
-			 
-			 if(invocation.getArgument(0).equals(AVAILABILITY)) {
-				 Product product = new Product();
-				 
-				 product.setName(PRODUCTNAME);
-				 product.setDescription(PRODUCTDESCRIPTION);
-				 product.setPrice(PRICE);
-				 product.setVolume(VOLUME);
-				 product.setWeight(WEIGHT);
-				 product.setImage(IMAGE);
-				 product.setIsRefundable(ISREFUNDABLE);
-				 product.setAvailability(AVAILABILITY);
-				 product.setBarcode(BARCODE);
-
-				 return product;
-			 } else {
-
-			 return null;
-			 }
-
-		 });
-		 
-		 lenient().when(groceryStoreApplicationRepository.findGroceryStoreApplicationById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			 
-			 if(invocation.getArgument(0).equals(GROCERYAPPID)) {
-				 GroceryStoreApplication gsa = new GroceryStoreApplication();
-				 
-				 gsa.setId(GROCERYAPPID);
-
-				 return gsa;
-				 
-			 } else {
-
-			 return null;
-			 }
-
-		 });
-		 
-		 lenient().when(categoryRepository.findCategoryById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+		
+		lenient().when(productRepository.findProductByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			if(invocation.getArgument(0).equals(NAME)) {
 				
-				if(invocation.getArgument(0).equals(CATEGORYID)) {
-					Category category = new Category();
-					
-					category.setId(CATEGORYID);
-					
-					return category;
-					
-				} else {
-					return null;
-				}
+				Product product = new Product();
+				
+				
+				product.setName(NAME);
+				return product;
+
+			}
+			
+			else {
+				
+				return null;
+			}
 			});
 		
+		lenient().when(productRepository.findProductByBarcode(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if(invocation.getArgument(0).equals(BARCODE)) {
+				Product product = new Product();
+				product.setBarcode(BARCODE);
+				product.setIsRefundable(true);
+				product.setAvailableQuantity(AVAQUANTITY);
+				return product;
 
-		 Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);
-	     lenient().when(productServiceRepository.save(any(Product.class))).thenAnswer(returnParameterAsAnswer);
+			} else if (invocation.getArgument(0).equals(NONREFUNDABLEBARCODE)) {
+				Product product = new Product();
+				product.setBarcode(NONREFUNDABLEBARCODE);
+				product.setIsRefundable(false);
+				
+				return product;
+				
+				
+			}
+			
+			else {
+				
+				return null;
+				
+			}
+			});
+		
+		lenient().when(productRepository.findProductByAvailability(any())).thenAnswer((InvocationOnMock invocation) -> {
+			if(invocation.getArgument(0).equals(AVAILABILITY)) {
+				Product product = new Product();
+				product.setAvailability(AVAILABILITY);
+				return product;
+	
+			
+			}
+			
+			else {
+				
+				return null;
+				
+			}
+			});
+		
+		 lenient().when(gsRepository.findGroceryStoreApplicationById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+
+	            if (invocation.getArgument(0).equals(APPID)) {
+	                GroceryStoreApplication gsApplication = new GroceryStoreApplication();
+	                gsApplication.setId(APPID);
+	                return gsApplication;
+	                
+	            }
+	                else {
+	                return null;
+	            }
+
+	        });
+		 
+		 lenient().when(categoryRepository.findCategoryById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+
+	            if (invocation.getArgument(0).equals(CATEGORYID)) {
+	                Category category = new Category();
+	                category.setId(CATEGORYID);
+	                return category;
+	                
+	            }
+	                else {
+	                return null;
+	            }
+
+	        });
+		 
+		 
+		
+		 Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
+				
+				return invocation.getArgument(0);
+				
+			};
+			lenient().when(productRepository.save(any(Product.class))).thenAnswer(returnParameterAsAnswer);
 
 	}
 	
-	//Test for create product
+	//Test to create product
 	@Test
 	public void testCreateProduct() {
 		Product product = null;
-		
 		try {
 			
-			product = productService.createProduct(IMAGE, 123, 444, PRODUCTNAME, PRODUCTDESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE, 10);
-			
-			
+			product = productService.createProduct(IMAGE, APPID, CATEGORYID, NAME, DESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE, AVAQUANTITY);
 		} catch(ApiRequestException e) {
 			fail();
+			
 			
 			
 		}
 		
 		assertNotNull(product);
-		assertEquals(IMAGE,product.getImage());
-		assertEquals(123,product.getGroceryStoreApplication().getId());
-		assertEquals(444,product.getCategory().getId());
-		assertEquals(PRODUCTNAME,product.getName());
-		assertEquals(PRODUCTDESCRIPTION, product.getDescription());
-		assertEquals(PRICE,product.getPrice());
-		assertEquals(WEIGHT,product.getWeight());
-		assertEquals(VOLUME,product.getVolume());
-		assertEquals(AVAILABILITY, product.getAvailability());
-		assertEquals(ISREFUNDABLE, product.getIsRefundable());
-		assertEquals(10, product.getAvailableQuantity());	
-		
+		assertEquals(product.getImage(),IMAGE);
+		assertEquals(product.getGroceryStoreApplication().getId(),APPID);
+		assertEquals(product.getCategory().getId(),CATEGORYID);
+		assertEquals(product.getName(),NAME);
+		assertEquals(product.getDescription(), DESCRIPTION);
+		assertEquals(product.getPrice(),PRICE);
+		assertEquals(product.getWeight(),WEIGHT);
+		assertEquals(product.getVolume(),VOLUME);
+		assertEquals(product.getAvailability(),AVAILABILITY);
+		assertEquals(product.getIsRefundable(),ISREFUNDABLE);
+		assertEquals(product.getAvailableQuantity(),AVAQUANTITY);
+
 	}
 	
-	//test for create product with null name
-	@Test
-	public void testCreateProductWithoutName() {
-		Product product = null;
-		String error = null;
-		
-		try {
-			product = productService.createProduct(IMAGE, CATEGORYID, GROCERYAPPID, INVALID_NAME, PRODUCTDESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE, AVAILABLEQUANTITY);
-		} catch(ApiRequestException e){
-			error = e.getMessage();
-		}
-		
-		assertNull(product);
-		assertEquals("Requested name is null or length 0. Please enter valid namel.\n", error);
-	}
+	//Test to create product with invalid APPID
 	
-	//test for create product with null name
+	//test for create product with invalid grocery app Id
 	@Test
-	public void testCreateProductWithoutDescription() {
-		Product product = null;
-		String error = null;
-			
-		try {
-			product = productService.createProduct(IMAGE, CATEGORYID, GROCERYAPPID, PRODUCTNAME, INVALID_DESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE, AVAILABLEQUANTITY);
-		} catch(ApiRequestException e){
-			error = e.getMessage();
-		}
-			
-		assertNull(product);
-		assertEquals("Requested description is null or length 0. Please enter valid descriptionl.\n", error);
-	}
-	
-	//test for create product with null name
-	@Test
-	public void testCreateProductWithoutGroceryStoreApp() {
+	public void testCreateProductWithInvalidGroceryStoreAppId() {
 		Product product = null;
 		String error = null;
 		
 		try {
 			
-			product = productService.createProduct(IMAGE, CATEGORYID, INVALID_APP_ID, PRODUCTNAME, PRODUCTDESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE, AVAILABLEQUANTITY);
+			product = productService.createProduct(IMAGE, INVALIDAPPID, CATEGORYID, NAME, DESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE,  AVAQUANTITY);
 		} catch(ApiRequestException e) {
 			
 			error = e.getMessage();
@@ -282,118 +246,211 @@ public class ProductServiceTest {
 		assertEquals("No application associated with this Id.",error);
 	}
 	
-	//test for create product with null category
+	//Test to create product with invalid category id
 	@Test
-	public void testCreateProductWithoutCategory() {
+	public void testCreateProductWithInvalidCategoryId() {
+		
 		Product product = null;
 		String error = null;
 		
 		try {
-			product = productService.createProduct(IMAGE, GROCERYAPPID, INVALID_CATEGORY_ID, PRODUCTNAME, PRODUCTDESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE, AVAILABLEQUANTITY);
+			
+			product = productService.createProduct(IMAGE, APPID, INVALIDCATEGORYID, NAME, DESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE,  AVAQUANTITY);
 		} catch(ApiRequestException e) {
-			error =e.getMessage();
+			
+			error = e.getMessage();
+			
 		}
 		
 		assertNull(product);
 		assertEquals("No category associated with this Id.",error);
+
 	}
 	
-	//test for updating product
+	//Test to create a product with nullName
+	@Test
+	public void testCreateProductWithNullName() {
+		
+		Product product = null;
+		String error = null;
+		
+		try {
+			
+			product = productService.createProduct(IMAGE, APPID, CATEGORYID, null, DESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE,  AVAQUANTITY);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+		}
+		
+		assertNull(product);
+		assertEquals("Requested name is null or length 0. Please enter valid namel.\n",error);
+		
+		
+		
+	}
+	
+	//Test to create a product with null description
+	@Test
+	public void testCreateProductWithNullDesc() {
+		
+		Product product = null;
+		String error = null;
+		
+		try {
+			
+			product = productService.createProduct(IMAGE, APPID, CATEGORYID, NAME, null, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE,  AVAQUANTITY);
+		} catch(ApiRequestException e) {
+			
+			error = e.getMessage();
+			
+		}
+		
+		assertNull(product);
+		assertEquals("Requested description is null or length 0. Please enter valid descriptionl.\n",error);
+
+	}
+	
+	//Test to update a product
 	@Test
 	public void testUpdateProduct() {
 		Product product = null;
 		
 		try {
-			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, NEWPRODUCTNAME, NEWPRODUCTDESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+			product = productService.updateProduct(NEWIMAGE, APPID, CATEGORYID, NAME, DESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, BARCODE, NEWISREFUNDABLE, NEWAVAQUANTITY);
 		} catch(ApiRequestException e) {
 			fail();
 		}
 		assertNotNull(product);
-		assertEquals(product.getAvailability(),NEWAVAILABILITY);
-		assertEquals(product.getAvailableQuantity(), NEWAVAILABLEQUANTITY);
-		assertEquals(product.getBarcode(),NEWBARCODE);
-		assertEquals(product.getCategory(),NEWCATEGORYID);
-		assertEquals(product.getDescription(),NEWPRODUCTDESCRIPTION);
+		assertEquals(product.getGroceryStoreApplication().getId(),APPID);
+		assertEquals(product.getCategory().getId(),CATEGORYID);
 		assertEquals(product.getImage(),NEWIMAGE);
+		assertEquals(product.getName(),NAME);
+		assertEquals(product.getDescription(),DESCRIPTION);
 		assertEquals(product.getIsRefundable(),NEWISREFUNDABLE);
-		assertEquals(product.getName(),NEWPRODUCTNAME);
 		assertEquals(product.getPrice(),NEWPRICE);
 		assertEquals(product.getVolume(),NEWVOLUME);
 		assertEquals(product.getWeight(),NEWWEIGHT);
+		assertEquals(product.getAvailability(),NEWAVAILABILITY);
+		assertEquals(product.getAvailableQuantity(), NEWAVAQUANTITY);
+
+
 	}
 	
-	//test for updating product with null name
+	//Test to update with invalid APPID
 	@Test
-	public void testUpdateProductWithoutName() {
+	public void testUpdateProductWithInvalidAppId() {
 		Product product = null;
-		String error = null;
+		String error  =null;
 		
 		try {
-			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, null, NEWPRODUCTDESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
-		} catch(ApiRequestException e) {
-			error = e.getMessage();
-		}
-		assertNull(product);
-		assertEquals("Requested name is null or length 0. Please enter valid namel.\n",error);
-	}
-	
-	//test for updating product with null description
-	@Test
-	public void testUpdateProductWithoutDescription() {
-		Product product = null;
-		String error = null;
-		
-		try {
-			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, NEWCATEGORYID, NEWPRODUCTNAME, null, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
-		} catch(ApiRequestException e) {
-			error = e.getMessage();
-		}
-		assertNull(product);
-		assertEquals("Requested description is null or length 0. Please enter valid descriptionl.\n",error);
-	}
-	
-	//test for updating product with null grocery store application
-	@Test
-	public void testUpdateProductWithInvalidGroceryStoreApp() {
-		Product product = null;
-		String error = null;
-		
-		try {
-			product = productService.updateProduct(NEWIMAGE, INVALID_APP_ID, NEWCATEGORYID, NEWPRODUCTNAME, null, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+			product = productService.updateProduct(NEWIMAGE, INVALIDAPPID, CATEGORYID, NAME, DESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, BARCODE, NEWISREFUNDABLE, NEWAVAQUANTITY);
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
 		}
 		assertNull(product);
 		assertEquals("No application associated with this Id.",error);
+
+
 	}
 	
-	//test for updating product with null grocery store application
+	//Test to update with invalid category ID
 	@Test
-	public void testUpdateProductWithInvalidCategoryApp() {
+	public void testUpdateProductWithInvalidCatId() {
 		Product product = null;
-		String error = null;
+		String error  =null;
 		
 		try {
-			product = productService.updateProduct(NEWIMAGE, NEWGROCERYAPPID, INVALID_CATEGORY_ID, NEWPRODUCTNAME, null, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, NEWBARCODE, false, NEWAVAILABLEQUANTITY);
+			product = productService.updateProduct(NEWIMAGE, APPID, INVALIDCATEGORYID, NAME, DESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, BARCODE, NEWISREFUNDABLE, NEWAVAQUANTITY);
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
 		}
 		assertNull(product);
-		assertEquals( "No category associated with this Id.",error);
+		assertEquals("No category associated with this Id.",error);
+		
+		
+		
 	}
 	
-	//Test delete product by bar code
+	//Test to update with null name
 	@Test
-	public void testDeleteProductbyBarCode() {
-			
-		try{
-			productService.deleteProduct(BARCODE);
-				
+	public void testUpdateProductWithNullName() {
+		Product product = null;
+		String error  =null;
+		
+		try {
+			product = productService.updateProduct(NEWIMAGE, APPID, CATEGORYID, null, DESCRIPTION, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, BARCODE, NEWISREFUNDABLE, NEWAVAQUANTITY);
 		} catch(ApiRequestException e) {
-			fail();	
+			error = e.getMessage();
 		}
+		assertNull(product);
+		assertEquals("Requested name is null or length 0. Please enter valid namel.\n",error);
+		
+
+		
+	}
+	
+	
+	//Test to update with null description
+	@Test
+	public void testUpdateProductWithNullDesc() {
+		
+		Product product = null;
+		String error  =null;
+		
+		try {
+			product = productService.updateProduct(NEWIMAGE, APPID, CATEGORYID, NAME, null, NEWPRICE, NEWWEIGHT, NEWVOLUME, NEWAVAILABILITY, BARCODE, NEWISREFUNDABLE, NEWAVAQUANTITY);
+		} catch(ApiRequestException e) {
+			error = e.getMessage();
+		}
+		assertNull(product);
+		assertEquals("Requested description is null or length 0. Please enter valid descriptionl.\n",error);
 
 	}
+	
+	//Test to get product by barcode
+	@Test
+	public void testGetProduct() {
+		
+	Product product = null;
+		
+		try {
+			product = productService.getProductByBarcode(BARCODE);
+		} catch(ApiRequestException e) {
+			fail();
+		}
+		
+		assertNotNull(product);
+		assertEquals(product.getBarcode(),BARCODE);
+
+	}
+	
+	//Test to get all products
+	@Test
+	public void testGetAllProduct() {
+		
+		List<Product> products = null;
+		products = productService.getAllProduct();
+		assertNotNull(products);
+		
+		
+	}
+	
+	//Test to delete product
+	@Test
+	public void testDeleteProduct() {
+		
+	Product product = null;
+		
+		try {
+			product = productService.deleteProduct(BARCODE);
+		} catch(ApiRequestException e) {
+			fail();
+		}
+		
+		
+	}
+	
 	
 	//test delete product by invalid bar code
 	@Test
@@ -401,14 +458,14 @@ public class ProductServiceTest {
 		String error = null;
 		
 		try {
-			productService.deleteProduct(INVALID_BARCODE);
+			productService.deleteProduct(INVALIDBARCODE);
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
 		}
 		assertEquals("Product with provided barcode does not exist.",error);
 	}
 	
-	//test refund product by bar code
+	//Test to test refund 
 	@Test
 	public void testRefundProductbyBarCode() {
 		Product product = null;
@@ -418,7 +475,7 @@ public class ProductServiceTest {
 			fail();
 		}
 		assertNotNull(product);
-		assertEquals(product.getBarcode(),BARCODE);
+		assertEquals(product.getAvailableQuantity(),AVAQUANTITY +1);
 		
 	}
 	
@@ -428,7 +485,7 @@ public class ProductServiceTest {
 		Product product = null;
 		String error = null;
 		try {
-			product =productService.refundProduct(INVALID_BARCODE);
+			product =productService.refundProduct(NONREFUNDABLEBARCODE);
 		} catch(ApiRequestException e) {
 			error = e.getMessage();
 		}
@@ -436,26 +493,20 @@ public class ProductServiceTest {
 		assertEquals("Product is not refundable.",error);
 	}
 	
-	//test get product by bar code
-	@Test
-	public void testGetProductbyBarCode() {
-		Product product = null;
-		try {
-			product = productService.getProductByBarcode(BARCODE);
-		} catch(ApiRequestException e) {
-			fail();
-		}
-		
-		assertNotNull(product);
-		assertEquals(product.getBarcode(),BARCODE);
-	}
 	
-	//test get all products 
-	@Test
-	public void testGetAllProducts() {
-		List<Product> products = null;
-		products = productService.getAllProduct();
-		assertNotNull(products);
-	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }
