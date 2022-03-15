@@ -56,7 +56,8 @@ public class CustomerServiceTest {
 	private CustomerService customerService;
 	
 	
-
+	private static final String CUSTOMER_KEY = "TestCustomer";
+	
 	private static final Integer CUSTOMERID = 770;
 	private static final Integer APPLICATIONID = 19;
 	private static final Integer ADDRESSID = 203;
@@ -205,7 +206,7 @@ public class CustomerServiceTest {
 			}
 			assertNotNull(customer);
 			assertEquals(customer.getGroceryStoreApplication().getId(), APPLICATIONID);
-			//assertEquals(customer.getAddress(),ADDRESSID);
+			assertEquals(customer.getAddress().getId(),ADDRESSID);
 			assertEquals(customer.getUser().getEmail(),USEREMAIL);
 		}
 		
