@@ -10,13 +10,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
-
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.management.InvalidApplicationException;
@@ -30,8 +23,10 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.AddressRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
@@ -47,11 +42,19 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.service.GroceryUserService;
 public class CustomerServiceTest {
 	@Mock
 	private CustomerRepository customerRepository;
-	private GroceryUserService groceryUserService;
+	
+	@Mock
 	private GroceryUserRepository groceryUserRepository;
+	
+	@Mock
+	private AddressRepository addressRepository;
+	
+	@Mock
+	private GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 	
 	@InjectMocks
 	private CustomerService customerService;
+	
 	
 	private static final String CUSTOMER_KEY = "TestCustomer";
 	
@@ -68,6 +71,10 @@ public class CustomerServiceTest {
 	private static final Integer VALID_ID = 11;
 	private static final Integer INVALID_ID = 57;
 	private static final Integer NULL_ID = null;
+	
+	private static final String INVALID_USER_EMAIL = "dannytutu@gmail.com";
+	private static final Integer INVALID_APPLICATION_ID = 37;
+	private static final Integer INVALID_ADDRESS_ID = 459;
 	
 	/**
 	 * 
@@ -113,31 +120,72 @@ public class CustomerServiceTest {
 			
 		});
 		
-		
-		lenient().when(customerRepository.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+		lenient().when(groceryStoreApplicationRepository.findGroceryStoreApplicationById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			
-			Customer customer = new Customer();
-			Address address = new Address();
-			GroceryUser user = new GroceryUser();
-			customer.setAddress(address);
-			customer.setId(CUSTOMERID);
-			customer.setUser(user);
-			
-			Customer customer2 = new Customer();
-			Address address2 = new Address();
-			GroceryUser user2 = new GroceryUser();
-			customer.setAddress(address2);
-			customer.setId(CUSTOMERID);
-			customer.setUser(user2);
-			
-			List<Customer> customers = new ArrayList<Customer>();
-			customers.add(customer);
-			customers.add(customer2);
+			if(invocation.getArgument(0).equals(APPLICATIONID)) {
+				GroceryStoreApplication gs = new GroceryStoreApplication();
 				
+				gs.setId(APPLICATIONID);
 			
-			return customers;
-			
+				return gs;
+				
+			} else {
+				return null;
+			}
 		});
+		
+		lenient().when(groceryUserRepository.findGroceryUserByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			if(invocation.getArgument(0).equals(USEREMAIL)) {
+				GroceryUser gu = new GroceryUser();
+				
+				gu.setEmail(USEREMAIL);
+			
+				return gu;
+				
+			} else {
+				return null;
+			}
+		});
+		
+		lenient().when(addressRepository.findAddressById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			if(invocation.getArgument(0).equals(ADDRESSID)) {
+				Address address = new Address();
+				
+				address.setId(ADDRESSID);
+			
+				return address;
+				
+			} else {
+				return null;
+			}
+		});
+		
+//		lenient().when(customerRepository.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+//			
+//			Customer customer = new Customer();
+//			Address address = new Address();
+//			GroceryUser user = new GroceryUser();
+//			customer.setAddress(address);
+//			customer.setId(CUSTOMERID);
+//			customer.setUser(user);
+//			
+//			Customer customer2 = new Customer();
+//			Address address2 = new Address();
+//			GroceryUser user2 = new GroceryUser();
+//			customer.setAddress(address2);
+//			customer.setId(CUSTOMERID);
+//			customer.setUser(user2);
+//			
+//			List<Customer> customers = new ArrayList<Customer>();
+//			customers.add(customer);
+//			customers.add(customer2);
+//				
+//			
+//			return customers;
+//			
+//		});
 		
 		//When anything is saved, return the parameter object
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
@@ -147,19 +195,18 @@ public class CustomerServiceTest {
 		lenient().when(customerRepository.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
 	}
 	
-	// Test for creating a customer successfully
+		//Test for creating a customer successfully
 		@Test
 		public void testCreateCustomer() {
 			Customer customer = null;
 			try {
 				customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, USEREMAIL);
-			} catch(Exception e) {
+			} catch(ApiRequestException e) {
 				fail();
 			}
 			assertNotNull(customer);
-			assertEquals(customer.getId(),CUSTOMERID);
-			assertEquals(customer.getAddress(),ADDRESSID);
 			assertEquals(customer.getGroceryStoreApplication().getId(), APPLICATIONID);
+			assertEquals(customer.getAddress(),ADDRESSID);
 			assertEquals(customer.getUser().getEmail(),USEREMAIL);
 		}
 		
@@ -186,19 +233,18 @@ public class CustomerServiceTest {
 		public void testCreateCustomerEmptyGroceryStore() {
 			Customer customer = null;
 			String error = null;
-			GroceryUser groceryUser = null;
-			GroceryStoreApplication gsa = null;
+//			GroceryUser groceryUser = null;
+//			GroceryStoreApplication gsa = null;
 			try {
-				customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, USEREMAIL);
-				groceryUser = groceryUserService.getGroceryUserByEmail(USEREMAIL);		
-				gsa = customer.getGroceryStoreApplication();
+				customer = customerService.createCustomer(INVALID_APPLICATION_ID, ADDRESSID, USEREMAIL);
+				
 			} catch(ApiRequestException e) {
 				error = e.getMessage();
 								
 			}
 			
 			assertNull(customer);
-			assertEquals("Customer grocery store is null or empty.", error);
+			assertEquals("No application associated with this Id.", error);
 			
 			
 		}
@@ -208,11 +254,10 @@ public class CustomerServiceTest {
 		public void testCreateCustomerEmptyGroceryUser() {
 			Customer customer = null;
 			String error = null;
-			GroceryUser groceryUser = null;
-			GroceryStoreApplication gsa = null;
+//			GroceryUser groceryUser = null;
+//			GroceryStoreApplication gsa = null;
 				try {
-					customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, USEREMAIL);
-					groceryUser = groceryUserService.getGroceryUserByEmail(USEREMAIL);	
+					customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, INVALID_USER_EMAIL);	
 					
 				} catch(ApiRequestException e) {
 					error = e.getMessage();
@@ -220,7 +265,7 @@ public class CustomerServiceTest {
 				}
 					
 				assertNull(customer);
-				assertEquals("Customer grocery user is null or empty.", error);
+				assertEquals("No user associated with this email", error);
 					
 		}
 		
@@ -229,12 +274,11 @@ public class CustomerServiceTest {
 		public void testCreateCustomerEmptyAddress() {
 			Customer customer = null;
 			String error = null;
-			GroceryUser groceryUser = null;
-			GroceryStoreApplication gsa = null;
-			Address address = null;
+//			GroceryUser groceryUser = null;
+//			GroceryStoreApplication gsa = null;
+//			Address address = null;
 				try {
-					customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, USEREMAIL);
-					address = customer.getAddress();
+					customer = customerService.createCustomer(APPLICATIONID, INVALID_ADDRESS_ID, USEREMAIL);
 							
 				} catch(ApiRequestException e) {
 					error = e.getMessage();
@@ -242,7 +286,7 @@ public class CustomerServiceTest {
 				}
 							
 				assertNull(customer);
-				assertEquals("Customer address is null or empty.", error);
+				assertEquals("No address associated with this Id", error);
 							
 		}
 		
@@ -325,8 +369,7 @@ public class CustomerServiceTest {
 				
 			}
 			assertNull(customer);
-			assertEquals(error, "Customer account with provided id does not exists");
-			
+			assertEquals(error, "Customer account with provided id does not exists");			
 			
 		}
 		

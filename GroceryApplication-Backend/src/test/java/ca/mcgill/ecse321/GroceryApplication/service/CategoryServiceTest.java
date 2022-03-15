@@ -16,7 +16,9 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.management.InvalidApplicationException;
 
@@ -31,8 +33,11 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CategoryRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Category;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.CategoryService;
 
 
@@ -42,16 +47,25 @@ public class CategoryServiceTest {
 	@Mock
 	private CategoryRepository categoryRepository;
 	
+	@Mock
+	private GroceryStoreApplicationRepository groceryStoreApplicationRepository;
+	
 	@InjectMocks
 	private CategoryService categoryService;
 	
 	private static final String CATEGORY_KEY = "TestCatgeory";
 	
-	private static final Integer CATEGORYID = 768;
 	private static final String IMAGE = "Fruit";
 	private static final Integer APPLICATIONID = 14;
 	private static final String NAME = "Noah";
 	private static final String DESCRIPTION = "Banana";
+	private static final String PRODUCT = "Vegetable";
+	
+	private static final Integer CATEGORYID = 768;
+	private static final String NEWIMAGE = "NEWIMAGE";
+	private static final Integer NEWAPPLICATIONID = 92;
+	private static final String NEWNAME = "NEWNAME";
+	private static final String NEWDESCRIPTION = "NEWDESCRIPTION";
 	
 	private static final Integer VALID_ID = 12;
 	private static final Integer INVALID_ID = 59;
@@ -86,7 +100,7 @@ public class CategoryServiceTest {
 			return null;}
 			
 		});
-		
+	
 		
 		lenient().when(categoryRepository.findCategoryByname(anyString())).thenAnswer((InvocationOnMock invocation) -> {
 			
@@ -109,6 +123,44 @@ public class CategoryServiceTest {
 			}
 		});
 		
+		lenient().when(categoryRepository.findCategoryByProduct(any())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			Product productP = invocation.getArgument(0);
+			
+			if(productP.getName().equals(PRODUCT)) {
+				HashSet<Product> products = new HashSet<>();
+				Category category = new Category();
+				Product productPP = new Product();
+				productPP.setName(PRODUCT);
+				products.add(productPP);
+				category.setProduct(products);
+				
+				return category;
+
+			}
+			
+			else {
+			
+			
+			return null;
+			
+			}
+		});
+		
+		lenient().when(groceryStoreApplicationRepository.findGroceryStoreApplicationById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			if(invocation.getArgument(0).equals(APPLICATIONID)) {
+				GroceryStoreApplication gs = new GroceryStoreApplication();
+				
+				gs.setId(APPLICATIONID);
+			
+				return gs;
+				
+			} else {
+				return null;
+			}
+		});
+		
 		//When anything is saved, return the parameter object
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			
@@ -128,14 +180,13 @@ public class CategoryServiceTest {
 			category = categoryService.createCategory(IMAGE, APPLICATIONID, NAME, DESCRIPTION);
 			
 		} catch(Exception e) {
-			fail();
-			
+			fail();			
 			
 		}
 		
 		assertNotNull(category);
 		assertEquals(category.getImage(),IMAGE);
-		assertEquals(category.getId(),APPLICATIONID);
+		assertEquals(category.getGroceryStoreApplication().getId(),APPLICATIONID);
 		assertEquals(category.getName(),NAME);
 		assertEquals(category.getDescription(),DESCRIPTION);		
 		
@@ -207,24 +258,19 @@ public class CategoryServiceTest {
 	public void testUpdateCategory() {
 		
 		Category category = null;
-		String NEWIMAGE = "NEWIMAGE";
-		Integer NEWAPPLICATIONID = 92;
-		String NEWNAME = "NEWNAME";
-		String NEWDESCRIPTION = "NEWDESCRIPTION";
 		
 		try {
-			category = categoryService.updateCategory(VALID_ID, NEWAPPLICATIONID, NEWNAME, NEWDESCRIPTION, NEWIMAGE);
+			category = categoryService.updateCategory(CATEGORYID, APPLICATIONID, NAME, DESCRIPTION, IMAGE);
 			
-		} catch(ApiRequestException e) {
-			
+		} catch(ApiRequestException e) {		
 			fail();
-			
 		}
 		assertNotNull(category);
-		assertEquals(NEWIMAGE,category.getImage());
-		assertEquals(NEWAPPLICATIONID,category.getId());
-		assertEquals(NEWNAME,category.getName());
-		assertEquals(NEWDESCRIPTION,category.getDescription());		
+		assertEquals(CATEGORYID,category.getId());
+		assertEquals(APPLICATIONID,category.getGroceryStoreApplication().getId());
+		assertEquals(NAME,category.getName());
+		assertEquals(DESCRIPTION,category.getDescription());	
+		assertEquals(IMAGE,category.getImage());
 	
 	}
 	
@@ -330,26 +376,6 @@ public class CategoryServiceTest {
 		
 	}
 	
-	
-	
-	
-	
-	
-	//Test to delete category with empty id
-	@Test
-	public void testDeleteCategoryWithNullId() {
-		String error = null;
-		try {
-			
-			categoryService.deleteCategory(null);
-		}catch(ApiRequestException e) {
-			error = e.getMessage();
-						
-		}
-		assertEquals(error,"No category exists with id:" + null);
-
-	}
-	
 	//Test to delete with invalid id
 	@Test
 	public void testDeleteCategoryWithInvalidId() {
@@ -361,7 +387,7 @@ public class CategoryServiceTest {
 			error = e.getMessage();				
 		}
 			
-		assertEquals(error, "No address exists with id:" + INVALID_ID);
+		assertEquals(error, "Category  with provided id does not exist.");
 	}
 	
 	//Test to delete category
@@ -431,7 +457,7 @@ public class CategoryServiceTest {
 			}
 			
 		assertNull(category);
-		assertEquals("No category exists with id:"+ INVALID_ID, error );			
+		assertEquals("Category  with provided id does not exist.", error );			
 			
 	}
 	
