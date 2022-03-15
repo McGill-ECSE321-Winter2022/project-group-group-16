@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 public class GroceryStoreApplication {
     // attributes
-    private int id;
+    private Integer id;
 
     // associations
     private Set<GroceryOrder> order;
@@ -18,6 +18,7 @@ public class GroceryStoreApplication {
     private Set<UserRole> userRole;
 
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<GroceryOrder> getOrder() {
         return this.order;
@@ -27,6 +28,7 @@ public class GroceryStoreApplication {
         this.order = orders;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<Product> getProduct() {
         return this.product;
@@ -56,6 +58,7 @@ public class GroceryStoreApplication {
         this.store = store;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "groceryStoreApplication", cascade = {CascadeType.ALL})
     public Set<Category> getCategory() {
         return this.category;
@@ -66,11 +69,11 @@ public class GroceryStoreApplication {
     }
 
     @Id
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

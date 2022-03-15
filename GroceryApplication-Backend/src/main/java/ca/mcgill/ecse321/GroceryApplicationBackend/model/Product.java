@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Set;
@@ -26,6 +27,7 @@ public class Product {
     private Set<GroceryOrder> order;
     private GroceryStoreApplication groceryStoreApplication;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
         return this.groceryStoreApplication;
@@ -118,6 +120,7 @@ public class Product {
         this.availableQuantity = value;
     }
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public Category getCategory() {
         return this.category;
