@@ -25,6 +25,7 @@ import org.mockito.stubbing.Answer;
 
 //Java imports
 import java.sql.Date;
+import java.util.List;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -264,5 +265,52 @@ public class OrderServiceTest {
         assertEquals("Order does not exist!", error);
     }
 
+    @Test
+    public void testGetAllOrders() {
+        List<GroceryOrder> allOrders = null;
+        try{
+            allOrders = orderService.getAllOrders();
+        } catch (ApiRequestException e) {
+            fail();
+        }
+
+        assertNotNull(allOrders);
+    }
+
+    @Test
+    public void testGetAllSortedOrders() {
+        List<GroceryOrder> allOrders = null;
+        try{
+            allOrders = orderService.getOrdersSortedByDateDesc();
+        } catch (ApiRequestException e) {
+            fail();
+        }
+
+        assertNotNull(allOrders);
+    }
+
+    @Test
+    public void testViewAllCompletedOrders() {
+        List<GroceryOrder> allOrders = null;
+        try{
+            allOrders = orderService.viewCompletedOrders();
+        } catch (ApiRequestException e) {
+            fail();
+        }
+
+        assertNotNull(allOrders);
+    }
+
+    @Test
+    public void testViewAllOrdersToBeDelivered() {
+        List<GroceryOrder> allOrders = null;
+        try{
+            allOrders = orderService.viewOrdersToBeDelivered();
+        } catch (ApiRequestException e) {
+            fail();
+        }
+
+        assertNotNull(allOrders);
+    }
 
 }

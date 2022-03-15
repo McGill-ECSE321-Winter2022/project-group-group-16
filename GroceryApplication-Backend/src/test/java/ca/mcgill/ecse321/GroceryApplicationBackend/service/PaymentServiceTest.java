@@ -7,10 +7,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
 
 //Mockito imports
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.lenient;
 
@@ -22,6 +19,8 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
+
+import java.util.List;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -262,6 +261,45 @@ public class PaymentServiceTest {
         }
 
         assertEquals("Payment id cannot be null!", error);
+    }
+
+    @Test
+    public void testValidatePayment() {
+        Boolean isPayed = null;
+
+        try {
+            isPayed = paymentService.validatePayment("PAYED");
+        } catch (ApiRequestException e) {
+            fail();
+        }
+
+        assertTrue(isPayed);
+    }
+
+    @Test
+    public void testGetAllPayments() {
+        List<Payment> allPayments = null;
+
+        try {
+            allPayments = paymentService.getAllPayments();
+        } catch (ApiRequestException e) {
+            fail();
+        }
+
+        assertNotNull(allPayments);
+    }
+
+    @Test
+    public void testGetAllSortedPayments() {
+        List<Payment> allPayments = null;
+
+        try {
+            allPayments = paymentService.getAllSortedPayment();
+        } catch (ApiRequestException e) {
+            fail();
+        }
+
+        assertNotNull(allPayments);
     }
 
 }
