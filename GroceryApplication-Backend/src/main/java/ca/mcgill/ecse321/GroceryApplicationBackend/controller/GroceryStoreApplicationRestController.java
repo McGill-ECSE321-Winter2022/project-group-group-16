@@ -13,6 +13,11 @@ public class GroceryStoreApplicationRestController {
     @Autowired
     private GroceryStoreApplicationService groceryStoreApplicationService;
 
+    /**
+     * Rest method for creating a grocery store application.
+     * @return created gs application.
+     * @throws ApiRequestException
+     */
     @PostMapping(value = {"/grocerystoreapplication", "/grocerystoreapplication/"})
     public GroceryStoreApplicationDto createGroceryStoreApplication(
     ) throws ApiRequestException {
@@ -20,17 +25,30 @@ public class GroceryStoreApplicationRestController {
         return convertToDto(groceryStoreApplication);
     }
 
+    /**
+     * Rest delete method for deleting the grocery store application.
+     * @throws ApiRequestException
+     */
     @DeleteMapping(value = {"/grocerystoreapplication", "/grocerystoreapplication/"})
     public void deleteGroceryStoreApplication() throws ApiRequestException {
         groceryStoreApplicationService.deleteGroceryStoreApplication();
     }
 
+    /**
+     * Rest get method for getting the grocery store application (with all dependent objects).
+     * @return the single grocery store application (The whole db contents as JSON)
+     */
     @GetMapping(value = {"/grocerystoreapplication", "/grocerystoreapplication/"})
     public GroceryStoreApplicationDto getGroceryStoreApplication() {
         GroceryStoreApplication groceryStoreApplication = groceryStoreApplicationService.getGroceryStoreApplication();
         return convertToDto(groceryStoreApplication);
     }
 
+    /**
+     * Converts a grocery store application to a data transfer object.
+     * @param groceryStoreApplication gs application to convert to dto.
+     * @return corresponding Dto.
+     */
     private static GroceryStoreApplicationDto convertToDto(GroceryStoreApplication groceryStoreApplication) {
         if (groceryStoreApplication == null) return null;
         return new GroceryStoreApplicationDto(groceryStoreApplication.getId(), groceryStoreApplication.getOrder(),
