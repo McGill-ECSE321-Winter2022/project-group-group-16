@@ -34,7 +34,7 @@ public class OrderRestController {
      * @return
      * @throws ApiRequestException
      */
-    @PostMapping(value = {"/groceryOrder", "/order/"})
+    @PostMapping(value = {"/groceryOrder", "/groceryOrder/"})
     public OrderDto placeOrder(
         @RequestParam Integer applicationId,
         @RequestParam OrderStatus status,
@@ -56,7 +56,7 @@ public class OrderRestController {
      * @return updated status
      * @throws ApiRequestException
      */
-    @PutMapping(value = {"/groceryOrder/{id}", "/order/{id}/"})
+    @PutMapping(value = {"/groceryOrder/{id}", "/groceryOrder/{id}/"})
     public OrderDto updateOrderStatus(
         @RequestParam OrderStatus status,
         @PathVariable("id") Integer id) throws ApiRequestException{
@@ -69,7 +69,7 @@ public class OrderRestController {
      * @param id
      * @return requested order
      */
-    @PutMapping(value= {"/order/refund/{id}", "/order/refund/{id}/"})
+    @PutMapping(value= {"/groceryOrder/refund/{id}", "/groceryOrder/refund/{id}/"})
     public OrderDto refundOrderById(
         @PathVariable("id") Integer id) throws ApiRequestException{
             return convertToDto(orderService.refundOrderById(id));
