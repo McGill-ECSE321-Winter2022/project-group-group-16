@@ -282,6 +282,22 @@ public class ProductServiceTest {
 		assertEquals("No application associated with this Id.",error);
 	}
 	
+	//test for create product with null category
+	@Test
+	public void testCreateProductWithoutCategory() {
+		Product product = null;
+		String error = null;
+		
+		try {
+			product = productService.createProduct(IMAGE, GROCERYAPPID, INVALID_CATEGORY_ID, PRODUCTNAME, PRODUCTDESCRIPTION, PRICE, WEIGHT, VOLUME, AVAILABILITY, ISREFUNDABLE, AVAILABLEQUANTITY);
+		} catch(ApiRequestException e) {
+			error =e.getMessage();
+		}
+		
+		assertNull(product);
+		assertEquals("No category associated with this Id.",error);
+	}
+	
 	//test for updating product
 	@Test
 	public void testUpdateProduct() {
