@@ -299,6 +299,44 @@ public class CustomerServiceTest {
 			
 		}
 		
+		//Test update customer
+		@Test 
+		public void testUpdateCustomer() {
+			Customer customer = null;
+			
+			try {
+				customer = customerService.updateCustomer(CUSTOMERID,ADDRESSID);
+				
+			} catch(ApiRequestException e) {		
+				fail();
+			}
+			assertNotNull(customer);
+			assertEquals(customer.getAddress().getId(),ADDRESSID);
+			assertEquals(customer.getId(),CUSTOMERID);
+
+		}
+		
+		//Test update customer with invalid address id
+		@Test
+		public void tesUpdateCustomerWithInvalidAddressId() {
+			Customer customer = null;
+			String error = "";
+
+			try {
+				
+				customer = customerService.updateCustomer(CUSTOMERID,INVALID_ADDRESS_ID);
+				
+			} catch(ApiRequestException e) {
+				error = e.getMessage();
+				
+				
+			}
+			assertNull(customer);
+			assertEquals(error, "No address associated with this Id");
+			
+			
+		}
+		
 
 		//Test for getting a customer by id
 		@Test
