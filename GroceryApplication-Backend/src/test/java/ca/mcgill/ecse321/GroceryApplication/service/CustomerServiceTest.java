@@ -162,32 +162,7 @@ public class CustomerServiceTest {
 			}
 		});
 		
-//		lenient().when(customerRepository.findAll()).thenAnswer((InvocationOnMock invocation) -> {
-//			
-//			Customer customer = new Customer();
-//			Address address = new Address();
-//			GroceryUser user = new GroceryUser();
-//			customer.setAddress(address);
-//			customer.setId(CUSTOMERID);
-//			customer.setUser(user);
-//			
-//			Customer customer2 = new Customer();
-//			Address address2 = new Address();
-//			GroceryUser user2 = new GroceryUser();
-//			customer.setAddress(address2);
-//			customer.setId(CUSTOMERID);
-//			customer.setUser(user2);
-//			
-//			List<Customer> customers = new ArrayList<Customer>();
-//			customers.add(customer);
-//			customers.add(customer2);
-//				
-//			
-//			return customers;
-//			
-//		});
-		
-		//When anything is saved, return the parameter object
+
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			
 			return invocation.getArgument(0);
@@ -233,8 +208,7 @@ public class CustomerServiceTest {
 		public void testCreateCustomerEmptyGroceryStore() {
 			Customer customer = null;
 			String error = null;
-//			GroceryUser groceryUser = null;
-//			GroceryStoreApplication gsa = null;
+
 			try {
 				customer = customerService.createCustomer(INVALID_APPLICATION_ID, ADDRESSID, USEREMAIL);
 				
@@ -254,8 +228,7 @@ public class CustomerServiceTest {
 		public void testCreateCustomerEmptyGroceryUser() {
 			Customer customer = null;
 			String error = null;
-//			GroceryUser groceryUser = null;
-//			GroceryStoreApplication gsa = null;
+
 				try {
 					customer = customerService.createCustomer(APPLICATIONID, ADDRESSID, INVALID_USER_EMAIL);	
 					
@@ -274,9 +247,7 @@ public class CustomerServiceTest {
 		public void testCreateCustomerEmptyAddress() {
 			Customer customer = null;
 			String error = null;
-//			GroceryUser groceryUser = null;
-//			GroceryStoreApplication gsa = null;
-//			Address address = null;
+
 				try {
 					customer = customerService.createCustomer(APPLICATIONID, INVALID_ADDRESS_ID, USEREMAIL);
 							
