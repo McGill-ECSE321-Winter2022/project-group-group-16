@@ -2,7 +2,7 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.dto;
 
 public class CustomerDto {
 	
-	private int customerId;
+	private Integer customerId;
 	
 	public CustomerDto() {
 		
@@ -15,11 +15,11 @@ public class CustomerDto {
 	
 	// ------------------ Getters and Setters ------------------------
 	
-	public int getCustomerId(){
+	public Integer getCustomerId(){
 		return this.customerId;
 	}
 	
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 	

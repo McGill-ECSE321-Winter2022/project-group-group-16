@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class GroceryOrder {
     private Customer customer;
     private Address shippingAddress;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
         return this.groceryStoreApplication;

@@ -47,7 +47,7 @@ public class CategoryController {
 	  }
 	  
 	  @GetMapping(value = { "/getCategory/{categoryId}", "/getCategory/{categoryId}/" })
-	  public CategoryDto getCategoryById(@PathVariable("categoryId") int categoryId) throws ApiRequestException {
+	  public CategoryDto getCategoryById(@PathVariable("categoryId") Integer categoryId) throws ApiRequestException {
 	    return convertToDto(categoryService.getCategorybyId(categoryId));
 	  }
 	  

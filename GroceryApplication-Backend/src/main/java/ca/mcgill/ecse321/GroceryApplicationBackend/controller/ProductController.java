@@ -27,25 +27,25 @@ public class ProductController {
 
 
 	  @PostMapping(value = {"/product", "/product/"})
-	  public ProductDto createProduct (@PathVariable("image") String image,  @PathVariable("applicationId") Integer applicationId, @PathVariable("categoryId") Integer categoryId, @PathVariable("name") String name, @PathVariable("description") String description, @PathVariable("price") Float price, @PathVariable("weight") Float weight, @PathVariable("volume") Float volume, @PathVariable("availability") Availability availability,  @PathVariable("isRefundable") boolean isRefundable,  @PathVariable("avaQuantity") Integer avaQuantity)throws ApiRequestException {
+	  public ProductDto createProduct (@RequestParam  String image,  @RequestParam Integer applicationId, @RequestParam Integer categoryId, @RequestParam String name, @RequestParam String description, @RequestParam Float price, @RequestParam Float weight, @RequestParam Float volume, @RequestParam Availability availability,  @RequestParam  boolean isRefundable,  @RequestParam Integer avaQuantity)throws ApiRequestException {
 		  Product product = productService.createProduct(image, applicationId, categoryId, name, description, price, weight, volume, availability, isRefundable, avaQuantity);
 		  return convertToDto(product);
 	  }
 
-	  @PutMapping(value = {"/product/{barCode}\", \"/product/{barCode}/"})
-	  public ProductDto updateProduct (@RequestParam("barCode") Integer barCode,  @PathVariable("image") String image,  @PathVariable("applicationId") Integer applicationId, @PathVariable("categoryId") Integer categoryId, @PathVariable("name") String name, @PathVariable("description") String description, @PathVariable("price") Float price, @PathVariable("weight") Float weight, @PathVariable("volume") Float volume, @PathVariable("availability") Availability availability,  @PathVariable("isRefundable") boolean isRefundable,  @PathVariable("avaQuantity") Integer avaQuantity  ) {
+	  @PutMapping(value = {"/product/{barCode}", "/product/{barCode}/"})
+	  public ProductDto updateProduct (@PathVariable("barCode") Integer barCode,  @RequestParam String image,  @RequestParam Integer applicationId, @RequestParam Integer categoryId,  @RequestParam String name,  @RequestParam String description,  @RequestParam Float price,  @RequestParam Float weight,  @RequestParam Float volume,  @RequestParam Availability availability,   @RequestParam boolean isRefundable,   @RequestParam Integer avaQuantity  ) {
 		  Product product = productService.updateProduct(image, applicationId, categoryId, name, description, price, weight, volume, availability, barCode, isRefundable, avaQuantity);
 		  return convertToDto(product);
 	  }
 
 	  @DeleteMapping(value = { "/deleteProduct/{barCode}", "deleteProduct/{barCode}/" }) 
-	  public ProductDto deleteProduct(@RequestParam("barCode") Integer barCode) {
+	  public ProductDto deleteProduct(@PathVariable("barCode") Integer barCode) {
 		  Product product = productService.deleteProduct(barCode);
 		    return convertToDto(product);
 	  }
 
 	  @GetMapping(value = { "/getProductByBarcode/{barCode}", "/getProductByBarcode/{barCode}/" })
-	  public ProductDto getProductyById(@RequestParam("barCode") Integer barCode) {
+	  public ProductDto getProductyById(@PathVariable("barCode") Integer barCode) {
 	    return convertToDto(productService.getProductByBarcode(barCode));
 	  }
 
@@ -59,7 +59,7 @@ public class ProductController {
 	  }
 
 	  @GetMapping(value = { "/refundProduct/{barCode}", "/refundProduct/{barCode}/" })
-	  public ProductDto refundProduct(@RequestParam("barCode") Integer barCode) {
+	  public ProductDto refundProduct(@PathVariable("barCode") Integer barCode) {
 	    return convertToDto(productService.refundProduct(barCode));
 	  }
 

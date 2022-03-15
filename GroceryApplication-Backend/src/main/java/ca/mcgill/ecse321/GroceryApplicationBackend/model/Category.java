@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Set;
@@ -22,6 +24,7 @@ public class Category {
     private Set<Product> product;
     private GroceryStoreApplication groceryStoreApplication;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
         return this.groceryStoreApplication;
@@ -67,6 +70,7 @@ public class Category {
         this.id = value;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "category")
     public Set<Product> getProduct() {
         return this.product;
