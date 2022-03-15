@@ -31,7 +31,7 @@ public class GroceryUserController {
 
 
       @PostMapping(value = { "/gorceryUser", "/gorceryUser/"})
-      public GroceryUserDto createGroceryUser (@RequestParam("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName,  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+      public GroceryUserDto createGroceryUser (@RequestParam String username,@RequestParam String password, @RequestParam String firstName, @RequestParam String lastName,@RequestParam String email, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
           GroceryUser user =  groceryUserService.createGroceryUser(username, password, firstName, lastName, email, date);
             return convertToDto(user);
       }
