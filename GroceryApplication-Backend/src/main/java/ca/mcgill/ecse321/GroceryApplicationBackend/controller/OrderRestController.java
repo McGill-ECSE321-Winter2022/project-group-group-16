@@ -38,13 +38,13 @@ public class OrderRestController {
     public OrderDto placeOrder(
         @RequestParam Integer applicationId,
         @RequestParam OrderStatus status,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date datePlaced,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date deliveryDate,
+        @RequestParam String datePlaced,
+        @RequestParam  String deliveryDate,
         @RequestParam String customerNote,
         @RequestParam PurchaseType purchaseType) throws ApiRequestException{
-            java.sql.Date sqlDatePlaced = new java.sql.Date(datePlaced.getTime());
-            java.sql.Date sqlDeliveryDate = new java.sql.Date(deliveryDate.getTime());
-        return convertToDto(orderService.placeOrder(applicationId, status, sqlDatePlaced, sqlDeliveryDate, customerNote, purchaseType));
+    	 Date convertDeliveryDate = Date.valueOf(deliveryDate);
+    	 Date convertDatePlaced = Date.valueOf(datePlaced);
+         return convertToDto(orderService.placeOrder(applicationId, status, convertDatePlaced, convertDeliveryDate, customerNote, purchaseType));
     }
 
     
@@ -56,7 +56,11 @@ public class OrderRestController {
      * @return updated status
      * @throws ApiRequestException
      */
+<<<<<<< HEAD
     @PutMapping(value = {"/groceryOrder/{id}", "/groceryOrder/{id}/"})
+=======
+    @PutMapping(value = {"/groceryOrder/{id}", "/gorceryOrder/{id}/"})
+>>>>>>> 542097c (fixed create order)
     public OrderDto updateOrderStatus(
         @RequestParam OrderStatus status,
         @PathVariable("id") Integer id) throws ApiRequestException{
