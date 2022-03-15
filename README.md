@@ -43,7 +43,7 @@ Team Roles:
 | Michelle | Backend Implementation and Evolution of Persistence Layer, Software Quality Assurance Plan and Report, Project Management  |
 | Arturo  | Unit Testing of Backend and Integration Testing of Backend Services  |
 | Danny |  Unit Testing of Backend and Integration Testing of Backend Services |
-| Yoah  |  Unit Testing of Backend and Integration Testing of Backend Services  |
+| Yoah  |  Unit Testing of Backend and Integration Testing of Backend Services, Software Quality Assurance Plan  |
 | Noah  |  Backend Implementation and Evolution of Persistence Layer |
 | Yazdan |  Backend Implementation and Evolution of Persistence Layer, Build system, Continuous Integration, and Delivery |
 
