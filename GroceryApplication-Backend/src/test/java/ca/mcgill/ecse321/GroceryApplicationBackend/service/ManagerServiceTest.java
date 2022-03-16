@@ -134,6 +134,7 @@ public class ManagerServiceTest {
     @Test
     public void testCreateManager() {
         Manager manager = null;
+        fail();
 
         try {
             manager = managerService.createManager(APP_ID, USER_EMAIL);
