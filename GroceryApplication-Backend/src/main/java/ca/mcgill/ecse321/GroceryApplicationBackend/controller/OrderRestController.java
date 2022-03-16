@@ -39,14 +39,13 @@ public class OrderRestController {
         @RequestParam Integer applicationId,
         @RequestParam OrderStatus status,
         @RequestParam String datePlaced,
-        @RequestParam  String deliveryDate,
+        @RequestParam String deliveryDate,
         @RequestParam String customerNote,
         @RequestParam PurchaseType purchaseType) throws ApiRequestException{
     	 Date convertDeliveryDate = Date.valueOf(deliveryDate);
     	 Date convertDatePlaced = Date.valueOf(datePlaced);
          return convertToDto(orderService.placeOrder(applicationId, status, convertDatePlaced, convertDeliveryDate, customerNote, purchaseType));
     }
-
     
     /**
      * Rest method for updating an order status
@@ -56,11 +55,7 @@ public class OrderRestController {
      * @return updated status
      * @throws ApiRequestException
      */
-<<<<<<< HEAD
     @PutMapping(value = {"/groceryOrder/{id}", "/groceryOrder/{id}/"})
-=======
-    @PutMapping(value = {"/groceryOrder/{id}", "/gorceryOrder/{id}/"})
->>>>>>> 542097c (fixed create order)
     public OrderDto updateOrderStatus(
         @RequestParam OrderStatus status,
         @PathVariable("id") Integer id) throws ApiRequestException{
