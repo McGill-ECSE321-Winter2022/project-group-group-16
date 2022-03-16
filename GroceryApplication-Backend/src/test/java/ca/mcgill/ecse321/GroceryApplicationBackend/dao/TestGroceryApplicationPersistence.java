@@ -301,7 +301,7 @@ public class TestGroceryApplicationPersistence {
         groceryOrderRepository.save(order);
 
         order = groceryOrderRepository.findGroceryOrderById(999);
-        address = order.getBillingAddress();
+        //address = order.getBillingAddress();
         assertNotNull(order);
         assertNotNull(address);
         assertEquals(order.getCustomerNote(), "no nuts");
