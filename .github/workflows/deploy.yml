@@ -3,7 +3,7 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - Iteration2/CI_CD
+      - main
 
 jobs:
   build:
