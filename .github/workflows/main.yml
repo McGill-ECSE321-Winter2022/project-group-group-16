@@ -1,10 +1,10 @@
-name: Java CI with Gradle
+name: Java CI with Gradle and Deploy to heroku 
 
 on:
   push:
-    branches: main
+    branches: Iteration2/CI_CD
   pull_request:
-    branches: main
+    branches: Iteration2/CI_CD
 
 jobs:
   build:
@@ -27,3 +27,13 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: GroceryApplication-Backend
+  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: "52955afb-8332-4480-9f2e-aaa7c41b77fa" # they haven't given us to github secrets 
+          heroku_app_name: "groceryapplication-backend-l" #Must be unique in Heroku
+          heroku_email: "yazdanzin@gmail.com"
