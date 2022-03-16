@@ -45,7 +45,7 @@ Team Roles:
 | Danny |  Unit Testing of Backend and Integration Testing of Backend Services |
 | Yoah  |  Unit Testing of Backend and Integration Testing of Backend Services, Software Quality Assurance Plan  |
 | Noah  |  Backend Implementation and Evolution of Persistence Layer |
-| Yazdan |  Backend Implementation and Evolution of Persistence Layer, Build system, Continuous Integration, and Delivery |
+| Yazdan |  Backend Implementation and Evolution of Persistence Layer, Build system, Continuous Integration, and Delivery, Integration Testing of Backend Services |
 
 
 Individual efforts (in hours)
