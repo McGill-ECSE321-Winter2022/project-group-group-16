@@ -27,30 +27,64 @@ public class CustomerController {
       private CustomerService customerService;
       
       
-      
+      /**
+       * Rest controller to create customer
+       * 
+       * 
+       * @param applicationId
+       * @param addressId
+       * @param userEmail
+       * @return
+       */
       @PostMapping(value = { "/customer", "/customer/"})
       public CustomerDto createCustomer (@RequestParam Integer applicationId, @RequestParam  Integer addressId, @RequestParam String userEmail) {
           Customer customer = customerService.createCustomer(0, addressId, userEmail);
             return convertToDto(customer);
       }
-      
+      /**
+       * Rest controller to update controller
+       * 
+       * @param Id
+       * @param addressId
+       * @return
+       * @throws ApiRequestException
+       */
       @PutMapping(value = {"/customer/{Id}", "/customer/{Id}/"})
 	  public CustomerDto updateCategory(@PathVariable("Id") Integer Id, @RequestParam Integer addressId) throws ApiRequestException {
 		  Customer customer = customerService.updateCustomer(Id,addressId);
 		    return convertToDto(customer);
 	  }
       
+      /**
+       * Rest controller to delete customer
+       * 
+       * 
+       * @param id
+       * @return
+       */
       @DeleteMapping(value = { "/deleteCustomer/{id}", "deleteCustomer/{id}/" }) 
       public CustomerDto deleteCustomer(@PathVariable("id") Integer id) {
         Customer customer = customerService.deleteCustomer(id);
         return convertToDto(customer);
       }
       
+      /**
+       * Rest controller to get customer by id
+       * 
+       * 
+       * @param id
+       * @return
+       */
       @GetMapping(value = { "/getCustomerById/{id}", "/getCustomer/{id}/" })
       public CustomerDto getCustomerById(@PathVariable("id") Integer id) {
         return convertToDto(customerService.getCustomerById(id));
       }
       
+      /**
+       * Rest controller to get all customer 
+       * 
+       * @return
+       */
       @GetMapping(value = { "/getAllCustomers", "/getAllCustomers/" })
       public List<CustomerDto> getAllCustomers() {
         List<CustomerDto> customerDtos = new ArrayList<>();
@@ -63,6 +97,8 @@ public class CustomerController {
     //-------------------------- Helper Methods -----------------------------
       
       /**
+       * Convert to DTO
+       * 
        * @author noahye
        * @param customer
        * @return
