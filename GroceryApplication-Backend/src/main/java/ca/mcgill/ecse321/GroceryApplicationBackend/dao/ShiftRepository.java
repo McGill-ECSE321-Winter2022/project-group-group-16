@@ -4,6 +4,8 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.model.Employee;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Shift;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 
 public interface ShiftRepository extends CrudRepository<Shift, Integer> {
 
@@ -22,4 +24,7 @@ public interface ShiftRepository extends CrudRepository<Shift, Integer> {
      * @return shift(Shift)
      */
     Shift findShiftByEmployee(Employee employee);
+
+    List<Shift> findAll();
+
 }

@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -13,7 +15,7 @@ public class Employee extends UserRole {
     private Date hiredDate;
     @Enumerated
     private EmployeeStatus status;
-    private float hourlyPay;
+    private Float hourlyPay;
 
     // associations
     private Set<Shift> shift;
@@ -26,11 +28,11 @@ public class Employee extends UserRole {
         this.hiredDate = value;
     }
 
-    public float getHourlyPay() {
+    public Float getHourlyPay() {
         return this.hourlyPay;
     }
 
-    public void setHourlyPay(float value) {
+    public void setHourlyPay(Float value) {
         this.hourlyPay = value;
     }
 
@@ -43,6 +45,7 @@ public class Employee extends UserRole {
     }
 
     @OneToMany(mappedBy = "employee", cascade = {CascadeType.ALL})
+    @JsonManagedReference
     public Set<Shift> getShift() {
         return this.shift;
     }

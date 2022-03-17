@@ -22,16 +22,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class TestGroceryApplicationPersistence {
 
     @Autowired
-    private StoreRepository storeRepository;
+    StoreRepository storeRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
     @Autowired
-    private GroceryStoreApplicationRepository groceryStoreApplicationRepository;
+     GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
     @Autowired
-    private AddressRepository addressRepository;
+     AddressRepository addressRepository;
 
     @Autowired
     ProductRepository productRepository;
@@ -326,6 +326,7 @@ public class TestGroceryApplicationPersistence {
         payment.setId(59);
         payment.setPaymentCode("f4x");
         payment.setOrder(order);
+        payment.setAmount((float) 11.23);
         paymentRepository.save(payment);
 
         payment = paymentRepository.findPaymentById(59);

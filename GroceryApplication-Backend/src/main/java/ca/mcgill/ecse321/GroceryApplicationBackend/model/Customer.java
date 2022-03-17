@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Set;
 
 @Entity
@@ -8,7 +11,8 @@ public class Customer extends UserRole {
     // associations
     private Address address;
     private Set<GroceryOrder> order;
-
+    
+    @JsonBackReference
     @OneToOne(cascade = {CascadeType.ALL}, optional = false)
     @JoinColumn(name = "addr_id", referencedColumnName = "id")
     public Address getAddress() {
