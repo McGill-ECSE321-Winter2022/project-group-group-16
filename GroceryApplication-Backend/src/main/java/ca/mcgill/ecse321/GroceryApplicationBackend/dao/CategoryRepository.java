@@ -33,4 +33,6 @@ public interface CategoryRepository extends CrudRepository<Category, Integer> {
 
 
     Category findCategoryByProduct(Product product);
+    
+    void deleteCategoryById(Integer id);
 }

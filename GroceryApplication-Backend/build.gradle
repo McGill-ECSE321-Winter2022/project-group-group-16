@@ -20,7 +20,6 @@ dependencies {
 	implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	
 	testImplementation 'org.mockito:mockito-core:2.+'
 	testImplementation 'org.mockito:mockito-junit-jupiter:2.18.3'
 	testImplementation 'org.junit.platform:junit-platform-launcher:1.4.1'
@@ -30,4 +29,9 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task integrationTest(type:Exec) {
+	workingDir './src/test/java/ca/mcgill/ecse321/GroceryApplicationBackend/Integration'
+	commandLine './integrationTests.sh'
 }

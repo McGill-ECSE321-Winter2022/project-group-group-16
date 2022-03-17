@@ -1,9 +1,15 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Set;
 
 @Entity
@@ -12,12 +18,13 @@ public class Category {
     private String description;
     private String name;
     private String image;
-    private int id;
+    private Integer id;
 
     // associations
     private Set<Product> product;
     private GroceryStoreApplication groceryStoreApplication;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public GroceryStoreApplication getGroceryStoreApplication() {
         return this.groceryStoreApplication;
@@ -50,16 +57,20 @@ public class Category {
     public void setImage(String value) {
         this.image = value;
     }
-
+    
+  
     @Id
-    public int getId() {
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "category")
     public Set<Product> getProduct() {
         return this.product;

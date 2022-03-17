@@ -3,13 +3,15 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class GroceryUser {
     // attributes
-    private String dateOfBirth;
+    private Date dateOfBirth;
     private String username;
     private String password;
     private String firstName;
@@ -71,11 +73,11 @@ public class GroceryUser {
         this.email = value;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return this.dateOfBirth;
     }
 
-    public void setDateOfBirth(String value) {
+    public void setDateOfBirth(Date value) {
         this.dateOfBirth = value;
     }
 }

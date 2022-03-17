@@ -19,6 +19,13 @@ public class ShiftService {
     @Autowired
     private ShiftRepository shiftRepository;
 
+    /**
+     * Service method for creating a shift.
+     * @param day
+     * @param shiftType
+     * @param employeeId
+     * @return created employee.
+     */
     @Transactional
     public Shift createShift(Shift.Day day, Shift.ShiftType shiftType, Integer employeeId) {
         if (day == null) throw new ApiRequestException("Day is null");
@@ -37,6 +44,14 @@ public class ShiftService {
         return shift;
     }
 
+    /**
+     * Service method for updating a shift.
+     * @param id of the shift to update.
+     * @param day
+     * @param shiftType
+     * @param employeeId
+     * @return updated shift.
+     */
     @Transactional
     public Shift updateShift(Integer id, Shift.Day day, Shift.ShiftType shiftType, Integer employeeId) {
         Shift shift = shiftRepository.findShiftById(id);
@@ -54,6 +69,10 @@ public class ShiftService {
         return shift;
     }
 
+    /**
+     * Service method for deleting a shift.
+     * @param id of the shift to delete.
+     */
     @Transactional
     public void deleteShift(Integer id) {
         Shift shift = shiftRepository.findShiftById(id);
@@ -62,6 +81,11 @@ public class ShiftService {
         shiftRepository.delete(shift);
     }
 
+    /**
+     * Service method for retrieving a shift.
+     * @param id of the shift to get.
+     * @return the shift with the input id.
+     */
     @Transactional
     public Shift getShift(Integer id) {
         Shift shift = shiftRepository.findShiftById(id);
@@ -70,6 +94,10 @@ public class ShiftService {
         return shift;
     }
 
+    /**
+     * Service method for retrieving all shifts.
+     * @return all shifts.
+     */
     @Transactional
     public List<Shift> getAllShifts() {
         return shiftRepository.findAll();
