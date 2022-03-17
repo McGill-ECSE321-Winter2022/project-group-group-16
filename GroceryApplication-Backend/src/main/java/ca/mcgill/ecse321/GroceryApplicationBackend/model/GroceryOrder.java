@@ -3,6 +3,11 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.sql.Date;
 import java.util.Set;
 
@@ -11,13 +16,13 @@ public class GroceryOrder {
     // attributes
     @Enumerated
     private OrderStatus status;
-    private int id;
+    private Integer id;
     private Date datePlaced;
     private Date deliveryDate;
     private String customerNote;
     @Enumerated
     private PurchaseType purchaseType;
-    private Payment payment;
+    public Payment payment;
     // associations
     private GroceryStoreApplication groceryStoreApplication;
     private Set<Product> product;
@@ -35,7 +40,7 @@ public class GroceryOrder {
         this.groceryStoreApplication = groceryStoreApplication;
     }
 
-    private OrderStatus getStatus() {
+    public OrderStatus getStatus() {
         return this.status;
     }
 
@@ -43,12 +48,14 @@ public class GroceryOrder {
         this.status = value;
     }
 
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "ca.mcgill.ecse321.GroceryApplicationBackend.model.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
     @Id
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 
@@ -76,7 +83,7 @@ public class GroceryOrder {
         this.customerNote = value;
     }
 
-    private PurchaseType getPurchaseType() {
+    public PurchaseType getPurchaseType() {
         return this.purchaseType;
     }
 
@@ -111,6 +118,7 @@ public class GroceryOrder {
         this.billingAddress = billingAddress;
     }
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "order", cascade = {CascadeType.ALL})
     public Payment getPayment() {
         return this.payment;
