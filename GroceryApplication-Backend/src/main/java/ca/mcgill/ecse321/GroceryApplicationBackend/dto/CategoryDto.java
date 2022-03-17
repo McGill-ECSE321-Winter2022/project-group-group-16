@@ -1,31 +1,31 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.dto;
 
 public class CategoryDto {
-	private String name;
-	private String description;
-	private String image;
-	private Integer categoryId;
-	
-	public CategoryDto() {
-		
-	}
-	
-	public CategoryDto(Integer categoryId) {
-		this.name = null;
-		this.description = null;
-		this.image = null;
-		this.categoryId = categoryId;
-	}
-	
-	public CategoryDto(Integer categoryId, String name, String description, String image) {
-		this.name = name;
-		this.description = description;
-		this.image = image;
-		this.categoryId = categoryId;
-	}
-	
-	// ------------------ Getters and Setters ------------------------
-	
+    private String name;
+    private String description;
+    private String image;
+    private Integer categoryId;
+
+    public CategoryDto() {
+
+    }
+
+    public CategoryDto(Integer categoryId) {
+        this.name = null;
+        this.description = null;
+        this.image = null;
+        this.categoryId = categoryId;
+    }
+
+    public CategoryDto(Integer categoryId, String name, String description, String image) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.categoryId = categoryId;
+    }
+
+    // ------------------ Getters and Setters ------------------------
+
 
     public String getName() {
         return this.name;
@@ -51,17 +51,14 @@ public class CategoryDto {
         this.image = image;
     }
 
-    
+
     public Integer getId() {
         return this.categoryId;
     }
 
     public void setId(Integer categoryId) {
-    	this.categoryId = categoryId;
+        this.categoryId = categoryId;
     }
 
-
-	
-	
 
 }

@@ -4,22 +4,22 @@ public class ManagerDto {
 
     private Integer id;
 
-    public ManagerDto(){
+    public ManagerDto() {
 
     }
 
-    public ManagerDto(Integer id){
+    public ManagerDto(Integer id) {
         this.id = id;
     }
 
-    public Integer getManagerId(){
+    public Integer getManagerId() {
         return id;
     }
 
-    public void setManagerId(Integer id){
+    public void setManagerId(Integer id) {
         this.id = id;
     }
 
     //get user from GroceryUserDto
-    
+
 }

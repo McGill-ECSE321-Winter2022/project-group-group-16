@@ -1,13 +1,15 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.dto;
 
-import java.sql.Date;
-import java.util.Set;
-
-import javax.persistence.Enumerated;
-
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder.PurchaseType;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Product;
+
+import javax.persistence.Enumerated;
+import java.sql.Date;
+import java.util.Set;
 
 public class OrderDto {
 
@@ -27,10 +29,10 @@ public class OrderDto {
     private Customer customer;
     private Address shippingAddress;
 
-    public OrderDto(){
+    public OrderDto() {
     }
 
-    public OrderDto(OrderStatus status, Integer id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment){
+    public OrderDto(OrderStatus status, Integer id, Date datePlaced, Date deliveryDate, String customerNote, PurchaseType purchaseType, Set<Product> product, Address billingAddress, Customer customer, Address shippingAddress, Payment payment) {
         this.status = status;
         this.id = id;
         this.datePlaced = datePlaced;
@@ -38,21 +40,21 @@ public class OrderDto {
         this.customerNote = customerNote;
         this.purchaseType = purchaseType;
         this.payment = payment;
-        this. product = product;
+        this.product = product;
         this.billingAddress = billingAddress;
         this.customer = customer;
         this.shippingAddress = shippingAddress;
     }
 
-    public Integer getOrderId(){
+    public Integer getOrderId() {
         return id;
     }
 
-    public void setOrderId(Integer id){
+    public void setOrderId(Integer id) {
         this.id = id;
     }
-    
-    public OrderStatus getOrderStatus(){
+
+    public OrderStatus getOrderStatus() {
         return status;
     }
 
@@ -60,7 +62,7 @@ public class OrderDto {
         this.status = status;
     }
 
-    public Date getDatePlaced(){
+    public Date getDatePlaced() {
         return datePlaced;
     }
 

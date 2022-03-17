@@ -15,8 +15,11 @@ public interface ManagerRepository extends CrudRepository<Manager, Integer> {
      * @return manager(Manager)
      */
     Manager findManagerById(int id);
+
     Manager findManagerByUser(GroceryUser user);
+
     void deleteManagerById(int id);
+
     void deleteManagerByUser(GroceryUser user);
 
 

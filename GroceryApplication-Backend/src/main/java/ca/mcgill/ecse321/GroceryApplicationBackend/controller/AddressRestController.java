@@ -14,6 +14,19 @@ public class AddressRestController {
     private AddressService addressService;
 
     /**
+     * Converts an address to a data transfer object.
+     *
+     * @param address address to convert.
+     * @return corresponding data transfer object.
+     */
+    private static AddressDto convertToDto(Address address) {
+        if (address == null) return null;
+        return new AddressDto(address.getId(), address.getStreetNumber(), address.getStreetName(),
+                address.getProvince(), address.getCity(), address.getCountry(), address.getPostalCode(),
+                address.getStore(), address.getOrder(), address.getOrder1(), address.getCustomer());
+    }
+
+    /**
      * Rest controller method for creating an address.
      *
      * @param streetNumber
@@ -87,18 +100,5 @@ public class AddressRestController {
     ) throws ApiRequestException {
         Address address = addressService.updateAddress(id, streetNumber, streetName, province, city, country, postalCode);
         return convertToDto(address);
-    }
-
-    /**
-     * Converts an address to a data transfer object.
-     *
-     * @param address address to convert.
-     * @return corresponding data transfer object.
-     */
-    private static AddressDto convertToDto(Address address) {
-        if (address == null) return null;
-        return new AddressDto(address.getId(), address.getStreetNumber(), address.getStreetName(),
-                address.getProvince(), address.getCity(), address.getCountry(), address.getPostalCode(),
-                address.getStore(), address.getOrder(), address.getOrder1(), address.getCustomer());
     }
 }

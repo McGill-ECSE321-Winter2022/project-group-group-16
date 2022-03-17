@@ -16,9 +16,21 @@ public class StoreRestController {
     @Autowired
     private StoreService storeService;
 
+    /**
+     * Converts a store to a data transfer object.
+     *
+     * @param store store to convert.
+     * @return corresponding data transfer object.
+     */
+    private static StoreDto convertToDto(Store store) {
+        if (store == null) return null;
+        return new StoreDto(store.getName(), store.getWeekDayOpening(), store.getWeekDayClosing(),
+                store.getWeekEndOpening(), store.getWeekEndClosing(), store.getAddress(), store.getGroceryStoreApplication());
+    }
 
     /**
      * Rest controller for creating a store.
+     *
      * @param name
      * @param weekDayOpening
      * @param weekDayClosing
@@ -45,7 +57,8 @@ public class StoreRestController {
 
     /**
      * Rest method for updating a store attributes given its name.
-     * @param name name of the store to update.
+     *
+     * @param name                      name of the store to update.
      * @param weekDayOpening
      * @param weekDayClosing
      * @param weekEndOpening
@@ -71,6 +84,7 @@ public class StoreRestController {
 
     /**
      * Rest controller to get a store information by name.
+     *
      * @param name of the store.
      * @return requested store dto.
      * @throws ApiRequestException
@@ -90,18 +104,6 @@ public class StoreRestController {
     @DeleteMapping(value = {"/store/{name}", "/store/{name}/"})
     public void deleteStore(@PathVariable("name") String name) throws ApiRequestException {
         storeService.deleteStore(name);
-    }
-
-    /**
-     * Converts a store to a data transfer object.
-     *
-     * @param store store to convert.
-     * @return corresponding data transfer object.
-     */
-    private static StoreDto convertToDto(Store store) {
-        if (store == null) return null;
-        return new StoreDto(store.getName(), store.getWeekDayOpening(), store.getWeekDayClosing(),
-                store.getWeekEndOpening(), store.getWeekEndClosing(), store.getAddress(), store.getGroceryStoreApplication());
     }
 }
 

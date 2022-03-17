@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -72,7 +71,7 @@ public class Address {
     public void setProvince(String value) {
         this.province = value;
     }
-    
+
     @JsonManagedReference
     @OneToOne(mappedBy = "address")
     public Customer getCustomer() {

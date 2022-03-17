@@ -14,7 +14,21 @@ public class GroceryStoreApplicationRestController {
     private GroceryStoreApplicationService groceryStoreApplicationService;
 
     /**
+     * Converts a grocery store application to a data transfer object.
+     *
+     * @param groceryStoreApplication gs application to convert to dto.
+     * @return corresponding Dto.
+     */
+    private static GroceryStoreApplicationDto convertToDto(GroceryStoreApplication groceryStoreApplication) {
+        if (groceryStoreApplication == null) return null;
+        return new GroceryStoreApplicationDto(groceryStoreApplication.getId(), groceryStoreApplication.getOrder(),
+                groceryStoreApplication.getProduct(), groceryStoreApplication.getStore(),
+                groceryStoreApplication.getCategory(), groceryStoreApplication.getUserRole());
+    }
+
+    /**
      * Rest method for creating a grocery store application.
+     *
      * @return created gs application.
      * @throws ApiRequestException
      */
@@ -27,6 +41,7 @@ public class GroceryStoreApplicationRestController {
 
     /**
      * Rest delete method for deleting the grocery store application.
+     *
      * @throws ApiRequestException
      */
     @DeleteMapping(value = {"/grocerystoreapplication", "/grocerystoreapplication/"})
@@ -36,24 +51,13 @@ public class GroceryStoreApplicationRestController {
 
     /**
      * Rest get method for getting the grocery store application (with all dependent objects).
+     *
      * @return the single grocery store application (The whole db contents as JSON)
      */
     @GetMapping(value = {"/grocerystoreapplication", "/grocerystoreapplication/"})
     public GroceryStoreApplicationDto getGroceryStoreApplication() {
         GroceryStoreApplication groceryStoreApplication = groceryStoreApplicationService.getGroceryStoreApplication();
         return convertToDto(groceryStoreApplication);
-    }
-
-    /**
-     * Converts a grocery store application to a data transfer object.
-     * @param groceryStoreApplication gs application to convert to dto.
-     * @return corresponding Dto.
-     */
-    private static GroceryStoreApplicationDto convertToDto(GroceryStoreApplication groceryStoreApplication) {
-        if (groceryStoreApplication == null) return null;
-        return new GroceryStoreApplicationDto(groceryStoreApplication.getId(), groceryStoreApplication.getOrder(),
-                groceryStoreApplication.getProduct(), groceryStoreApplication.getStore(),
-                groceryStoreApplication.getCategory(), groceryStoreApplication.getUserRole());
     }
 
 }

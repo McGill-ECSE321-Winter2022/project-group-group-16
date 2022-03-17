@@ -28,10 +28,11 @@ public class EmployeeService {
 
     /**
      * Service method for creating an employee.
+     *
      * @param hiredDate
      * @param employeeStatus
      * @param hourlyPay
-     * @param email of the grocery user associated.
+     * @param email                     of the grocery user associated.
      * @param groceryStoreApplicationId
      * @return created employee.
      */
@@ -64,6 +65,7 @@ public class EmployeeService {
 
     /**
      * Service method for getting an employee by id.
+     *
      * @param id
      * @return employee with the input id.
      */
@@ -77,6 +79,7 @@ public class EmployeeService {
     /**
      * Service method for getting an employee by the email
      * of the associated grocery user.
+     *
      * @param email of the grocery user.
      * @return employee.
      */
@@ -94,7 +97,8 @@ public class EmployeeService {
 
     /**
      * Service method for updating an employee.
-     * @param id of the employee to update.
+     *
+     * @param id                        of the employee to update.
      * @param hiredDate
      * @param employeeStatus
      * @param hourlyPay
@@ -136,6 +140,7 @@ public class EmployeeService {
 
     /**
      * Service method for deleting an employee given their id.
+     *
      * @param id of the employee to delete.
      */
     @Transactional
@@ -148,6 +153,7 @@ public class EmployeeService {
 
     /**
      * Service method for deleting an employee given the email of their associated grocery user.
+     *
      * @param email of the grocery user for whom to delete the employee role.
      */
     @Transactional
@@ -165,6 +171,7 @@ public class EmployeeService {
 
     /**
      * Service method for getting all employees without any ordering.
+     *
      * @return all employees.
      */
     @Transactional
@@ -174,6 +181,7 @@ public class EmployeeService {
 
     /**
      * Service method for getting all employees sorted by descending pay.
+     *
      * @return employees sorted by descending pay.
      */
     @Transactional
@@ -183,6 +191,7 @@ public class EmployeeService {
 
     /**
      * Service method for getting all employees sorted by their descending hired date.
+     *
      * @return employees sorted by descending hired date.
      */
     @Transactional
