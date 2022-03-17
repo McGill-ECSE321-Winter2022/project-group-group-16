@@ -100,7 +100,7 @@ public class ManagerRestController {
     		throw new ApiRequestException("Payment does not exist");
     	}
 
-        return new ManagerDto();
+        return new ManagerDto(m.getId());
     }
 
 }

@@ -29,3 +29,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task integrationTest(type:Exec) {
+	workingDir './src/test/java/ca/mcgill/ecse321/GroceryApplicationBackend/Integration'
+	commandLine './integrationTests.sh'
+}
