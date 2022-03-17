@@ -31,7 +31,19 @@ public class GroceryUserController {
       private GroceryUserService groceryUserService;
 
 
-
+      /**
+       * Rest controller to create user
+       * 
+       * 
+       * @param username
+       * @param password
+       * @param firstName
+       * @param lastName
+       * @param email
+       * @param date
+       * @return
+       * @throws ApiRequestException
+       */
       @PostMapping(value = { "/gorceryUser", "/gorceryUser/"})
       public GroceryUserDto createGroceryUser (@RequestParam String username,@RequestParam String password, @RequestParam String firstName, @RequestParam String lastName,@RequestParam String email, @RequestParam String date) throws ApiRequestException { 
     	  Date convertDate = Date.valueOf(date);
@@ -39,25 +51,58 @@ public class GroceryUserController {
             return convertToDto(user);
       }
 
-
+      /**
+       * Rest controller to update user
+       * 
+       * 
+       * @param email
+       * @param username
+       * @param password
+       * @param firstName
+       * @param lastName
+       * @param date
+       * @return
+       * @throws ApiRequestException
+       */
       @PutMapping(value = { "/gorceryUser/{email}", "/gorceryUser/{email}/" })
       public GroceryUserDto updateGroceryUser ( @PathVariable("email") String email, @RequestParam String username, @RequestParam String password, @RequestParam String firstName, @RequestParam String lastName,  @RequestParam String date) throws ApiRequestException  {
     	  Date convertDate = Date.valueOf(date);
           GroceryUser user =  groceryUserService.updateGroceryUser(username, password, firstName, lastName, email, convertDate);
             return convertToDto(user);
       }
-	
+      
+      /**
+       * Rest controller to delete user
+       * 
+       * 
+       * @param email
+       * @return
+       * @throws ApiRequestException
+       */
       @DeleteMapping(value = { "/deleteGroceryUser/{email}", "deleteGroceryUser/{email}/" }) 
       public GroceryUserDto deleteGeoceryUser(@PathVariable("email") String email) throws ApiRequestException {
           GroceryUser user = groceryUserService.deleteGroceryUser(email);
             return convertToDto(user);
       }
-
+      /**
+       * Rest controller to get user by email
+       * 
+       * 
+       * @param email
+       * @return
+       * @throws ApiRequestException
+       */
       @GetMapping(value = { "/getGroceryUserbyEmail/{email}", "/getGroceryUserbyEmail/{email}/" })
       public GroceryUserDto getGroceryByEmail(@PathVariable ("email") String email) throws ApiRequestException {
         return convertToDto(groceryUserService.getGroceryUserByEmail(email));
       }
-
+      /**
+       * Rest controller to get all user
+       * 
+       * 
+       * 
+       * @return
+       */
       @GetMapping(value = { "/getAllGroceryUser", "/getAllGroceryUser/" })
       public List<GroceryUserDto> getAllGroceryUser() {
         List<GroceryUserDto> groceryUserDtos = new ArrayList<>();
@@ -66,7 +111,15 @@ public class GroceryUserController {
         }
         return groceryUserDtos;
       }
-
+      /**
+       * Rest controler to login user
+       * 
+       * 
+       * @param email
+       * @param password
+       * @return
+       * @throws ApiRequestException
+       */
       @GetMapping(value = { "/loginGroceryUser/{email}/{password}", "/loginGroceryUser/{email}/{password}/" })
       public GroceryUserDto loginGroceryUser(@PathVariable("email") String email, @PathVariable("password") String password) throws ApiRequestException {
 
@@ -80,6 +133,8 @@ public class GroceryUserController {
     //-------------------------- Helper Methods -----------------------------
 
       /**
+       * Convert to DTO
+       * 
        * @author noahye
        * @param user
        * @return
