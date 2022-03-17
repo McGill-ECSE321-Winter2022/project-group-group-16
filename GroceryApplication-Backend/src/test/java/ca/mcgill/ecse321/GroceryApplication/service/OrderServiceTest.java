@@ -1,20 +1,15 @@
 package ca.mcgill.ecse321.GroceryApplication.service;
 
 //Project imports
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
+
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryOrderRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder.PurchaseType;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.OrderService;
-
-//Mockito imports
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.lenient;
-
-import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,21 +19,16 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-//Java imports
 import java.sql.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.lenient;
 
 
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
-
-    @Mock
-    private GroceryOrderRepository orderRepository;
-
-    @Mock
-    private GroceryStoreApplicationRepository gsAppRepository;
-
-    @InjectMocks
-    private OrderService orderService;
 
     //Initial parameters
     private static final Integer ORDER_ID = 10;
@@ -48,14 +38,17 @@ public class OrderServiceTest {
     private static final Date DATE_DELIVERY = Date.valueOf("2022-02-10");
     private static final String CUSTOMER_NOTE = "Leave at door uwu";
     private static final PurchaseType PURCHASE_TYPE = PurchaseType.ONLINE;
-
     //Updated parameters
     private static final OrderStatus ORDER_STATUS_UPDATED = OrderStatus.SHIPPED;
-
     //Does not exist parameters
     private static final Integer ORDER_ID_DOES_NOT_EXIST = 99;
     private static final Integer APP_ID_DOES_NOT_EXIST = 9;
-
+    @Mock
+    private GroceryOrderRepository orderRepository;
+    @Mock
+    private GroceryStoreApplicationRepository gsAppRepository;
+    @InjectMocks
+    private OrderService orderService;
 
     @BeforeEach
     public void setMockOutput() {

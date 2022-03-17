@@ -1,20 +1,15 @@
 package ca.mcgill.ecse321.GroceryApplication.service;
 
 //Project imports
+
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryOrderRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.PaymentRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.PaymentService;
-
-//Mockito imports
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.lenient;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,18 +19,14 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.lenient;
+
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceTest {
-
-    @Mock
-    private PaymentRepository paymentRepository;
-
-    @Mock
-    private GroceryOrderRepository groceryOrderRepository;
-
-    @InjectMocks
-    private PaymentService paymentService;
 
     //Initial parameters
     private static final Integer ORDER_ID = 1;
@@ -43,16 +34,19 @@ public class PaymentServiceTest {
     private static final Float PAYMENT_AMOUNT = (float) 5.99;
     private static final PaymentType PAYMENT_TYPE = PaymentType.DEBIT;
     private static final String PAYMENT_CODE = "23411SX";
-
     //Updated parameters
     private static final Float PAYMENT_AMOUNT_UPDATED = (float) 11.99;
     private static final PaymentType PAYMENT_TYPE_UPDATED = PaymentType.CREDIT;
     private static final String PAYMENT_CODE_UPDATED = "12345AA";
-
     //Does not exist parameters
     private static final Integer ORDER_DOES_NOT_EXIST = 9;
     private static final Integer PAYMENT_DOES_NOT_EXIST = 10;
-
+    @Mock
+    private PaymentRepository paymentRepository;
+    @Mock
+    private GroceryOrderRepository groceryOrderRepository;
+    @InjectMocks
+    private PaymentService paymentService;
 
     @BeforeEach
     public void setMockOutput() {

@@ -18,6 +18,7 @@ public class AddressService {
 
     /**
      * Service method for creating an Address.
+     *
      * @param streetNumber
      * @param streetName
      * @param province
@@ -50,6 +51,7 @@ public class AddressService {
 
     /**
      * Service method for deleting an address.
+     *
      * @param id Address id.
      */
     @Transactional
@@ -63,6 +65,7 @@ public class AddressService {
 
     /**
      * Service method for retrieving an address by id.
+     *
      * @param id
      * @return
      */
@@ -78,7 +81,8 @@ public class AddressService {
     /**
      * Service method for updating an address.
      * Note: Only non-null and non-empty parameters will be updated.
-     * @param id id of the address to update.
+     *
+     * @param id           id of the address to update.
      * @param streetNumber
      * @param streetName
      * @param province

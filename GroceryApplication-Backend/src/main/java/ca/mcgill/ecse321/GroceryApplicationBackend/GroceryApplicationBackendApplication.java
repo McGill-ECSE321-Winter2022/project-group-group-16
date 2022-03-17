@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class GroceryApplicationBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GroceryApplicationBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GroceryApplicationBackendApplication.class, args);
+    }
 
-	@RequestMapping("/")
-	public String greeting() {
-		return "Hello world!";
-	}
+    @RequestMapping("/")
+    public String greeting() {
+        return "Hello world!";
+    }
 
 }
 

@@ -28,10 +28,10 @@ public class TestGroceryApplicationPersistence {
     CategoryRepository categoryRepository;
 
     @Autowired
-     GroceryStoreApplicationRepository groceryStoreApplicationRepository;
+    GroceryStoreApplicationRepository groceryStoreApplicationRepository;
 
     @Autowired
-     AddressRepository addressRepository;
+    AddressRepository addressRepository;
 
     @Autowired
     ProductRepository productRepository;

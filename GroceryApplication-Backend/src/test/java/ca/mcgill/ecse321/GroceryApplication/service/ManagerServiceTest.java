@@ -1,19 +1,15 @@
 package ca.mcgill.ecse321.GroceryApplication.service;
 
 //Project imports
+
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ManagerRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Manager;
 import ca.mcgill.ecse321.GroceryApplicationBackend.service.ManagerService;
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
-
-//Mockito imports
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.lenient;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,37 +19,34 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.lenient;
+
 
 @ExtendWith(MockitoExtension.class)
 public class ManagerServiceTest {
-
-    @Mock
-    private ManagerRepository managerRepository;
-
-    @Mock
-    private GroceryStoreApplicationRepository gsRepository;
-
-    @Mock
-    private GroceryUserRepository userRepository;
-
-    @InjectMocks
-    private ManagerService managerService;
 
     //Initial parameters
     private static final Integer APP_ID = 11;
     private static final String USER_EMAIL = "name@email.ca";
     private static final Integer MANAGER_ID = 3;
-
     //Updated parameters
     private static final Integer APP_ID_UPDATED = 12;
     private static final String USER_EMAIL_UPDATED = "new_name@email.ca";
-
     //Does not exist parameters
     private static final Integer APP_ID_DOES_NOT_EXIST = 99;
     private static final String USER_EMAIL_DOES_NOT_EXIST = "wrongemail@email.ca";
     private static final Integer MANAGER_ID_DOSE_NOT_EXIST = 9;
     private static final String USER_EMAIL_NOT_MANAGER = "customer@mail.ca";
-
+    @Mock
+    private ManagerRepository managerRepository;
+    @Mock
+    private GroceryStoreApplicationRepository gsRepository;
+    @Mock
+    private GroceryUserRepository userRepository;
+    @InjectMocks
+    private ManagerService managerService;
 
     @BeforeEach
     public void setMockOutput() {

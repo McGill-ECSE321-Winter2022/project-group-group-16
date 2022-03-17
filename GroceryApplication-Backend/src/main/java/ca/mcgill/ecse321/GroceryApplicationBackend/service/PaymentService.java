@@ -29,8 +29,9 @@ public class PaymentService {
 
     /**
      * Method to create a new payment in the payment repo
-     * @param orderId The order ID
-     * @param amount The amount
+     *
+     * @param orderId     The order ID
+     * @param amount      The amount
      * @param paymentType The payment type
      * @param paymentCode The payment code
      * @return The payment object
@@ -56,6 +57,7 @@ public class PaymentService {
 
     /**
      * Method to return a list of all the payments
+     *
      * @return A list<Payments> of all payments
      */
     @Transactional
@@ -66,6 +68,7 @@ public class PaymentService {
 
     /**
      * Method to return a sorted list of all payments
+     *
      * @return A sorted list<Payment> of all payments
      */
     @Transactional
@@ -76,6 +79,7 @@ public class PaymentService {
 
     /**
      * Method to get a payment from ID
+     *
      * @param paymentId The payment ID
      * @return The payment object
      */
@@ -94,8 +98,9 @@ public class PaymentService {
 
     /**
      * Method to update an existing payment
-     * @param paymentId The payment ID
-     * @param amount The new amount
+     *
+     * @param paymentId   The payment ID
+     * @param amount      The new amount
      * @param paymentType The new payment type
      * @param paymentCode The new payment code
      * @return The updated payment object
@@ -129,6 +134,7 @@ public class PaymentService {
 
     /**
      * Method to delete an existing payment
+     *
      * @param paymentId The payment ID
      */
     @Transactional
@@ -147,6 +153,7 @@ public class PaymentService {
 
     /**
      * Method to return true if the input is PAYED
+     *
      * @param input the input
      * @return if payed
      */
@@ -157,8 +164,9 @@ public class PaymentService {
 
     /**
      * Helper method to convert an iterable to a list
+     *
      * @param iterable The object to be converted
-     * @param <T> The type
+     * @param <T>      The type
      * @return The converted list
      */
     private <T> List<T> toList(Iterable<T> iterable) {

@@ -1,12 +1,15 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.service;
 
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.dao.ManagerRepository;
+import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import ca.mcgill.ecse321.GroceryApplicationBackend.dao.*;
-import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
 
 @Service
 public class ManagerService {
@@ -22,8 +25,9 @@ public class ManagerService {
 
     /**
      * Method to create a new manager
+     *
      * @param applicationId the application
-     * @param email the user email
+     * @param email         the user email
      * @return the created manager
      */
     @Transactional
@@ -58,8 +62,9 @@ public class ManagerService {
 
     /**
      * Service method for updating a manager
-     * @param id the manager id
-     * @param email the new user email
+     *
+     * @param id            the manager id
+     * @param email         the new user email
      * @param applicationId the new application id
      * @return the updated manager
      */
@@ -95,6 +100,7 @@ public class ManagerService {
 
     /**
      * Service method for retrieving a manager by id
+     *
      * @param id the manager ID
      * @return requested manager
      */
@@ -111,6 +117,7 @@ public class ManagerService {
 
     /**
      * Service method for retrieving a manager by email
+     *
      * @param email The manager's user email
      * @return the manager
      */
@@ -131,6 +138,7 @@ public class ManagerService {
 
     /**
      * Service method for deleting a manager by id
+     *
      * @param id the manager ID to be deleted
      */
     @Transactional
@@ -146,6 +154,7 @@ public class ManagerService {
 
     /**
      * Service method for deleting a manager by email
+     *
      * @param email the manager's user email
      */
     @Transactional

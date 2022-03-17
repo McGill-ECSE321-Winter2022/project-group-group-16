@@ -1,18 +1,16 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
 @Entity
 public class GroceryOrder {
+    public Payment payment;
     // attributes
     @Enumerated
     private OrderStatus status;
@@ -22,7 +20,6 @@ public class GroceryOrder {
     private String customerNote;
     @Enumerated
     private PurchaseType purchaseType;
-    public Payment payment;
     // associations
     private GroceryStoreApplication groceryStoreApplication;
     private Set<Product> product;

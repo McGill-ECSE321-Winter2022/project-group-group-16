@@ -18,10 +18,17 @@ public class PaymentRestController {
     @Autowired
     PaymentService paymentService;
 
+    public static PaymentDto convertToDto(Payment p) {
+        if (p == null) {
+            throw new ApiRequestException("Payment does not exist");
+        }
+
+        return new PaymentDto(p.getId(), p.getAmount(), p.getPaymentType(), p.getPaymentCode(), p.getOrder());
+    }
 
     /**
      * Rest method for creating a payment
-     * 
+     *
      * @param orderId
      * @param amount
      * @param paymentType
@@ -38,11 +45,9 @@ public class PaymentRestController {
         return convertToDto(paymentService.createPayment(orderId, amount, paymentType, paymentCode));
     }
 
-
-
     /**
      * Rest method for updating a payment
-     * 
+     *
      * @param id
      * @param amount
      * @param paymentType
@@ -59,10 +64,9 @@ public class PaymentRestController {
         return convertToDto(paymentService.updatePayment(id, amount, paymentType, paymentCode));
     }
 
-
     /**
      * Rest method for retrieving a payment by id
-     * 
+     *
      * @param id
      * @return request payment
      * @throws ApiRequestException
@@ -72,11 +76,10 @@ public class PaymentRestController {
         return convertToDto(paymentService.getPaymentById(id));
     }
 
-
     /**
      * Rest method for retrieving all payments
      * The returned list is unsorted
-     * 
+     *
      * @return all payments
      * @throws ApiRequestException
      */
@@ -89,13 +92,12 @@ public class PaymentRestController {
         return paymentDtos;
     }
 
-
-   /**
-    * Rest method for retrieving all ascending payments
-    * 
-    * @return all sorted payments
-    * @throws ApiRequestException
-    */
+    /**
+     * Rest method for retrieving all ascending payments
+     *
+     * @return all sorted payments
+     * @throws ApiRequestException
+     */
     @GetMapping(value = {"/payment/sorted", "/payment/sorted/"})
     public List<PaymentDto> getSortedPayments() throws ApiRequestException {
         List<PaymentDto> paymentDtos = new ArrayList<>();
@@ -107,25 +109,15 @@ public class PaymentRestController {
         return paymentDtos;
     }
 
-
     /**
      * Rest method to delete a payment by id
-     * 
+     *
      * @param id
      * @throws ApiRequestException
      */
     @DeleteMapping(value = {"/payments/{id}", "/payments/{id}/"})
     public void deletePayment(@PathVariable("id") Integer id) throws ApiRequestException {
         paymentService.deletePayment(id);
-    }
-
-
-    public static PaymentDto convertToDto(Payment p) {
-        if (p == null) {
-            throw new ApiRequestException("Payment does not exist");
-        }
-
-        return new PaymentDto(p.getId(), p.getAmount(), p.getPaymentType(), p.getPaymentCode(), p.getOrder());
     }
 
 

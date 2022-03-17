@@ -17,78 +17,6 @@ public class ShiftRestController {
     private ShiftService shiftService;
 
     /**
-     * Rest method for creating a shift.
-     * @param day
-     * @param shiftType
-     * @param employeeId
-     * @return the created shift.
-     * @throws ApiRequestException
-     */
-    @PostMapping(value = {"/shift", "/shift/"})
-    public ShiftDto createShift(
-            @RequestParam Shift.Day day,
-            @RequestParam Shift.ShiftType shiftType,
-            @RequestParam Integer employeeId
-    ) throws ApiRequestException {
-        Shift shift = shiftService.createShift(day, shiftType, employeeId);
-        return convertToDto(shift);
-    }
-
-    /**
-     * Rest method for updating a shift.
-     * @param id of the shift to update.
-     * @param day
-     * @param shiftType
-     * @param employeeId
-     * @return updated shift.
-     * @throws ApiRequestException
-     */
-    @PutMapping(value = {"/shift/{id}", "/shift/{id}/"})
-    public ShiftDto updateShift(
-            @PathVariable("id") Integer id,
-            @RequestParam Shift.Day day,
-            @RequestParam Shift.ShiftType shiftType,
-            @RequestParam Integer employeeId
-    ) throws ApiRequestException {
-        Shift shift = shiftService.updateShift(id, day, shiftType, employeeId);
-        return convertToDto(shift);
-    }
-
-    /**
-     * Rest method to get a shift by id.
-     * @param id of the shift to retrieve.
-     * @return shift associated to input id.
-     * @throws ApiRequestException
-     */
-    @GetMapping(value = {"/shift/{id}", "/shift/{id}/"})
-    public ShiftDto getShift(@PathVariable("id") Integer id) throws ApiRequestException {
-        Shift shift = shiftService.getShift(id);
-        return convertToDto(shift);
-    }
-
-    /**
-     * Rest method to get all shifts.
-     * @return all shifts.
-     * @throws ApiRequestException
-     */
-    @GetMapping(value = {"/shift", "/shift/"})
-    public List<ShiftDto> getAllShifts() throws ApiRequestException {
-        List<Shift> shifts = shiftService.getAllShifts();
-        return convertToDto(shifts);
-    }
-
-    /**
-     * Rest method to delete a shift.
-     * @param id of the shift to delete.
-     * @throws ApiRequestException
-     */
-    @DeleteMapping(value = {"/shift/{id}", "/shift/{id}/"})
-    public void deleteShift(@PathVariable("id") Integer id) throws ApiRequestException {
-        shiftService.deleteShift(id);
-    }
-
-
-    /**
      * Converts a shift to a data transfer object.
      *
      * @param shift employee to convert.
@@ -111,5 +39,81 @@ public class ShiftRestController {
             Dtos.add(convertToDto(shift));
         }
         return Dtos;
+    }
+
+    /**
+     * Rest method for creating a shift.
+     *
+     * @param day
+     * @param shiftType
+     * @param employeeId
+     * @return the created shift.
+     * @throws ApiRequestException
+     */
+    @PostMapping(value = {"/shift", "/shift/"})
+    public ShiftDto createShift(
+            @RequestParam Shift.Day day,
+            @RequestParam Shift.ShiftType shiftType,
+            @RequestParam Integer employeeId
+    ) throws ApiRequestException {
+        Shift shift = shiftService.createShift(day, shiftType, employeeId);
+        return convertToDto(shift);
+    }
+
+    /**
+     * Rest method for updating a shift.
+     *
+     * @param id         of the shift to update.
+     * @param day
+     * @param shiftType
+     * @param employeeId
+     * @return updated shift.
+     * @throws ApiRequestException
+     */
+    @PutMapping(value = {"/shift/{id}", "/shift/{id}/"})
+    public ShiftDto updateShift(
+            @PathVariable("id") Integer id,
+            @RequestParam Shift.Day day,
+            @RequestParam Shift.ShiftType shiftType,
+            @RequestParam Integer employeeId
+    ) throws ApiRequestException {
+        Shift shift = shiftService.updateShift(id, day, shiftType, employeeId);
+        return convertToDto(shift);
+    }
+
+    /**
+     * Rest method to get a shift by id.
+     *
+     * @param id of the shift to retrieve.
+     * @return shift associated to input id.
+     * @throws ApiRequestException
+     */
+    @GetMapping(value = {"/shift/{id}", "/shift/{id}/"})
+    public ShiftDto getShift(@PathVariable("id") Integer id) throws ApiRequestException {
+        Shift shift = shiftService.getShift(id);
+        return convertToDto(shift);
+    }
+
+    /**
+     * Rest method to get all shifts.
+     *
+     * @return all shifts.
+     * @throws ApiRequestException
+     */
+    @GetMapping(value = {"/shift", "/shift/"})
+    public List<ShiftDto> getAllShifts() throws ApiRequestException {
+        List<Shift> shifts = shiftService.getAllShifts();
+        return convertToDto(shifts);
+    }
+
+    /**
+     * Rest method to delete a shift.
+     *
+     * @param id of the shift to delete.
+     * @throws ApiRequestException
+     */
+    @DeleteMapping(value = {"/shift/{id}", "/shift/{id}/"})
+    public void deleteShift(@PathVariable("id") Integer id) throws ApiRequestException {
+        shiftService.deleteShift(id);
     }
 }

@@ -1,7 +1,5 @@
 package ca.mcgill.ecse321.GroceryApplicationBackend.dto;
 
-import javax.persistence.Enumerated;
-
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryOrder;
 import ca.mcgill.ecse321.GroceryApplicationBackend.model.Payment.PaymentType;
 
@@ -13,11 +11,11 @@ public class PaymentDto {
     private String paymentCode;
     private GroceryOrder order;
 
-    public PaymentDto(){
+    public PaymentDto() {
 
     }
 
-    public PaymentDto(Integer id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order){
+    public PaymentDto(Integer id, float amount, PaymentType paymentType, String paymentCode, GroceryOrder order) {
         this.id = id;
         this.amount = amount;
         this.paymentType = paymentType;
@@ -25,23 +23,23 @@ public class PaymentDto {
         this.order = order;
     }
 
-    public Integer getId(){
+    public Integer getId() {
         return id;
     }
 
-    public Float getAmount(){
+    public Float getAmount() {
         return amount;
     }
 
-    public PaymentType getPaymentType(){
+    public PaymentType getPaymentType() {
         return paymentType;
     }
-    
-    public String getPaymentCode(){
+
+    public String getPaymentCode() {
         return paymentCode;
     }
 
-    public GroceryOrder getOrder(){
+    public GroceryOrder getOrder() {
         return order;
     }
 }

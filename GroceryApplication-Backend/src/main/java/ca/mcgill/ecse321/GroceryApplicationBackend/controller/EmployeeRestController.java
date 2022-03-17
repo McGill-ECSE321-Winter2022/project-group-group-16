@@ -20,6 +20,31 @@ public class EmployeeRestController {
     private EmployeeService employeeService;
 
     /**
+     * Converts an employee to a data transfer object.
+     *
+     * @param employee employee to convert.
+     * @return corresponding data transfer object.
+     */
+    private static EmployeeDto convertToDto(Employee employee) {
+        if (employee == null) return null;
+        return new EmployeeDto(employee.getHiredDate(), employee.getStatus(), employee.getHourlyPay(), employee.getShift(), employee.getUser(), employee.getGroceryStoreApplication());
+    }
+
+    /**
+     * Convert a list of employees to a list of data transfer objects.
+     *
+     * @param employees
+     * @return corresponding list of data transfer objects.
+     */
+    private static List<EmployeeDto> convertToDto(List<Employee> employees) {
+        List<EmployeeDto> Dtos = new ArrayList<>();
+        for (Employee employee : employees) {
+            Dtos.add(convertToDto(employee));
+        }
+        return Dtos;
+    }
+
+    /**
      * Rest method for creating an employee.
      * Note: A GroceryUser needs to exist with the provided email before
      * creating an employee profile with their email.
@@ -156,32 +181,6 @@ public class EmployeeRestController {
         java.sql.Date sqlHiredDate = new java.sql.Date(hiredDate.getTime());
         Employee employee = employeeService.updateEmployee(id, sqlHiredDate, employeeStatus, hourlyPay, email, groceryStoreApplicationId);
         return convertToDto(employee);
-    }
-
-
-    /**
-     * Converts an employee to a data transfer object.
-     *
-     * @param employee employee to convert.
-     * @return corresponding data transfer object.
-     */
-    private static EmployeeDto convertToDto(Employee employee) {
-        if (employee == null) return null;
-        return new EmployeeDto(employee.getHiredDate(), employee.getStatus(), employee.getHourlyPay(), employee.getShift(), employee.getUser(), employee.getGroceryStoreApplication());
-    }
-
-    /**
-     * Convert a list of employees to a list of data transfer objects.
-     *
-     * @param employees
-     * @return corresponding list of data transfer objects.
-     */
-    private static List<EmployeeDto> convertToDto(List<Employee> employees) {
-        List<EmployeeDto> Dtos = new ArrayList<>();
-        for (Employee employee : employees) {
-            Dtos.add(convertToDto(employee));
-        }
-        return Dtos;
     }
 
 }

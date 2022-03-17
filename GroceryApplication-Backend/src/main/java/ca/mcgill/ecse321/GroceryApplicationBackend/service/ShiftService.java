@@ -21,6 +21,7 @@ public class ShiftService {
 
     /**
      * Service method for creating a shift.
+     *
      * @param day
      * @param shiftType
      * @param employeeId
@@ -46,7 +47,8 @@ public class ShiftService {
 
     /**
      * Service method for updating a shift.
-     * @param id of the shift to update.
+     *
+     * @param id         of the shift to update.
      * @param day
      * @param shiftType
      * @param employeeId
@@ -71,6 +73,7 @@ public class ShiftService {
 
     /**
      * Service method for deleting a shift.
+     *
      * @param id of the shift to delete.
      */
     @Transactional
@@ -83,6 +86,7 @@ public class ShiftService {
 
     /**
      * Service method for retrieving a shift.
+     *
      * @param id of the shift to get.
      * @return the shift with the input id.
      */
@@ -96,6 +100,7 @@ public class ShiftService {
 
     /**
      * Service method for retrieving all shifts.
+     *
      * @return all shifts.
      */
     @Transactional
