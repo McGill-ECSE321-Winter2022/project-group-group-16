@@ -40,11 +40,11 @@ Individual efforts (in hours)
 Team Roles:
 | Name | Roles |
 | ---- | ----- |
-| Michelle | Backend Implementation and Evolution of Persistence Layer, Software Quality Assurance Plan and Report, Project Management  |
+| Michelle | Backend Implementation and Evolution of Persistence Layer, Integration Testing of Backend Services, Project Management  |
 | Arturo  | Unit Testing of Backend and Integration Testing of Backend Services  |
-| Danny |  Unit Testing of Backend and Integration Testing of Backend Services |
-| Yoah  |  Unit Testing of Backend and Integration Testing of Backend Services, Software Quality Assurance Plan  |
-| Noah  |  Backend Implementation and Evolution of Persistence Layer |
+| Danny |  Unit Testing of Backend and Integration Testing of Backend Services, Software Quality Assurance Plan and Report |
+| Yoah  |  Unit Testing of Backend and Integration Testing of Backend Services, Software Quality Assurance Plan and Report |
+| Noah  |  Backend Implementation and Evolution of Persistence Layer, Integration Testing of Backend Services |
 | Yazdan |  Backend Implementation and Evolution of Persistence Layer, Build system, Continuous Integration, and Delivery, Integration Testing of Backend Services |
 
 
@@ -52,9 +52,9 @@ Individual efforts (in hours)
 
 | Team's Member Name | Backend Implementation and Evolution of Persistence Layer | Software Quality Assurance Plan and Report | Unit Testing of Backend | Integration Testing of Backend Services | Build System, Continuous Integration, and Delivery | Project Management and Project Report | Total |
 |---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|--------------|
-| Michelle  | 0       | 0         | 0               | 0            | 0              | 0    | 0 |
-| Arturo    | 0       | 0         | 0               | 0           | 0              | 0    | 0   |
-| Danny     | 0       | 0         | 0               | 0           | 0              | 0    | 0   |
-| Yoah      | 0       | 0         | 0               | 0            | 0              | 0    | 0  |
-| Noah      | 0       | 0         | 0               | 0           | 0              | 0    | 0   |
-| Yazdan    | 0       | 0         | 0               | 0            | 0              | 0    | 0 |
+| Michelle  | 10      | 0         | 0               | 5           | 0              | 2    | 17 |
+| Arturo    | 0       | 0         | 10              | 4           | 0              | 0    | 14 |
+| Danny     | 0       | 2         | 10              | 3           | 0              | 0    | 15 |
+| Yoah      | 0       | 1         | 10              | 4           | 0              | 0    | 15 |
+| Noah      | 10      | 0         | 0               | 5           | 0              | 0    | 15 |
+| Yazdan    | 10      | 0         | 0               | 5           | 3              | 0    | 18 |
