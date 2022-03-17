@@ -326,6 +326,7 @@ public class TestGroceryApplicationPersistence {
         payment.setId(59);
         payment.setPaymentCode("f4x");
         payment.setOrder(order);
+        payment.setAmount((float) 11.23);
         paymentRepository.save(payment);
 
         payment = paymentRepository.findPaymentById(59);
