@@ -1,0 +1,19 @@
+name: Deploy Frontend to Heroku
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: push frontend
+      - uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          # They didn't give us permission to use github secrets, so putting these as plain text yuk. 
+          heroku_api_key: "52955afb-8332-4480-9f2e-aaa7c41b77fa"
+          heroku_app_name: "groceryapplication-backend-l" #Must be unique in Heroku
+          heroku_email: "yazdanzin@gmail.com"
