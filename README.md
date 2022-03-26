@@ -61,7 +61,7 @@ Individual efforts (in hours)
 
 ## Project Deliverable 3
 
-[Web Frontend and Architecture](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-2)
+[Web Frontend and Architecture](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-3)
 
 Team Roles:
 | Name | Roles |
