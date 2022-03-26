@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: push frontend
       - uses: akhileshns/heroku-deploy@v3.12.12 
         with:
           # They didn't give us permission to use github secrets, so putting these as plain text yuk. 
