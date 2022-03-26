@@ -76,12 +76,12 @@ Team Roles:
 
 Individual efforts (in hours)
 
-| Team's Member Name | Backend Implementation and Evolution of Persistence Layer | Software Quality Assurance Plan and Report | Unit Testing of Backend | Integration Testing of Backend Services | Build System, Continuous Integration, and Delivery | Project Management and Project Report | Total |
-|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|--------------|
-| Michelle  | 0      | 0         | 0               | 0           | 0              | 0    | 0|
-| Arturo    | 0       | 0         | 0              | 0           | 0              | 0    | 0 |
-| Danny     | 0       | 0         | 0              | 0           | 0              | 0    | 0 |
-| Yoah      | 0       | 0         | 0              | 0           | 0              | 0    | 0 |
-| Noah      | 0      | 0         | 0               | 0           | 0              | 0    | 0 |
-| Yazdan    | 0      | 0         | 0               | 0           | 0              | 0    | 0 |
+| Team's Member Name | Architecture Modeling | Implementation of Web Frontend | Integration of Web Frontend with Backend Services | Project Management and Project Report | Total |
+|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|
+| Michelle  | 0      | 0         | 0               | 0           | 0              |
+| Arturo    | 0       | 0         | 0              | 0           | 0              | 
+| Danny     | 0       | 0         | 0              | 0           | 0              | 
+| Yoah      | 0       | 0         | 0              | 0           | 0              | 
+| Noah      | 0      | 0         | 0               | 0           | 0              | 
+| Yazdan    | 0      | 0         | 0               | 0           | 0              | 
 
