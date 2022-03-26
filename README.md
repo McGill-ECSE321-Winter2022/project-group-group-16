@@ -58,3 +58,30 @@ Individual efforts (in hours)
 | Yoah      | 0       | 1         | 10              | 4           | 0              | 0    | 15 |
 | Noah      | 10      | 0         | 0               | 5           | 0              | 0    | 15 |
 | Yazdan    | 10      | 0         | 0               | 5           | 3              | 0    | 18 |
+
+## Project Deliverable 3
+
+[Web Frontend and Architecture](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-2)
+
+Team Roles:
+| Name | Roles |
+| ---- | ----- |
+| Michelle |   |
+| Arturo  |   |
+| Danny |   |
+| Yoah  |   |
+| Noah  |   |
+| Yazdan |   |
+
+
+Individual efforts (in hours)
+
+| Team's Member Name | Backend Implementation and Evolution of Persistence Layer | Software Quality Assurance Plan and Report | Unit Testing of Backend | Integration Testing of Backend Services | Build System, Continuous Integration, and Delivery | Project Management and Project Report | Total |
+|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|-------|--------------|
+| Michelle  | 0      | 0         | 0               | 0           | 0              | 0    | 0|
+| Arturo    | 0       | 0         | 0              | 0           | 0              | 0    | 0 |
+| Danny     | 0       | 0         | 0              | 0           | 0              | 0    | 0 |
+| Yoah      | 0       | 0         | 0              | 0           | 0              | 0    | 0 |
+| Noah      | 0      | 0         | 0               | 0           | 0              | 0    | 0 |
+| Yazdan    | 0      | 0         | 0               | 0           | 0              | 0    | 0 |
+
