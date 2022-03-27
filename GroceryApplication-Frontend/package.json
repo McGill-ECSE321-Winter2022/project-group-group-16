@@ -14,15 +14,17 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "@braid/vue-formulate": "^2.5.3",
     "axios": "^0.26.1",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "latest",
+    "express": "^4.17.3",
+    "formulate": "^2.0.6",
     "jquery": "^3.6.0",
     "popper.js": "^1.12.9",
     "serve-static": "^1.14.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1",
-    "express": "^4.17.3"
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
