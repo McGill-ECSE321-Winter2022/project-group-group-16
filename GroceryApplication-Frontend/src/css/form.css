@@ -1,0 +1,25 @@
+form {
+    width: 100%px;
+    margin: 5px auto;
+    background: #fff;
+    text-align: left;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+label {
+    color: rgb(158, 158, 158);
+    display:inline-block;
+    margin: 25px 0 0px;
+    text-transform: uppercase;
+}
+
+input {
+    display: block;
+    padding: 10px 6px;
+    width: 100%;
+    box-sizing: bordre-box;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
