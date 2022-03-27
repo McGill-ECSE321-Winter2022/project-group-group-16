@@ -1,11 +1,11 @@
 <template>
   <form>
     <h1>Welcome</h1>
-    <label>Email :</label>
+    <label>Store Name :</label>
     <input type="text" required />
 
-    <label>Password :</label>
-    <input type="text" required />
+    <label>opening hour :</label>
+    <input type="time" required />
     <div class="button" align="center">
       <button class="submit" type="submit">Login</button>
     </div>
@@ -22,4 +22,4 @@ export default {
 };
 </script>
 
-<style scoped src="../css/form.css"></style>
+<style scoped src="../css/store.css"></style>
