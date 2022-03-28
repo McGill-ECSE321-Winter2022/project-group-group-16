@@ -4,6 +4,7 @@ import Signup from '@/components/Signup'
 import Login from '@/components/Login'
 import Four0Four from '@/components/404'
 import Store from '@/components/Store'
+import Cart from '@/components/Cart'
 
 
 Vue.use(Router)
@@ -15,6 +16,16 @@ export default new Router({
       name: 'Store',
       component: Store
     },
+
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
+    },
+
+
+
+
     {
       path: '/signup',
       name: 'Signup',
@@ -32,7 +43,7 @@ export default new Router({
 
     }, {
       path: '*',
-      redirect: '/404'
+      redirect: '/cart'
     }
   ]
 })
