@@ -57,4 +57,4 @@ export default {
 };
 </script>
 
-<style scoped src="../css/store.css"></style>
+<style scoped src="../css/form.css"></style>
