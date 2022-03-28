@@ -1,7 +1,7 @@
 import { AXIOS } from "./axiosinst";
 
 export default {
-    name: "Signup",
+    name: "SignupEmployee",
 
     /**
      * declaration of the page's data
@@ -14,22 +14,18 @@ export default {
             lastName: "",
             email: "",
             date: "",
-            streetNumber: "",
-            streetName: "",
-            city: "",
-            province: "",
-            country: "",
-            postalCode: "",
+            pay: "",
             errorUser: "",
         };
     },
     methods: {
+        signupEmployee: async function () {
+            console.log("here")
 
-        signup: async function () {
+            // create grocery user
             try {
                 await this.createUser();
-                await this.createAddress();
-                await this.createCustomer();
+                await this.createEmployee();
             } catch (e) {
                 console.log(e.response)
                 if (e.response) {
@@ -40,7 +36,7 @@ export default {
             if (this.errorUser === "") {
                 console.log(this.email, " logged in!")
                 localStorage.setItem("email", this.email)
-                localStorage.setItem("usertype", "customer")
+                localStorage.setItem("usertype", "employee")
                 this.$router.push('login')
             } else {
                 alert("Signup failed")
@@ -52,17 +48,11 @@ export default {
             const res = await AXIOS.post(`/gorceryUser/?username=${this.username}&password=${this.password}&firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&date=${this.date}`)
         },
 
-        createAddress: async function () {
+        createEmployee: async function () {
 
-            // create address
-            const res = await AXIOS.post(`/address/?streetNumber=${this.streetNumber}&streetName=${this.streetName}&province=${this.province}&city=${this.city}&country=${this.country}&postalCode=${this.postalCode}`)
-            this.addressId = res.data.id
-        },
-
-        createCustomer: async function () {
-
-            // create customer
-            const res = await AXIOS.post(`/customer/?applicationId=0&addressId=${this.addressId}&userEmail=${this.email}`)
+            // create an employee
+            // use today's date for hiredDate and ACTIVE as status 
+            const res = await AXIOS.post(`/employee/?hiredDate=${new Date().toISOString().split('T')[0]}&employeeStatus=ACTIVE&hourlyPay=${this.pay}&email=${this.email}&groceryStoreApplicationId=0`)
 
         },
     },
