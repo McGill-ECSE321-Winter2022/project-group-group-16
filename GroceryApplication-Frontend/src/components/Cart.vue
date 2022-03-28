@@ -67,3 +67,5 @@
     }
   }
 </script>
+
+<style scoped src="../css/form.css"></style>
