@@ -5,6 +5,9 @@ import Login from '@/components/Login'
 import Four0Four from '@/components/404'
 import Store from '@/components/Store'
 import EmployeeSignup from '@/components/EmployeeSignup'
+import AccountInfo from '@/components/AccountInfo'
+import EditingAccInfo from '@/components/EditingAccInfo'
+import navbar from '@/components/navbar'
 
 
 Vue.use(Router)
@@ -15,6 +18,21 @@ export default new Router({
       path: '/store',
       name: 'Store',
       component: Store
+    },
+    {
+      path: '/navbar',
+      name: 'navbar',
+      component: navbar
+    },
+    {
+      path: '/accountinfo',
+      name: 'AccountInfo',
+      component: AccountInfo
+    },
+    {
+      path: '/editingaccinfo',
+      name: 'EditingAccInfo',
+      component: EditingAccInfo
     },
     {
       path: '/employeesignup',
