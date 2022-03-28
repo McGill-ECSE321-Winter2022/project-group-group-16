@@ -71,6 +71,17 @@ public class CustomerController {
     }
 
     /**
+     * Rest controller to get customer by email
+     *
+     * @param email
+     * @return
+     */
+    @GetMapping(value = {"/getCustomerByEmail/{email}", "/getCustomerByEmail/{email}/"})
+    public CustomerDto getCustomerByEmail(@PathVariable("email") String email) {
+        return convertToDto(customerService.getCustomerByEmail(email));
+    }
+
+    /**
      * Rest controller to get all customer
      *
      * @return
