@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Four0Four from '@/components/404'
 import Store from '@/components/Store'
 import Cart from '@/components/Cart'
+import Payment from '@/components/Payment'
 
 
 Vue.use(Router)
@@ -21,6 +22,12 @@ export default new Router({
       path: '/cart',
       name: 'Cart',
       component: Cart
+    },
+
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     },
 
 
