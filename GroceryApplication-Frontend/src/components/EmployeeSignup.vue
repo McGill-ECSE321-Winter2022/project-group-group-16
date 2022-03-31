@@ -30,6 +30,6 @@
   </form>
 </template>
 
-<script src="../js/signup.js"></script>
+<script src="../js/employeesignup.js"></script>
 
 <style scoped src="../css/signup.css"></style>

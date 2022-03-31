@@ -5,10 +5,7 @@ import ca.mcgill.ecse321.GroceryApplicationBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryStoreApplicationRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.dao.GroceryUserRepository;
 import ca.mcgill.ecse321.GroceryApplicationBackend.exception.ApiRequestException;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Address;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.Customer;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryStoreApplication;
-import ca.mcgill.ecse321.GroceryApplicationBackend.model.GroceryUser;
+import ca.mcgill.ecse321.GroceryApplicationBackend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,6 +101,21 @@ public class CustomerService {
 
         }
 
+        return customer;
+    }
+
+    /**
+     * @param email
+     * @return
+     */
+    @Transactional
+    public Customer getCustomerByEmail(String email) {
+        GroceryUser user = groceryUserRepository.findGroceryUserByEmail(email);
+        if (user == null) throw new ApiRequestException("Grocery user with email " + email + " does not exist");
+        Customer customer = customerRepository.findCustomerByUser(user);
+        if (customer == null) {
+            throw new ApiRequestException("No customer profile associated with user with email " + email);
+        }
         return customer;
     }
 
