@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="wrapper">
+    <!-- <div class="wrapper">
       <img src="./assets/grocery.png" width="50px" />
-    </div>
+    </div> -->
     <router-view></router-view>
   </div>
 </template>
