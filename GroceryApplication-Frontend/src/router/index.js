@@ -6,7 +6,10 @@ import Four0Four from '@/components/404'
 import Store from '@/components/Store'
 import HomeScreenCustomer from '@/components/HomeScreenCustomer'
 import ItemCustomer from '@/components/ItemCustomer'
-import Employee from '@/components/employee'
+import Employee from '@/components/Employee'
+import EmployeeProfile from '@/components/EmployeeProfile'
+import ItemManager from '@/components/ItemManager'
+import ItemCreateManager from '@/components/ItemCreateManager'
 
 Vue.use(Router)
 
@@ -38,9 +41,24 @@ export default new Router({
       component: ItemCustomer
     },
     {
+      path: '/itemManager',
+      name: 'ItemManager',
+      component: ItemManager
+    },
+    {
+      path: '/itemCreateManager',
+      name: 'ItemCreateManager',
+      component: ItemCreateManager
+    },
+    {
       path: '/employee',
       name: 'Employee',
       component: Employee
+    },
+    {
+      path: '/employeeProfile',
+      name: 'EmployeeProfile',
+      component: EmployeeProfile
     },
     {
       path: '/404',

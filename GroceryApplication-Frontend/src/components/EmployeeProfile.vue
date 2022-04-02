@@ -19,15 +19,21 @@
       </div>
     </nav>
 </header>
-<div class="employees" id="employees">
-  <h1>List of employees</h1>
-  <div class="main__content">
-    <li><a href="#employee">Noah Yeat</a></li>
-    <li><a href="#employee">Bruce Wayne</a></li>
-    <li><a href="#employee">Kanye West</a></li>
-    <li><a href="#employee">Chris Rock</a></li>
-  </div>
-  <button>Add employee</button>
+<div>
+    <h1>Employee Profile</h1>
+    <p>Name:</p>
+    <p>Hired date:</p>
+    <p>Pay:</p>
+    <form action="/action_page.php">
+    <label for="status">Modify status</label>
+    <select name="status" id="status">
+    <option value="volvo">Active</option>
+    <option value="saab">Quit</option>
+    <option value="opel">Banned</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
 </div>
 </body>
 </template>
@@ -42,4 +48,4 @@ export default {
 };
 </script>
 
-<style scoped src="../css/employee.css"></style>
+<style scoped src="../css/employeeProfile.css"></style>
