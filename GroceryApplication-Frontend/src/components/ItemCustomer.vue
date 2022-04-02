@@ -26,7 +26,7 @@
         </div>
         <div class="main__content">
           <h1>Milk</h1>
-          <h1>4.99$</h1>
+          <p>4.99$</p>
           <p>Dairy Products</p>
           <p>This 2% milk is 100% organic from the amazing cows of DannyFarmy</p>
           <p>Weight: 1kg</p>

@@ -126,40 +126,24 @@ header {
   }
   
   .main__content {
-    color: white;
+    color: #4C566A;
     width: 100%;
+    align-items: center;
+    justify-content: center;
   }
   
   .main__content h1 {
-    /* font-size: 2rem;
-    background: #FFEFBA; 
-    background: -webkit-linear-gradient(to top, #FFFFFF, #FFEFBA); 
-    background: linear-gradient(to right, #FFFFFF, #FFEFBA); 
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    text-transform: uppercase;
-    margin-bottom: 32px; */
+    font-size: 5rem;
   }
-  
+
   .main__content h2 {
-    /* font-size: 4rem;
-    background: #232526; 
-    background: -webkit-linear-gradient(to top, #414345, #232526); 
-    background: linear-gradient(to top, #414345, #232526); 
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent; */
+    font-size: 3rem;
   }
   
   .main__content p {
     margin-top: 1rem;
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 450;
   }
   
   .main__button {

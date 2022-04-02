@@ -27,7 +27,7 @@
           <div class="products__button"><button>Add to Cart</button></div>
         </div>
         <div class="products__card"><img src="https://www.jessicagavin.com/wp-content/uploads/2019/02/carrots-7-1200.jpg" width="200" height="200">
-          <h2>Carrotts: 2.99$</h2>
+          <h2>Carrots: 2.99$</h2>
           <div class="products__button"><button>Add to Cart</button></div>
         </div>
         <div class="products__card"><img src="https://bakingamoment.com/wp-content/uploads/2020/01/IMG_7173-white-bread-2-500x500.jpg" width="200" height="200">

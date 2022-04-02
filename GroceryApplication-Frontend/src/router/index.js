@@ -6,6 +6,7 @@ import Four0Four from '@/components/404'
 import Store from '@/components/Store'
 import HomeScreenCustomer from '@/components/HomeScreenCustomer'
 import ItemCustomer from '@/components/ItemCustomer'
+import Employee from '@/components/employee'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/itemCustomer',
       name: 'ItemCustomer',
       component: ItemCustomer
+    },
+    {
+      path: '/employee',
+      name: 'Employee',
+      component: Employee
     },
     {
       path: '/404',
