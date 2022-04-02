@@ -37,9 +37,7 @@
           </div>
         </div>
         <label>Shipping Address:</label>
-        <input type="text" required v-model="billingAddresss" />
-        <label>Card Number:</label>
-        <input type="text" required v-model="lastName" />
+        <input type="text" required v-model="shippingAddress" />
         <div>
           <div class="double">
             <label>City:</label>
@@ -57,15 +55,11 @@
       </div>
     </div>
     <div class="button" align="center">
-      <button class="submit" type="submit" @click="signup">Confirm payment</button>
+      <button class="submit" type="submit" @click="payment">Confirm payment</button>
     </div>
   </form>
 </template>
 
-<script>
-
-
-
-</script>
+<script src="../js/payment.js"> </script>
 
 <style scoped src="../css/payment.css"> </style>
