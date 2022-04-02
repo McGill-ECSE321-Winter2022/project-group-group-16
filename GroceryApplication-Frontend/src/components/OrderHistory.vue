@@ -63,29 +63,4 @@
   }
 </script>
 
-<style>
-
-.label {
-  text-align: left;
-}
-
-button {
-  background: #5e81ac;
-  border: 0;
-  padding: 10px 40px;
-  color: white;
-  border-radius: 20px;
-  margin-top: 0px;
-  margin-bottom: 0px
-}
-
-td {
-  text-align: center;
-  vertical-align: middle;
-}
-
-.spacer {
-  height: 20px;
-}
-
-</style>
+<style scoped src="../css/order.css"></style>

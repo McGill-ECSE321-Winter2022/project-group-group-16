@@ -24,10 +24,4 @@
   }
 </script>
 
-<style>
-
-.spacer {
-  height: 20px;
-}
-
-</style>
+<style scoped src="../css/order.css"></style>
