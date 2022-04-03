@@ -10,6 +10,8 @@ import Employee from '@/components/Employee'
 import EmployeeProfile from '@/components/EmployeeProfile'
 import ItemManager from '@/components/ItemManager'
 import ItemCreateManager from '@/components/ItemCreateManager'
+import HomeScreenManager from '@/components/HomeScreenManager'
+import Shift from '@/components/Shift'
 
 Vue.use(Router)
 
@@ -36,6 +38,11 @@ export default new Router({
       component: HomeScreenCustomer
     },
     {
+      path: '/homescreenManager',
+      name: 'HomeScreenManager',
+      component: HomeScreenManager
+    },
+    {
       path: '/itemCustomer',
       name: 'ItemCustomer',
       component: ItemCustomer
@@ -59,6 +66,11 @@ export default new Router({
       path: '/employeeProfile',
       name: 'EmployeeProfile',
       component: EmployeeProfile
+    },
+    {
+      path: '/shift',
+      name: 'Shift',
+      component: Shift
     },
     {
       path: '/404',
