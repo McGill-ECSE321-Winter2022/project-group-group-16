@@ -10,7 +10,7 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page">Cart</a>
+            <a href="#products" class="navbar__links" id="products-page">Employees</a>
           </li>
           <li class="navbar__item">
             <a href="#about" class="navbar__links" id="about-page">Profile</a>
@@ -19,6 +19,30 @@
       </div>
     </nav>
 </header>
+<div class="products" id="products">
+      <h1>Products</h1>
+      <div class="products__wrapper">
+        <div class="products__card"><img src="https://img.freepik.com/free-psd/milk-box-mockup-template_1051-2941.jpg"  width="200" height="200">
+          <h2>Milk: 4.99$</h2>
+          <div class="products__button"><button>Edit Item</button></div>
+        </div>
+        <div class="products__card"><img src="https://www.jessicagavin.com/wp-content/uploads/2019/02/carrots-7-1200.jpg" width="200" height="200">
+          <h2>Carrots: 2.99$</h2>
+          <div class="products__button"><button>Edit item</button></div>
+        </div>
+        <div class="products__card"><img src="https://bakingamoment.com/wp-content/uploads/2020/01/IMG_7173-white-bread-2-500x500.jpg" width="200" height="200">
+          <h2>Bread: 5.99$ </h2>
+          <div class="products__button"><button>Edit Item</button></div>
+        </div>
+        <div class="products__card"><img src="https://www.daringgourmet.com/wp-content/uploads/2018/01/Breakfast-Sausages-5-square-lighter-2.jpg" width="200" height="200">
+          <h2>Sausages: 6.99$</h2>
+          <div class="products__button"><button>Edit Item</button></div>
+        </div>
+      </div>
+      <div class="add__button" id="add_button"><button>Add Item</button></div>
+    </div>
+
+     
 </body>
 </template>
 

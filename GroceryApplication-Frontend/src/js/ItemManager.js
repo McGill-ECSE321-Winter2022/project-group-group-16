@@ -23,30 +23,23 @@ export default{
     },
     data(){
         return{
-            errorProduct: '',
-            newProduct: '',
-            image:'',
-            applicationId:'',
-            categoryId:'',
-            name:'',
-            description:'',
-            price:'',
-            weight:'',
-            volume:'',
-            availability:'',
-            isRefundable:'',
-            avaQuantity:'',
+            image:"",
+            applicationId:"",
+            categoryId:"",
+            name:"",
+            description:"",
+            price:"",
+            weight:"",
+            volume:"",
+            availability:"",
+            isRefundable:"",
+            avaQuantity:"",
         }
     },
 
     methods: {
-        createProduct: function (image,applicationId,categoryId,name,description,price,weight,volume,availability,isRefundable,avaQuantity){
-            AXIOS.post('/createProduct/' + image + '/' + applicationId + '/' + categoryId + '/' + name + '/' + description + '/' + price + '/' + weight + '/' + volume + '/' + availability + '' + isRefundable + '/' + avaQuantity).then(response => {
-                this.refresh()
-                this.errorProduct=''
-            }).catch(e =>{
-                var errorMsg = e.response.data.message
-            }) 
+        createProduct: async function (){
+            const res = await AXIOS.post()
         }
     },
 
