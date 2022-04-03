@@ -8,7 +8,7 @@ export default {
    */
   data() {
     return {
-      orderId: "123",
+      orderId: "1",
       paymentAmount: "13.99",
       paymentType: "CREDIT",
       paymentCode: "CV3S33FS8O",
@@ -22,37 +22,35 @@ export default {
       shippingAddress: "",
       city: "",
       postalCode: "",
-      email: ""
-
+      email: "",
+      errorUser: ""
     };
   },
   methods: {
 
     payment: async function () {
       try {
-        //await this.createPayment();
-        console.log("Create payment");
-        console.log(this.errorUser);
+        await this.createPayment();
       } catch (e) {
         console.log(e.response)
         if (e.response) {
-          this.errorUser = e.response.data.message
+          this.errorUser = e.response.data.message;
         }
       }
 
-      // if (this.errorUser === "") {
-      //   console.log(this.paymentCode, " payed!")
-      //
-      //   let data = {
-      //     order_id_param: this.orderId,
-      //     email_param: this.email
-      //   }
-      //   await this.$router.push({name: 'OrderConfirmation', params: {data}})
-      // } else {
-      //   alert("Payment failed!")
-      //   console.log(this.errorUser);
-      //   this.errorUser = ""
-      // }
+      if (this.errorUser == "") {
+        console.log(this.paymentCode, " payed!")
+
+        let data = {
+          order_id_param: this.orderId,
+          email_param: this.email
+        }
+        await this.$router.push({name: 'OrderConfirmation', params: {data}})
+      } else {
+        alert("Payment failed!");
+        console.log(this.errorUser);
+        this.errorUser = "";
+      }
     },
 
     createPayment: async function () {
