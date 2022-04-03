@@ -71,14 +71,6 @@
   </form>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      formValues: {},
-    };
-  },
-};
-</script>
+<script src="../js/store.js"></script>
 
 <style scoped src="../css/form.css"></style>

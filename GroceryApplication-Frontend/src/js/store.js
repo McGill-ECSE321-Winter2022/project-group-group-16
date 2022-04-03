@@ -19,7 +19,7 @@ export default {
             province: "",
             country: "",
             postalCode: "",
-            errorUser: "",
+            error: "",
         };
     },
     methods: {
@@ -30,7 +30,7 @@ export default {
             } catch (e) {
                 console.log(e.response)
                 if (e.response) {
-                    this.errorUser = e.response.data.message
+                    this.error = e.response.data.message
                 }
             }
 
@@ -39,7 +39,7 @@ export default {
                 localStorage.setItem("name", this.name)
             } else {
                 alert("Store creation failed")
-                this.errorUser = ""
+                this.error = ""
             }
         },
 

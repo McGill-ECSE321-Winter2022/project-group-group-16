@@ -5,30 +5,38 @@
     <div class="row">
       <div class="col">
         <label>role :</label>
-        <p> Customer </p>
+        <p> customer </p>
       </div>
       <div class="col">
         <label>username :</label>
-        <p> myusername123 </p>
+        <p> {{username}} </p>
+        <!-- <p> username </p> -->
       </div>
     </div>
 
     <label>email :</label>
-    <p> username@store.com </p>
+    <p> {{email}} </p>
+    <!-- <p> email </p> -->
+
+    <label>password :</label>
+    <p> {{password}} </p>
 
     <div class="row">
       <div class="col">
         <label>First Name :</label>
-        <p> User </p>
+        <p> {{firstName}} </p>
+        <!-- <p> firstName </p> -->
       </div>
       <div class="col">
         <label>Last Name :</label>
-        <p> Name </p>
+        <p> {{lastName}} </p>
+        <!-- <p> lastName </p> -->
       </div>
     </div>
 
     <label>Date of birth :</label>
-    <p> 2001-01-01 </p>
+    <p> {{date}} </p>
+    <!-- <p> date </p> -->
 
     <div class="button" align="center">
       <button onclick="location.href='http://127.0.0.1:8087/?#/editingaccinfo'" type="button" > Edit </button>
@@ -36,14 +44,6 @@
   </form>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      formValues: {},
-    };
-  },
-};
-</script>
+<script src="../js/account.js"></script>
 
 <style scoped src="../css/form.css"></style>

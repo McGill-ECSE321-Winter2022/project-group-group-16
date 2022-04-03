@@ -4,10 +4,6 @@
     
     <div class="row">
       <div class="col">
-        <label>role :</label>
-        <input type="text" required />
-      </div>
-      <div class="col">
         <label>username :</label>
         <input type="text" required />
       </div>
@@ -15,6 +11,9 @@
 
     <label>email :</label>
     <input type="email" v-model="email" />
+
+    <label> password :</label>
+    <input type="password" required v-model="password" />
 
     <div class="row">
       <div class="col">
@@ -33,7 +32,7 @@
     <div class="row">
       <div class="col">
         <div class="button" align="center">
-            <button class="submit"  type="submit"> Delete </button>
+            <button onclick="location.href='http://127.0.0.1:8087/?#/login'"  type="submit"> Delete </button>
         </div>
       </div>
       <div class="col">
@@ -47,14 +46,6 @@
   </form>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      formValues: {},
-    };
-  },
-};
-</script>
+<script src="../js/editaccount.js"></script>
 
 <style scoped src="../css/form.css"></style>
