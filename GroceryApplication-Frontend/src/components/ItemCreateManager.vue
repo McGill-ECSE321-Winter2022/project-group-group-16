@@ -25,6 +25,8 @@
         <h5>Product Information</h5>
         <label>Name:</label>
         <input type="text" required v-model="productName" />
+        <label>Image Source:</label>
+        <input type="text" required v-model="productImage" />
         <label>Price:</label>
         <input type="text" required v-model="productPrice" />
         <label>Category:</label>
