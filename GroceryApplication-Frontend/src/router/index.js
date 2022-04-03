@@ -12,6 +12,7 @@ import ItemManager from '@/components/ItemManager'
 import ItemCreateManager from '@/components/ItemCreateManager'
 import HomeScreenManager from '@/components/HomeScreenManager'
 import Shift from '@/components/Shift'
+import Cart from '@/components/Cart'
 
 Vue.use(Router)
 
@@ -22,6 +23,13 @@ export default new Router({
       name: 'Store',
       component: Store
     },
+
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
+    },
+
     {
       path: '/signup',
       name: 'Signup',
