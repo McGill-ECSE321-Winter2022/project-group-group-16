@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="button" align="center">
-      <button class="submit" type="submit" @click="payment">ADD</button>
+      <button class="submit" type="submit" @click="payment">CREATE</button>
     </div>
   </form>
 </body>
@@ -81,6 +81,7 @@
       }
     }
   }
+  
 </script>
 
 <style scoped src="../css/form.css"></style>
