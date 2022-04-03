@@ -66,22 +66,22 @@ Individual efforts (in hours)
 Team Roles:
 | Name | Roles |
 | ---- | ----- |
-| Michelle |   |
-| Arturo  |   |
-| Danny |   |
-| Yoah  |   |
-| Noah  |   |
-| Yazdan |   |
+| Michelle | Frontend mockup, Implementation of Web Frontend, Integration of Web Frontend with Backend Services, Project Management and Project Report  |
+| Arturo  | Architecture Modeling, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
+| Danny | Frontend mockup, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
+| Yoah  |  Architecture Modeling, Implementation of Web Frontend, Integration of Web Frontend with Backend Services |
+| Noah  | Architecture Modeling, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
+| Yazdan | Frontend mockup, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
 
 
 Individual efforts (in hours)
 
 | Team's Member Name | Architecture Modeling | Implementation of Web Frontend | Integration of Web Frontend with Backend Services | Project Management and Project Report | Total |
 |---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|
-| Michelle  | 0      | 0         | 0               | 0           | 0              |
-| Arturo    | 0       | 0         | 0              | 0           | 0              | 
-| Danny     | 0       | 0         | 0              | 0           | 0              | 
-| Yoah      | 0       | 0         | 0              | 0           | 0              | 
-| Noah      | 0      | 0         | 0               | 0           | 0              | 
-| Yazdan    | 0      | 0         | 0               | 0           | 0              | 
+| Michelle  | 0      | 0 +2         | 0              | 0           | 0              |
+| Arturo    | 3      | 0         | 0              | 0           | 0              | 
+| Danny     | 0      | 0 +2        | 0              | 0           | 0              | 
+| Yoah      | 3      | 0         | 0              | 0           | 0              | 
+| Noah      | 3      | 0         | 0              | 0           | 0              | 
+| Yazdan    | 0      | 0 +2        | 0              | 0           | 0              | 
 
