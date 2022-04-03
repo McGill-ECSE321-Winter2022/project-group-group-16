@@ -41,7 +41,12 @@ export default{
 
     methods: {
         createProduct: function (image,applicationId,categoryId,name,description,price,weight,volume,availability,isRefundable,avaQuantity){
-            
+            AXIOS.post('/createProduct/' + image + '/' + applicationId + '/' + categoryId + '/' + name + '/' + description + '/' + price + '/' + weight + '/' + volume + '/' + availability + '' + isRefundable + '/' + avaQuantity).then(response => {
+                this.refresh()
+                this.errorProduct=''
+            }).catch(e =>{
+                var errorMsg = e.response.data.message
+            }) 
         }
     },
 
