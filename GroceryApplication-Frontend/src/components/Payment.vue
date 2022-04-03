@@ -20,8 +20,6 @@
             <input type="text" required v-model="securityCode" />
           </div>
         </div>
-        <label>Gift Card Number (if applicable):</label>
-        <input type="text" required v-model="giftCardNumber" />
         <div class="ver-spacer"></div>
 
         <h5>Shipping information</h5>

@@ -30,7 +30,8 @@ export default {
 
     payment: async function () {
       try {
-        await this.createPayment();
+        //await this.createPayment();
+        console.log("Created payment")
       } catch (e) {
         console.log(e.response)
         if (e.response) {
@@ -40,11 +41,14 @@ export default {
 
       if (this.errorUser === "") {
         console.log(this.paymentCode, " payed!")
-        localStorage.setItem("email", this.email)
-        localStorage.setItem("usertype", "customer")
-        this.$router.push('OrderConfirmation')
+
+        let data = {
+          order_id_param: this.orderId,
+          email_param: this.email
+        }
+        await this.$router.push({name: 'OrderConfirmation', params: {data}})
       } else {
-        alert("Payment failed!")
+        //alert("Payment failed!")
         this.errorUser = ""
       }
     },

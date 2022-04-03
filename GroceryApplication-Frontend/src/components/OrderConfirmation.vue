@@ -8,20 +8,6 @@
   </div>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        customerEmail: 'example@mail.com',
-        orderNumber: '123456'
-      };
-    },
-    methods: {
-      viewOrders() {
-        this.$router.push({ name: 'OrderHistory' })
-      }
-    }
-  }
-</script>
+<script src="../js/orderConfirmation.js"></script>
 
 <style scoped src="../css/order.css"></style>
