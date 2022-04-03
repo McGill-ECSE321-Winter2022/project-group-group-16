@@ -8,6 +8,7 @@ import Cart from '@/components/Cart'
 import Payment from '@/components/Payment'
 
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -30,9 +31,6 @@ export default new Router({
       component: Payment
     },
 
-
-
-
     {
       path: '/signup',
       name: 'Signup',
@@ -48,7 +46,8 @@ export default new Router({
       name: 'NotFound',
       component: Four0Four
 
-    }, {
+    }, 
+    {
       path: '*',
       redirect: '/cart'
     }
