@@ -19,43 +19,37 @@
       </div>
     </nav>
 </header>
-<div class="products" id="products">
-      <h1>Products</h1>
-      <div class="products__wrapper">
-        <div class="products__card"><img src="https://img.freepik.com/free-psd/milk-box-mockup-template_1051-2941.jpg"  width="200" height="200">
-          <h2>Milk: 4.99$</h2>
-          <div class="products__button"><button class="submit" type="submit" @click="itemCustomer">View</button></div>
-        </div>
-        <div class="products__card"><img src="https://www.jessicagavin.com/wp-content/uploads/2019/02/carrots-7-1200.jpg" width="200" height="200">
-          <h2>Carrots: 2.99$</h2>
-          <div class="products__button"><button>View</button></div>
-        </div>
-        <div class="products__card"><img src="https://bakingamoment.com/wp-content/uploads/2020/01/IMG_7173-white-bread-2-500x500.jpg" width="200" height="200">
-          <h2>Bread: 5.99$ </h2>
-          <div class="products__button"><button>View</button></div>
-        </div>
-        <div class="products__card"><img src="https://www.daringgourmet.com/wp-content/uploads/2018/01/Breakfast-Sausages-5-square-lighter-2.jpg" width="200" height="200">
-          <h2>Sausages: 6.99$</h2>
-          <div class="products__button"><button>View</button></div>
-        </div>
-      </div>
-    </div>
+<div class="container">
+    <h4 class="label">Products</h4>
+    <div class="spacer"> </div>
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Availability</th>
+        <th scope="col">Refundable</th>
+        <th scope="col">Quantity left</th>
+        <th scope="col">Price</th>
+        <th scope="col">Add to cart</th>
+      </tr>
+      </thead>
+      <tbody slot="body" slot-scope="{ displayData }">
+        <v-tr v-for="product in displayData" :key="product.id" :row="product">
+          <td>{{ product.name }}</td>
+          <td>{{ product.availability }}</td>
+          <td>{{ product.refundable }}</td>
+          <td>{{ product.avaQuantity }}</td>
+          <td>{{ product.price }}</td>
+          <td><button>Add to cart</button></td>
+        </v-tr>
+      </tbody>
+    </table>
+  </div>
 </body>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      formValues: {},
-    };
-  },
-  methods: {
-      itemCustomer() {
-        this.$router.push({ name: 'ItemCustomer' })
-      }
-}
-}
+<script src="../js/homeScreenCustomer.js">
 </script>
 
 <style scoped src="../css/homeScreenCustomer.css"></style>
+<style scoped src="../css/form.css"></style>

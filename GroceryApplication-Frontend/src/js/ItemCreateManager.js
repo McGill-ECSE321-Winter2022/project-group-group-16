@@ -10,7 +10,7 @@ var AXIOS = axios.create({
 })
 
 export default{
-    name: 'ItemManager',
+    name: 'ItemCreateManager',
 
     created: function () {
         AXIOS.get('/getAllProduct')
@@ -21,6 +21,8 @@ export default{
                 this.errorProduct = e;
             })
     },
+
+    
     data(){
         return{
             image:"",
@@ -34,12 +36,26 @@ export default{
             availability:"",
             isRefundable:"",
             avaQuantity:"",
+            errorProduct:"",
+        }
+    },
+
+    products: async function () {
+        try {
+          //await this.createPayment();
+          console.log("Create product");
+          console.log(this.errorUser);
+        } catch (e) {
+          console.log(e.response)
+          if (e.response) {
+            this.errorUser = e.response.data.message
+          }
         }
     },
 
     methods: {
         createProduct: async function (){
-            const res = await AXIOS.post()
+            const res = await AXIOS.post(`/product/?image=${this.image}&name=${this.name}&pric=${this.price}&description=${this.description}&weight=${this.weight}&volume=${this.volume}&availability=${this.availability}&isRefundable=${this.isRefundable}&avaQuantity=${this.avaQuantity}`)
         }
     },
 
