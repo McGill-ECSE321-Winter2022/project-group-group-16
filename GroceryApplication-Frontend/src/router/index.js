@@ -5,6 +5,9 @@ import Login from '@/components/Login'
 import Four0Four from '@/components/404'
 import Store from '@/components/Store'
 import EmployeeSignup from '@/components/EmployeeSignup'
+import OrderConfirmation from "../components/OrderConfirmation";
+import OrderHistory from "../components/OrderHistory";
+import Payment from "../components/Payment";
 
 
 Vue.use(Router)
@@ -36,7 +39,24 @@ export default new Router({
       name: 'NotFound',
       component: Four0Four
 
-    }, {
+    },
+    {
+      path: '/order-history',
+      name: 'OrderHistory',
+      component: OrderHistory
+    },
+    {
+      path: '/order-confirmation',
+      name: 'OrderConfirmation',
+      component: OrderConfirmation,
+      meta: {auth: true}
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
+    },
+    {
       path: '*',
       redirect: '/404'
     }
