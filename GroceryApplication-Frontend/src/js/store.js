@@ -37,6 +37,7 @@ export default {
             if (this.errorUser === "") {
                 console.log(this.name, " store created!")
                 localStorage.setItem("name", this.name)
+                this.$router.push('account')
             } else {
                 alert("Store creation failed")
                 this.error = ""

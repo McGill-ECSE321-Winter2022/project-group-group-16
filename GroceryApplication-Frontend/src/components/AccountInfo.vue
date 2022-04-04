@@ -39,7 +39,9 @@
     <!-- <p> date </p> -->
 
     <div class="button" align="center">
-      <button onclick="location.href='http://127.0.0.1:8087/?#/editingaccinfo'" type="button" > Edit </button>
+      <a href="#/editingaccinfo">
+      <button class="submit" type="button" @click="account"> Edit </button>
+      </a>
     </div>
   </form>
 </template>

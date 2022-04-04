@@ -32,12 +32,16 @@
     <div class="row">
       <div class="col">
         <div class="button" align="center">
-            <button onclick="location.href='http://127.0.0.1:8087/?#/login'"  type="submit"> Delete </button>
+          <a href="#/login">
+            <button class="submit" type="submit"> Delete </button>
+            </a>
         </div>
       </div>
       <div class="col">
         <div class="button" align="center">
-            <button onclick="location.href='http://127.0.0.1:8087/?#/accountinfo'" type="button"> Save </button>
+          <a href="#/accountinfo">
+            <button class="submit" type="button"> Save </button>
+          </a>
         </div>
       </div>
     </div>

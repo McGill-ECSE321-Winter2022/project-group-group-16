@@ -66,7 +66,7 @@
     </div>
 
     <div class="button" align="center">
-      <button class="submit" type="submit"> Save </button>
+      <button class="submit" type="submit"  @click="store"> Save </button>
     </div>
   </form>
 </template>
