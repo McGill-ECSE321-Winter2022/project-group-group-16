@@ -78,10 +78,10 @@ Individual efforts (in hours)
 
 | Team's Member Name | Architecture Modeling | Implementation of Web Frontend | Integration of Web Frontend with Backend Services | Project Management and Project Report | Total |
 |---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|
-| Michelle  | 0      | 0 +2         | 0              | 0           | 0              |
-| Arturo    | 3      | 0         | 0              | 0           | 0              | 
-| Danny     | 0      | 0 +2        | 0              | 0           | 0              | 
-| Yoah      | 3      | 0         | 0              | 0           | 0              | 
-| Noah      | 3      | 0         | 0              | 0           | 0              | 
-| Yazdan    | 0      | 0 +2        | 0              | 0           | 0              | 
+| Michelle  | 0      | 8         | 8              | 1           | 17              |
+| Arturo    | 3      | 6         | 8              | 0           | 17              | 
+| Danny     | 0      | 8        | 8              | 0           | 16              | 
+| Yoah      | 3      | 6         | 8              | 0           | 17              | 
+| Noah      | 3      | 6         | 8              | 0           | 17              | 
+| Yazdan    | 0      | 8        | 8              | 0           | 16              | 
 
