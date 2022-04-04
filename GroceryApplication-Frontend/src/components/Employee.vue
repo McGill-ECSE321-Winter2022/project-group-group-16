@@ -10,36 +10,51 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page">Home</a>
+            <a href="#products" class="navbar__links" id="products-page">Cart</a>
           </li>
-          <li class="navbar__item">
+          <li class="navbaritem">
             <a href="#about" class="navbar__links" id="about-page">Profile</a>
           </li>
         </ul>
       </div>
     </nav>
 </header>
-<div class="employees" id="employees">
-  <h1>List of employees</h1>
-  <div class="main__content">
-    <li><a href="#employee">Noah Yeat</a></li>
-    <li><a href="#employee">Bruce Wayne</a></li>
-    <li><a href="#employee">Kanye West</a></li>
-    <li><a href="#employee">Chris Rock</a></li>
+<div class="container">
+    <h4 class="label">Employee</h4>
+    <div class="spacer"> </div>
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Hired Date</th>
+        <th scope="col">Salaray</th>
+        <th scope="col">Status</th>
+        <th scope="col">Modify</th>
+      </tr>
+      </thead>
+      <tbody >
+        <v-tr v-for="product in displayData" :key="product.id" :row="product">
+          <td>{{ product.name }}</td>
+          <td>{{ product.availability }}</td>
+          <td>{{ product.refundable }}</td>
+          <td>{{ product.avaQuantity }}</td>
+          <td>{{ product.price }}</td>
+          <td><button>Modify</button></td>
+        </v-tr>
+      </tbody>
+    </table>
+
+       <div class="button" align="right">
+
+    <button class="submit" type="submit">Add employee</button>
+
+    </div>
+
   </div>
-  <button>Add employee</button>
-</div>
 </body>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      formValues: {},
-    };
-  },
-};
-</script>
 
-<style scoped src="../css/employee.css"></style>
+
+<style scoped src="../css/homeScreenCustomer.css"></style>
+<style scoped src="../css/form.css"></style

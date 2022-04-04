@@ -13,7 +13,7 @@ export default {
     name: 'homeScreenCustomer',
 
     created: function () {
-        AXIOS.get('/getAllItems')
+        AXIOS.get('/getAllProducts')
             .then(response => {
                 // JSON responses are automatically parsed.
                 this.items = response.data
@@ -29,17 +29,6 @@ export default {
             products: [],
             errorProduct: '',
             // selectedProduct
-            filters: {
-                title: { value: '', keys: ['name'] }
-            },
-            currentPage: 1,
-            totalPages: 0
         }
     },
-
-    methods: {
-        typeFilter(filterValue, item) {
-            return (item.type != "Archive");
-        }
-    }
 }

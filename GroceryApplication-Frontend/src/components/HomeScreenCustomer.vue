@@ -10,7 +10,7 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page">Cart</a>
+            <a href="#products" class="navbar__links" id="products-page">Employees</a>
           </li>
           <li class="navbar__item">
             <a href="#about" class="navbar__links" id="about-page">Profile</a>
