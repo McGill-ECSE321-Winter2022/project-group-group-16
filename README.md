@@ -58,3 +58,30 @@ Individual efforts (in hours)
 | Yoah      | 0       | 1         | 10              | 4           | 0              | 0    | 15 |
 | Noah      | 10      | 0         | 0               | 5           | 0              | 0    | 15 |
 | Yazdan    | 10      | 0         | 0               | 5           | 3              | 0    | 18 |
+
+## Project Deliverable 3
+
+[Web Frontend and Architecture](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-3)
+
+Team Roles:
+| Name | Roles |
+| ---- | ----- |
+| Michelle | Frontend mockup, Implementation of Web Frontend, Integration of Web Frontend with Backend Services, Project Management and Project Report  |
+| Arturo  | Architecture Modeling, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
+| Danny | Frontend mockup, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
+| Yoah  |  Architecture Modeling, Implementation of Web Frontend, Integration of Web Frontend with Backend Services |
+| Noah  | Architecture Modeling, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
+| Yazdan | Frontend mockup, Implementation of Web Frontend, Integration of Web Frontend with Backend Services  |
+
+
+Individual efforts (in hours)
+
+| Team's Member Name | Architecture Modeling | Implementation of Web Frontend | Integration of Web Frontend with Backend Services | Project Management and Project Report | Total |
+|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|
+| Michelle  | 0      | 0 +2         | 0              | 0           | 0              |
+| Arturo    | 3      | 0         | 0              | 0           | 0              | 
+| Danny     | 0      | 0 +2        | 0              | 0           | 0              | 
+| Yoah      | 3      | 0         | 0              | 0           | 0              | 
+| Noah      | 3      | 0         | 0              | 0           | 0              | 
+| Yazdan    | 0      | 0 +2        | 0              | 0           | 0              | 
+
