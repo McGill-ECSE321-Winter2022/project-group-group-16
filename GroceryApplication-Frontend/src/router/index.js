@@ -12,12 +12,8 @@ import ItemManager from '@/components/ItemManager'
 import ItemCreateManager from '@/components/ItemCreateManager'
 import HomeScreenManager from '@/components/HomeScreenManager'
 import Shift from '@/components/Shift'
-import Cart from '@/components/Cart'
-import EmployeeSignup from '@/components/EmployeeSignup'
-import AccountInfo from '@/components/AccountInfo'
-import EditingAccInfo from '@/components/EditingAccInfo'
-import navbar from '@/components/navbar'
-
+import HomeScreenEmployee from '@/components/HomeScreenEmployee'
+import ShiftEmployee from '@/components/ShiftEmployee'
 
 Vue.use(Router)
 
@@ -76,6 +72,11 @@ export default new Router({
       component: HomeScreenManager
     },
     {
+      path: '/homescreenEmployee',
+      name: 'HomeScreenEmployee',
+      component: HomeScreenEmployee
+    },
+    {
       path: '/itemCustomer',
       name: 'ItemCustomer',
       component: ItemCustomer
@@ -104,6 +105,11 @@ export default new Router({
       path: '/shift',
       name: 'Shift',
       component: Shift
+    },
+    {
+      path: '/shiftEmployee',
+      name: 'ShiftEmployee',
+      component: ShiftEmployee
     },
     {
       path: '/404',

@@ -3,8 +3,7 @@ var config = require('../../config')
 
 /**
  * Creation and configuration of the AXIOS instance for all the javascript files in this directory.
- */
-
+ /** **/
 var frontendUrl
 var backendUrl
 
@@ -19,7 +18,7 @@ if (process.env.NODE_ENV === "development") {
 export const AXIOS = axios.create({
     baseURL: backendUrl,
     headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': ''
     },
     mode: 'cors'
 })
