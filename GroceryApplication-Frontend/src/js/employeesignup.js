@@ -20,7 +20,6 @@ export default {
     },
     methods: {
         signupEmployee: async function () {
-            console.log("here")
 
             // create grocery user
             try {
