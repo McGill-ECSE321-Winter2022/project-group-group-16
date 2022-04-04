@@ -46,7 +46,7 @@ export default {
 
         createStore: async function(){
             //create store
-            const res = await AXIOS.post(`/store/?name=${this.name}&weekDayOpening=${this.weekDayOpening}&weekDayClosing=${this.weekDayClosing}&weekEndOpening=${this.weekEndOpening}&weekEndClosing8=${this.weekEndClosing}`)
+            const res = await AXIOS.post(`/store/?name=${this.name}&weekDayOpening=${this.weekDayOpening}&weekDayClosing=${this.weekDayClosing}&weekEndOpening=${this.weekEndOpening}&weekEndClosing8=${this.weekEndClosing}&applicationId=0`)
         },
 
         createAddress: async function () {
