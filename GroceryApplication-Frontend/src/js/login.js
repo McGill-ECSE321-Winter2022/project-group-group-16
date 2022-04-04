@@ -40,6 +40,8 @@ export default {
                             localStorage.setItem("email", this.email)
                         }
                         catch (ignore) {
+                            localStorage.setItem("usertype", "manager")
+                            localStorage.setItem("email", this.email)
                         }
                     }
                 } else {
@@ -55,6 +57,22 @@ export default {
 
             console.log(localStorage.getItem("email"), " logged in!")
             console.log(localStorage.getItem("usertype"))
+
+            if (this.errorUser === "") {
+                if (localStorage.getItem("usertype") === "customer") {
+                    this.$router.push('homescreenCustomer')
+                } else if (localStorage.getItem("usertype") === "employee") {
+                    if (this.email === "manager@email.com") {
+                        console.log("Manager logged in!")
+
+                        localStorage.setItem("usertype", "manager")
+                        this.$router.push('homescreenManager')
+
+                    } else {
+                        this.$router.push('homescreenCustomer')
+                    }
+                }
+            }
 
         },
 
