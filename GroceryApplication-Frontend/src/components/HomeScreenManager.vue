@@ -10,10 +10,10 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page">Employees</a>
+            <a href="#products" class="navbar__links" id="products-page" @click="employee">Employees</a>
           </li>
           <li class="navbar__item">
-            <a href="#about" class="navbar__links" id="about-page">Profile</a>
+            <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
           </li>
         </ul>
       </div>
@@ -40,10 +40,11 @@
           <td>{{ product.refundable }}</td>
           <td>{{ product.avaQuantity }}</td>
           <td>{{ product.price }}</td>
-          <td><button>Edit</button></td>
+          <td><button @click="itemManager">Edit</button></td>
         </v-tr>
       </tbody>
     </table>
+    <div class="add__button" id="add_button" @click="itemCreateManager"><button>Add Item</button></div>
   </div>
 </body>
 </template>

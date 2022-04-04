@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="button" align="center">
-      <button class="submit" type="submit" @click="createProduct(newProduct)">Add product</button>
+      <button class="submit" type="submit" @click="addProduct()">Add product</button>
     </div>
   </form>
 </body>

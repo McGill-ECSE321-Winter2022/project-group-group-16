@@ -48,7 +48,7 @@ export default {
             // }
         },
 
-        addProduct: async function () {
+        createCategory: async function () {
             const res = await AXIOS.post(`/category/?image=${this.imageCategory}&applicationId=0&name=${this.nameCategory}&lastName=${this.descriptionCategory}`)
         },
 

@@ -10,37 +10,32 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page">Cart</a>
+            <a href="#products" class="navbar__links" id="products-page" @click="homeScreenManager">Home</a>
           </li>
           <li class="navbar__item">
-            <a href="#about" class="navbar__links" id="about-page">Profile</a>
+            <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
           </li>
         </ul>
       </div>
     </nav>
 </header>
   <div class="container">
-    <h4 class="label">CURRENT SHIFT</h4>
-    <div class="spacer"> </div>
+    <h4 class="label">Shift schedule</h4>
+    <div class="spacer"></div>
     <table class="table table-striped table-hover">
       <thead>
       <tr>
         <th scope="col">Day</th>
-        <th scope="col">Shift</th>
+        <th scope="col">Shift Type</th>
         <th scope="col">Remove</th>
       </tr>
       </thead>
-      <tbody>
-      <tr>
-        <td>{{ item1.itemDesc }}</td>
-        <td>{{ item1.itemPrice }}</td>
-        <td><button>REMOVE</button></td>
-      </tr>
-      <tr>
-        <td>{{ item2.itemDesc }}</td>
-        <td>{{ item2.itemPrice }}</td>
-        <td><button>REMOVE</button></td>
-      </tr>
+      <tbody >
+        <v-tr v-for="product in displayData" :key="product.id" :row="product">
+          <td>{{ product.name }}</td>
+          <td>{{ product.availability }}</td>
+          <td><button>Remove</button></td>
+        </v-tr>
       </tbody>
     </table>
   </div>

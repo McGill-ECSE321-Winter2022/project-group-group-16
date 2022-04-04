@@ -10,7 +10,7 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page" @click="cart">Cart</a>
+            <a href="#/shiftEmployee" class="navbar__links" id="products-page" @click="shiftEmployee">Shift</a>
           </li>
           <li class="navbar__item">
             <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
@@ -30,7 +30,7 @@
         <th scope="col">Refundable</th>
         <th scope="col">Quantity left</th>
         <th scope="col">Price</th>
-        <th scope="col">Add to cart</th>
+        <th scope="col">Edit</th>
       </tr>
       </thead>
       <tbody slot="body" slot-scope="{ displayData }">
@@ -40,10 +40,11 @@
           <td>{{ product.refundable }}</td>
           <td>{{ product.avaQuantity }}</td>
           <td>{{ product.price }}</td>
-          <td><button>Add to cart</button></td>
+          <td><button @click="itemManager">Edit</button></td>
         </v-tr>
       </tbody>
     </table>
+    <div class="add__button" id="add_button" @click="itemCreateManager"><button>Add Item</button></div>
   </div>
 </body>
 </template>
@@ -53,4 +54,3 @@
 
 <style scoped src="../css/homeScreenCustomer.css"></style>
 <style scoped src="../css/form.css"></style>
-<style scoped src="../css/main.css"></style>

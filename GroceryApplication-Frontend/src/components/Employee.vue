@@ -10,10 +10,10 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page">Cart</a>
+            <a href="#products" class="navbar__links" id="products-page" @click="homeScreenManager">Home</a>
           </li>
           <li class="navbaritem">
-            <a href="#about" class="navbar__links" id="about-page">Profile</a>
+            <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
           </li>
         </ul>
       </div>
@@ -25,9 +25,9 @@
     <table class="table table-striped table-hover">
       <thead>
       <tr>
-        <th scope="col">Name</th>
+        <th scope="col">EmployeeId</th>
         <th scope="col">Hired Date</th>
-        <th scope="col">Salaray</th>
+        <th scope="col">Salary</th>
         <th scope="col">Status</th>
         <th scope="col">Modify</th>
       </tr>
@@ -39,14 +39,14 @@
           <td>{{ product.refundable }}</td>
           <td>{{ product.avaQuantity }}</td>
           <td>{{ product.price }}</td>
-          <td><button>Modify</button></td>
+          <td><button @click="shift">Modify</button></td>
         </v-tr>
       </tbody>
     </table>
 
        <div class="button" align="right">
 
-    <button class="submit" type="submit">Add employee</button>
+    <button class="submit" type="submit" @click="employeeSignUp">Add employee</button>
 
     </div>
 
@@ -57,4 +57,4 @@
 
 
 <style scoped src="../css/homeScreenCustomer.css"></style>
-<style scoped src="../css/form.css"></style
+<style scoped src="../css/form.css"></style>
