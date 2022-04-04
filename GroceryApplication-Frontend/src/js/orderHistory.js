@@ -1,23 +1,28 @@
+import {AXIOS} from "./axiosinst";
+
 export default {
   name: "OrderHistory",
 
+  //Run when component is created
+  mounted() {
+    AXIOS.get(`/groceryOrder/`)
+      .then(res => this.saveOrders(res))
+      .catch(err => console.log(err))
+  },
+
   data() {
     return {
-      order1: {
-        orderNumber:'5434',
-        orderStatus: 'Delivered',
-        orderTotal: '$19.99'
-      },
-      order2: {
-        orderNumber:'7234',
-        orderStatus: 'Cancelled',
-        orderTotal: '$34.10'
-      },
-      order3: {
-        orderNumber:'1234',
-        orderStatus: 'Shipped',
-        orderTotal: '$9.89'
-      }
+      tableEntries: [],
+      price: "#4.99",
     };
+  },
+
+  methods: {
+
+    saveOrders(res) {
+      this.tableEntries = res.data;
+      console.log(this.tableEntries);
+    }
   }
+
 }
