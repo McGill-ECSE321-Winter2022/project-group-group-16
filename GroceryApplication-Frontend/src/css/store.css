@@ -1,8 +1,0 @@
-@import "./form.css";
-
-label {
-    color: rgb(221, 56, 56);
-    display:inline-block;
-    margin: 25px 0 0px;
-    text-transform: uppercase;
-}
