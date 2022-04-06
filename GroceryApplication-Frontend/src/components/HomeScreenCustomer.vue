@@ -10,7 +10,7 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page" @click="cart">Cart</a>
+            <a href="url">Cart</a>
           </li>
           <li class="navbar__item">
             <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Signup from '@/components/Signup'
+import Cart from '@/components/Cart'
 import Login from '@/components/Login'
 import Four0Four from '@/components/404'
 import Store from '@/components/Store'
@@ -14,6 +15,13 @@ import HomeScreenManager from '@/components/HomeScreenManager'
 import Shift from '@/components/Shift'
 import HomeScreenEmployee from '@/components/HomeScreenEmployee'
 import ShiftEmployee from '@/components/ShiftEmployee'
+import navbar from '@/components/navbar'
+import AccountInfo from '@/components/AccountInfo'
+import EditingAccInfo from '@/components/EditingAccInfo'
+import EmployeeSignup from '@/components/EmployeeSignup'
+import OrderHistory from '@/components/OrderHistory'
+import OrderConfirmation from '@/components/OrderConfirmation'
+import Payment from '@/components/Payment'
 
 Vue.use(Router)
 
@@ -135,7 +143,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/404'
+      redirect: '/login'
     }
   ]
 })
