@@ -13,7 +13,7 @@ export default {
     name: 'homeScreenManager',
 
     created: function () {
-        AXIOS.get('/getAllProducts')
+        AXIOS.get('/getAllProduct')
             .then(response => {
                 // JSON responses are automatically parsed.
                 this.items = response.data

@@ -24,8 +24,8 @@
     <label>Pay :</label>
     <input type="number" step="0.01" v-model="pay" />
 
-    <div class="button" align="center">
-      <button class="submit" type="submit" @click="signupEmployee">Sign up</button>
+    <div class="button" align="center"><a href="#/Employee">
+      <button class="submit" type="submit" @click="signupEmployee">Sign up</button></a>
     </div>
   </form>
 </template>

@@ -12,9 +12,6 @@
           <li class="navbar__item">
             <a href="#/homescreenEmployee" class="navbar__links" id="products-page" @click="homeScreenEmployee">Home</a>
           </li>
-          <li class="navbaritem">
-            <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
-          </li>
         </ul>
       </div>
     </nav>
@@ -62,5 +59,5 @@
 </body>
 </template>
 
-<style scoped src="../css/homeScreenCustomer.css"></style>
+<style scoped src="../css/shift.css"></style>
 <style scoped src="../css/form.css"></style>

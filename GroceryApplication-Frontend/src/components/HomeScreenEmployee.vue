@@ -10,10 +10,7 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#/shiftEmployee" class="navbar__links" id="products-page" @click="shiftEmployee">Shift</a>
-          </li>
-          <li class="navbar__item">
-            <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
+            <a href="#/shiftEmployee" class="navbar__links" id="products-page" @click="shiftEmployee">Profile/Shift</a>
           </li>
         </ul>
       </div>
