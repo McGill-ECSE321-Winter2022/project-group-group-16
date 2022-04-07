@@ -49,7 +49,7 @@
 </body>
 </template>
 
-<script src="../js/homeScreenCustomer.js">
+<script src="../js/homeScreenEmployee.js">
 </script>
 
 <style scoped src="../css/homeScreenCustomer.css"></style>
