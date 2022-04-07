@@ -10,10 +10,7 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page" @click="homeScreenManager">Home</a>
-          </li>
-          <li class="navbaritem">
-            <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
+            <a href="#/homeScreenManager" class="navbar__links" id="products-page" @click="homeScreenManager">Home</a>
           </li>
         </ul>
       </div>
@@ -45,8 +42,8 @@
     </table>
 
        <div class="button" align="right">
-
-    <button class="submit" type="submit" @click="employeeSignUp">Add employee</button>
+         <a href="#/employeeSignUp">
+    <button class="submit" type="submit" @click="employeeSignUp">Add employee</button></a>
 
     </div>
 

@@ -10,10 +10,7 @@
         </div>
         <ul class="navbar__menu">
           <li class="navbar__item">
-            <a href="#products" class="navbar__links" id="products-page" @click="employee">Employees</a>
-          </li>
-          <li class="navbar__item">
-            <a href="#about" class="navbar__links" id="about-page" @click="accountInfo">Profile</a>
+            <a href="#/Employee" class="navbar__links" id="products-page" @click="employee">Employees</a>
           </li>
         </ul>
       </div>
@@ -44,7 +41,7 @@
         </v-tr>
       </tbody>
     </table>
-    <div class="add__button" id="add_button" @click="itemCreateManager"><button>Add Item</button></div>
+    <div class="add__button" id="add__button" @click="itemCreateManager"><a href="#/itemCreateManager"><button>Add Item</button></a></div>
   </div>
 </body>
 </template>

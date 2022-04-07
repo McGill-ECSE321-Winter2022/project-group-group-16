@@ -24,32 +24,32 @@
       <div class="col">
         <h5>Product Information</h5>
         <label>Name:</label>
-        <input type="text" required v-model="productName" />
+        <input type="text" v-model="name" />
         <label>Image Source:</label>
-        <input type="text" required v-model="productImage" />
+        <input type="text" v-model="image" />
         <label>Price:</label>
-        <input type="text" required v-model="productPrice" />
+        <input type="number" step="0.01" v-model="price" />
         <label>Category:</label>
-        <input type="text" required v-model="productCategory" />
+        <input type="number" step="1" v-model="categoryId" />
         <label>Description:</label>
-        <input type="text" required v-model="productDescription" />
+        <input type="text" v-model="description" />
         <div class="parent">
           <div class="double">
             <label>Weight:</label>
-            <input type="double" required v-model="productWeight" />
+            <input type="number" step="0.01" v-model="weight" />
           </div>
           <div class="hor-spacer"></div>
           <div class="double">
             <label>Volume:</label>
-            <input type="double" required v-model="productVolume" />
+            <input type="number" step="0.01" v-model="volume" />
           </div>
         </div>
         <label>Available:</label>
-        <input type="text" required v-model="productAvailability" />
+        <input type="text" v-model="availability" />
         <label>Remaining Quantity:</label>
-        <input type="double" required v-model="productQuantity" />
+        <input type="number" step="1" v-model="avaQuantity" />
         <label>Refundable:</label>
-        <input type="text" required v-model="productRefundable" />
+        <input type="text" v-model="isRefundable" />
         <div class="ver-spacer"></div>
       </div>
     </div>
@@ -60,14 +60,6 @@
 </body>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      formValues: {},
-    };
-  },
-};
-</script>
+<script src="../js/itemCreateManager.js"></script>
 
 <style scoped src="../css/itemCreateManager.css"></style>

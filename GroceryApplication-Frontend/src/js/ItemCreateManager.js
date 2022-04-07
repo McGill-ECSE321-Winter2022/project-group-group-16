@@ -8,9 +8,9 @@ export default {
      */
     data() {
         return {
-            imageCategory: "",
-            nameCategory: "",
-            descriptionCategory: "",
+            // imageCategory: "",
+            // nameCategory: "",
+            // descriptionCategory: "",
             image: "",
             applicationId: "",
             categoryId: "",
@@ -30,6 +30,7 @@ export default {
             try {
                 await this.createCategory;
                 await this.createProduct;
+                console.log("im stupid")
             } catch (e) {
                 console.log(e.response)
                 if (e.response) {
