@@ -1,16 +1,18 @@
 <template>
   <form>
     <h1>Editing Account Information</h1>
-    
+
+    <label>email : {{email}}</label>
+
     <div class="row">
       <div class="col">
         <label>username :</label>
-        <input type="text" required />
+        <input type="text" required v-model="username"/>
       </div>
     </div>
 
-    <label>email :</label>
-    <input type="email" v-model="email" />
+
+<!--    <input type="email" v-model="email" />-->
 
     <label> password :</label>
     <input type="password" required v-model="password" />
@@ -33,20 +35,20 @@
       <div class="col">
         <div class="button" align="center">
           <a href="#/login">
-            <button class="submit" type="submit"> Delete </button>
+            <button class="submit" type="submit" @click="deleteAccount"> Delete </button>
             </a>
         </div>
       </div>
       <div class="col">
         <div class="button" align="center">
           <a href="#/accountinfo">
-            <button class="submit" type="button"> Save </button>
+            <button class="submit" type="button" @click="editAccount"> Save </button>
           </a>
         </div>
       </div>
     </div>
 
-    
+
   </form>
 </template>
 
