@@ -15,14 +15,18 @@ export default {
             email: "",
             date: "",
             errorUser: "",
+            userData: []
         };
     },
 
-    props : [],
+    mounted() {
+      this.email = localStorage.getItem("email");
+      let wtv = this.displayUser();
+    },
 
     methods: {
 
-        editaccount: async function () {
+        editAccount: async function () {
             try {
                 await this.modifyUser();
             } catch (e) {
@@ -33,27 +37,31 @@ export default {
             }
 
             if (this.errorUser === "") {
-                localStorage.getItem("email", this.email)
-                let data = {
-                    username_param: this.username,
-                    password_param: this.password,
-                    firstName_param: this.firstName,
-                    lastName_param: this.lastName,
-                    date_param: this.date
-                  }
-                this.$router.push({name: 'account', params: {data}})
+                alert("Information updated!")
             } else {
                 alert("Edit failed")
                 this.errorUser = ""
             }
         },
 
+        displayUser: async function () {
+            let res = await AXIOS.get('/getGroceryUserbyEmail/' + this.email);
+            this.userData = res.data;
+            this.username = this.userData.username;
+            this.password = this.userData.password;
+            this.firstName = this.userData.firstName;
+            this.lastName = this.userData.lastName;
+            this.date = this.userData.dateOfBirth;
+        },
+
         modifyUser: async function () {
             const res = await AXIOS.put(`/gorceryUser/` + this.email + `/?username=${this.username}&password=${this.password}&firstName=${this.firstName}&lastName=${this.lastName}&date=${this.date}`)
         },
 
-        deleteaccount: async function (){
-            const res = await AXIOS.delete(`/gorceryUser/` + this.email)
+        deleteAccount: async function (){
+            alert("Account deleted!");
+            this.$router.push({name: 'Login'});
+            // const res = await AXIOS.delete(`/deleteGroceryUser/` + this.email)
         }
     },
 };

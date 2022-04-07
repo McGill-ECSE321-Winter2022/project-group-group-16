@@ -66,7 +66,7 @@ public class GroceryUserController {
      * @throws ApiRequestException
      */
     @DeleteMapping(value = {"/deleteGroceryUser/{email}", "deleteGroceryUser/{email}/"})
-    public GroceryUserDto deleteGeoceryUser(@PathVariable("email") String email) throws ApiRequestException {
+    public GroceryUserDto deleteGroceryUser(@PathVariable("email") String email) throws ApiRequestException {
         GroceryUser user = groceryUserService.deleteGroceryUser(email);
         return convertToDto(user);
     }

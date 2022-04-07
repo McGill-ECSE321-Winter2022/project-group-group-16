@@ -155,3 +155,10 @@ header {
     justify-content: center;
     margin-top: 12px;
   }
+
+  .container {
+    margin-top: 0;
+    margin-left: 300px;
+    position: absolute;
+    width: 60%;
+  }

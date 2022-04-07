@@ -15,30 +15,21 @@ export default {
             lastName: "",
             date: "",
             errorUser: "",
+            userData: []
         };
     },
-    props: {
-        username: Text,
-        firstName: Text,
-        lastName: Text,
-        date: Date,
-        password: Text
-      },
 
     mounted() {
-        let data = this.$route.params.data;
-        this.username = data['username_param'];
-        this.password = data['password_param'];
-        this.firstName = data['firstName_param'];
-        this.lastName = data['lastName_param'];
-        this.date = data['date_param'];
-      },
+        this.email = localStorage.getItem("email");
+        let wtv = this.account();
+    },
 
     methods: {
 
         account: async function () {
             try {
-                await this.getUser();
+                let res = await AXIOS.get('/getGroceryUserbyEmail/' + this.email);
+                this.userData = res.data;
             } catch (e) {
                 console.log(e.response)
                 if (e.response) {
@@ -47,36 +38,17 @@ export default {
             }
 
             if (this.errorUser === "") {
-                localStorage.getItem("email", this.email)
-                // let data = this.$route.params.data;
-                // this.firstName = data['firstName_param'];
-                // this.lastName = data['lastName_param'];
-                // this.date = data['date_param'];
+                console.log(this.userData);
+                this.username = this.userData.username;
+                this.password = this.userData.password;
+                this.firstName = this.userData.firstName;
+                this.lastName = this.userData.lastName;
+                this.date = this.userData.dateOfBirth;
 
-                this.$router.push('editaccount')
             } else {
-                alert("Edit failed")
+                alert("Unable to load user!")
                 this.errorUser = ""
             }
         },
-
-        getUser: async function () {
-            var self = this
-            obj.email = route.params.email;
-            const res = await AXIOS.get(`/getGroceryUserbyEmail/?email=${this.email}`)
-            .then((response) => {
-                obj.user = response.data;
-            })
-            .catch(function (e) {
-                if (e.response.data.message === "The user cannot be null") {
-                    self.$router.push('/404')
-                }
-
-                console.log(e);
-            });
-        },    
-
-
-        
     },
 };
