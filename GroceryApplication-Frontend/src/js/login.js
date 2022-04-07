@@ -69,7 +69,8 @@ export default {
                         this.$router.push('homescreenManager')
 
                     } else {
-                        this.$router.push('homescreenCustomer')
+                        console.log("Employee logged in!")
+                        this.$router.push('homescreenEmployee')
                     }
                 }
             }
