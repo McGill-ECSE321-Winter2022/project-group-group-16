@@ -60,6 +60,6 @@
 </body>
 </template>
 
-<script src="../js/itemCreateManager.js"></script>
+<script src="../js/ItemCreateManager.js"></script>
 
 <style scoped src="../css/itemCreateManager.css"></style>
