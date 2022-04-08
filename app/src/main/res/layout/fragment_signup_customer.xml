@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/fragment_vertical_margin"
+        android:paddingLeft="@dimen/fragment_horizontal_margin"
+        android:paddingRight="@dimen/fragment_horizontal_margin"
+        android:paddingTop="@dimen/fragment_vertical_margin"
+        tools:context=".ui.login.LoginFragment">
+
+    <TextView
+            android:text="@string/signup_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="36dp"/>
+
+    <EditText
+            android:layout_width="179dp"
+            android:layout_height="53dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextTextPersonName4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName6"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:layout_marginTop="28dp"
+            android:hint="FirstName"/>
+
+    <EditText
+            android:layout_width="179dp"
+            android:layout_height="53dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextTextPersonName6"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:hint="LastName"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
