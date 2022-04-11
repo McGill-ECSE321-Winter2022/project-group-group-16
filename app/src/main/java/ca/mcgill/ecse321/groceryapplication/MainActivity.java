@@ -54,18 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    /**
-     * navigates to the view shift
-     * @param v view
-     *
-     * */
-    public void goToViewShift(View v) {
-        try{
-            setContentView(R.layout.fragment_viewshift);
-        } catch(Exception e) {
-            e.getMessage();
-        }
-    }
+
 
 
 

@@ -2,11 +2,11 @@ package ca.mcgill.ecse321.groceryapplication.data;
 
 import ca.mcgill.ecse321.groceryapplication.HttpUtils;
 import ca.mcgill.ecse321.groceryapplication.data.model.LoggedInUser;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestHandle;
-import com.loopj.android.http.RequestParams;
-import cz.msebera.android.httpclient.Header;
-import org.json.JSONObject;
+//import com.loopj.android.http.JsonHttpResponseHandler;
+//import com.loopj.android.http.RequestHandle;
+//import com.loopj.android.http.RequestParams;
+//import cz.msebera.android.httpclient.Header;
+//import org.json.JSONObject;
 
 import java.io.IOException;
 
