@@ -25,7 +25,7 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private String error = null;
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+//    private ActivityMainBinding binding;
     private JSONObject currentEmployee = null;
     private JSONObject newEmployee = null;
 
@@ -35,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
 //        setContentView(binding.getRoot());
-        setContentView(R.layout.fragment_create_employee);
+//        setContentView(R.layout.fragment_create_employee);
+        setContentView(R.layout.fragment_manager_home);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject object = newEmployee.getJSONObject("user");
                     ((TextView) findViewById(R.id.displayEmail)).setText(object.getString("email"));
                     Log.i("homo", "smh you done fucked up"); //fucked up
-                    ((TextView) findViewById(R.id.displayHourlyPay)).setText(newEmployee.getString("hourlyPay") + "$");
+                    ((TextView) findViewById(R.id.displayHourlyPay)).setText(newEmployee.getString("hourlyPay") + "0$");
                     Log.i("sixual", "smh you done fucked up");
                    ((TextView) findViewById(R.id.displayStatus)).setText(newEmployee.getString("status"));
                    Log.i("dickman", "it works! congrats"); //fucked uip
@@ -171,6 +173,68 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Signs the manager or employee out, navigates to the login page
+     * @param v View
+     */
+    public void signout(View v) {
+        try {
+            setContentView(R.layout.fragment_login);
+            currentEmployee = null;
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    }
+
+    /**
+     * Signs the manager or employee out, navigates to the login page
+     * @param v View
+     */
+    public void goToCreateEmployee(View v) {
+        try {
+            setContentView(R.layout.fragment_create_employee);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    }
+
+    /**
+     * navigates to the manager home page
+     * @param v View
+     */
+    public void managerHomePage(View v) {
+        try {
+            setContentView(R.layout.fragment_manager_home);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    }
+
+    /**
+     * navigates to the page with all shifts
+     * @param v View
+     */
+    public void goToViewShift(View v) {
+        try {
+            setContentView(R.layout.fragment_viewshift);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    }
+
+
+
+    /**
+     * navigates to the page with all employees
+     * @param v View
+     */
+    public void goToEmployeeList(View v) {
+        try {
+            setContentView(R.layout.fragment_viewshift);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    }
 
 
 
