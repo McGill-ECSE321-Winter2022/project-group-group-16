@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                 newEmployee = response;
                 //currentEmployee = response;
                 try {
+                    Log.i("test","here");
                     error = "";
                     setContentView(R.layout.fragment_employeehomepage);
                     ((TextView) findViewById(R.id.displayDateHired)).setText(newEmployee.getString("hiredDate"));
@@ -239,12 +240,13 @@ public class MainActivity extends AppCompatActivity {
                 } catch(Exception e) {
                     error = e.getMessage();
                 }
-                refreshErrorMessage();
+                //refreshErrorMessage();
             }
 
             @Override //creation failed, try again
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
+                    Log.i("test","here");
                     error = "Invalid input. Please try again.";
                 } catch(Exception e) {
                     error = e.getMessage();
