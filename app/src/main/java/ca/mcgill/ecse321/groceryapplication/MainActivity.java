@@ -73,11 +73,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void backEmployeeList(View v){
-        setContentView(R.layout.fragment_login);
-    }
 
 
+    // initialize table
     public void initItemTable() {
         //create table
         TableLayout tbl = (TableLayout) findViewById(R.id.list_view);
@@ -103,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         head.addView(tv2);
         tbl.addView(head);
 
-        //get all items from backend
+        //get all employees from backend
         HttpUtils.get("/employee/", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override//success : add items to the table
@@ -143,33 +141,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * outputs the table after view employee button is pressed
+     * @param v
+     */
     public void showTable(View v){
         initItemTable();
     }
 
     /**
-     * helper method to add an item to the Items table
+     * helper method to add an employees to the Items table
      * @param item  JSONObject
      * @param color int
      */
     private void addItemToTable(JSONObject item, int color) {
-        Log.i("test","start");
-
         String hourlyPay;
         String email;
         String status;
         TableLayout tbl = (TableLayout) findViewById(R.id.list_view);
         //get item info
-        Log.i("test","here");
         JSONObject convertUsername;
         try {
             convertUsername = item.getJSONObject("user");
             hourlyPay = item.getString("hourlyPay");
-            Log.i("test","here1");
             email= convertUsername.getString("email");
-            Log.i("test","here2");
             status = item.getString("status");
-            Log.i("test","here3");
         } catch(Exception e) {
             error = e.getMessage();
             return;
@@ -237,14 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        Log.i("beignet", "all good");
-//        String createEmployeePath = email + "/" + appId + "/" + hiredDate + "/" + hourlyPay + "/" + employeeStatus;
-//        Log.i("macaron", "path is all good");
-//        createEmployeePath = createEmployeePath.replaceAll(" ", "%20");
-//        Log.i("cake", "random replace spaces worked woohoo");
-//        Log.i("basque", createEmployeePath);
-        //+ createEmployeePath, new RequestParams(),
-        Log.i("scones", rp.toString());
+
         HttpUtils.post("/employee/", rp, new JsonHttpResponseHandler() {
             @Override//creation success: createemployee
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -252,43 +241,27 @@ public class MainActivity extends AppCompatActivity {
                 //currentEmployee = response;
                 try {
                     error = "";
-                    Log.i("bread", "smh you done fucked up");
-                    //setContentView(R.layout.fragment_employeehomepage);
-//
-//                    setContentView(R.layout.fragment_test);
-//                    //test: delete until catch
-//                    ((TextView) findViewById(R.id.displayId)).setText(newEmployee.getString("groceryStoreApplicationId"));
-//                    ((TextView) findViewById(R.id.displayLastName)).setText(newEmployee.getString("dateHired"));
-//                    ((TextView) findViewById(R.id.displayBalance)).setText(newEmployee.getString("employeeStatus"));
-//                    ((TextView) findViewById(R.id.displayFirstName)).setText(newEmployee.getString("hourlyPay") + "$");
-//
-//                    ((TextView) findViewById(R.id.displayEmail)).setText(newEmployee.getString("email"));
+
 
 
                     setContentView(R.layout.fragment_employeehomepage);
 
-//                    ((TextView) findViewById(R.id.displayId)).setText(newEmployee.getString("groceryStoreApplicationId"));
-//                    Log.i("Michelle", newEmployee.toString());
+
                     ((TextView) findViewById(R.id.displayDateHired)).setText(newEmployee.getString("hiredDate"));
-                    Log.i("Abiola", "smh you done fucked up");
                     JSONObject object = newEmployee.getJSONObject("user");
                     ((TextView) findViewById(R.id.displayEmail)).setText(object.getString("email"));
-                    Log.i("homo", "smh you done fucked up"); //fucked up
                     ((TextView) findViewById(R.id.displayHourlyPay)).setText(newEmployee.getString("hourlyPay") + "0$");
-                    Log.i("sixual", "smh you done fucked up");
                    ((TextView) findViewById(R.id.displayStatus)).setText(newEmployee.getString("status"));
-                   Log.i("dickman", "it works! congrats"); //fucked uip
                 } catch(Exception e) {
                     error = e.getMessage();
                 }
-                //refreshErrorMessage();
+                refreshErrorMessage();
             }
 
             @Override //creation failed, try again
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error = "Invalid input. Please try again.";
-                    Log.i("cookiejar", "still didnt work but its also a failure sad");
                 } catch(Exception e) {
                     error = e.getMessage();
                 }
