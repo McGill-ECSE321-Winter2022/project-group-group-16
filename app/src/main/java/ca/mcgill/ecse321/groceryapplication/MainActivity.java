@@ -37,15 +37,13 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private String error = null;
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
-    private JSONObject currentEmployee = null;
     private JSONObject newEmployee = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_manager_home);
 
     }
@@ -72,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     // initialize table
@@ -195,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -203,12 +199,8 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-//    private String error = null;
-
-
-
     /**
-     * Signs up employee with firstName, lastName, email, username, hourly pay and password read from layout, logs
+     * Signs up employee with email, hired date, employee status, grocery application id, hourly pay
      * @param v View
      */
     public void createEmployee(View v) {
@@ -231,22 +223,14 @@ public class MainActivity extends AppCompatActivity {
         rp.add("hourlyPay", hourlyPay);
         rp.add("employeeStatus", employeeStatus);
 
-
-
-
         HttpUtils.post("/employee/", rp, new JsonHttpResponseHandler() {
-            @Override//creation success: createemployee
+            @Override//creation success: create employee
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 newEmployee = response;
                 //currentEmployee = response;
                 try {
                     error = "";
-
-
-
                     setContentView(R.layout.fragment_employeehomepage);
-
-
                     ((TextView) findViewById(R.id.displayDateHired)).setText(newEmployee.getString("hiredDate"));
                     JSONObject object = newEmployee.getJSONObject("user");
                     ((TextView) findViewById(R.id.displayEmail)).setText(object.getString("email"));
@@ -285,20 +269,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Signs the manager or employee out, navigates to the login page
+     * Signs out the manager or employee out, navigates to the login page
      * @param v View
      */
     public void signout(View v) {
         try {
             setContentView(R.layout.fragment_login);
-            currentEmployee = null;
+            JSONObject currentEmployee = null;
         } catch (Exception e) {
             error = e.getMessage();
         }
     }
 
     /**
-     * Signs the manager or employee out, navigates to the login page
+     * Navigates to the create employee page
      * @param v View
      */
     public void goToCreateEmployee(View v) {
@@ -322,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * navigates to the page with all shifts
+     * navigates to the page with an employee's shifts
      * @param v View
      */
     public void goToViewShift(View v) {
