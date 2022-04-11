@@ -38,13 +38,14 @@ public class MainActivity extends AppCompatActivity {
     private String error = null;
     private AppBarConfiguration appBarConfiguration;
     private JSONObject newEmployee = null;
+    private JSONObject employeeShifts = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_manager_home);
+        setContentView(R.layout.fragment_employeehomepage);
 
     }
 
@@ -258,6 +259,93 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void showAllShifts(View v) {
+        //create table
+        TableLayout tbl = (TableLayout) findViewById(R.id.list_view_shifts);
+        tbl.removeAllViews();
+        TableRow head = new TableRow(this);
+        TextView tv0 = new TextView(this);
+        tv0.setText(" Day       ");
+        tv0.setTextColor(Color.WHITE);
+        tv0.setTextSize(20);
+        tv0.setBackgroundColor(Color.BLACK);
+        head.addView(tv0);
+        TextView tv1 = new TextView(this);
+        tv1.setText("    Type    ");
+        tv1.setTextColor(Color.WHITE);
+        tv1.setBackgroundColor(Color.BLACK);
+        tv1.setTextSize(20);
+        head.addView(tv1);
+        tbl.addView(head);
+
+        //get all employees from backend
+        HttpUtils.get("/shift/", new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                for(int i = 0; i < response.length(); i++) {
+                    JSONObject thisItem;
+                    int color;
+                    if ( i%2 == 0) {
+                        color = Color.LTGRAY;
+                    } else {
+                        color = Color.WHITE;
+                    }
+
+                    try {
+                        thisItem = response.getJSONObject(i);
+                        addShiftToTable(thisItem, color);
+
+                    } catch(Exception e) {
+                        error = e.getMessage();
+                    }
+                }
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+
+                    error = errorResponse.get("message").toString();
+                } catch(Exception e) {
+                    error = e.getMessage();
+                }
+            }
+
+        });
+    }
+
+    private void addShiftToTable(JSONObject item, int color) {
+        String day;
+        String type;
+        TableLayout tbl = (TableLayout) findViewById(R.id.list_view_shifts);
+        //get item info
+        JSONObject convertUsername;
+        try {
+            day = item.getString("day");
+            type = item.getString("shift");
+        } catch(Exception e) {
+            error = e.getMessage();
+            return;
+        }
+        //add row
+        TableRow row = new TableRow(this);
+        TextView t1v = new TextView(this); //column 1 : day of the week
+        t1v.setText(String.valueOf(day));
+        t1v.setTextColor(Color.BLACK);
+        t1v.setGravity(Gravity.CENTER);
+        t1v.setBackgroundColor(color);
+        row.addView(t1v);
+        TextView t2v = new TextView(this); //column 2: type of shift
+        t2v.setText(type);
+        t2v.setTextColor(Color.BLACK);
+        t2v.setGravity(Gravity.CENTER);
+        t2v.setBackgroundColor(color);
+        row.addView(t2v);
+
+        //table layout
+        tbl.addView(row);
+    }
+
     private void refreshErrorMessage() {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
@@ -319,7 +407,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * navigates to the employee's home page
+     * @param v View
+     */
+    public void goToEmployeeHomePage(View v) {
+        try {
+            setContentView(R.layout.fragment_employeehomepage);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    }
 
     /**
      * navigates to the page with all employees
