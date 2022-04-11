@@ -3,33 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"><![CDATA[
-
-    TextView
-    android:id="@+id/error"
-    android:layout_width="48dp"
-    android:layout_height="18dp"
-    android:text=""
-    android:textColor="#FF0000"
-    android:translationX="50dp"
-    android:translationY="50dp"
-    android:visibility="gone"
-    app:layout_constraintBottom_toTopOf="parent"
-    app:layout_constraintEnd_toStartOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-
-
-    ]]>
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/displayDateHired"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="153dp"
+        android:layout_height="49dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="366dp"
         android:layout_marginEnd="226dp"
@@ -38,8 +17,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toEndOf="@+id/textViewDateHired"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.333" />
 
     <TextView
         android:id="@+id/textViewDateHired"
@@ -109,10 +90,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewId" />
 
+
     <TextView
         android:id="@+id/displayId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="172dp"
         android:layout_marginEnd="226dp"
@@ -121,14 +103,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewId"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47" />
 
     <TextView
         android:id="@+id/displayHourlyPay"
-        android:layout_width="2dp"
-        android:layout_height="13dp"
+        android:layout_width="159dp"
+        android:layout_height="51dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="433dp"
         android:layout_marginEnd="225dp"
@@ -137,13 +120,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toEndOf="@+id/textViewHourlyPay"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.342" />
 
     <TextView
         android:id="@+id/displayEmail"
-        android:layout_width="0dp"
-        android:layout_height="16dp"
+        android:layout_width="127dp"
+        android:layout_height="41dp"
         android:layout_marginStart="58dp"
         android:layout_marginTop="289dp"
         android:layout_marginEnd="226dp"
@@ -152,13 +137,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toEndOf="@+id/textViewEmail"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.12" />
 
     <TextView
         android:id="@+id/displayStatus"
-        android:layout_width="5dp"
-        android:layout_height="14dp"
+        android:layout_width="121dp"
+        android:layout_height="34dp"
         android:layout_marginStart="55dp"
         android:layout_marginTop="135dp"
         android:layout_marginEnd="224dp"
@@ -167,6 +154,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/displayHourlyPay"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toEndOf="@+id/textViewStatus"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
