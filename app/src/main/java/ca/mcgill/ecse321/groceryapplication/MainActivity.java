@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.groceryapplication;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -51,4 +53,21 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    /**
+     * navigates to the view shift
+     * @param v view
+     *
+     * */
+    public void goToViewShift(View v) {
+        try{
+            setContentView(R.layout.fragment_viewshift);
+        } catch(Exception e) {
+            e.getMessage();
+        }
+    }
+
+
+
+
 }

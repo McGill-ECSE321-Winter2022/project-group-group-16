@@ -24,7 +24,7 @@
     ]]>
 
     <TextView
-        android:id="@+id/displayBalance2"
+        android:id="@+id/displayDateHired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -157,7 +157,7 @@
         app:layout_constraintTop_toTopOf="@+id/textViewFirstName" />
 
     <TextView
-        android:id="@+id/displayAddress"
+        android:id="@+id/displayHourlyPay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -179,7 +179,7 @@
         app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
 
     <TextView
-        android:id="@+id/displayBalance"
+        android:id="@+id/displayStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -193,7 +193,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VIEW SHIFT"
+        android:onClick="goToViewShift"
+        android:text="VIEW SHIFTS"
         tools:layout_editor_absoluteX="145dp"
         tools:layout_editor_absoluteY="467dp" />
 
