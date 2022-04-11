@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 import cz.msebera.android.httpclient.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity {
     private String error = "";
@@ -67,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void refreshErrorMessage() {
-        if (Objects.equals(this.error, "No value for message") || this.error.isEmpty()) return;
-        Toast.makeText(this, this.error,
-                Toast.LENGTH_LONG).show();
-    }
+//    private void refreshErrorMessage() {
+//        if (Objects.equals(this.error, "No value for message") || this.error.isEmpty()) return;
+//        Toast.makeText(this, this.error,
+//                Toast.LENGTH_LONG).show();
+//    }
 
 
     public void addCustomer(View v) {
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             parsedDate = myFormat.format(Objects.requireNonNull(fromUser.parse(dateOfBirth.getText().toString())));
         } catch (ParseException e) {
             this.error += e.getMessage();
-            refreshErrorMessage();
+//            refreshErrorMessage();
         }
 
         String createUserRequest = "gorceryUser/?username=" + username.getText().toString()
@@ -114,16 +115,33 @@ public class MainActivity extends AppCompatActivity {
                 + "&country=" + country.getText().toString()
                 + "&postalCode=" + postalCode.getText().toString();
 
+        CountDownLatch latch = new CountDownLatch(1);
+        postWithErrorLog(createUserRequest, latch);
+        try {
+            latch.await();
+        } catch (InterruptedException ignored) {
+        }
 
-        postWithErrorLog(createUserRequest);
-        postWithErrorLog(createAddressRequest);
+        latch = new CountDownLatch(1);
+        postWithErrorLog(createAddressRequest, latch);
+        try {
+            latch.await();
+        } catch (InterruptedException ignored) {
+        }
+
+        String addressId = "";
+        try {
+             addressId = this.response.get("id").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // we need the user and address to first be created
         // have to wait for the 2 previous async calls to finish.
         String createCustomerRequest = "/customer/?applicationId=0"
-                + "&addressId=117"
+                + "&addressId="+ addressId
                 + "&userEmail=" + email.getText().toString();
-        postWithErrorLog(createCustomerRequest);
+        postWithErrorLog(createCustomerRequest, latch);
 
         this.error = "";
     }
@@ -132,23 +150,31 @@ public class MainActivity extends AppCompatActivity {
         this.response = response;
     }
 
-    private void postWithErrorLog(String request) {
-        HttpUtils.post(request, new RequestParams(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                setJsonResponse(response);
-            }
+    private void postWithErrorLog(String request, CountDownLatch latch) {
+        new Thread() {
+            public void run() {
+                SyncHttpClient client = new SyncHttpClient();
+                client.post(HttpUtils.getAbsoluteUrl(request), new RequestParams(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        setJsonResponse(response);
+                        latch.countDown();
+                    }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    System.out.println(e.getMessage());
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        try {
+                            error += errorResponse.get("message").toString();
+                        } catch (JSONException e) {
+                            System.out.println(e.getMessage());
+                            error += e.getMessage();
+                        }
+//                        refreshErrorMessage();
+                        latch.countDown();
+                    }
+                });
             }
-        });
+        }.start();
+
     }
 }

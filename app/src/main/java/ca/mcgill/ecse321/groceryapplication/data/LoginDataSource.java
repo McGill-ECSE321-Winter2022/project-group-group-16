@@ -35,13 +35,25 @@ public class LoginDataSource {
 
                         try {
                             if (response.get("password").equals(password)) {
-                                LoggedInUser user;
                                 if (Objects.equals(username, "manager@email.com")) {
-                                    user = new LoggedInUser(username, "manager");
+                                    LoggedInUser user = new LoggedInUser(username, "manager");
+                                    setLoginInfo(new Result.Success<>(user));
+
                                 } else {
-                                    user = new LoggedInUser(username, "employee");
+                                    client.get(HttpUtils.getAbsoluteUrl("employee/email/" + username), new RequestParams(), new JsonHttpResponseHandler() {
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                            LoggedInUser user = new LoggedInUser(username, "employee");
+                                            setLoginInfo(new Result.Success<>(user));
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                            setLoginInfo(new Result.Error(new IOException("Error logging in")));
+                                        }
+                                    });
                                 }
-                                setLoginInfo(new Result.Success<>(user));
+
                             }
                         } catch (JSONException e) {
                             setLoginInfo(new Result.Error(new IOException("Error logging in", e)));
