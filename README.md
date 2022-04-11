@@ -86,7 +86,7 @@ Individual efforts (in hours)
 | Yazdan    | 0      | 8        | 8              | 0           | 16              | 
 
 
-## Project Deliverable 3
+## Project Deliverable 4
 
 [Mobile Frontend and Availability](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-4)
 
