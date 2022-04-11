@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         String addressId = "";
         try {
-             addressId = this.response.get("id").toString();
+            addressId = this.response.get("id").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         // we need the user and address to first be created
         // have to wait for the 2 previous async calls to finish.
         String createCustomerRequest = "/customer/?applicationId=0"
-                + "&addressId="+ addressId
+                + "&addressId=" + addressId
                 + "&userEmail=" + email.getText().toString();
         postWithErrorLog(createCustomerRequest, latch);
 
