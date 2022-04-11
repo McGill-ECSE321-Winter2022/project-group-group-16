@@ -53,4 +53,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="431dp" />
+
+    <Button
+        android:id="@+id/button66"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN OUT"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="533dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
