@@ -9,9 +9,14 @@
         android:id="@+id/button3"
         android:layout_width="142dp"
         android:layout_height="69dp"
-        android:text="BACK"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="428dp" />
+        android:layout_marginStart="134dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginBottom="234dp"
+        android:onClick="goToEmployeeProfile"
+        android:text="Home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textViewTypeShift"
