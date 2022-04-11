@@ -54,7 +54,7 @@
         android:layout_marginStart="144dp"
         android:layout_marginEnd="144dp"
         android:layout_marginBottom="15dp"
-        android:onClick="goToAddShifts"
+        android:onClick="goToAddShift"
         android:text="Add Shifts"
         app:layout_constraintBottom_toTopOf="@+id/button66"
         app:layout_constraintEnd_toEndOf="parent"
