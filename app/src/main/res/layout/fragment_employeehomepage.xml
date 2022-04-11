@@ -24,54 +24,33 @@
 
 
 
-
-
-
     ]]>
-
-    <TextView
-        android:id="@+id/displayEmployeeUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="164dp"
-        android:text=""
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewStatus"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
-
-    <TextView
-        android:id="@+id/textViewUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="160dp"
-        android:text="Username:"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
 
     <TextView
         android:id="@+id/displayDateHired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="366dp"
+        android:layout_marginEnd="226dp"
+        android:layout_marginBottom="346dp"
         android:text=""
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewStatus"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewDateHired"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewDateHired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="50dp"
         android:text="Date Hired:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
 
     <TextView
         android:id="@+id/textView2"
@@ -85,155 +64,140 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/textViewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="164dp"
         android:text=" ID:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewFirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="28dp"
-        android:text="First Name:"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewId" />
-
-    <TextView
-        android:id="@+id/textViewLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="32dp"
-        android:text="Last Name:"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewFirstName" />
-
-    <TextView
         android:id="@+id/textViewHourlyPay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="32dp"
-        android:text="Houlry Pay:"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="48dp"
+        android:text="Hourly Pay:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDateHired" />
 
     <TextView
         android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="50dp"
         android:text="Email:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewStatus" />
 
     <TextView
         android:id="@+id/textViewStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="44dp"
         android:text="Status:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewId" />
 
     <TextView
         android:id="@+id/displayId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="226dp"
+        android:layout_marginBottom="540dp"
         android:text=""
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewId"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/displayFirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="28dp"
-        android:text=""
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewFirstName"
-        app:layout_constraintTop_toTopOf="@+id/textViewId" />
-
-    <TextView
-        android:id="@+id/displayLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
-        android:text=""
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewLastName"
-        app:layout_constraintTop_toTopOf="@+id/textViewFirstName" />
 
     <TextView
         android:id="@+id/displayHourlyPay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="2dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="433dp"
+        android:layout_marginEnd="225dp"
+        android:layout_marginBottom="285dp"
         android:text=""
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewHourlyPay"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/displayEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="289dp"
+        android:layout_marginEnd="226dp"
+        android:layout_marginBottom="426dp"
         android:text=""
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewEmail"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/displayStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="92dp"
+        android:layout_width="5dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="224dp"
+        android:layout_marginBottom="188dp"
         android:text=""
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/displayHourlyPay"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewStatus"
-        app:layout_constraintTop_toTopOf="@+id/textViewLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="141dp"
+        android:layout_marginBottom="18dp"
         android:onClick="goToViewShift"
         android:text="VIEW SHIFTS"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="467dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHourlyPay" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginBottom="110dp"
         android:text="SIGN OUT"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="535dp" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
