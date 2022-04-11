@@ -110,28 +110,14 @@ public class MainActivity extends AppCompatActivity {
 
         RequestParams rp = new RequestParams();
 
-//        String day = "MONDAY";
-//        String shiftType = "CLOSING";
-//        String employeeId = "63";
-
-        Log.i("noah",shiftType);
-        Log.i("noah",day);
-        Log.i("noah",employeeId);
-
-
         rp.add("shiftType",shiftType);
         rp.add("employeeId",employeeId);
         rp.add("day",day);
 
-        //get all items from backend
-
-        Log.i("test","here is jian long ye's big brain");
-        Log.i("test",rp.toString());
         HttpUtils.post("/shift/", rp, new JsonHttpResponseHandler() {
 
             @Override//signup success: login
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.i("test","we did it kid");
                 newShift = response;
                 currentShift = response;
                 try {
