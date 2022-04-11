@@ -6,6 +6,19 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:text=""
+        android:textColor="#FF0000"
+        android:translationX="100dp"
+        android:translationY="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="172dp" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -37,6 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/elastname"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginStart="200dp"
@@ -100,7 +114,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText2"
+        android:id="@+id/efirstname"
         android:layout_width="143dp"
         android:layout_height="51dp"
         android:layout_marginStart="40dp"
