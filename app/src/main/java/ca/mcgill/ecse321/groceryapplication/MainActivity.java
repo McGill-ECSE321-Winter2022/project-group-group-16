@@ -2,11 +2,9 @@ package ca.mcgill.ecse321.groceryapplication;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,43 +14,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import android.util.Log;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.view.Gravity;
 import android.view.View;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.ui.AppBarConfiguration;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-
 import cz.msebera.android.httpclient.Header;
 
 import ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding;
-import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
@@ -70,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_manager_home);
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -278,10 +251,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initShift() {
-        Log.i("test","yo");
-
         TextView tv = (TextView) findViewById(R.id.day);
-        Log.i("danny",tv.toString());
         String day = tv.getText().toString();
 
         TextView tv2 = (TextView) findViewById(R.id.shiftType);
@@ -311,12 +281,10 @@ public class MainActivity extends AppCompatActivity {
                 } catch(Exception e) {
                     error = e.getMessage();
                 }
-                //refreshErrorMessage();
             }
 
             @Override //signup failed, try again
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.i("test","fail:(");
                 try {
                     error = "Invalid input. Please try again.";
                 } catch(Exception e) {
