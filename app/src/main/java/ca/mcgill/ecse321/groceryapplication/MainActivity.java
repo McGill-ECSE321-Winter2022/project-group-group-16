@@ -295,6 +295,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to view all shifts
+     * @param v
+     */
     public void showAllShifts(View v) {
         //create table
         TableLayout tbl = (TableLayout) findViewById(R.id.list_view_shifts);
@@ -350,6 +354,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Helper method to add shifts to the shift table
+     * @param item the shift
+     * @param color the color
+     */
     private void addShiftToTable(JSONObject item, int color) {
         String day;
         String type;
