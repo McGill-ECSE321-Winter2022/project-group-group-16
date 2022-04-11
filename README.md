@@ -105,10 +105,10 @@ Individual efforts (in hours)
 
 | Team's Member Name | User Documentation | Implementation of Mobile Frontend | Code Quality | Build System, Continuous Integration, and Delivery | Project Management and Project Report | Total |
 |---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|----------------------|
-| Michelle  | 0      | 0         | 0      | 0           | 0      | 0       |
-| Arturo    | 0      | 0         | 0      | 0           | 0      | 0       | 
-| Danny     | 0      | 0         | 0      | 0           | 0      | 0       | 
-| Yoah      | 0      | 0         | 0      | 0           | 0      | 0       | 
-| Noah      | 0      | 0         | 0      | 0           | 0      | 0       | 
-| Yazdan    | 0      | 0         | 0      | 0           | 0      | 0       | 
+| Michelle  | 1      | 6         | 2      | 1           | 1      | 11      |
+| Arturo    | 1      | 6         | 2      | 1           | 0      | 10      | 
+| Danny     | 1      | 6         | 2      | 1           | 1      | 11      | 
+| Yoah      | 1      | 6         | 2      | 1           | 0      | 10      | 
+| Noah      | 1      | 6         | 2      | 1           | 0      | 10      | 
+| Yazdan    | 1      | 6         | 2      | 1           | 0      | 10      | 
 
