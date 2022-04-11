@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override//success : add items to the table
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.i("object1", "Arturo sucks ballz");
 
                 for(int i = 0; i < response.length(); i++) {
                     JSONObject thisItem;
@@ -130,12 +129,12 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         color = Color.WHITE;
                     }
-                    Log.i("object", "dasdas");
+
                     try {
                         thisItem = response.getJSONObject(i);
-                        Log.i("object", "kijjkk");
+
                         addItemToTable(thisItem, color);
-                        Log.i("object", "username");
+
                     } catch(Exception e) {
                         error = e.getMessage();
                     }
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Log.i("object", "Arturo sucks balls");
+                
                     error = errorResponse.get("message").toString();
                 } catch(Exception e) {
                     error = e.getMessage();
