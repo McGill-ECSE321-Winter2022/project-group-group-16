@@ -5,19 +5,19 @@ package ca.mcgill.ecse321.groceryapplication.data.model;
  */
 public class LoggedInUser {
 
-    private String userId;
-    private String displayName;
+    private String email;
+    private String role;
 
     public LoggedInUser(String userId, String displayName) {
-        this.userId = userId;
-        this.displayName = displayName;
+        this.email = userId;
+        this.role = displayName;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getEmail() {
+        return email;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getRole() {
+        return role;
     }
 }
