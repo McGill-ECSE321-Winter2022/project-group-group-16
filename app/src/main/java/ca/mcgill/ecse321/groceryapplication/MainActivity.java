@@ -227,26 +227,22 @@ public class MainActivity extends AppCompatActivity {
             @Override//creation success: create employee
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 newEmployee = response;
-                //currentEmployee = response;
                 try {
-                    Log.i("test","here");
                     error = "";
-                    setContentView(R.layout.fragment_employeehomepage);
+                    setContentView(R.layout.fragement_employee_list);
                     ((TextView) findViewById(R.id.displayDateHired)).setText(newEmployee.getString("hiredDate"));
                     JSONObject object = newEmployee.getJSONObject("user");
                     ((TextView) findViewById(R.id.displayEmail)).setText(object.getString("email"));
                     ((TextView) findViewById(R.id.displayHourlyPay)).setText(newEmployee.getString("hourlyPay") + "0$");
-                   ((TextView) findViewById(R.id.displayStatus)).setText(newEmployee.getString("status"));
+                    ((TextView) findViewById(R.id.displayStatus)).setText(newEmployee.getString("status"));
                 } catch(Exception e) {
                     error = e.getMessage();
                 }
-                //refreshErrorMessage();
             }
 
             @Override //creation failed, try again
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Log.i("test","here");
                     error = "Invalid input. Please try again.";
                 } catch(Exception e) {
                     error = e.getMessage();

@@ -12,7 +12,7 @@
         android:layout_marginStart="134dp"
         android:layout_marginEnd="135dp"
         android:layout_marginBottom="234dp"
-        android:onClick="managerHomePage"
+        android:onClick="goToEmployeeProfile"
         android:text="Home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
