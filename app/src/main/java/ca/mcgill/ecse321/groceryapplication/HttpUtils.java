@@ -4,12 +4,15 @@ package ca.mcgill.ecse321.groceryapplication;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class HttpUtils {
     public static final String DEFAULT_BASE_URL = "https://groceryapplication-backend-l.herokuapp.com";
 
     private static String baseUrl;
     private static AsyncHttpClient client = new AsyncHttpClient();
+    public static SyncHttpClient syncHttpClient = new SyncHttpClient();
 
     static {
         baseUrl = DEFAULT_BASE_URL;
@@ -39,7 +42,7 @@ public class HttpUtils {
         client.post(url, params, responseHandler);
     }
 
-    private static String getAbsoluteUrl(String relativeUrl) {
+    public static String getAbsoluteUrl(String relativeUrl) {
         return baseUrl + relativeUrl;
     }
 }
