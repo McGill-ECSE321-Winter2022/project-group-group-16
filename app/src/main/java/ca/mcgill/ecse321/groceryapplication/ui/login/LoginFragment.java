@@ -130,6 +130,11 @@ public class LoginFragment extends Fragment {
         if (getContext() != null && getContext().getApplicationContext() != null) {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         }
+        if (model.getDisplayName().equals("employee")) {
+            getActivity().setContentView(R.layout.fragment_employeehomepage);
+        } else if (model.getDisplayName().equals("manager")) {
+            getActivity().setContentView(R.layout.fragment_manager_home);
+        }
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

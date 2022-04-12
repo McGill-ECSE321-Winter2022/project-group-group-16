@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.groceryapplication;
+
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -13,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
->>>>>>> android
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -50,17 +51,17 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private JSONObject newEmployee = null;
     private JSONObject currentShift = null;
-    private JSONObject employee= null;
+    private JSONObject employee = null;
     private JSONObject newShift = null;
 
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_manager_home);
-
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
     @Override
@@ -118,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
             @Override//success : add items to the table
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
-                for(int i = 0; i < response.length(); i++) {
+                for (int i = 0; i < response.length(); i++) {
                     JSONObject thisItem;
                     int color;
-                    if ( i%2 == 0) {
+                    if (i % 2 == 0) {
                         color = Color.LTGRAY;
                     } else {
                         color = Color.WHITE;
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
                         addItemToTable(thisItem, color);
 
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         error = e.getMessage();
                     }
                 }
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
                     error = errorResponse.get("message").toString();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     error = e.getMessage();
                 }
             }
@@ -154,14 +155,16 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * outputs the table after view employee button is pressed
+     *
      * @param v
      */
-    public void showTable(View v){
+    public void showTable(View v) {
         initItemTable();
     }
 
     /**
      * helper method to add an employees to the Items table
+     *
      * @param item  JSONObject
      * @param color int
      */
@@ -175,9 +178,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             convertUsername = item.getJSONObject("user");
             hourlyPay = item.getString("hourlyPay");
-            email= convertUsername.getString("email");
+            email = convertUsername.getString("email");
             status = item.getString("status");
-        } catch(Exception e) {
+        } catch (Exception e) {
             error = e.getMessage();
             return;
         }
@@ -212,9 +215,10 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    
+
     /**
      * Signs up employee with email, hired date, employee status, grocery application id, hourly pay
+     *
      * @param v View
      */
     public void createEmployee(View v) {
@@ -222,11 +226,11 @@ public class MainActivity extends AppCompatActivity {
         String email = emailInput.getText().toString();
         final EditText hourlyPayInput = (EditText) findViewById(R.id.editTextNumberDecimal);
         String hourlyPay = hourlyPayInput.getText().toString();
-        final EditText DateHiredInput = (EditText) findViewById(R.id.editTextDate) ;
+        final EditText DateHiredInput = (EditText) findViewById(R.id.editTextDate);
         String hiredDate = DateHiredInput.getText().toString();
-        final EditText AppIdInput = (EditText) findViewById(R.id.editTextNumber) ;
+        final EditText AppIdInput = (EditText) findViewById(R.id.editTextNumber);
         String appId = AppIdInput.getText().toString();
-        final EditText EmployeeStatusInput = (EditText) findViewById(R.id.textInputEditText) ;
+        final EditText EmployeeStatusInput = (EditText) findViewById(R.id.textInputEditText);
         String employeeStatus = EmployeeStatusInput.getText().toString();
 
         RequestParams rp = new RequestParams();
@@ -249,19 +253,19 @@ public class MainActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.displayEmail)).setText(object.getString("email"));
                     ((TextView) findViewById(R.id.displayHourlyPay)).setText(newEmployee.getString("hourlyPay") + "0$");
                     ((TextView) findViewById(R.id.displayStatus)).setText(newEmployee.getString("status"));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     error = e.getMessage();
                 }
             }
 
-    @Override //creation failed, try again
-    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {   
-        try {
-            error = "Invalid input. Please try again.";
-        } catch(Exception e) {
-            error = e.getMessage();
-        }
-        refreshErrorMessage();
+            @Override //creation failed, try again
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error = "Invalid input. Please try again.";
+                } catch (Exception e) {
+                    error = e.getMessage();
+                }
+                refreshErrorMessage();
             }
 
         });
@@ -281,22 +285,21 @@ public class MainActivity extends AppCompatActivity {
         RequestParams rp = new RequestParams();
 
 
-
-        HttpUtils.get("/employee/email/"+ email, new RequestParams(), new JsonHttpResponseHandler(){
+        HttpUtils.get("/employee/email/" + email, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override // login successful : display account info
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 employee = response;
                 try {
                     //test: delete until catch
-                    Log.i("test",response.toString());
+                    Log.i("test", response.toString());
                     String employeeTemp = employee.getJSONObject("user").getJSONArray("userRole").getString(0);
                     JSONObject obj = new JSONObject(employeeTemp);
                     String employeeId = obj.getString("id");
 
-                    rp.add("shiftType",shiftType);
-                    rp.add("employeeId",employeeId);
-                    rp.add("day",day);
+                    rp.add("shiftType", shiftType);
+                    rp.add("employeeId", employeeId);
+                    rp.add("day", day);
 
                     HttpUtils.post("/shift/", rp, new JsonHttpResponseHandler() {
 
@@ -310,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                                 ((TextView) findViewById(R.id.day)).setText(newShift.getString("day"));
                                 ((TextView) findViewById(R.id.shiftType)).setText(newShift.getString("shiftType"));
 
-                            } catch(Exception e) {
+                            } catch (Exception e) {
                                 error = e.getMessage();
                             }
                             //refreshErrorMessage();
@@ -318,10 +321,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override //signup failed, try again
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            Log.i("test","fail:(");
+                            Log.i("test", "fail:(");
                             try {
                                 error = "Invalid input. Please try again.";
-                            } catch(Exception e) {
+                            } catch (Exception e) {
                                 error = e.getMessage();
                             }
                             //refreshErrorMessage();
@@ -330,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
                     });
 
 
-                } catch(Exception e) {
+                } catch (Exception e) {
                     error = e.getMessage();
                 }
 
@@ -340,16 +343,13 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error = "Invalid input or account does not exist.\nPlease try again.";
-                } catch(Exception e) {
+                } catch (Exception e) {
                     error = e.getMessage();
                 }
 
             }
 
         });
-
-
-
 
 
         HttpUtils.post("/shift/", rp, new JsonHttpResponseHandler() {
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
                     setContentView(R.layout.fragment_manager_shift);
                     ((TextView) findViewById(R.id.day)).setText(newShift.getString("day"));
                     ((TextView) findViewById(R.id.shiftType)).setText(newShift.getString("shiftType"));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     error = e.getMessage();
                 }
             }
@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error = "Invalid input. Please try again.";
-                } catch(Exception e) {
+                } catch (Exception e) {
                     error = e.getMessage();
                 }
                 refreshErrorMessage();
@@ -382,6 +382,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to view all shifts
+     *
      * @param v
      */
     public void showAllShifts(View v) {
@@ -407,10 +408,10 @@ public class MainActivity extends AppCompatActivity {
         HttpUtils.get("/shift/", new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                for(int i = 0; i < response.length(); i++) {
+                for (int i = 0; i < response.length(); i++) {
                     JSONObject thisItem;
                     int color;
-                    if ( i%2 == 0) {
+                    if (i % 2 == 0) {
                         color = Color.LTGRAY;
                     } else {
                         color = Color.WHITE;
@@ -420,18 +421,19 @@ public class MainActivity extends AppCompatActivity {
                         thisItem = response.getJSONObject(i);
                         addShiftToTable(thisItem, color);
 
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         error = e.getMessage();
                     }
                 }
 
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
 
                     error = errorResponse.get("message").toString();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     error = e.getMessage();
                 }
             }
@@ -441,7 +443,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Helper method to add shifts to the shift table
-     * @param item the shift
+     *
+     * @param item  the shift
      * @param color the color
      */
     private void addShiftToTable(JSONObject item, int color) {
@@ -453,7 +456,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             day = item.getString("day");
             type = item.getString("shift");
-        } catch(Exception e) {
+        } catch (Exception e) {
             error = e.getMessage();
             return;
         }
@@ -490,6 +493,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Signs out the manager or employee out, navigates to the login page
+     *
      * @param v View
      */
     public void signout(View v) {
@@ -503,6 +507,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Navigates to the create employee page
+     *
      * @param v View
      */
     public void goToCreateEmployee(View v) {
@@ -515,6 +520,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * navigates to the manager home page
+     *
      * @param v View
      */
     public void managerHomePage(View v) {
@@ -527,6 +533,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * navigates to the page with an employee's shifts
+     *
      * @param v View
      */
     public void goToViewShift(View v) {
@@ -539,6 +546,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * navigates to the page with an employee's shifts
+     *
      * @param v View
      */
     public void goToAddShift(View v) {
@@ -548,11 +556,11 @@ public class MainActivity extends AppCompatActivity {
             error = e.getMessage();
         }
     }
-    
 
 
     /**
      * navigates to the employee's home page
+     *
      * @param v View
      */
     public void goToEmployeeHomePage(View v) {
@@ -565,6 +573,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * navigates to the page with all employees
+     *
      * @param v View
      */
     public void goToEmployeeList(View v) {
@@ -586,8 +595,6 @@ public class MainActivity extends AppCompatActivity {
     public enum Day {
         MONDAY, THUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
-
-
 
 
 //    private void refreshErrorMessage() {

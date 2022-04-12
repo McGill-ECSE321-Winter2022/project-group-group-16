@@ -29,7 +29,7 @@ public class LoginDataSource {
         Thread request = new Thread() {
             public void run() {
                 SyncHttpClient client = new SyncHttpClient();
-                client.get(HttpUtils.getAbsoluteUrl("getGroceryUserbyEmail/" + username), new RequestParams(),
+                client.get(HttpUtils.getAbsoluteUrl("/getGroceryUserbyEmail/" + username), new RequestParams(),
                         new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -42,7 +42,10 @@ public class LoginDataSource {
                                             setLoginInfo(new Result.Success<>(user));
 
                                         } else {
-                                            client.get(HttpUtils.getAbsoluteUrl("employee/email/" + username),
+                                            LoggedInUser user = new LoggedInUser(username, "employee");
+                                            setLoginInfo(new Result.Success<>(user));
+                                            String url = HttpUtils.getAbsoluteUrl("/employee/email/" + username);
+                                            client.get(url,
                                                     new RequestParams(), new JsonHttpResponseHandler() {
                                                         @Override
                                                         public void onSuccess(int statusCode, Header[] headers,
