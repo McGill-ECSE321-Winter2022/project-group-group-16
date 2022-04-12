@@ -1,6 +1,4 @@
 package ca.mcgill.ecse321.groceryapplication;
-
-<<<<<<< HEAD
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,8 +7,6 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-=======
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
