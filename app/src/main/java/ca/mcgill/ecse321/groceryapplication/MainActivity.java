@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private JSONObject newEmployee = null;
     private JSONObject currentShift = null;
+    private JSONObject employee= null;
     private JSONObject newShift = null;
 
     @Override
@@ -257,14 +258,82 @@ public class MainActivity extends AppCompatActivity {
         TextView tv2 = (TextView) findViewById(R.id.shiftType);
         String shiftType = tv2.getText().toString();
 
-        TextView tv3 = (TextView) findViewById(R.id.employeeId);
-        String employeeId = tv3.getText().toString();
+        TextView tv3 = (TextView) findViewById(R.id.email);
+        String email = tv3.getText().toString();
 
         RequestParams rp = new RequestParams();
 
-        rp.add("shiftType",shiftType);
-        rp.add("employeeId",employeeId);
-        rp.add("day",day);
+
+
+        HttpUtils.get("/employee/email/"+ email, new RequestParams(), new JsonHttpResponseHandler(){
+
+            @Override // login successful : display account info
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                employee = response;
+                try {
+                    //test: delete until catch
+                    Log.i("test",response.toString());
+                    String employeeTemp = employee.getJSONObject("user").getJSONArray("userRole").getString(0);
+                    JSONObject obj = new JSONObject(employeeTemp);
+                    String employeeId = obj.getString("id");
+
+                    rp.add("shiftType",shiftType);
+                    rp.add("employeeId",employeeId);
+                    rp.add("day",day);
+
+                    HttpUtils.post("/shift/", rp, new JsonHttpResponseHandler() {
+
+                        @Override//signup success: login
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            newShift = response;
+                            currentShift = response;
+                            try {
+                                error = "";
+                                setContentView(R.layout.fragment_manager_shift);
+                                ((TextView) findViewById(R.id.day)).setText(newShift.getString("day"));
+                                ((TextView) findViewById(R.id.shiftType)).setText(newShift.getString("shiftType"));
+
+                            } catch(Exception e) {
+                                error = e.getMessage();
+                            }
+                            //refreshErrorMessage();
+                        }
+
+                        @Override //signup failed, try again
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Log.i("test","fail:(");
+                            try {
+                                error = "Invalid input. Please try again.";
+                            } catch(Exception e) {
+                                error = e.getMessage();
+                            }
+                            //refreshErrorMessage();
+                        }
+
+                    });
+
+
+                } catch(Exception e) {
+                    error = e.getMessage();
+                }
+
+            }
+
+            @Override //login failed, try again
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error = "Invalid input or account does not exist.\nPlease try again.";
+                } catch(Exception e) {
+                    error = e.getMessage();
+                }
+
+            }
+
+        });
+
+
+
+
 
         HttpUtils.post("/shift/", rp, new JsonHttpResponseHandler() {
 
@@ -277,7 +346,6 @@ public class MainActivity extends AppCompatActivity {
                     setContentView(R.layout.fragment_manager_shift);
                     ((TextView) findViewById(R.id.day)).setText(newShift.getString("day"));
                     ((TextView) findViewById(R.id.shiftType)).setText(newShift.getString("shiftType"));
-                    ((TextView) findViewById(R.id.employeeId)).setText(newShift.getString("employeeId"));
                 } catch(Exception e) {
                     error = e.getMessage();
                 }

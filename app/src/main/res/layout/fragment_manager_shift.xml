@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <EditText
-        android:id="@+id/employeeId"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
@@ -47,7 +47,7 @@
         android:layout_marginEnd="87dp"
         android:layout_marginBottom="521dp"
         android:ems="10"
-        android:hint="Employee Id"
+        android:hint="Employee Email"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
