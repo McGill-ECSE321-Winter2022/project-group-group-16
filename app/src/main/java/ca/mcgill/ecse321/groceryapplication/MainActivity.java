@@ -490,18 +490,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * navigates to the page with all employees
-     * @param v View
-     */
-    public void goToEmployeeProfile(View v) {
-        try {
-            setContentView(R.layout.fragment_employeehomepage);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-    }
-
     public void createShift(View v) {
         initShift();
     }
