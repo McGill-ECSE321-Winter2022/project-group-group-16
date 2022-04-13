@@ -18,6 +18,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import ca.mcgill.ecse321.groceryapplication.data.LoginRepository;
+import ca.mcgill.ecse321.groceryapplication.data.model.LoggedInUser;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -208,6 +210,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void showProfileInfo() {
+        LoggedInUser user = LoginRepository.getInstance(null).getUser();
+        System.out.println(user.getEmail());
+        System.out.println(user.getRole());
     }
 
     /**
@@ -555,6 +563,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void signout(View v) {
         try {
+            showProfileInfo();
+
             setContentView(R.layout.fragment_login);
             JSONObject currentEmployee = null;
         } catch (Exception e) {
