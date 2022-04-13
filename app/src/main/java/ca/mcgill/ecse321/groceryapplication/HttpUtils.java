@@ -8,7 +8,7 @@ import com.loopj.android.http.SyncHttpClient;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class HttpUtils {
-    public static final String DEFAULT_BASE_URL = "https://groceryapplication-backend-l.herokuapp.com/";
+    public static final String DEFAULT_BASE_URL = "https://groceryapplication-backend-l.herokuapp.com";
 
     private static String baseUrl;
     private static AsyncHttpClient client = new AsyncHttpClient();

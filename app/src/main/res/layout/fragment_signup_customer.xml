@@ -191,4 +191,16 @@
             android:layout_marginTop="10dp"
             android:onClick="addCustomer"/>
 
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="150dp"
+        android:onClick="managerHomePage"
+        android:text="Home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="612dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

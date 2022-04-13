@@ -14,7 +14,8 @@ import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Class that handles authentication w/ login credentials and retrieves user information.
+ * Class that handles authentication w/ login credentials and retrieves user
+ * information.
  */
 public class LoginDataSource {
     CountDownLatch latch;
@@ -28,45 +29,54 @@ public class LoginDataSource {
         Thread request = new Thread() {
             public void run() {
                 SyncHttpClient client = new SyncHttpClient();
-                client.get(HttpUtils.getAbsoluteUrl("getGroceryUserbyEmail/" + username), new RequestParams(), new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        System.out.println(response.toString());
+                client.get(HttpUtils.getAbsoluteUrl("/getGroceryUserbyEmail/" + username), new RequestParams(),
+                        new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                System.out.println(response.toString());
 
-                        try {
-                            if (response.get("password").equals(password)) {
-                                if (Objects.equals(username, "manager@email.com")) {
-                                    LoggedInUser user = new LoggedInUser(username, "manager");
-                                    setLoginInfo(new Result.Success<>(user));
+                                try {
+                                    if (response.get("password").equals(password)) {
+                                        if (Objects.equals(username, "manager@email.com")) {
+                                            LoggedInUser user = new LoggedInUser(username, "manager");
+                                            setLoginInfo(new Result.Success<>(user));
 
-                                } else {
-                                    client.get(HttpUtils.getAbsoluteUrl("employee/email/" + username), new RequestParams(), new JsonHttpResponseHandler() {
-                                        @Override
-                                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                        } else {
                                             LoggedInUser user = new LoggedInUser(username, "employee");
                                             setLoginInfo(new Result.Success<>(user));
+                                            String url = HttpUtils.getAbsoluteUrl("/employee/email/" + username);
+                                            client.get(url,
+                                                    new RequestParams(), new JsonHttpResponseHandler() {
+                                                        @Override
+                                                        public void onSuccess(int statusCode, Header[] headers,
+                                                                JSONObject response) {
+                                                            LoggedInUser user = new LoggedInUser(username, "employee");
+                                                            setLoginInfo(new Result.Success<>(user));
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(int statusCode, Header[] headers,
+                                                                Throwable throwable, JSONObject errorResponse) {
+                                                            setLoginInfo(new Result.Error(
+                                                                    new IOException("Error logging in")));
+                                                        }
+                                                    });
                                         }
 
-                                        @Override
-                                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                                            setLoginInfo(new Result.Error(new IOException("Error logging in")));
-                                        }
-                                    });
+                                    }
+                                } catch (JSONException e) {
+                                    setLoginInfo(new Result.Error(new IOException("Error logging in", e)));
                                 }
-
+                                latch.countDown();
                             }
-                        } catch (JSONException e) {
-                            setLoginInfo(new Result.Error(new IOException("Error logging in", e)));
-                        }
-                        latch.countDown();
-                    }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        setLoginInfo(new Result.Error(new IOException("Error logging in")));
-                        latch.countDown();
-                    }
-                });
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable,
+                                    JSONObject errorResponse) {
+                                setLoginInfo(new Result.Error(new IOException("Error logging in")));
+                                latch.countDown();
+                            }
+                        });
             }
         };
         request.start();
