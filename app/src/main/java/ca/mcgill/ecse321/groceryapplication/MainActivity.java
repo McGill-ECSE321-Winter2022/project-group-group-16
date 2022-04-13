@@ -1,16 +1,17 @@
 package ca.mcgill.ecse321.groceryapplication;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.annotation.SuppressLint;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -18,28 +19,23 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import ca.mcgill.ecse321.groceryapplication.data.LoginRepository;
-import ca.mcgill.ecse321.groceryapplication.data.model.LoggedInUser;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
-import android.view.Gravity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
-
-import ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding;
-
 import com.loopj.android.http.SyncHttpClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
+
+import ca.mcgill.ecse321.groceryapplication.data.LoginRepository;
+import ca.mcgill.ecse321.groceryapplication.data.model.LoggedInUser;
+import ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding;
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
     private String error = "";
@@ -49,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private JSONObject currentShift = null;
     private JSONObject employee = null;
     private JSONObject newShift = null;
+    private JSONObject currentEmployee = null;
 
     private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -183,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         //add row
         TableRow row = new TableRow(this);
         TextView t1v = new TextView(this); //column 1 : item id
-        t1v.setText(String.valueOf(email));
+        t1v.setText(email);
         t1v.setTextColor(Color.BLACK);
         t1v.setGravity(Gravity.CENTER);
         t1v.setBackgroundColor(color);
@@ -212,11 +210,116 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void showProfileInfo() {
+
+    public void showProfileInfo(View v) {
         LoggedInUser user = LoginRepository.getInstance(null).getUser();
-        System.out.println(user.getEmail());
-        System.out.println(user.getRole());
+        HttpUtils.get("/employee/email/" +user.getEmail(), new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override//success : add items to the table
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                currentEmployee = response;
+                    try {
+
+                        ((TextView) findViewById(R.id.displayHourlyPay)).setText(currentEmployee.getString("hourlyPay"));
+                   ((TextView) findViewById(R.id.displayDateHired)).setText(currentEmployee.getString("hiredDate"));
+                   ((TextView) findViewById(R.id.displayStatus)).setText(currentEmployee.getString("status"));
+                  ((TextView) findViewById(R.id.displayEmail)).setText(user.getEmail());
+
+
+                    } catch (Exception e) {
+                        error = e.getMessage();
+                    }
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+
+                    error = errorResponse.get("message").toString();
+                } catch (Exception e) {
+                    error = e.getMessage();
+                }
+            }
+
+        });
+
     }
+
+//    public void showProfileEmployee() {
+//        error = "";
+//        LoggedInUser user = LoginRepository.getInstance(null).getUser();
+//
+//        //http resquest to login Customer
+//        HttpUtils.get("/employee/email/" +user.getEmail(),  new JsonHttpResponseHandler() {
+//
+//            @Override // login successful : display account info
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                currentEmployee = response;
+//                try {
+//
+//                    //test: delete until catch
+//                    ((TextView) findViewById(R.id.displayHourlyPay)).setText(currentEmployee.getString("hourlyPay"));
+//                    ((TextView) findViewById(R.id.displayDateHired)).setText(currentEmployee.getString("hiredDate"));
+//                    ((TextView) findViewById(R.id.displayStatus)).setText(currentEmployee.getString("status"));
+//                    ((TextView) findViewById(R.id.displayEmail)).setText(user.getEmail());
+//                } catch(Exception e) {
+//                    error = e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
+//
+//            @Override //login failed, try again
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                try {
+//                    error = "Invalid input or account does not exist.\nPlease try again.";
+//                } catch(Exception e) {
+//                    error = e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
+//
+//        });
+//
+//    }
+
+//    public void showProfileInfo() {
+//        LoggedInUser user = LoginRepository.getInstance(null).getUser();
+//
+//
+//
+////        HttpUtils.get("/employee/email/" +user.getEmail(),  new JsonHttpResponseHandler() {
+////
+////                        @Override // login successful : display account info
+////                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+////                            currentEmployee = response;
+////                            try {
+////
+////                            } catch(Exception e) {
+////                                error = e.getMessage();
+////                            }
+////                            refreshErrorMessage();
+////                        }
+//////
+//////                        @Override //login failed, try again
+//////                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//////                            try {
+//////                                error = "Invalid input or account does not exist.\nPlease try again.";
+//////                            } catch(Exception e) {
+//////                                error = e.getMessage();
+//////                            }
+//////                            refreshErrorMessage();
+//////                        }
+////
+////                    });
+//
+//
+//        System.out.println(user.getEmail());
+//        System.out.println(user.getRole());
+//
+//
+//    }
 
     /**
      * Signs up employee with email, hired date, employee status, grocery application id, hourly pay
@@ -528,7 +631,7 @@ public class MainActivity extends AppCompatActivity {
         //add row
         TableRow row = new TableRow(this);
         TextView t1v = new TextView(this); //column 1 : day of the week
-        t1v.setText(String.valueOf(day));
+        t1v.setText(day);
         t1v.setTextColor(Color.BLACK);
         t1v.setGravity(Gravity.CENTER);
         t1v.setBackgroundColor(color);
@@ -563,7 +666,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void signout(View v) {
         try {
-            showProfileInfo();
+
 
             setContentView(R.layout.fragment_login);
             JSONObject currentEmployee = null;
@@ -668,22 +771,6 @@ public class MainActivity extends AppCompatActivity {
         initShift();
     }
 
-    public enum ShiftType {
-        OPENING, CLOSING
-    }
-
-    public enum Day {
-        MONDAY, THUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
-    }
-
-
-//    private void refreshErrorMessage() {
-//        if (Objects.equals(this.error, "No value for message") || this.error.isEmpty()) return;
-//        Toast.makeText(this, this.error,
-//                Toast.LENGTH_LONG).show();
-//    }
-
-
     public void addCustomer(View v) {
         this.error = "";
         final TextView firstName = findViewById(R.id.firstname);
@@ -759,6 +846,13 @@ public class MainActivity extends AppCompatActivity {
         this.response = response;
     }
 
+
+//    private void refreshErrorMessage() {
+//        if (Objects.equals(this.error, "No value for message") || this.error.isEmpty()) return;
+//        Toast.makeText(this, this.error,
+//                Toast.LENGTH_LONG).show();
+//    }
+
     private void postWithErrorLog(String request, CountDownLatch latch) {
         new Thread() {
             public void run() {
@@ -785,5 +879,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
 
+    }
+
+    public enum ShiftType {
+        OPENING, CLOSING
+    }
+
+    public enum Day {
+        MONDAY, THUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 }
