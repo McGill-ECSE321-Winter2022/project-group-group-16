@@ -213,22 +213,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void showProfileInfo(View v) {
         LoggedInUser user = LoginRepository.getInstance(null).getUser();
-        HttpUtils.get("/employee/email/" +user.getEmail(), new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("/employee/email/" + user.getEmail(), new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override//success : add items to the table
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 currentEmployee = response;
-                    try {
+                try {
 
-                        ((TextView) findViewById(R.id.displayHourlyPay)).setText(currentEmployee.getString("hourlyPay"));
-                   ((TextView) findViewById(R.id.displayDateHired)).setText(currentEmployee.getString("hiredDate"));
-                   ((TextView) findViewById(R.id.displayStatus)).setText(currentEmployee.getString("status"));
-                  ((TextView) findViewById(R.id.displayEmail)).setText(user.getEmail());
+                    ((TextView) findViewById(R.id.displayHourlyPay)).setText(currentEmployee.getString("hourlyPay"));
+                    ((TextView) findViewById(R.id.displayDateHired)).setText(currentEmployee.getString("hiredDate"));
+                    ((TextView) findViewById(R.id.displayStatus)).setText(currentEmployee.getString("status"));
+                    ((TextView) findViewById(R.id.displayEmail)).setText(user.getEmail());
 
 
-                    } catch (Exception e) {
-                        error = e.getMessage();
-                    }
+                } catch (Exception e) {
+                    error = e.getMessage();
+                }
 
 
             }
@@ -247,79 +247,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public void showProfileEmployee() {
-//        error = "";
-//        LoggedInUser user = LoginRepository.getInstance(null).getUser();
-//
-//        //http resquest to login Customer
-//        HttpUtils.get("/employee/email/" +user.getEmail(),  new JsonHttpResponseHandler() {
-//
-//            @Override // login successful : display account info
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                currentEmployee = response;
-//                try {
-//
-//                    //test: delete until catch
-//                    ((TextView) findViewById(R.id.displayHourlyPay)).setText(currentEmployee.getString("hourlyPay"));
-//                    ((TextView) findViewById(R.id.displayDateHired)).setText(currentEmployee.getString("hiredDate"));
-//                    ((TextView) findViewById(R.id.displayStatus)).setText(currentEmployee.getString("status"));
-//                    ((TextView) findViewById(R.id.displayEmail)).setText(user.getEmail());
-//                } catch(Exception e) {
-//                    error = e.getMessage();
-//                }
-//                refreshErrorMessage();
-//            }
-//
-//            @Override //login failed, try again
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                try {
-//                    error = "Invalid input or account does not exist.\nPlease try again.";
-//                } catch(Exception e) {
-//                    error = e.getMessage();
-//                }
-//                refreshErrorMessage();
-//            }
-//
-//        });
-//
-//    }
-
-//    public void showProfileInfo() {
-//        LoggedInUser user = LoginRepository.getInstance(null).getUser();
-//
-//
-//
-////        HttpUtils.get("/employee/email/" +user.getEmail(),  new JsonHttpResponseHandler() {
-////
-////                        @Override // login successful : display account info
-////                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-////                            currentEmployee = response;
-////                            try {
-////
-////                            } catch(Exception e) {
-////                                error = e.getMessage();
-////                            }
-////                            refreshErrorMessage();
-////                        }
-//////
-//////                        @Override //login failed, try again
-//////                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//////                            try {
-//////                                error = "Invalid input or account does not exist.\nPlease try again.";
-//////                            } catch(Exception e) {
-//////                                error = e.getMessage();
-//////                            }
-//////                            refreshErrorMessage();
-//////                        }
-////
-////                    });
-//
-//
-//        System.out.println(user.getEmail());
-//        System.out.println(user.getRole());
-//
-//
-//    }
 
     /**
      * Signs up employee with email, hired date, employee status, grocery application id, hourly pay
