@@ -10,11 +10,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,7 +22,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.view.Gravity;
-import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,12 +29,10 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 import ca.mcgill.ecse321.groceryapplication.databinding.ActivityMainBinding;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+
 import com.loopj.android.http.SyncHttpClient;
-import cz.msebera.android.httpclient.Header;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -222,22 +216,85 @@ public class MainActivity extends AppCompatActivity {
      * @param v View
      */
     public void createEmployee(View v) {
-        final EditText emailInput = (EditText) findViewById(R.id.editTextTextEmailAddress);
+        final EditText emailInput = findViewById(R.id.editTextTextEmailAddress);
         String email = emailInput.getText().toString();
-        final EditText hourlyPayInput = (EditText) findViewById(R.id.editTextNumberDecimal);
+        final EditText hourlyPayInput = findViewById(R.id.editTextNumberDecimal);
         String hourlyPay = hourlyPayInput.getText().toString();
-        final EditText DateHiredInput = (EditText) findViewById(R.id.editTextDate);
+        final EditText DateHiredInput = findViewById(R.id.editTextDate);
         String hiredDate = DateHiredInput.getText().toString();
-        final EditText AppIdInput = (EditText) findViewById(R.id.editTextNumber);
-        String appId = AppIdInput.getText().toString();
-        final EditText EmployeeStatusInput = (EditText) findViewById(R.id.textInputEditText);
+        final EditText EmployeeStatusInput = findViewById(R.id.textInputEditText);
         String employeeStatus = EmployeeStatusInput.getText().toString();
+        final TextView firstName = findViewById(R.id.firstNameId);
+        final TextView lastName = findViewById(R.id.LastNameId);
+        final TextView username = findViewById(R.id.usernameId);
+        final TextView dateOfBirth = findViewById(R.id.editTextDate2);
+        final TextView password = findViewById(R.id.passwordId);
+        final TextView streetNumber = findViewById(R.id.streetNumberId);
+        final TextView streetName = findViewById(R.id.streetNameId);
+        final TextView city = findViewById(R.id.cityId);
+        final TextView country = findViewById(R.id.countryId);
+        final TextView postalCode = findViewById(R.id.postalCodeId);
+        final TextView province = findViewById(R.id.provinceId);
+        String parsedDate = null;
+        String parseHired = null;
+
+        // These three post requests should have an atomic behavior in real world
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat fromUser = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            parseHired = myFormat.format(Objects.requireNonNull(fromUser.parse(hiredDate)));
+            parsedDate = myFormat.format(Objects.requireNonNull(fromUser.parse(dateOfBirth.getText().toString())));
+        } catch (ParseException e) {
+            this.error += e.getMessage();
+//            refreshErrorMessage();
+        }
+
+        String createUserRequest = "/gorceryUser/?username=" + username.getText().toString()
+                + "&password=" + password.getText().toString()
+                + "&firstName=" + firstName.getText().toString()
+                + "&lastName=" + lastName.getText().toString()
+                + "&email=" + email
+                + "&date=" + parsedDate;
+        String createAddressRequest = "/address/?streetNumber=" + streetNumber.getText().toString()
+                + "&streetName=" + streetName.getText().toString()
+                + "&province=" + province.getText().toString()
+                + "&city=" + city.getText().toString()
+                + "&country=" + country.getText().toString()
+                + "&postalCode=" + postalCode.getText().toString();
+
+        CountDownLatch latch = new CountDownLatch(1);
+        postWithErrorLog(createUserRequest, latch);
+        try {
+            latch.await();
+        } catch (InterruptedException ignored) {
+        }
+
+        Log.i("userThing", "User was created woohoo");
+
+        latch = new CountDownLatch(1);
+        postWithErrorLog(createAddressRequest, latch);
+        Log.i("addressCheck", "address has been created");
+        try {
+            latch.await();
+        } catch (InterruptedException ignored) {
+        }
+
+        Log.i("addressThing", "address was created woohoo");
+
+        String addressId = "";
+        try {
+            addressId = this.response.get("id").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         RequestParams rp = new RequestParams();
-
+//
         rp.add("email", email);
-        rp.add("groceryStoreApplicationId", appId);
-        rp.add("hiredDate", hiredDate);
+        rp.add("groceryStoreApplicationId", "0");
+        rp.add("hiredDate", parseHired);
         rp.add("hourlyPay", hourlyPay);
         rp.add("employeeStatus", employeeStatus);
 
@@ -579,6 +636,19 @@ public class MainActivity extends AppCompatActivity {
     public void goToEmployeeList(View v) {
         try {
             setContentView(R.layout.fragement_employee_list);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+    }
+
+    /**
+     * navigates to the page with all employees
+     *
+     * @param v View
+     */
+    public void goToCreateCustomer(View v) {
+        try {
+            setContentView(R.layout.fragment_signup_customer);
         } catch (Exception e) {
             error = e.getMessage();
         }
