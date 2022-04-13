@@ -85,3 +85,30 @@ Individual efforts (in hours)
 | Noah      | 3      | 6         | 8              | 0           | 17              | 
 | Yazdan    | 0      | 8        | 8              | 0           | 16              | 
 
+
+## Project Deliverable 4
+
+[Mobile Frontend and Availability](https://github.com/McGill-ECSE321-Winter2022/project-group-group-16/wiki/Deliverable-4)
+
+Team Roles:
+| Name | Roles |
+| ---- | ----- |
+| Michelle | User Documentation, Implementation of Mobile Frontend, Project Management and Project Report  |
+| Arturo  | Implementation of Mobile Frontend, Code Quality |
+| Danny |  Implementation of Mobile Frontend, Code Quality |
+| Yoah  |  Implementation of Mobile Frontend, Code Quality |
+| Noah  |  Implementation of Mobile Frontend, Code Quality |
+| Yazdan |  Implementation of Mobile Frontend, Build System, Continuous Integration, and Delivery  |
+
+
+Individual efforts (in hours)
+
+| Team's Member Name | User Documentation | Implementation of Mobile Frontend | Code Quality | Build System, Continuous Integration, and Delivery | Project Management and Project Report | Total |
+|---------------------|--------------------------------------------|-------------------------------------|---------------------------------------------------|---------------------------------------------------|----------------|----------------------|
+| Michelle  | 1        | 7         | 0.5      | 0           | 1      | 9.5      |
+| Arturo    | 0.5      | 7         | 2      | 0           | 0      | 9.5      | 
+| Danny     | 0.5      | 7         | 2      | 0           | 0.5      | 10      | 
+| Yoah      | 0.5      | 7         | 2      | 0           | 0      | 9.5      | 
+| Noah      | 0.5      | 7         | 2      | 0           | 0      | 9.5      | 
+| Yazdan    | 0.5      | 7         | 0.5      | 2           | 0      | 10      | 
+
